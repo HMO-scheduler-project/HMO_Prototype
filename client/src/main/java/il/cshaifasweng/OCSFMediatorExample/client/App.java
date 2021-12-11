@@ -1,4 +1,4 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import org.example.ocsf.entities.src.main.java.il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -21,6 +22,10 @@ public class App extends Application {
 
     private static Scene scene;
     private SimpleClient client;
+    private static String username;
+    private static String password;
+    private static String type;
+    private static Object currentController;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -40,12 +45,9 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-    
-    
 
     @Override
 	public void stop() throws Exception {
-		// TODO Auto-generated method stub
     	EventBus.getDefault().unregister(this);
 		super.stop();
 	}
@@ -60,7 +62,41 @@ public class App extends Application {
         	);
         	alert.show();
     	});
-    	
+    }
+
+    @Subscribe
+    public void SetClient(Message msg) throws IOException {
+        if(msg.getAction().equals("set client")) {
+            client = SimpleClient.getClient();
+        }
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
+    public static void setPassword(String password) {
+        App.password = password;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static void setUsername(String username) {
+        App.username = username;
+    }
+
+    public static String getType() {
+        return type;
+    }
+
+    public static void setType(String type) {
+        App.type = type;
+    }
+
+    public static Object getCurrentController() {
+        return currentController;
     }
 
 	public static void main(String[] args) {

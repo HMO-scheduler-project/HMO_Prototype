@@ -1,9 +1,10 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client;
 
+import org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
+import org.example.ocsf.entities.src.main.java.il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 import org.greenrobot.eventbus.EventBus;
 
-import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
+
 
 public class SimpleClient extends AbstractClient {
 	
