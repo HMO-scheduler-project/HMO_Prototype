@@ -1,4 +1,4 @@
-package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client;
+package org.example.ocsf.client;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +8,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.App;
 
 
 public class openningHoursScreenController {

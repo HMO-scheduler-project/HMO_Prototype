@@ -1,8 +1,10 @@
-package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client;
+package org.example.ocsf.client;
 import javafx.application.Platform;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.App;
+import org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import org.example.ocsf.entities.src.main.java.il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import org.greenrobot.eventbus.Subscribe;
 
