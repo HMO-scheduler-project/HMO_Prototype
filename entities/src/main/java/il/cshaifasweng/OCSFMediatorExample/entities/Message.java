@@ -6,12 +6,13 @@ public class Message implements Serializable {
     /* ---------- Message Necessary Info ---------- */
     private int id;
     private String action;
+    private String type;
     private String error;
     /* ---------- Handling users ---------- */
     private User user;
     private String username;
     private String password;
-    private String type;
+    private String userType;
 
 
     public Message() {
@@ -32,6 +33,14 @@ public class Message implements Serializable {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getError() {
@@ -66,11 +75,11 @@ public class Message implements Serializable {
         this.password = password;
     }
 
-    public String getType() {
-        return type;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

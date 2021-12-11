@@ -109,19 +109,10 @@ public class loginController {
 
                     App.setUsername(msg.getUsername());
                     App.setPassword(msg.getPassword());
-                    if (type.equals("Manager")) {
-                        App.setType("manager");
-                    } else if (type.equals("Doctor")) {
-                        App.setType("doctor");
-                    } else if (type.equals("nurse")) {
-                        App.setType("nurse");
-                    } else if (type.equals("patient")) {
-                        App.setType("patient");
-                    }
+                    App.setType(msg.getUserType());
                 }
             });
         }
-
     }
 }
 
