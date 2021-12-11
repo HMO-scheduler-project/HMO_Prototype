@@ -12,6 +12,7 @@ import org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample
 
 
 public class openningHoursScreenController {
+
     boolean visible;
     /*
     @FXML
