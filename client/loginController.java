@@ -14,7 +14,6 @@ import java.security.NoSuchAlgorithmException;
 
 /** Controls the login screen */
 public class loginController {
-
     private SimpleClient client;
     private static int sessionID = 0;
 
