@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 
 
 public class openningHoursScreenController {
+
     boolean visible;
     /*
     @FXML
