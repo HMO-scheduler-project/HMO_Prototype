@@ -2,22 +2,22 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com
 
-package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.ocsf;
+package il.cshaifasweng.OCSFMediatorExample.client.ocsf;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
 /**
-* The <code> AdaptableClient </code> is a class
-* that extends the <code> AbstractClient </code> in place of
-* the <code> ObservableClient </code>.<p>
-*
-* Project Name: OCSF (Object Client-Server Framework)<p>
-*
-* @author Dr. Robert Lagani&egrave;re
-* @version Febuary 2001
-*/
+ * The <code> AdaptableClient </code> is a class
+ * that extends the <code> AbstractClient </code> in place of
+ * the <code> ObservableClient </code>.<p>
+ *
+ * Project Name: OCSF (Object Client-Server Framework)<p>
+ *
+ * @author Dr. Robert Lagani&egrave;re
+ * @version Febuary 2001
+ */
 class AdaptableClient extends AbstractClient
 {
   //Instance variables **********************************************

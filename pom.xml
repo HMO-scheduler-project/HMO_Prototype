@@ -6,12 +6,36 @@
 	<groupId>il.cshaifasweng</groupId>
 	<artifactId>OCSFMediatorExample</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<packaging>pom</packaging>
 	<modules>
 		<module>server</module>
 		<module>entities</module>
 		<module>client</module>
 	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-graphics</artifactId>
+			<version>17-ea+11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-fxml</artifactId>
+			<version>17-ea+11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.greenrobot</groupId>
+			<artifactId>eventbus</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>il.cshaifasweng.OCSFMediatorExample</groupId>
+			<artifactId>entities</artifactId>
+		</dependency>
+	</dependencies>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>15</maven.compiler.source>

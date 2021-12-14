@@ -1,4 +1,4 @@
-package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client;
 
 import java.io.IOException;
 import javafx.fxml.FXML;

@@ -1,11 +1,10 @@
-package org.example.ocsf.client;
+package il.cshaifasweng.OCSFMediatorExample.client;
+
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.App;
-import org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import org.example.ocsf.entities.src.main.java.il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
@@ -86,7 +85,7 @@ public class loginController {
             msg.setUsername(username);
             msg.setPassword(password);
             msg.setAction("login");
-            client.getClient().sendToServer(msg);;
+            SimpleClient.getClient().sendToServer(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }

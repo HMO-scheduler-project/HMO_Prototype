@@ -1,5 +1,6 @@
-package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +12,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import org.example.ocsf.entities.src.main.java.il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 /**
@@ -26,42 +25,50 @@ public class App extends Application {
     private static String password;
     private static String type;
     private static Object currentController;
+    private static Boolean isLogoutClicked = false;
 
     @Override
-    public void start(Stage stage) throws IOException {
-    	EventBus.getDefault().register(this);
-    	client = SimpleClient.getClient();
-    	client.openConnection();
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+    public void start (Stage stage){
+        try{
+            Parent root= FXMLLoader.load(getClass().getResource("login.FXML"));
+            Scene login = new Scene(root);
+            login.getStylesheets().add(getClass().getResource("/login_screen.css").toExternalForm());
+            stage.setScene(login);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
+    static void setRoot(String fxml) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+    }
+
     @Override
-	public void stop() throws Exception {
-    	EventBus.getDefault().unregister(this);
-		super.stop();
-	}
-    
+    public void stop(){
+        if(currentController!= null) {
+            System.out.println("Stage is closing");
+        }
+        Platform.exit();
+        System.exit(0);
+    }
+
     @Subscribe
     public void onWarningEvent(WarningEvent event) {
-    	Platform.runLater(() -> {
-    		Alert alert = new Alert(AlertType.WARNING,
-        			String.format("Message: %s\nTimestamp: %s\n",
-        					event.getWarning().getMessage(),
-        					event.getWarning().getTime().toString())
-        	);
-        	alert.show();
-    	});
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.WARNING,
+                    String.format("Message: %s\nTimestamp: %s\n",
+                            event.getWarning().getMessage(),
+                            event.getWarning().getTime().toString())
+            );
+            alert.show();
+        });
     }
 
     @Subscribe
@@ -70,6 +77,24 @@ public class App extends Application {
             client = SimpleClient.getClient();
         }
     }
+
+    public static void logout(Boolean logoutClicked) {
+        if(username == null || password == null) {
+            Platform.exit();
+            System.exit(0);
+        }
+        isLogoutClicked = logoutClicked;
+        Message msg = new Message();
+        msg.setAction("logout");
+        msg.setUsername(username);
+        msg.setPassword(password);
+        try {
+            SimpleClient.getClient().sendToServer(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static String getPassword() {
         return password;
@@ -99,7 +124,7 @@ public class App extends Application {
         return currentController;
     }
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         launch();
     }
 

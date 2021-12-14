@@ -2,7 +2,7 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com
 
-package org.example.ocsf.client.src.main.java.il.cshaifasweng.OCSFMediatorExample.client.ocsf;
+package il.cshaifasweng.OCSFMediatorExample.client.ocsf;
 
 import java.util.*;
 import java.io.*;
@@ -106,7 +106,7 @@ public class ObservableSWRClient extends ObservableClient
    * @exception IOException if an I/O error occurs.
    */
   public synchronized Object sendAndWaitForReply(
-                    Object message, Object expectedObject) throws Exception
+          Object message, Object expectedObject) throws Exception
   {
     clearAll();
     expected.add(expectedObject);
@@ -129,7 +129,7 @@ public class ObservableSWRClient extends ObservableClient
    * @exception IOException if an I/O error occurs.
    */
   public synchronized Object sendAndWaitForReply(
-              Object message, List expectedListOfObject) throws Exception
+          Object message, List expectedListOfObject) throws Exception
   {
 
     if (expectedListOfObject!=null)
