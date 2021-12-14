@@ -12,10 +12,10 @@ import java.util.List;
 
 public class userController {
     private static List<User> getAllUsersFromDB() {
-        CriteriaBuilder builder = App.session.getCriteriaBuilder();
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
         query.from(User.class);
-        return App.session.createQuery(query).getResultList();
+        return Main.session.createQuery(query).getResultList();
     }
 
     public static void getUser(Message msg) throws NoSuchAlgorithmException {

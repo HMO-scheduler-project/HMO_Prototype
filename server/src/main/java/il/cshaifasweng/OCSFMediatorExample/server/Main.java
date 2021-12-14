@@ -15,14 +15,14 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 
-public class App extends SimpleServer {
+public class Main extends SimpleServer {
 
     private static SessionFactory sessionFactory = getSessionFactory();
     public static Session session;
     private Message serverMsg;
     private static SimpleServer server;
 
-    public App(int port) {
+    public Main(int port) {
         super(port);
     }
 
@@ -142,7 +142,7 @@ public class App extends SimpleServer {
 
     public static void main( String[] args ) throws IOException
     {
-        server = new App(3000);
+        server = new Main(3000);
         server.listen();
     }
 }

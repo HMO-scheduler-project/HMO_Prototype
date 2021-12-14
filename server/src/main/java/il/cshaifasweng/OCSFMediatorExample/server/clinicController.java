@@ -10,10 +10,10 @@ import java.util.List;
 public class clinicController {
 
     public static List<Clinic> getAllClinicsFromDB() {
-        CriteriaBuilder builder = App.session.getCriteriaBuilder();
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Clinic> query = builder.createQuery(Clinic.class);
         query.from(Clinic.class);
-        return App.session.createQuery(query).getResultList();
+        return Main.session.createQuery(query).getResultList();
     }
 
     public static Clinic getClinicByName (String name) {

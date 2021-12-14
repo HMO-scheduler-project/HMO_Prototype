@@ -24,7 +24,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>${groupId}</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>entities</artifactId>
 		</dependency>
         <dependency>
@@ -39,9 +39,9 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
+				<version>3.0.0</version>
 				<configuration>
-					<mainClass>il.cshaifasweng.OCSFMediatorExample.server.App</mainClass>
+					<mainClass>il.cshaifasweng.OCSFMediatorExample.server.Main</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -54,7 +54,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>il.cshaifasweng.OCSFMediatorExample.server.App</mainClass>
+							<mainClass>il.cshaifasweng.OCSFMediatorExample.server.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
