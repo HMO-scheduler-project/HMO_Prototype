@@ -142,7 +142,7 @@ public class Main extends SimpleServer {
 
     public static void main( String[] args ) throws IOException
     {
-        server = new Main(3000);
+        server = new Main(3306);
         server.listen();
     }
 }
