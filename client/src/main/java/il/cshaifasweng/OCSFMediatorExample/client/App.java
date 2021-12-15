@@ -26,6 +26,7 @@ public class App extends Application {
     private static String type;
     private static Object currentController;
     private static Boolean isLogoutClicked = false;
+    private static Stage appStage;
 
     @Override
     public void start (Stage stage){
@@ -34,6 +35,7 @@ public class App extends Application {
             Scene login = new Scene(root);
             login.getStylesheets().add(getClass().getResource("/login_screen.css").toExternalForm());
             stage.setScene(login);
+            this.appStage = stage;
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,6 +124,10 @@ public class App extends Application {
 
     public static Object getCurrentController() {
         return currentController;
+    }
+
+    public static Stage getAppStage(){
+        return appStage;
     }
 
     public static void main(String[] args) {

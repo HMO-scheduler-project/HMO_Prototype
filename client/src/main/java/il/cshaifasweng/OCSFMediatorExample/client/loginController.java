@@ -4,7 +4,11 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
 import javafx.event.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
@@ -111,6 +115,16 @@ public class loginController {
                     App.setUsername(msg.getUsername());
                     App.setPassword(msg.getPassword());
                     App.setType(msg.getUserType());
+                    try{
+                        Parent root= FXMLLoader.load(getClass().getResource("openningHoursScreen.fxml"));
+                        Scene hoursScreen = new Scene(root);
+                        hoursScreen.getStylesheets().add(getClass().getResource("/hour_screen.css").toExternalForm());
+                        Stage stage = App.getAppStage();
+                        stage.setScene(hoursScreen);
+                        stage.show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
