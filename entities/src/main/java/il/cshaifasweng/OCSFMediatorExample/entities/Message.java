@@ -17,7 +17,7 @@ public class Message implements Serializable {
     private String userType;
     /*----------Handling clinics----*/
     private Clinic clinic;
-    public static List<Clinic> ClinicList;
+    public static ArrayList<String> ClinicList;
     private String clinic_name;
     private Time openning_hour;
     private Time closing_hour;
@@ -98,11 +98,14 @@ public class Message implements Serializable {
         this.clinic = clinic;
     }
 
-    public List<Clinic> getClinicList() {
+    public ArrayList<String> getClinicList() {
+        if(ClinicList==null){
+            return new ArrayList();
+        }
         return ClinicList;
     }
 
-    public void setClinicList(List<Clinic> clinicList) {
+    public void setClinicList(ArrayList<String> clinicList) {
         ClinicList = clinicList;
     }
 

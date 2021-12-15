@@ -13,7 +13,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.sql.Time;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -102,9 +102,9 @@ public class openningHoursScreenController {
                     if(!closeHourTF.getText().equals("")) {
                         clientMsg.setClosingHour(Time.valueOf(closeHourTF.getText()));
                     }
+                    SimpleClient.getClient().sendToServer(clientMsg);
                     OpenningHourColumn.setText(String.valueOf(clientMsg.getClinic().getOpenningHour()));
                     ClosingHourColumn.setText(String.valueOf(clientMsg.getClinic().getClosingHour()));
-                    SimpleClient.getClient().sendToServer(clientMsg);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -125,9 +125,13 @@ public class openningHoursScreenController {
             msg.setAction("GetAllClinics");
             SimpleClient.getClient().openConnection();
             SimpleClient.getClient().sendToServer(msg);
-            List<Clinic> clinics = clientMsg.getClinicList();
-            for (Clinic clinic : clinics) {
-            ClinicsList.getItems().add(clinic.getName());
+            ArrayList<String> clinics = clientMsg.getClinicList();
+            /*if(clinics == null) {
+                openHourTF.setVisible(true);
+                openHourTF.setText(clinics.get(1).getName());
+            }*/
+            for (String clinic : clinics) {
+            ClinicsList.getItems().add(clinic);
             }
         } catch (IOException e) {
             e.printStackTrace();

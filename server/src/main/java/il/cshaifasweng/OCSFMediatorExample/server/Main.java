@@ -13,6 +13,7 @@ import org.hibernate.service.ServiceRegistry;
 import java.io.IOException;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class Main extends SimpleServer {
@@ -93,7 +94,7 @@ public class Main extends SimpleServer {
 
             if (currMsg.getAction().equals("GetAllClinics")) {
                 try {
-                    serverMsg.setClinicList(clinicController.getAllClinicsFromDB());
+                    serverMsg.setClinicList(clinicController.getAllClinicNamesFromDB());
                     serverMsg.setAction("ShowClinics");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {

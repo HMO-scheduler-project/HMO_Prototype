@@ -17,6 +17,15 @@ public class clinicController {
         return Main.session.createQuery(query).getResultList();
     }
 
+    public static ArrayList<String> getAllClinicNamesFromDB() {
+        ArrayList<String> clinicsNames = new ArrayList();
+        List<Clinic> clinics = getAllClinicsFromDB();
+        for (Clinic clinic : clinics) {
+            clinicsNames.add(clinic.getName());
+        }
+        return clinicsNames;
+    }
+
     public static Clinic getClinicByName (String name) {
         List<Clinic> clinics = getAllClinicsFromDB();
         for (Clinic clinic : clinics) {
