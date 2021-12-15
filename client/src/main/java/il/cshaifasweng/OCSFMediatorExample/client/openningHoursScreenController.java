@@ -115,17 +115,16 @@ public class openningHoursScreenController {
 
     @FXML
     void initialize() {
-        manager = App.getType().equals("Manager");
+       // manager = App.getType().equals("Manager");
+        manager = true;
     }
     @FXML
     void ShowClinics(MouseEvent event) {
-        ClinicsList.setOnAction(new EventHandler<ActionEvent>() {
+        ClinicsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                // the messege need to stay the same so ill be able to change it with input- meaby
+            public void handle(MouseEvent event) {
                 clientMsg.setAction("GetAllClinics");
                 try {
-                    //not sure if this is right --I want to send the msg to server-yoni
                     SimpleClient.getClient().sendToServer(clientMsg);
                 } catch (IOException e) {
                     e.printStackTrace();

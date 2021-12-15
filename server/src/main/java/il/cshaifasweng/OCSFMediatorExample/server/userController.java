@@ -19,6 +19,7 @@ public class userController {
     }
 
     public static void getUser(Message msg) throws NoSuchAlgorithmException {
+        System.out.println("get user!");
         List<User> users = getAllUsersFromDB();
         int flag = 0;
         for (User user : users) {

@@ -39,8 +39,10 @@ public class Main extends SimpleServer {
 
     @Override
     protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-
+        session = sessionFactory.openSession();
+        session.beginTransaction();
         try {
+            System.out.println("try!");
             Message currentMsg = ((Message) msg);
             serverMsg = new Message();
             if (currentMsg.getAction().equals("login")) {
@@ -116,6 +118,10 @@ public class Main extends SimpleServer {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        finally {
+            assert session != null;
+            session.close();
+        }
     }
 
     public static<T> void updateCellInDB(String EntityName,String EntityType,String row,String col,T objectType) {
@@ -142,8 +148,9 @@ public class Main extends SimpleServer {
 
     public static void main( String[] args ) throws IOException
     {
-        server = new Main(3000);
+        server = new Main(3002);
         server.listen();
+        System.out.println("server says: hello!");
     }
 }
 
