@@ -4,6 +4,8 @@
 
 package il.cshaifasweng.OCSFMediatorExample.client.ocsf;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -171,6 +173,16 @@ public abstract class AbstractClient implements Runnable
     if (clientSocket == null || output == null) {
       throw new SocketException("socket does not exist");
     }
+    output.reset();
+    output.writeObject(msg);
+  }
+
+  public void sendToServer(Message msg) throws IOException
+  {
+    if (clientSocket == null || output == null) {
+      throw new SocketException("socket does not exist");
+    }
+    System.out.println(msg.getUsername());
     output.reset();
     output.writeObject(msg);
   }

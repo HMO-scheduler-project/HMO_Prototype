@@ -1,6 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +9,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import java.io.IOException;
+import java.util.logging.Level;
 
 import org.greenrobot.eventbus.Subscribe;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 /**
  * JavaFX App
@@ -27,15 +33,32 @@ public class App extends Application {
     private static Object currentController;
     private static Boolean isLogoutClicked = false;
     private static Stage appStage;
+    private static SessionFactory sessionFactory = getSessionFactory();
+    public static Session session;
+
+
+    public static SessionFactory getSessionFactory() throws HibernateException {
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+        Configuration configuration = new Configuration();
+        configuration.addAnnotatedClass(Clinic.class);
+        configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(Employee.class);
+        configuration.addAnnotatedClass(Manager.class);
+        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        return configuration.buildSessionFactory(serviceRegistry);
+    }
+
+
 
     @Override
     public void start (Stage stage){
         try{
             Parent root= FXMLLoader.load(getClass().getResource("login.FXML"));
             Scene login = new Scene(root);
-            login.getStylesheets().add(getClass().getResource("/login_screen.css").toExternalForm());
+            //login.getStylesheets().add(getClass().getResource("il/cshaifasweng/OCSFMediatorExample/client/login_screen.css").toExternalForm());
             stage.setScene(login);
             this.appStage = stage;
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

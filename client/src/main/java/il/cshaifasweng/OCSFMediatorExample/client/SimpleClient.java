@@ -3,7 +3,8 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 import org.greenrobot.eventbus.EventBus;
-
+import java.io.IOException;
+import java.net.SocketException;
 
 
 public class SimpleClient extends AbstractClient {
