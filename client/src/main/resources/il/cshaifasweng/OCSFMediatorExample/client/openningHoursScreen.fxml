@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
+<?import javafx.scene.control.ComboBox?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@oppeningHoursScreen.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.openningHoursScreenController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
@@ -49,7 +50,7 @@
             </rowConstraints>
             <children>
                 <Label prefHeight="18.0" prefWidth="118.0" text="Choose Clinic:" />
-                <ChoiceBox fx:id="ClinicsList" onMouseClicked="#ShowClinics" prefWidth="150.0" GridPane.columnIndex="1" />
+                <ComboBox fx:id="ClinicsList" onMouseClicked="#chooseClinic" prefWidth="150.0" GridPane.columnIndex="1" />
                 <Button fx:id="ChangeHoursBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressChangeHoursBtn" prefHeight="26.0" prefWidth="93.0" text="ChangeHours" visible="false" GridPane.rowIndex="1" />
                 <GridPane GridPane.rowIndex="2">
                     <columnConstraints>

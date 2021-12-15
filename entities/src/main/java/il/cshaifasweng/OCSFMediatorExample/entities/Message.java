@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Message implements Serializable {
@@ -97,11 +98,11 @@ public class Message implements Serializable {
         this.clinic = clinic;
     }
 
-    public static List<Clinic> getClinicList() {
+    public List<Clinic> getClinicList() {
         return ClinicList;
     }
 
-    public static void setClinicList(List<Clinic> clinicList) {
+    public void setClinicList(List<Clinic> clinicList) {
         ClinicList = clinicList;
     }
 

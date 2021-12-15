@@ -2,6 +2,8 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.sql.Time;
 import java.util.List;
+import java.util.Objects;
 
 
 public class openningHoursScreenController {
@@ -32,7 +35,7 @@ public class openningHoursScreenController {
     private Menu ClinicsBtn;
 
     @FXML
-    private ChoiceBox<String> ClinicsList;
+    private ComboBox<String> ClinicsList;
 
     @FXML
     private TextField closeHourTF;
@@ -117,24 +120,34 @@ public class openningHoursScreenController {
     void initialize() {
        // manager = App.getType().equals("Manager");
         manager = true;
+        try {
+            Message msg= new Message();
+            msg.setAction("GetAllClinics");
+            SimpleClient.getClient().openConnection();
+            SimpleClient.getClient().sendToServer(msg);
+            List<Clinic> clinics = clientMsg.getClinicList();
+            for (Clinic clinic : clinics) {
+            ClinicsList.getItems().add(clinic.getName());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
+
     @FXML
-    void ShowClinics(MouseEvent event) {
+    void chooseClinic(MouseEvent event) {
         ClinicsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                clientMsg.setAction("GetAllClinics");
                 try {
+                    SimpleClient.getClient().openConnection();
                     SimpleClient.getClient().sendToServer(clientMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                List<Clinic> clinics = Message.getClinicList();
-                for (Clinic clinic : clinics) {
-                    ClinicsList.getItems().add(clinic.getName());
-                }
-                String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
-                if(chosenClinic!=null){
+                if (Objects.equals(clientMsg.getAction(), "ShowClinics")) {
+                    String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
                     clientMsg.setClinicName(chosenClinic);
                     clientMsg.setAction("GetClinicFromName");
                     try {
@@ -145,7 +158,7 @@ public class openningHoursScreenController {
                     }
                     OpenningHourColumn.setText(String.valueOf(clientMsg.getClinic().getOpenningHour()));
                     ClosingHourColumn.setText(String.valueOf(clientMsg.getClinic().getClosingHour()));
-                    if(manager) {
+                    if (manager) {
                         ChangeHoursBtn.setVisible(true);
                     }
                     clientMsg.setOpenningHour(null);

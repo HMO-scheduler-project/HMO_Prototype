@@ -5,6 +5,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 public class clinicController {

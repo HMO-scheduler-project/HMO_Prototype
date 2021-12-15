@@ -36,20 +36,16 @@ public class Main extends SimpleServer {
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }
-
     @Override
     protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-        session = sessionFactory.openSession();
-        session.beginTransaction();
         try {
-            System.out.println("try!");
-            Message currentMsg = ((Message) msg);
+            Message currMsg = ((Message) msg);
             serverMsg = new Message();
-            if (currentMsg.getAction().equals("login")) {
+            if (currMsg.getAction().equals("login")) {
                 try {
-                    if (currentMsg.getUsername().equals("") || ((Message) msg).getPassword().equals("")) {
+                    if (currMsg.getUsername().equals("") || currMsg.getPassword().equals("")) {
                     } else {
-                        userController.getUser((Message) msg);
+                        userController.getUser(currMsg);
                         serverMsg = (Message) msg;
                         serverMsg.setAction("login done");
                         client.sendToClient(serverMsg);
@@ -58,9 +54,9 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-            if (currentMsg.getAction().equals("logout")) {
+            if (currMsg.getAction().equals("logout")) {
                 try {
-                    userController.logOut(currentMsg);
+                    userController.logOut(currMsg);
                     serverMsg = new Message();
                     serverMsg.setAction("logged out");
                     client.sendToClient(serverMsg);
@@ -68,20 +64,20 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-            if (currentMsg.getAction().equals("pull openning hours")) {
+            if (currMsg.getAction().equals("pull openning hours")) {
                 try {
-                    serverMsg = currentMsg;
-                    serverMsg.setOpenningHour(clinicController.getOpenningHourByClinic(currentMsg.getClinic()));
-                    serverMsg.setClosingHour(clinicController.getClosingHourByClinic(currentMsg.getClinic()));
+                    serverMsg = currMsg;
+                    serverMsg.setOpenningHour(clinicController.getOpenningHourByClinic(serverMsg.getClinic()));
+                    serverMsg.setClosingHour(clinicController.getClosingHourByClinic(serverMsg.getClinic()));
                     serverMsg.setAction("got openning hours");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if (currentMsg.getAction().equals("change hours")) {
+            if (currMsg.getAction().equals("change hours")) {
                 try {
-                    serverMsg = currentMsg;
+                    serverMsg = currMsg;
                     if(serverMsg.getOpenningHour()!=null) {
                         updateCellInDB(serverMsg.getClinicName(), "clinics","ClinicName", "open", serverMsg.getOpenningHour());
                     }
@@ -95,19 +91,18 @@ public class Main extends SimpleServer {
                 }
             }
 
-            if (currentMsg.getAction().equals("GetAllClinics")) {
+            if (currMsg.getAction().equals("GetAllClinics")) {
                 try {
-                    serverMsg = currentMsg;
-                    Message.setClinicList(clinicController.getAllClinicsFromDB());
+                    serverMsg.setClinicList(clinicController.getAllClinicsFromDB());
                     serverMsg.setAction("ShowClinics");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if (currentMsg.getAction().equals("GetClinicFromName")) {
+            if (currMsg.getAction().equals("GetClinicFromName")) {
                 try {
-                    serverMsg = currentMsg;
+                    serverMsg = currMsg;
                     serverMsg.setClinic(clinicController.getClinicByName(serverMsg.getClinicName()));
                     serverMsg.setAction("ShowTime");
                     client.sendToClient(serverMsg);

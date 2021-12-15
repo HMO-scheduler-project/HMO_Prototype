@@ -65,6 +65,16 @@ public class loginController {
                 emptyPasswordWarning.setVisible(true);
                 return null;
             }
+            SimpleClient.setClientNull();
+            client = SimpleClient.getClient();
+            if(client == null) {}
+            else {
+                try {
+                    client.openConnection();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             sendMessageToServer(username, password);
         } catch (Exception e) {
             e.printStackTrace();
