@@ -42,6 +42,8 @@ public class Main extends SimpleServer {
         try {
             Message currMsg = ((Message) msg);
             serverMsg = new Message();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
             if (currMsg.getAction().equals("login")) {
                 try {
                     if (currMsg.getUsername().equals("") || currMsg.getPassword().equals("")) {
@@ -122,8 +124,6 @@ public class Main extends SimpleServer {
 
     public static<T> void updateCellInDB(String EntityName,String EntityType,String row,String col,T objectType) {
         try {
-            session = sessionFactory.openSession();
-            session.beginTransaction();
             String request = "UPDATE"+EntityType+" SET col = objectType WHERE " +row + " = "+EntityName;
             SQLQuery sqlQuery = session.createSQLQuery(request);
             sqlQuery.executeUpdate();

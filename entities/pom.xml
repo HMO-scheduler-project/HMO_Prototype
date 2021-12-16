@@ -8,4 +8,11 @@
   <groupId>il.cshaifasweng.OCSFMediatorExample</groupId>
   <artifactId>entities</artifactId>
   <packaging>jar</packaging>
+<dependencies>
+  <dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.4.12.Final</version>
+  </dependency>
+</dependencies>
 </project>
