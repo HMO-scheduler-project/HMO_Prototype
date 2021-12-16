@@ -14,7 +14,6 @@ import java.io.IOException;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 public class Main extends SimpleServer {
 
@@ -28,7 +27,6 @@ public class Main extends SimpleServer {
     }
 
     public static SessionFactory getSessionFactory() throws HibernateException {
-        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(Clinic.class);
         configuration.addAnnotatedClass(User.class);
@@ -40,10 +38,11 @@ public class Main extends SimpleServer {
     @Override
     protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
         try {
-            Message currMsg = ((Message) msg);
-            serverMsg = new Message();
             session = sessionFactory.openSession();
             session.beginTransaction();
+            Message currMsg = ((Message) msg);
+            System.out.println(currMsg.getAction());
+            serverMsg = new Message();
             if (currMsg.getAction().equals("login")) {
                 try {
                     if (currMsg.getUsername().equals("") || currMsg.getPassword().equals("")) {

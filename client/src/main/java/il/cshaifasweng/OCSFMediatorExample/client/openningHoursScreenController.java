@@ -9,6 +9,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 
 import java.io.IOException;
@@ -118,6 +120,7 @@ public class openningHoursScreenController {
 
     @FXML
     void initialize() {
+        EventBus.getDefault().register(this);
        // manager = App.getType().equals("Manager");
         manager = true;
         try {
@@ -125,32 +128,26 @@ public class openningHoursScreenController {
             msg.setAction("GetAllClinics");
             SimpleClient.getClient().openConnection();
             SimpleClient.getClient().sendToServer(msg);
-            ArrayList<String> clinics = clientMsg.getClinicList();
-            /*if(clinics == null) {
-                openHourTF.setVisible(true);
-                openHourTF.setText(clinics.get(1).getName());
-            }*/
-            for (String clinic : clinics) {
-            ClinicsList.getItems().add(clinic);
-            }
+//            ArrayList<String> clinics = clientMsg.getClinicList();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
+    @Subscribe
+    public void onClinicListUpdateEvent(ClinicListUpdateEvent event) {
+        System.out.println("Got event");
+        for (String clinic : event.getClinicNames()) {
+            System.out.println(clinic);
+            ClinicsList.getItems().add(clinic);
+        }
+    }
+
     @FXML
     void chooseClinic(MouseEvent event) {
-        ClinicsList.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    SimpleClient.getClient().openConnection();
-                    SimpleClient.getClient().sendToServer(clientMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (Objects.equals(clientMsg.getAction(), "ShowClinics")) {
+                /*if (Objects.equals(clientMsg.getAction(), "ShowClinics")) {
                     String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
                     clientMsg.setClinicName(chosenClinic);
                     clientMsg.setAction("GetClinicFromName");
@@ -167,10 +164,8 @@ public class openningHoursScreenController {
                     }
                     clientMsg.setOpenningHour(null);
                     clientMsg.setClosingHour(null);
-                }
+                }*/
             }
-        });
-    }
 
 }
 

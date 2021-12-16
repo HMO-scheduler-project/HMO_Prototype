@@ -1,11 +1,14 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class SimpleClient extends AbstractClient {
@@ -25,12 +28,16 @@ public class SimpleClient extends AbstractClient {
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
-		if (msg.getClass().equals(Warning.class)) {
-			EventBus.getDefault().post(new WarningEvent((Warning) msg));
-		}
+//		if (msg.getClass().equals(Warning.class)) {
+//			EventBus.getDefault().post(new WarningEvent((Warning) msg));
+//		}
 		Message currMsg = ((Message) msg);
-		EventBus.getDefault().post(currMsg);
-
+//		EventBus.getDefault().post(currMsg);
+//
+		if (currMsg.getAction().equals("ShowClinics")) {
+			ArrayList<String> clinicList = currMsg.getClinicList();
+			EventBus.getDefault().post(new ClinicListUpdateEvent(clinicList));
+		}
 	}
 
 	public static SimpleClient getClient() {

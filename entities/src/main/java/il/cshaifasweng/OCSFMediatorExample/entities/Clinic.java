@@ -1,9 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
 
@@ -11,12 +8,18 @@ import java.sql.Time;
 public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Num")
     public int Counter;
+    @Column(name="Name")
     protected String name;
+    @Column(name="City")
     protected String city;
+    @Column(name="OpenningHour")
     protected Time openning_hour;
+    @Column(name="ClosingHour")
     protected Time closing_hour ;
-    protected String manager;
+    @ManyToOne(targetEntity = Manager.class)
+    protected Manager manager;
 
     public Clinic() { }
     public Clinic(String name, String city, Time start,Time end,String manager) throws NoSuchAlgorithmException {
