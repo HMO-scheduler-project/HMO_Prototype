@@ -144,7 +144,17 @@ public class Main extends SimpleServer {
     public static void main( String[] args ) throws IOException, NoSuchAlgorithmException {
         server = new Main(3002);
         server.listen();
-       clinicController.InitClinicTable();
+        try{
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            clinicController.InitClinicTable();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }finally {
+            assert session != null;
+            session.close();
+        }
+
         System.out.println("server says: hello!");
     }
 }

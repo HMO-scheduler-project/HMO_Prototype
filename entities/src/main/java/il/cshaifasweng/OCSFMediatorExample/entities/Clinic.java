@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "clinics", schema = "project")
@@ -17,15 +18,15 @@ public class Clinic implements Serializable {
     @Column(name="City")
     protected String city;
     @Column(name="OpenningHour")
-    protected Time openning_hour;
+    protected LocalTime openning_hour;
     @Column(name="ClosingHour")
-    protected Time closing_hour ;
+    protected LocalTime closing_hour ;
     protected int manager_id;
   @ManyToOne(targetEntity = Manager.class)
    protected Manager manager;
 
     public Clinic() { }
-    public Clinic(String name, String city, Time start,Time end,int managerID,Manager manager) throws NoSuchAlgorithmException {
+    public Clinic(String name, String city, LocalTime start,LocalTime end,int managerID,Manager manager) throws NoSuchAlgorithmException {
         this.name = name;
         this.city = city;
         this.openning_hour = start;
@@ -50,19 +51,19 @@ public class Clinic implements Serializable {
         this.city = city;
     }
 
-    public Time getOpenningHour() {
+    public LocalTime getOpenningHour() {
         return openning_hour;
     }
 
-    public void setOpenningHour(Time start) {
+    public void setOpenningHour(LocalTime start) {
         this.openning_hour = start;
     }
 
-    public Time getClosingHour() {
+    public LocalTime getClosingHour() {
         return closing_hour;
     }
 
-    public void setClosingHour(Time end) {
+    public void setClosingHour(LocalTime end) {
         this.closing_hour = end;
     }
 

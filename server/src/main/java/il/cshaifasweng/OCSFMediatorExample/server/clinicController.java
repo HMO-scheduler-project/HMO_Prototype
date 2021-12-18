@@ -7,28 +7,29 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class clinicController {
 
     public static void InitClinicTable() throws NoSuchAlgorithmException {
-        Clinic clinic1 = new Clinic("Denia","Haifa",Time.valueOf("7:00"),Time.valueOf("17:00"),2,(Manager) userController.getEmployee(2));
+        Clinic clinic1 = new Clinic("Denia","Haifa",LocalTime.parse("07:00:00"), LocalTime.parse("17:00:00"),2,(Manager) userController.getEmployee(2));
         Main.session.save(clinic1);
         Main.session.flush();
-        Clinic clinic2 = new Clinic("Neve shaanan","Haifa",Time.valueOf("7:00"),Time.valueOf("20:00"),3,(Manager) userController.getEmployee(3));
+        Clinic clinic2 = new Clinic("Neve shaanan","Haifa",LocalTime.parse("07:00:00"),LocalTime.parse("20:00:00"),3,(Manager) userController.getEmployee(3));
         Main.session.save(clinic2);
         Main.session.flush();
-        Clinic clinic3 = new Clinic("Hadar","Haifa",Time.valueOf("7:00"),Time.valueOf("19:00"),6,(Manager) userController.getEmployee(6));
+        Clinic clinic3 = new Clinic("Hadar","Haifa",LocalTime.parse("07:00:00"),LocalTime.parse("19:00:00"),6,(Manager) userController.getEmployee(6));
         Main.session.save(clinic3);
         Main.session.flush();
-        Clinic clinic4 = new Clinic("Nesher","Nesher",Time.valueOf("7:00"),Time.valueOf("19:00"),5,(Manager) userController.getEmployee(5));
+        Clinic clinic4 = new Clinic("Nesher","Nesher",LocalTime.parse("07:00:00"),LocalTime.parse("19:00:00"),5,(Manager) userController.getEmployee(5));
         Main.session.save(clinic4);
         Main.session.flush();
-        Clinic clinic5 = new Clinic("Carmel","Haifa",Time.valueOf("7:00"),Time.valueOf("20:00"),8,(Manager) userController.getEmployee(8));
+        Clinic clinic5 = new Clinic("Carmel","Haifa",LocalTime.parse("07:00:00"),LocalTime.parse("20:00:00"),8,(Manager) userController.getEmployee(8));
         Main.session.save(clinic5);
         Main.session.flush();
-        Clinic clinic6 = new Clinic("Tirat Carmel","Tirat Carmel",Time.valueOf("7:00"),Time.valueOf("17:00"),10,(Manager) userController.getEmployee(10));
+        Clinic clinic6 = new Clinic("Tirat Carmel","Tirat Carmel",LocalTime.parse("07:00:00"),LocalTime.parse("17:00:00"),10,(Manager) userController.getEmployee(10));
         Main.session.save(clinic6);
         Main.session.flush();
     }
@@ -63,11 +64,11 @@ public class clinicController {
         return null;
     }
 
-    public static Time getOpenningHourByClinic(Clinic clinic){
+    public static LocalTime getOpenningHourByClinic(Clinic clinic){
         return clinic.getOpenningHour();
     }
 
-    public static Time getClosingHourByClinic(Clinic clinic){
+    public static LocalTime getClosingHourByClinic(Clinic clinic){
         return clinic.getClosingHour();
     }
 }

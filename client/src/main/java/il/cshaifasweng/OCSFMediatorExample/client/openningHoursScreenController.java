@@ -15,6 +15,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -97,10 +98,10 @@ public class openningHoursScreenController {
         clientMsg.setAction("change hours");
         try{
             if(!openHourTF.getText().equals("")) {
-                clientMsg.setOpenningHour(Time.valueOf(openHourTF.getText()));
+                clientMsg.setOpenningHour(LocalTime.parse(openHourTF.getText()));
             }
             if(!closeHourTF.getText().equals("")) {
-                clientMsg.setClosingHour(Time.valueOf(closeHourTF.getText()));
+                clientMsg.setClosingHour(LocalTime.parse(closeHourTF.getText()));
             }
             SimpleClient.getClient().sendToServer(clientMsg);
         } catch (Exception e) {
