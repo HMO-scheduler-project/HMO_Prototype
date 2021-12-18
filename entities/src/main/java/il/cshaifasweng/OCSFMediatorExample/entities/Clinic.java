@@ -1,12 +1,13 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
 
 @Entity
 @Table(name = "clinics", schema = "project")
-public class Clinic {
+public class Clinic implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Num")
@@ -19,16 +20,18 @@ public class Clinic {
     protected Time openning_hour;
     @Column(name="ClosingHour")
     protected Time closing_hour ;
-//   @ManyToOne(targetEntity = Manager.class)
-//   protected Manager manager;
+    protected int manager_id;
+  @ManyToOne(targetEntity = Manager.class)
+   protected Manager manager;
 
     public Clinic() { }
-    public Clinic(String name, String city, Time start,Time end,Manager manager) throws NoSuchAlgorithmException {
+    public Clinic(String name, String city, Time start,Time end,int managerID,Manager manager) throws NoSuchAlgorithmException {
         this.name = name;
         this.city = city;
         this.openning_hour = start;
         this.closing_hour = end;
-       // this.manager = manager;
+        this.manager_id = managerID;
+        this.manager = manager;
     }
 
     public String getName() {
@@ -63,12 +66,20 @@ public class Clinic {
         this.closing_hour = end;
     }
 
-//    public Manager getManager() {
-//        return manager;
-//    }
-//
-//    public void setManager(Manager manager) {
-//        this.manager = manager;
-//    }
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    public int getManager_id() {
+        return manager_id;
+    }
+
+    public void setManager_id(int manager_id) {
+        this.manager_id = manager_id;
+    }
 }
 
