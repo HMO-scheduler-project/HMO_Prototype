@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -8,22 +9,15 @@ import java.util.Arrays;
 
 @Entity
 @Table(name = "users", schema = "project")
-public class User {
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     public static int user_id;
-    @Column(name = "username")
     protected String username;
-    @Column(name = "password")
     protected String password;
-    @Column(name = "card_num")
     protected int card_num;
-    @Column(name = "first_name")
     protected String first_name;
-    @Column(name = "last_name")
     protected String last_name;
-    @Column(name = "logged_in")
     boolean logged_in;
 
     public User() { }

@@ -8,6 +8,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.User;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class userController {
@@ -65,7 +66,23 @@ public class userController {
             }
 
         }
+    }
 
+    public static List<Employee> getAllEmployeesFromDB(){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
+        query.from(Employee.class);
+        return Main.session.createQuery(query).getResultList();
+    }
+
+    public static Employee getEmployee(int employeeId) {
+        List<Employee> employees = getAllEmployeesFromDB();
+        for (Employee employee : employees) {
+            if (employee.getUserId() == employeeId) {
+                return employee;
+            }
+        }
+        return null;
     }
 }
 

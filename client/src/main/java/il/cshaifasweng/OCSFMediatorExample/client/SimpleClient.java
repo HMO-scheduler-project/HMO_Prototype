@@ -38,6 +38,12 @@ public class SimpleClient extends AbstractClient {
 			ArrayList<String> clinicList = currMsg.getClinicList();
 			EventBus.getDefault().post(new ClinicListUpdateEvent(clinicList));
 		}
+		if(currMsg.getAction().equals("Chosen clinic")){
+			EventBus.getDefault().post(new ChosenClinicEvent(currMsg.getClinic()));
+		}
+		if(currMsg.getAction().equals("saved new hours")){
+			EventBus.getDefault().post(new ChangeHoursEvent(currMsg.getOpenningHour(),currMsg.getClosingHour()));
+		}
 	}
 
 	public static SimpleClient getClient() {

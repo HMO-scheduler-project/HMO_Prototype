@@ -5,11 +5,8 @@ import java.security.NoSuchAlgorithmException;
 
 @Entity
 public class Employee extends User {
-    @Column(name = "Email")
     protected String Email;
-    @Column(name = "Role")
     protected String role;
-    @Column(name = "Main_clinic")
     protected String main_clinic;
 
     public Employee(String username, String password,String role,int card,String Email,String main_clinic) throws NoSuchAlgorithmException {

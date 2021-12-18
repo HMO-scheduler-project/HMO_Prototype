@@ -1,6 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
 
 @Entity

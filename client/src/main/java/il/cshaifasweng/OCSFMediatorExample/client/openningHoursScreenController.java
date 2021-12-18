@@ -94,24 +94,24 @@ public class openningHoursScreenController {
 
     @FXML
     void pressSubmitChangeHoursBtn(ActionEvent event){
-        submitChangeHoursBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent event) {
-                clientMsg.setAction("change hours");
-                try{
-                    if(!openHourTF.getText().equals("")) {
-                        clientMsg.setOpenningHour(Time.valueOf(openHourTF.getText()));
-                    }
-                    if(!closeHourTF.getText().equals("")) {
-                        clientMsg.setClosingHour(Time.valueOf(closeHourTF.getText()));
-                    }
-                    SimpleClient.getClient().sendToServer(clientMsg);
-                    OpenningHourColumn.setText(String.valueOf(clientMsg.getClinic().getOpenningHour()));
-                    ClosingHourColumn.setText(String.valueOf(clientMsg.getClinic().getClosingHour()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        clientMsg.setAction("change hours");
+        try{
+            if(!openHourTF.getText().equals("")) {
+                clientMsg.setOpenningHour(Time.valueOf(openHourTF.getText()));
             }
-        });
+            if(!closeHourTF.getText().equals("")) {
+                clientMsg.setClosingHour(Time.valueOf(closeHourTF.getText()));
+            }
+            SimpleClient.getClient().sendToServer(clientMsg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void onChangeHoursEvent(ChangeHoursEvent event){
+        OpenningHourColumn.setText(String.valueOf(clientMsg.getClinic().getOpenningHour()));
+        ClosingHourColumn.setText(String.valueOf(clientMsg.getClinic().getClosingHour()));
     }
 
     @FXML
@@ -128,8 +128,6 @@ public class openningHoursScreenController {
             msg.setAction("GetAllClinics");
             SimpleClient.getClient().openConnection();
             SimpleClient.getClient().sendToServer(msg);
-//            ArrayList<String> clinics = clientMsg.getClinicList();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,11 +141,31 @@ public class openningHoursScreenController {
             System.out.println(clinic);
             ClinicsList.getItems().add(clinic);
         }
+        String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
+        clientMsg.setClinicName(chosenClinic);
+        clientMsg.setAction("GetClinicFromName");
+        try {
+            SimpleClient.getClient().sendToServer(clientMsg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void onChosenClinicEvent(ChosenClinicEvent event) {
+        System.out.println("Got chosen clinic");
+        OpenningHourColumn.setText(String.valueOf(clientMsg.getClinic().getOpenningHour()));
+        ClosingHourColumn.setText(String.valueOf(clientMsg.getClinic().getClosingHour()));
+        if (manager) {
+            ChangeHoursBtn.setVisible(true);
+        }
+        clientMsg.setOpenningHour(null);
+        clientMsg.setClosingHour(null);
     }
 
     @FXML
     void chooseClinic(MouseEvent event) {
-                /*if (Objects.equals(clientMsg.getAction(), "ShowClinics")) {
+                if (Objects.equals(clientMsg.getAction(), "ShowClinics")) {
                     String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
                     clientMsg.setClinicName(chosenClinic);
                     clientMsg.setAction("GetClinicFromName");
@@ -157,14 +175,7 @@ public class openningHoursScreenController {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    OpenningHourColumn.setText(String.valueOf(clientMsg.getClinic().getOpenningHour()));
-                    ClosingHourColumn.setText(String.valueOf(clientMsg.getClinic().getClosingHour()));
-                    if (manager) {
-                        ChangeHoursBtn.setVisible(true);
-                    }
-                    clientMsg.setOpenningHour(null);
-                    clientMsg.setClosingHour(null);
-                }*/
+                }
             }
 
 }

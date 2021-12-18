@@ -29,9 +29,9 @@ public class Main extends SimpleServer {
     public static SessionFactory getSessionFactory() throws HibernateException {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(Clinic.class);
-        //configuration.addAnnotatedClass(User.class);
-       // configuration.addAnnotatedClass(Employee.class);
-        //configuration.addAnnotatedClass(Manager.class);
+        configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(Employee.class);
+        configuration.addAnnotatedClass(Manager.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }
@@ -106,7 +106,7 @@ public class Main extends SimpleServer {
                 try {
                     serverMsg = currMsg;
                     serverMsg.setClinic(clinicController.getClinicByName(serverMsg.getClinicName()));
-                    serverMsg.setAction("ShowTime");
+                    serverMsg.setAction("Chosen clinic");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -141,10 +141,10 @@ public class Main extends SimpleServer {
         }
     }
 
-    public static void main( String[] args ) throws IOException
-    {
+    public static void main( String[] args ) throws IOException, NoSuchAlgorithmException {
         server = new Main(3002);
         server.listen();
+       clinicController.InitClinicTable();
         System.out.println("server says: hello!");
     }
 }
