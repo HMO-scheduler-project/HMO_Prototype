@@ -96,7 +96,10 @@ public class Main extends SimpleServer {
             if (currMsg.getAction().equals("GetAllClinics")) {
                 try {
                     serverMsg.setClinicList(clinicController.getAllClinicNamesFromDB());
-                    serverMsg.setAction("ShowClinics");
+                   // serverMsg.setAction("ShowClinics");
+
+                    System.out.println(" server is empty : "+serverMsg.getClinicList().isEmpty());
+
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();

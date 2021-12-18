@@ -137,6 +137,8 @@ public class openningHoursScreenController {
     @Subscribe
     public void onClinicListUpdateEvent(ClinicListUpdateEvent event) {
         System.out.println("Got event");
+        System.out.println("client is empty:"+event.getClinicNames().isEmpty());
+
         for (String clinic : event.getClinicNames()) {
             System.out.println(clinic);
             ClinicsList.getItems().add(clinic);
