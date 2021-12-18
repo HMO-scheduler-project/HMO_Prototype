@@ -37,6 +37,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.12.Final</version>
         </dependency>
+        <dependency>
+            <groupId>il.ac.haifa.cs.sweng</groupId>
+            <artifactId>OCSFSimpleChat</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 	<build>

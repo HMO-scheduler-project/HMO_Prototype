@@ -1,11 +1,17 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
+import javax.persistence.Entity;
 import java.security.NoSuchAlgorithmException;
 
+@Entity
 public class Manager extends Employee {
 
     public Manager(String username, String password,int card,String Email,String main_clinic) throws NoSuchAlgorithmException {
-        super(username, password,card,Email,main_clinic);
+        super(username, password,"Manager",card,Email,main_clinic);
+    }
+
+    public Manager() {
+        super();
     }
 
     public String getFullName(){

@@ -1,17 +1,29 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
+import javax.persistence.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
-public abstract class User {
-    public static int Counter = 0;
+@Entity
+@Table(name = "users", schema = "project")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    public static int user_id;
+    @Column(name = "username")
     protected String username;
+    @Column(name = "password")
     protected String password;
+    @Column(name = "card_num")
     protected int card_num;
+    @Column(name = "first_name")
     protected String first_name;
+    @Column(name = "last_name")
     protected String last_name;
+    @Column(name = "logged_in")
     boolean logged_in;
 
     public User() { }
@@ -20,7 +32,14 @@ public abstract class User {
         this.password = hashPassword(password);
         this.card_num = card;
         this.logged_in = false;
-        Counter++;
+    }
+
+    public static int getUserId() {
+        return user_id;
+    }
+
+    public static void setUserId(int userId) {
+        user_id = userId;
     }
 
     public String getUsername() {
@@ -60,6 +79,8 @@ public abstract class User {
         sr.nextBytes(salt);
         return Arrays.toString(salt);
     }
+
+
 
     public String getFirstName() {
         return first_name;

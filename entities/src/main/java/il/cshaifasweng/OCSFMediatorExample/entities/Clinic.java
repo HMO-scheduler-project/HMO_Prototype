@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Time;
 
 @Entity
+@Table(name = "clinics", schema = "project")
 public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,7 @@ public class Clinic {
     protected Manager manager;
 
     public Clinic() { }
-    public Clinic(String name, String city, Time start,Time end,String manager) throws NoSuchAlgorithmException {
+    public Clinic(String name, String city, Time start,Time end,Manager manager) throws NoSuchAlgorithmException {
         this.name = name;
         this.city = city;
         this.openning_hour = start;
@@ -63,11 +64,11 @@ public class Clinic {
         this.closing_hour = end;
     }
 
-    public String getManager() {
+    public Manager getManager() {
         return manager;
     }
 
-    public void setManager(String manager) {
+    public void setManager(Manager manager) {
         this.manager = manager;
     }
 }
