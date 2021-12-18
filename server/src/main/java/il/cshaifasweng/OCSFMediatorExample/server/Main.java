@@ -29,9 +29,9 @@ public class Main extends SimpleServer {
     public static SessionFactory getSessionFactory() throws HibernateException {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(Clinic.class);
-        configuration.addAnnotatedClass(User.class);
-        configuration.addAnnotatedClass(Employee.class);
-        configuration.addAnnotatedClass(Manager.class);
+        //configuration.addAnnotatedClass(User.class);
+       // configuration.addAnnotatedClass(Employee.class);
+        //configuration.addAnnotatedClass(Manager.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }

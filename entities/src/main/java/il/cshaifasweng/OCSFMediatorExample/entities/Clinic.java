@@ -19,8 +19,8 @@ public class Clinic {
     protected Time openning_hour;
     @Column(name="ClosingHour")
     protected Time closing_hour ;
-    @ManyToOne(targetEntity = Manager.class)
-    protected Manager manager;
+//   @ManyToOne(targetEntity = Manager.class)
+//   protected Manager manager;
 
     public Clinic() { }
     public Clinic(String name, String city, Time start,Time end,Manager manager) throws NoSuchAlgorithmException {
@@ -28,8 +28,7 @@ public class Clinic {
         this.city = city;
         this.openning_hour = start;
         this.closing_hour = end;
-        this.manager = manager;
-        Counter++;
+       // this.manager = manager;
     }
 
     public String getName() {
@@ -64,12 +63,12 @@ public class Clinic {
         this.closing_hour = end;
     }
 
-    public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
+//    public Manager getManager() {
+//        return manager;
+//    }
+//
+//    public void setManager(Manager manager) {
+//        this.manager = manager;
+//    }
 }
 
