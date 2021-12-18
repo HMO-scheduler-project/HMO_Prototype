@@ -12,7 +12,7 @@ import java.util.Arrays;
 public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public static int user_id;
+    public int user_id;
     protected String username;
     protected String password;
     protected int card_num;
@@ -28,11 +28,11 @@ public class User implements Serializable{
         this.logged_in = false;
     }
 
-    public static int getUserId() {
+    public int getUserId() {
         return user_id;
     }
 
-    public static void setUserId(int userId) {
+    public void setUserId(int userId) {
         user_id = userId;
     }
 
