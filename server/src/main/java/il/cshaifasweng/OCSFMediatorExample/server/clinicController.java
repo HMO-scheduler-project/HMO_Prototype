@@ -55,7 +55,6 @@ public class clinicController {
         List<Clinic> clinics = getAllClinicsFromDB();
         for (Clinic clinic : clinics) {
             if (clinic.getName().equals(name)) {
-                System.out.println("clinic name: "+clinic.getName());
                 return clinic;
             }
         }

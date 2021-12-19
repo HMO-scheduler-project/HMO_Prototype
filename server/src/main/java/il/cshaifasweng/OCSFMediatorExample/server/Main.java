@@ -80,13 +80,17 @@ public class Main extends SimpleServer {
             if (currMsg.getAction().equals("change hours")) {
                 try {
                     serverMsg = currMsg;
+                    serverMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
                     if(serverMsg.getOpenningHour()!=null) {
-                        updateCellInDB(serverMsg.getClinicName(), "clinics","ClinicName", "open", serverMsg.getOpenningHour());
+                        serverMsg.getClinic().setOpenningHour(serverMsg.getOpenningHour());
                     }
                     if(serverMsg.getClosingHour()!=null) {
-                        updateCellInDB(serverMsg.getClinicName(), "clinics","ClinicName", "close", serverMsg.getClosingHour());
+                        serverMsg.getClinic().setClosingHour(serverMsg.getClosingHour());
                     }
+                    updateCellInDB(serverMsg.getClinic());
                     serverMsg.setAction("saved new hours");
+                    serverMsg.setOpenningHour(serverMsg.getClinic().getOpenningHour());
+                    serverMsg.setClosingHour(serverMsg.getClinic().getClosingHour());
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -97,7 +101,6 @@ public class Main extends SimpleServer {
                 try {
                     serverMsg.setClinicList(clinicController.getAllClinicNamesFromDB());
                     serverMsg.setAction("ShowClinics");
-                    System.out.println("clinic list in server is empty: "+serverMsg.getClinicList().isEmpty());
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -107,7 +110,6 @@ public class Main extends SimpleServer {
                 try {
                     serverMsg = currMsg;
                     serverMsg.setClinic(clinicController.getClinicByName(serverMsg.getClinicName()));
-                    System.out.println("clinic in server: "+serverMsg.getClinic().getName());
                     serverMsg.setAction("Chosen clinic");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -123,11 +125,11 @@ public class Main extends SimpleServer {
         }
     }
 
-    public static<T> void updateCellInDB(String EntityName,String EntityType,String row,String col,T objectType) {
+    public static<T> void updateCellInDB(T objectType) {
         try {
-            String request = "UPDATE"+EntityType+" SET col = objectType WHERE " +row + " = "+EntityName;
-            SQLQuery sqlQuery = session.createSQLQuery(request);
-            sqlQuery.executeUpdate();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            session.update(objectType);
             session.flush();
             session.getTransaction().commit();
             session.clear();
@@ -135,10 +137,9 @@ public class Main extends SimpleServer {
             if (session != null) {
                 session.getTransaction().rollback();
             }
-            System.err.println("An error occured, changes have been rolled back.");
+            System.err.println("An error occurred, changes have been rolled back.");
             e.printStackTrace();
         } finally {
-            assert session != null;
             session.close();
         }
     }
