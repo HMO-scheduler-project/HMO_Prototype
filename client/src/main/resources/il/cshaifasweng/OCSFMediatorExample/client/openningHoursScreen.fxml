@@ -6,13 +6,12 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@oppeningHoursScreen.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.openningHoursScreenController">
     <top>
@@ -68,12 +67,22 @@
             </children>
         </GridPane>
     </center>
-    <bottom>
-        <TableView prefHeight="128.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn prefWidth="296.00006103515625" text="openning hour" />
-                <TableColumn prefWidth="303.199951171875" text="Closing hour" />
-            </columns>
-        </TableView>
-    </bottom>
+   <bottom>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField text="Opening Hour" />
+            <TextField text="Closeing hour" GridPane.columnIndex="1" />
+            <TextField fx:id="OpenningHourColumn" GridPane.rowIndex="1" />
+            <TextField fx:id="ClosingHourColumn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </bottom>
 </BorderPane>
