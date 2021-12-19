@@ -68,8 +68,9 @@ public class Main extends SimpleServer {
             if (currMsg.getAction().equals("pull openning hours")) {
                 try {
                     serverMsg = currMsg;
-                    serverMsg.setOpenningHour(clinicController.getOpenningHourByClinic(serverMsg.getClinic()));
-                    serverMsg.setClosingHour(clinicController.getClosingHourByClinic(serverMsg.getClinic()));
+                    currMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
+                    serverMsg.setOpenningHour(clinicController.getOpenningHourByClinic(currMsg.getClinic()));
+                    serverMsg.setClosingHour(clinicController.getClosingHourByClinic(currMsg.getClinic()));
                     serverMsg.setAction("got openning hours");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {

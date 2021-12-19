@@ -28,9 +28,9 @@ public class openningHoursScreenController {
     private MenuItem ChangeAppBtn;
 */
     @FXML
-    private TableColumn<Time, Time> OpenningHourColumn;
+    private TextField OpenningHourTF;
     @FXML
-    private TableColumn<Time, Time> ClosingHourColumn;
+    private TextField ClosingHourTF;
     @FXML
     private Button ChangeHoursBtn;
 
@@ -81,6 +81,7 @@ public class openningHoursScreenController {
     void pressChangeHoursBtn(ActionEvent event) {
         openHourTF.setVisible(true);
         closeHourTF.setVisible(true);
+        submitChangeHoursBtn.setVisible(true);
     }
 
     @FXML
@@ -101,8 +102,8 @@ public class openningHoursScreenController {
 
     @Subscribe
     public void onChangeHoursEvent(ChangeHoursEvent event){
-        OpenningHourColumn.setText(String.valueOf(clientMsg.getClinic().getOpenningHour()));
-        ClosingHourColumn.setText(String.valueOf(clientMsg.getClinic().getClosingHour()));
+        OpenningHourTF.setText(String.valueOf(clientMsg.getOpenningHour()));
+        ClosingHourTF.setText(String.valueOf(clientMsg.getClosingHour()));
     }
 
     @FXML
@@ -136,9 +137,19 @@ public class openningHoursScreenController {
 
     @Subscribe
     public void onChosenClinicEvent(ChosenClinicEvent event) {
-        System.out.println("Got chosen clinic");
-        OpenningHourColumn.setText(String.valueOf(clientMsg.getClinic().getOpenningHour()));
-        ClosingHourColumn.setText(String.valueOf(clientMsg.getClinic().getClosingHour()));
+        OpenningHourTF.setText(String.valueOf(clientMsg.getClinic().getOpenningHour()));
+        ClosingHourTF.setText(String.valueOf(clientMsg.getClinic().getClosingHour()));
+        if (manager) {
+            ChangeHoursBtn.setVisible(true);
+        }
+        clientMsg.setOpenningHour(null);
+        clientMsg.setClosingHour(null);
+    }
+
+    @Subscribe
+    public void onShowHoursEvent(showHoursEvent event){
+        OpenningHourTF.setText(String.valueOf(event.getOpening_hour()));
+        ClosingHourTF.setText(String.valueOf(event.getClosing_hour()));
         if (manager) {
             ChangeHoursBtn.setVisible(true);
         }
@@ -148,10 +159,9 @@ public class openningHoursScreenController {
 
     @FXML
     void chooseClinic() {
-        System.out.println("choose clinic");
         String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
         clientMsg.setClinicName(chosenClinic);
-        clientMsg.setAction("GetClinicFromName");
+        clientMsg.setAction("pull openning hours");
         try {
             SimpleClient.getClient().sendToServer(clientMsg);
         } catch (IOException e) {

@@ -45,6 +45,10 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("saved new hours")){
 			EventBus.getDefault().post(new ChangeHoursEvent(currMsg.getOpenningHour(),currMsg.getClosingHour()));
 		}
+
+		if(currMsg.getAction().equals("got openning hours")){
+			EventBus.getDefault().post(new showHoursEvent(currMsg.getOpenningHour(),currMsg.getClosingHour()));
+		}
 	}
 
 	public static SimpleClient getClient() {

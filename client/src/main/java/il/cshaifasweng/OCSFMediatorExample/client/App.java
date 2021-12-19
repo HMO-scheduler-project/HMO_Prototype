@@ -43,9 +43,11 @@ public class App extends Application {
                 EventBus.getDefault().register(this);
                 isRegistered = true;
             }
-            Parent root= FXMLLoader.load(getClass().getResource("openningHoursScreen.FXML"));
+            Parent root= FXMLLoader.load(getClass().getResource("openningHoursScreen.fxml"));
             Scene login = new Scene(root);
-            //login.getStylesheets().add(getClass().getResource("il/cshaifasweng/OCSFMediatorExample/client/login_screen.css").toExternalForm());
+//            String cssPath = App.class.getResource("oppeningHoursScreen.css").toString();
+//            System.out.println("cssPath " + cssPath);
+//            login.getStylesheets().add(cssPath);
             stage.setScene(login);
             this.appStage = stage;
             stage.show();

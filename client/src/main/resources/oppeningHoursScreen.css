@@ -1,9 +1,9 @@
 
 body {
-    -fx-background-image: "background.jpg";
+  /*-fx-background-image: url("background.jpg");*/
 }
 
-> input {
+input {
     font-family: Arial;
     display: block;
     border-radius: 5px;
@@ -15,7 +15,7 @@ body {
     margin: 15px -10px;
 }
 
-> button {
+button {
     font-family:Ariel;
     cursor: pointer;
     color: #fff;
