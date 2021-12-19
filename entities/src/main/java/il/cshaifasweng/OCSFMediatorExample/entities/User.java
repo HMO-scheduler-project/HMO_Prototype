@@ -21,10 +21,12 @@ public class User implements Serializable{
     boolean logged_in;
 
     public User() { }
-    public User(String username, String password,int card) throws NoSuchAlgorithmException {
+    public User(String username, String password,int card,String first_name,String last_name) throws NoSuchAlgorithmException {
         this.username = username;
         this.password = hashPassword(password);
         this.card_num = card;
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.logged_in = false;
     }
 

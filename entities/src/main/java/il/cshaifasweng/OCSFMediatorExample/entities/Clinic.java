@@ -20,7 +20,6 @@ public class Clinic implements Serializable {
     protected LocalTime openning_hour;
     @Column(name="ClosingHour")
     protected LocalTime closing_hour ;
-    protected int manager_id;
   @ManyToOne(targetEntity = Manager.class)
    protected Manager manager;
 
@@ -30,7 +29,6 @@ public class Clinic implements Serializable {
         this.city = city;
         this.openning_hour = start;
         this.closing_hour = end;
-        this.manager_id = managerID;
         this.manager = manager;
     }
 
@@ -74,12 +72,5 @@ public class Clinic implements Serializable {
         this.manager = manager;
     }
 
-    public int getManager_id() {
-        return manager_id;
-    }
-
-    public void setManager_id(int manager_id) {
-        this.manager_id = manager_id;
-    }
 }
 

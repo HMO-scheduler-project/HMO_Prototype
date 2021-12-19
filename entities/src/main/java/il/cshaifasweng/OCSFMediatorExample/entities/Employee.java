@@ -9,8 +9,8 @@ public class Employee extends User {
     protected String role;
     protected String main_clinic;
 
-    public Employee(String username, String password,String role,int card,String Email,String main_clinic) throws NoSuchAlgorithmException {
-        super(username, password,card);
+    public Employee(String username, String password,String first_name,String last_name,String role,int card,String Email,String main_clinic) throws NoSuchAlgorithmException {
+        super(username, password,card,first_name,last_name);
         this.role = role;
         this.Email = Email;
         this.main_clinic = main_clinic;
