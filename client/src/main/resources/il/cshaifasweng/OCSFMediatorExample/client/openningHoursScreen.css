@@ -1,6 +1,8 @@
 
 body {
-  /*-fx-background-image: url("background.jpg");*/
+  -fx-background-image: url("background.jpg");
+  -fx-background-size: auto;
+  -fx-background-opacity: 0.4px;
 }
 
 input {

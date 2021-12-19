@@ -3,7 +3,6 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Time;
 import java.time.LocalTime;
 
 @Entity

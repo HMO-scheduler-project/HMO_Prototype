@@ -44,12 +44,11 @@ public class App extends Application {
                 isRegistered = true;
             }
             Parent root= FXMLLoader.load(getClass().getResource("openningHoursScreen.fxml"));
-            Scene login = new Scene(root);
-//            String cssPath = App.class.getResource("oppeningHoursScreen.css").toString();
-//            System.out.println("cssPath " + cssPath);
-//            login.getStylesheets().add(cssPath);
-            stage.setScene(login);
-            this.appStage = stage;
+            Scene start = new Scene(root);
+            String cssPath = getClass().getResource("openningHoursScreen.css").toExternalForm();
+            start.getStylesheets().add(cssPath);
+            stage.setScene(start);
+            appStage = stage;
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

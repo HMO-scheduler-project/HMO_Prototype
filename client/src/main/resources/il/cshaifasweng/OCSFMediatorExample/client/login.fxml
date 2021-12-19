@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="193.0" prefWidth="301.0" stylesheets="@../../../../login_screen.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.loginController">
+<StackPane prefHeight="193.0" prefWidth="301.0" stylesheets="@login_screen.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.loginController">
     <children>
         <StackPane>
             <children>
-                <VBox spacing="10.0" stylesheets="../../../../login_screen.css">
+                <VBox spacing="10.0" stylesheets="login_screen.css">
                     <children>
                         <GridPane>
                             <children>
@@ -33,7 +33,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                         </GridPane>
-                        <StackPane prefHeight="-1.0" prefWidth="-1.0" styleClass="main" stylesheets="../../../../login_screen.css">
+                        <StackPane prefHeight="-1.0" prefWidth="-1.0" styleClass="main" stylesheets="login_screen.css">
                             <children>
                                 <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#initialize" text="Login" StackPane.alignment="CENTER" />
                             </children>
