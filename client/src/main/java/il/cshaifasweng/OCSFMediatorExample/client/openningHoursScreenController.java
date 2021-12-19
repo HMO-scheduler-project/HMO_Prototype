@@ -75,22 +75,12 @@ public class openningHoursScreenController {
     @FXML
     void pressNewAppBtn(ActionEvent event) {}
     @FXML
-    void pressOpenningHoursBtn(ActionEvent event) {
-        OpenningHoursBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent event) {
-
-            }
-        });
-    }
+    void pressOpenningHoursBtn(ActionEvent event) {}
 
     @FXML
     void pressChangeHoursBtn(ActionEvent event) {
-        ChangeHoursBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent event) {
-                openHourTF.setVisible(true);
-                closeHourTF.setVisible(true);
-            }
-        });
+        openHourTF.setVisible(true);
+        closeHourTF.setVisible(true);
     }
 
     @FXML
@@ -116,8 +106,7 @@ public class openningHoursScreenController {
     }
 
     @FXML
-    void pressScheduledAppBtn(ActionEvent event) {
-    }
+    void pressScheduledAppBtn(ActionEvent event) {}
 
     @FXML
     void initialize() {
@@ -138,17 +127,10 @@ public class openningHoursScreenController {
     @Subscribe
     public void onClinicListUpdateEvent(ClinicListUpdateEvent event) {
         System.out.println("Got event");
+        System.out.println("clinic list in client is empty: "+event.getClinicNames().isEmpty());
         for (String clinic : event.getClinicNames()) {
             System.out.println(clinic);
             ClinicsList.getItems().add(clinic);
-        }
-        String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
-        clientMsg.setClinicName(chosenClinic);
-        clientMsg.setAction("GetClinicFromName");
-        try {
-            SimpleClient.getClient().sendToServer(clientMsg);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -165,19 +147,16 @@ public class openningHoursScreenController {
     }
 
     @FXML
-    void chooseClinic(MouseEvent event) {
-                if (Objects.equals(clientMsg.getAction(), "ShowClinics")) {
-                    String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
-                    clientMsg.setClinicName(chosenClinic);
-                    clientMsg.setAction("GetClinicFromName");
-                    try {
-                        //not sure if this is right --I want to send the msg to server-yoni
-                        SimpleClient.getClient().sendToServer(clientMsg);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
+    void chooseClinic() {
+        System.out.println("choose clinic");
+        String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
+        clientMsg.setClinicName(chosenClinic);
+        clientMsg.setAction("GetClinicFromName");
+        try {
+            SimpleClient.getClient().sendToServer(clientMsg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

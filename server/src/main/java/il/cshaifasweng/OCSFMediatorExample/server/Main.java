@@ -41,7 +41,6 @@ public class Main extends SimpleServer {
             session = sessionFactory.openSession();
             session.beginTransaction();
             Message currMsg = ((Message) msg);
-            System.out.println(currMsg.getAction());
             serverMsg = new Message();
             if (currMsg.getAction().equals("login")) {
                 try {
@@ -97,6 +96,7 @@ public class Main extends SimpleServer {
                 try {
                     serverMsg.setClinicList(clinicController.getAllClinicNamesFromDB());
                     serverMsg.setAction("ShowClinics");
+                    System.out.println("clinic list in server is empty: "+serverMsg.getClinicList().isEmpty());
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -106,6 +106,7 @@ public class Main extends SimpleServer {
                 try {
                     serverMsg = currMsg;
                     serverMsg.setClinic(clinicController.getClinicByName(serverMsg.getClinicName()));
+                    System.out.println("clinic in server: "+serverMsg.getClinic().getName());
                     serverMsg.setAction("Chosen clinic");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -144,16 +145,16 @@ public class Main extends SimpleServer {
     public static void main( String[] args ) throws IOException, NoSuchAlgorithmException {
         server = new Main(3002);
         server.listen();
-        try{
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-            clinicController.InitClinicTable();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        }finally {
-            assert session != null;
-            session.close();
-        }
+//        try{
+//            session = sessionFactory.openSession();
+//            session.beginTransaction();
+//            clinicController.InitClinicTable();
+//        } catch (HibernateException e) {
+//            e.printStackTrace();
+//        }finally {
+//            assert session != null;
+//            session.close();
+//        }
 
         System.out.println("server says: hello!");
     }

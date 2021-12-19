@@ -18,7 +18,7 @@ public class Message implements Serializable {
     private String userType;
     /*----------Handling clinics----*/
     private Clinic clinic;
-    public static ArrayList<String> ClinicList;
+    public ArrayList<String> ClinicList;
     private String clinic_name;
     private LocalTime openning_hour;
     private LocalTime closing_hour;
