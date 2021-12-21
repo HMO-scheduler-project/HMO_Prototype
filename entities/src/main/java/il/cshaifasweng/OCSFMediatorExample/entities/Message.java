@@ -1,6 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 import java.io.Serializable;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +21,8 @@ public class Message implements Serializable {
     private String clinic_name;
     private LocalTime openning_hour;
     private LocalTime closing_hour;
+    private String address;
+    private String phone_num;
 
     public Message() {
         super();
@@ -132,5 +133,21 @@ public class Message implements Serializable {
 
     public LocalTime getClosingHour(){
         return closing_hour;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNum() {
+        return phone_num;
+    }
+
+    public void setPhoneNum(String phone_num) {
+        this.phone_num = phone_num;
     }
 }

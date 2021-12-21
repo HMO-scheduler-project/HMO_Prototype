@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
+import jdk.jfr.Event;
 import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 import java.net.SocketException;
@@ -47,6 +48,15 @@ public class SimpleClient extends AbstractClient {
 
 		if(currMsg.getAction().equals("got openning hours")){
 			EventBus.getDefault().post(new showHoursEvent(currMsg.getOpenningHour(),currMsg.getClosingHour()));
+		}
+		if(currMsg.getAction().equals("got contact info")){
+			EventBus.getDefault().post(new showContactInfoEvent(currMsg.getAddress(), currMsg.getPhoneNum()));
+		}
+		if(currMsg.getAction().equals("saved new address")){
+			EventBus.getDefault().post(new ChangeAddressEvent(currMsg.getAddress()));
+		}
+		if(currMsg.getAction().equals("saved new phone")){
+			EventBus.getDefault().post(new ChangePhoneNumEvent(currMsg.getPhoneNum()));
 		}
 	}
 

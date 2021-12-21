@@ -8,7 +8,6 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 
 @Entity
-@Table(name = "users", schema = "project")
 public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

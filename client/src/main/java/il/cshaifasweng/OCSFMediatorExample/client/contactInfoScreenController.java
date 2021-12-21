@@ -7,54 +7,61 @@ import javafx.scene.control.*;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
-import java.time.LocalTime;
 
 
-public class openningHoursScreenController {
+
+public class contactInfoScreenController {
     Message clientMsg = new Message();
     boolean manager;
     String chosen_clinic;
 
+
     @FXML
     private MenuItem ChangeAppBtn;
     @FXML
-    private TextField OpenningHourTF;
+    private TextField phoneNumTF;
     @FXML
-    private TextField ClosingHourTF;
+    private TextField addressTF;
     @FXML
-    private Button ChangeHoursBtn;
+    private Button ChangeAddressBtn;
+    @FXML
+    private Button ChangePhoneNumBtn;
     @FXML
     private Menu ClinicsBtn;
+
     @FXML
     private ComboBox<String> ClinicsList;
+
     @FXML
-    private TextField closeHourTF;
+    private TextField ShowAddressTF;
+
     @FXML
     private Menu MainPageBtn;
+
     @FXML
     private MenuItem OpenningHoursBtn;
+
     @FXML
-    private Button submitChangeHoursBtn;
+    private Button submitChangeAddressBtn;
+    @FXML
+    private Button submitChangePhoneBtn;
     @FXML
     private MenuItem contactInfoBtn;
     @FXML
     private MenuItem newAppBtn;
     @FXML
-    private TextField openHourTF;
+    private TextField ShowPhoneNumTF;
     @FXML
     private MenuItem scheduledAppBtn;
 
     @FXML
     void pressChangeAppBtn(ActionEvent event) {}
-
     @FXML
     void pressContactInfoBtn(ActionEvent event) throws IOException {
         ChangeScreens.changeToContactInfoScreen();
     }
-
     @FXML
     void pressMainPageBtn(ActionEvent event) {}
-
     @FXML
     void pressNewAppBtn(ActionEvent event) {}
     @FXML
@@ -63,22 +70,38 @@ public class openningHoursScreenController {
     }
 
     @FXML
-    void pressChangeHoursBtn(ActionEvent event) {
-        openHourTF.setVisible(true);
-        closeHourTF.setVisible(true);
-        submitChangeHoursBtn.setVisible(true);
+    void pressChangeAddressBtn(ActionEvent event) {
+        addressTF.setVisible(true);
+        submitChangeAddressBtn.setVisible(true);
     }
 
     @FXML
-    void pressSubmitChangeHoursBtn(ActionEvent event){
-        clientMsg.setAction("change hours");
+    void pressSubmitChangeAddressBtn(ActionEvent event){
+        clientMsg.setAction("change address");
         clientMsg.setClinicName(chosen_clinic);
         try{
-            if(!openHourTF.getText().equals("")) {
-                clientMsg.setOpenningHour(LocalTime.parse(openHourTF.getText()));
+            if(!addressTF.getText().equals("")) {
+                clientMsg.setAddress(addressTF.getText());
             }
-            if(!closeHourTF.getText().equals("")) {
-                clientMsg.setClosingHour(LocalTime.parse(closeHourTF.getText()));
+            SimpleClient.getClient().sendToServer(clientMsg);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void pressChangePhoneNumBtn(ActionEvent event) {
+        phoneNumTF.setVisible(true);
+        submitChangePhoneBtn.setVisible(true);
+    }
+
+    @FXML
+    void pressSubmitChangePhoneNumBtn(ActionEvent event){
+        clientMsg.setAction("change phone number");
+        clientMsg.setClinicName(chosen_clinic);
+        try{
+            if(!phoneNumTF.getText().equals("")) {
+                clientMsg.setPhoneNum(phoneNumTF.getText());
             }
             SimpleClient.getClient().sendToServer(clientMsg);
         } catch (Exception e) {
@@ -87,9 +110,13 @@ public class openningHoursScreenController {
     }
 
     @Subscribe
-    public void onChangeHoursEvent(ChangeHoursEvent event){
-        OpenningHourTF.setText(String.valueOf(clientMsg.getOpenningHour()));
-        ClosingHourTF.setText(String.valueOf(clientMsg.getClosingHour()));
+    public void onChangeAddressEvent(ChangeAddressEvent event){
+        ShowAddressTF.setText(clientMsg.getAddress());
+    }
+
+    @Subscribe
+    public void onChangePhoneNumEvent(ChangePhoneNumEvent event){
+        ShowPhoneNumTF.setText(clientMsg.getPhoneNum());
     }
 
     @FXML
@@ -101,10 +128,12 @@ public class openningHoursScreenController {
         //manager = App.getUserType().equals("Manager");
         manager = true;
         try {
-            ChangeHoursBtn.setVisible(false);
-            openHourTF.setVisible(false);
-            closeHourTF.setVisible(false);
-            submitChangeHoursBtn.setVisible(false);
+            ChangeAddressBtn.setVisible(false);
+            addressTF.setVisible(false);
+            ChangePhoneNumBtn.setVisible(false);
+            phoneNumTF.setVisible(false);
+            submitChangeAddressBtn.setVisible(false);
+            submitChangePhoneBtn.setVisible(false);
             Message msg= new Message();
             msg.setAction("GetAllClinics");
             SimpleClient.getClient().openConnection();
@@ -124,19 +153,21 @@ public class openningHoursScreenController {
 
 
     @Subscribe
-    public void onShowHoursEvent(showHoursEvent event){
-        OpenningHourTF.setText(String.valueOf(event.getOpening_hour()));
-        ClosingHourTF.setText(String.valueOf(event.getClosing_hour()));
+    public void onShowContactInfoEvent(showContactInfoEvent event){
+        ShowAddressTF.setText(event.getAddress());
+        ShowPhoneNumTF.setText(event.getPhoneNum());
         if (manager) {
-            ChangeHoursBtn.setVisible(true);
+            ChangeAddressBtn.setVisible(true);
+            ChangePhoneNumBtn.setVisible(true);
         }
-        openHourTF.clear();
-        closeHourTF.clear();
-        openHourTF.setVisible(false);
-        closeHourTF.setVisible(false);
-        submitChangeHoursBtn.setVisible(false);
-        clientMsg.setOpenningHour(null);
-        clientMsg.setClosingHour(null);
+        addressTF.clear();
+        phoneNumTF.clear();
+        addressTF.setVisible(false);
+        phoneNumTF.setVisible(false);
+        submitChangeAddressBtn.setVisible(false);
+        submitChangePhoneBtn.setVisible(false);
+        clientMsg.setPhoneNum(null);
+        clientMsg.setAddress(null);
     }
 
     @FXML
@@ -144,7 +175,7 @@ public class openningHoursScreenController {
         String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
         chosen_clinic = chosenClinic;
         clientMsg.setClinicName(chosenClinic);
-        clientMsg.setAction("pull openning hours");
+        clientMsg.setAction("pull contact info");
         try {
             SimpleClient.getClient().sendToServer(clientMsg);
         } catch (IOException e) {

@@ -84,6 +84,23 @@ public class userController {
         }
         return null;
     }
+
+    public static List<Manager> getAllManagersFromDB(){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Manager> query = builder.createQuery(Manager.class);
+        query.from(User.class);
+        return Main.session.createQuery(query).getResultList();
+    }
+
+    public static Manager getManagerById (int id) {
+        List<Manager> managers =getAllManagersFromDB();
+        for (Manager manager : managers) {
+            if (manager.getUserId() == id) {
+                return manager;
+            }
+        }
+        return null;
+    }
 }
 
 

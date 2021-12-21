@@ -32,6 +32,7 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Employee.class);
         configuration.addAnnotatedClass(Manager.class);
+        configuration.addAnnotatedClass(HMO_Manager.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }
@@ -116,6 +117,48 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+            if(currMsg.getAction().equals("pull contact info")){
+                try {
+                    serverMsg = currMsg;
+                    currMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
+                    serverMsg.setAddress(clinicController.getAddressOfClinic(currMsg.getClinic()));
+                    serverMsg.setPhoneNum(clinicController.getPhoneNumOfClinic(currMsg.getClinic()));
+                    serverMsg.setAction("got contact info");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("change address")){
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
+                    if(serverMsg.getAddress()!=null) {
+                        serverMsg.getClinic().setAddress(serverMsg.getAddress());
+                    }
+                    updateCellInDB(serverMsg.getClinic());
+                    serverMsg.setAction("saved new address");
+                    serverMsg.setAddress(serverMsg.getClinic().getAddress());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("change phone number")){
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
+                    if(serverMsg.getPhoneNum()!=null) {
+                        serverMsg.getClinic().setPhoneNum(serverMsg.getPhoneNum());
+                    }
+                    updateCellInDB(serverMsg.getClinic());
+                    serverMsg.setAction("saved new phone");
+                    serverMsg.setPhoneNum(serverMsg.getClinic().getPhoneNum());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,6 +191,7 @@ public class Main extends SimpleServer {
         server = new Main(3002);
         server.listen();
         System.out.println("server says: hello!");
+
     }
 }
 

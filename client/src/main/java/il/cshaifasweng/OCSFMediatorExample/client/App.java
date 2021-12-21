@@ -10,16 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import org.greenrobot.eventbus.EventBus;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import java.io.IOException;
-import java.util.logging.Level;
-
 import org.greenrobot.eventbus.Subscribe;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
+
 
 /**
  * JavaFX App
@@ -30,8 +23,7 @@ public class App extends Application {
     private SimpleClient client;
     private static String username;
     private static String password;
-    private static String type;
-    private static Object currentController;
+    private static String user_type;
     private static Boolean isLogoutClicked = false;
     private static Stage appStage;
     private boolean isRegistered = false;
@@ -43,10 +35,11 @@ public class App extends Application {
                 EventBus.getDefault().register(this);
                 isRegistered = true;
             }
-            Parent root= FXMLLoader.load(getClass().getResource("openningHoursScreen.fxml"));
+            Parent root= loadFXML("openningHoursScreen.fxml");
             Scene start = new Scene(root);
             String cssPath = getClass().getResource("openningHoursScreen.css").toExternalForm();
             start.getStylesheets().add(cssPath);
+            scene = start;
             stage.setScene(start);
             appStage = stage;
             stage.show();
@@ -57,7 +50,7 @@ public class App extends Application {
 
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml));
         return fxmlLoader.load();
     }
 
@@ -67,9 +60,6 @@ public class App extends Application {
 
     @Override
     public void stop(){
-        if(currentController!= null) {
-            System.out.println("Stage is closing");
-        }
         Platform.exit();
         System.exit(0);
     }
@@ -127,20 +117,27 @@ public class App extends Application {
         App.username = username;
     }
 
-    public static String getType() {
-        return type;
+    public static String getUserType() {
+        return user_type;
     }
 
-    public static void setType(String type) {
-        App.type = type;
-    }
-
-    public static Object getCurrentController() {
-        return currentController;
+    public static void setUserType(String user_type) {
+        App.user_type = user_type;
     }
 
     public static Stage getAppStage(){
         return appStage;
+    }
+
+    static void setWindowTitle(String title) {
+        getAppStage().setTitle(title);
+    }
+
+    static void setContent(String pageName) throws IOException {
+        Parent openingHours= loadFXML(pageName+".fxml");
+        scene = new Scene(openingHours);
+        appStage.setScene(scene);
+        appStage.show();
     }
 
     public static void main(String[] args) {

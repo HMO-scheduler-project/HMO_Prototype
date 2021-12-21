@@ -6,7 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "clinics", schema = "project")
 public class Clinic implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +19,20 @@ public class Clinic implements Serializable {
     protected LocalTime openning_hour;
     @Column(name="ClosingHour")
     protected LocalTime closing_hour ;
-  @ManyToOne(targetEntity = Manager.class)
-   protected Manager manager;
+    protected String address;
+    protected String phone_number;
+    @ManyToOne(targetEntity = Manager.class)
+    protected Manager manager;
 
     public Clinic() { }
-    public Clinic(String name, String city, LocalTime start,LocalTime end,int managerID,Manager manager) throws NoSuchAlgorithmException {
+    public Clinic(String name, String city, LocalTime start,LocalTime end,Manager manager,String address,String phone_number) throws NoSuchAlgorithmException {
         this.name = name;
         this.city = city;
         this.openning_hour = start;
         this.closing_hour = end;
         this.manager = manager;
+        this.address = address;
+        this.phone_number = phone_number;
     }
 
     public String getName() {
@@ -70,6 +73,22 @@ public class Clinic implements Serializable {
 
     public void setManager(Manager manager) {
         this.manager = manager;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNum() {
+        return phone_number;
+    }
+
+    public void setPhoneNum(String phone_number) {
+        this.phone_number = phone_number;
     }
 
 }

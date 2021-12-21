@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 
-/** Controls the login screen */
 public class loginController {
     private SimpleClient client;
     private static int sessionID = 0;
@@ -34,17 +33,12 @@ public class loginController {
     private Label loginFailedWarning;
 
     public void initialize() {
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String sessionID = null;
-                try {
-                    sessionID = authorize();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        String sessionID = null;
+        try {
+            sessionID = authorize();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -124,7 +118,7 @@ public class loginController {
 
                     App.setUsername(msg.getUsername());
                     App.setPassword(msg.getPassword());
-                    App.setType(msg.getUserType());
+                    App.setUserType(msg.getUserType());
                     try{
                         Parent root= FXMLLoader.load(getClass().getResource("openningHoursScreen.fxml"));
                         Scene hoursScreen = new Scene(root);

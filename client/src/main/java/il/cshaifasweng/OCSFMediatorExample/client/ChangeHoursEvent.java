@@ -1,6 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import java.sql.Time;
 import java.time.LocalTime;
 
 public class ChangeHoursEvent {

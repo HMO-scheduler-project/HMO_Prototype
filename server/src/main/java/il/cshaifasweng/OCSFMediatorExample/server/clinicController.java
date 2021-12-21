@@ -1,12 +1,12 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
+import il.cshaifasweng.OCSFMediatorExample.entities.Employee;
 import il.cshaifasweng.OCSFMediatorExample.entities.Manager;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,4 +46,8 @@ public class clinicController {
     public static LocalTime getClosingHourByClinic(Clinic clinic){
         return clinic.getClosingHour();
     }
+
+    public static String getAddressOfClinic(Clinic clinic){ return clinic.getAddress();}
+
+    public static String getPhoneNumOfClinic(Clinic clinic){ return clinic.getPhoneNum();}
 }
