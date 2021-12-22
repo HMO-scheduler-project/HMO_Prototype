@@ -22,10 +22,10 @@ public class User implements Serializable{
     public User() { }
     public User(String username, String password,int card,String first_name,String last_name) throws NoSuchAlgorithmException {
         this.username = username;
-        this.password = hashPassword(password);
-        this.card_num = card;
         this.first_name = first_name;
         this.last_name = last_name;
+        this.card_num = card;
+        this.password = hashPassword(password);
         this.logged_in = false;
     }
 
@@ -46,11 +46,11 @@ public class User implements Serializable{
     }
 
     public boolean checkPassword(String password) throws NoSuchAlgorithmException {
-        return password.equals(hashPassword(this.password));
+        return this.password.equals(hashPassword(password));
     }
 
     public void setPassword(String password) throws NoSuchAlgorithmException {
-        this.password = hashPassword(password);;
+        this.password = hashPassword(password);
     }
 
     private String hashPassword(String plainPassword) throws NoSuchAlgorithmException {
@@ -69,10 +69,7 @@ public class User implements Serializable{
     }
 
     private String getSalt() throws NoSuchAlgorithmException {
-        SecureRandom sr = SecureRandom.getInstance("SHA-512");
-        byte[] salt = new byte[16];
-        sr.nextBytes(salt);
-        return Arrays.toString(salt);
+        return first_name+card_num;
     }
 
 

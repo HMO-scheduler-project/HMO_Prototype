@@ -48,8 +48,9 @@ public class Main extends SimpleServer {
                     if (currMsg.getUsername().equals("") || currMsg.getPassword().equals("")) {
                     } else {
                         userController.getUser(currMsg);
-                        serverMsg = (Message) msg;
+                        serverMsg = currMsg;
                         serverMsg.setAction("login done");
+                        serverMsg.setStatus("logged in");
                         client.sendToClient(serverMsg);
                     }
                 } catch (IOException | NoSuchAlgorithmException e) {
@@ -59,7 +60,7 @@ public class Main extends SimpleServer {
             if (currMsg.getAction().equals("logout")) {
                 try {
                     userController.logOut(currMsg);
-                    serverMsg = new Message();
+                    serverMsg = currMsg;
                     serverMsg.setAction("logged out");
                     client.sendToClient(serverMsg);
                 } catch (IOException | NoSuchAlgorithmException e) {

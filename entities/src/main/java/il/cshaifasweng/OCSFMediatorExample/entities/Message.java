@@ -15,6 +15,8 @@ public class Message implements Serializable {
     private String username;
     private String password;
     private String userType;
+    private String status;
+    private String sessionID;
     /*----------Handling clinics----*/
     private Clinic clinic;
     public ArrayList<String> ClinicList;
@@ -90,6 +92,22 @@ public class Message implements Serializable {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getSessionID() {
+        return sessionID;
+    }
+
+    public void setSessionID(String sessionID) {
+        this.sessionID = sessionID;
     }
 
     public Clinic getClinic() {

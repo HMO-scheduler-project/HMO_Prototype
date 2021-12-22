@@ -8,7 +8,6 @@ import il.cshaifasweng.OCSFMediatorExample.entities.User;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class userController {
@@ -42,7 +41,6 @@ public class userController {
                 msg.setType("you are already logged in");
                 flag = 1;
             }
-
         }
         if (flag == 0) {
             msg.setType("This user does not exist");
@@ -53,7 +51,7 @@ public class userController {
         List<User> users = getAllUsersFromDB();
         System.out.println("about to log out");
         for (User user : users) {
-            if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword())) {
+            if (user.getUsername().equals(msg.getUsername())) {
                 if (user instanceof Manager) {
                     user.setLoggedIn(false);
 
@@ -61,10 +59,9 @@ public class userController {
                     user.setLoggedIn(false);
 
                 }
-            } else if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword()) && user.isLoggedIn()) {
+            } else if (user.getUsername().equals(msg.getUsername()) &&  user.isLoggedIn()) {
                 msg.setUserType("you are already logged out");
             }
-
         }
     }
 

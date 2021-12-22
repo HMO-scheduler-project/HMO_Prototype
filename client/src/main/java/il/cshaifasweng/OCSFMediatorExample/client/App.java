@@ -22,7 +22,6 @@ public class App extends Application {
     private static Scene scene;
     private SimpleClient client;
     private static String username;
-    private static String password;
     private static String user_type;
     private static Boolean isLogoutClicked = false;
     private static Stage appStage;
@@ -35,6 +34,9 @@ public class App extends Application {
                 EventBus.getDefault().register(this);
                 isRegistered = true;
             }
+//            Parent root= loadFXML("login.fxml");
+//            Scene start = new Scene(root);
+//            String cssPath = getClass().getResource("login_screen.css").toExternalForm();
             Parent root= loadFXML("openningHoursScreen.fxml");
             Scene start = new Scene(root);
             String cssPath = getClass().getResource("openningHoursScreen.css").toExternalForm();
@@ -84,7 +86,7 @@ public class App extends Application {
     }
 
     public static void logout(Boolean logoutClicked) {
-        if(username == null || password == null) {
+        if(username == null) {
             Platform.exit();
             System.exit(0);
         }
@@ -92,21 +94,11 @@ public class App extends Application {
         Message msg = new Message();
         msg.setAction("logout");
         msg.setUsername(username);
-        msg.setPassword(password);
         try {
             SimpleClient.getClient().sendToServer(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-    public static String getPassword() {
-        return password;
-    }
-
-    public static void setPassword(String password) {
-        App.password = password;
     }
 
     public static String getUsername() {

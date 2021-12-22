@@ -58,6 +58,9 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("saved new phone")){
 			EventBus.getDefault().post(new ChangePhoneNumEvent(currMsg.getPhoneNum()));
 		}
+		if(currMsg.getAction().equals("login done")){
+			EventBus.getDefault().post(new loginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername()));
+		}
 	}
 
 	public static SimpleClient getClient() {

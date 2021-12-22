@@ -35,7 +35,7 @@
                         </GridPane>
                         <StackPane prefHeight="-1.0" prefWidth="-1.0" styleClass="main" stylesheets="login_screen.css">
                             <children>
-                                <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#initialize" text="Login" StackPane.alignment="CENTER" />
+                                <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#authorize" text="Login" StackPane.alignment="CENTER" />
                             </children>
                         </StackPane>
                   <Label fx:id="emptyUsernameWarning" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="283.0" text="Please enter username" textAlignment="CENTER" visible="false" />
