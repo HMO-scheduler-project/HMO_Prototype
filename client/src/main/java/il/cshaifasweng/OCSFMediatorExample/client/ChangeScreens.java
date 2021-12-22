@@ -11,12 +11,12 @@ public class ChangeScreens {
 
     public static void changeToOpenningHoursScreen() throws IOException {
         App.setWindowTitle("Opening hours");
-        App.setContent("openningHoursScreen");;
+        App.setContent("openningHoursScreen");
     }
 
     public static void changeToContactInfoScreen() throws IOException {
         App.setWindowTitle("Contact info");
-        App.setContent("contactInfoScreen");;
+        App.setContent("contactInfoScreen");
     }
 
     public static void changeToMainPage() throws IOException {

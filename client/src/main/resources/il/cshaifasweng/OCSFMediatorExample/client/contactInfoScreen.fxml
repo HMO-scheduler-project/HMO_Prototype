@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,25 +15,30 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@contactInfoScreen.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.contactInfoScreenController">
     <top>
-        <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu fx:id="MainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" text="Main page" />
-                <Menu fx:id="ClinicsBtn" mnemonicParsing="false" text="Clinics">
-                    <items>
-                        <MenuItem fx:id="OpenningHoursBtn" mnemonicParsing="false" onAction="#pressOpenningHoursBtn" text="Openning Hours" />
-                        <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" text="Contact info" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Appointments">
-                    <items>
-                        <MenuItem fx:id="scheduledAppBtn" mnemonicParsing="false" onAction="#pressScheduledAppBtn" text="view scheduled appointments" />
-                        <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" text="schedule new appointment" />
-                        <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" text="change\cancel appointment" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Contact us" />
-            </menus>
-        </MenuBar>
+        <ToolBar BorderPane.alignment="CENTER">
+            <items>
+                <MenuBar prefHeight="26.0" prefWidth="523.0">
+                    <menus>
+                        <Menu fx:id="MainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" text="Main page" />
+                        <Menu fx:id="ClinicsBtn" mnemonicParsing="false" text="Clinics">
+                            <items>
+                                <MenuItem fx:id="OpenningHoursBtn" mnemonicParsing="false" onAction="#pressOpenningHoursBtn" text="Openning Hours" />
+                                <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" text="Contact info" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Appointments">
+                            <items>
+                                <MenuItem fx:id="scheduledAppBtn" mnemonicParsing="false" onAction="#pressScheduledAppBtn" text="view scheduled appointments" />
+                                <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" text="schedule new appointment" />
+                                <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" text="change\cancel appointment" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Contact us" />
+                    </menus>
+                </MenuBar>
+                <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" text="logout" />
+            </items>
+        </ToolBar>
     </top>
     <center>
         <GridPane maxHeight="109.0" maxWidth="470.0" prefHeight="109.0" prefWidth="470.0">

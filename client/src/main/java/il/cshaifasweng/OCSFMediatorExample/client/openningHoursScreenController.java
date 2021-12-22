@@ -151,5 +151,10 @@ public class openningHoursScreenController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void pressOnLogout(ActionEvent event){
+        App.logout(true);
+    }
 }
 

@@ -61,6 +61,9 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("login done")){
 			EventBus.getDefault().post(new loginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername()));
 		}
+		if(currMsg.getAction().equals("logged out")){
+			EventBus.getDefault().post(new logoutEvent(currMsg.getStatus()));
+		}
 	}
 
 	public static SimpleClient getClient() {

@@ -101,6 +101,16 @@ public class App extends Application {
         }
     }
 
+    @Subscribe
+    public void onlogoutEvent(logoutEvent event) throws IOException {
+        username = null;
+        user_type = null;
+        isLogoutClicked = false;
+
+        setWindowTitle("login");
+        setContent("login");
+    }
+
     public static String getUsername() {
         return username;
     }

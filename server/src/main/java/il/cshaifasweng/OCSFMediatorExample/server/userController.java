@@ -51,16 +51,10 @@ public class userController {
         List<User> users = getAllUsersFromDB();
         System.out.println("about to log out");
         for (User user : users) {
-            if (user.getUsername().equals(msg.getUsername())) {
-                if (user instanceof Manager) {
-                    user.setLoggedIn(false);
-
-                } else if (user instanceof Employee) {
-                    user.setLoggedIn(false);
-
-                }
-            } else if (user.getUsername().equals(msg.getUsername()) &&  user.isLoggedIn()) {
-                msg.setUserType("you are already logged out");
+            if (user.getUsername().equals(msg.getUsername()) && user.isLoggedIn()) {
+                user.setLoggedIn(false);
+            } else if (user.getUsername().equals(msg.getUsername()) && !user.isLoggedIn()) {
+                msg.setStatus("you are already logged out");
             }
         }
     }
