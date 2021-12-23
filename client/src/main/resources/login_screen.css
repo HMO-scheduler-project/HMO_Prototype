@@ -1,26 +1,35 @@
 
 .documentRoot {
-  -fx-background-image: url("background.jpg");
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: stretch;
+  -fx-background-position: center center;
+  -fx-border-color: #ADD8E6;
+}
+
+.label {
+  -fx-font-size: 12px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #333333;
+  -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
   
-  > input {
+  .input {
     font-family: Arial;
     display: block;
     border-radius: 5px;
     font-size: 16px;
-    background: white;
+    background: transparent;
     width: 100%;
     border: 0;
     padding: 10px 10px;
     margin: 15px -10px;
   }
   
-  > button {
-    font-family: Arial;
-    cursor: pointer;
-    color: #fff;
-    font-size: 16px;
-    text-transform: uppercase;
+  .button {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
     width: 80px;
     border: 0;
     padding: 10px 0;

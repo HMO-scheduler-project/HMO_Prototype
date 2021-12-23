@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="193.0" prefWidth="301.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.loginController">
+<StackPane prefHeight="193.0" prefWidth="301.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;
+  -fx-background-size: stretch;-fx-background-position: center center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.loginController">
     <children>
         <StackPane>
             <children>
@@ -21,8 +22,8 @@
                             <children>
                                 <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                <TextField fx:id="userTF" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <PasswordField fx:id="passwordTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="userTF" GridPane.columnIndex="1" GridPane.rowIndex="0" style = "-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+                        <PasswordField fx:id="passwordTF" GridPane.columnIndex="1" GridPane.rowIndex="1" style = "-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
                             </children>
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="109.0" />

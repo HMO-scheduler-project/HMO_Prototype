@@ -19,31 +19,36 @@ public class userController {
     }
 
     public static void getUser(Message msg) throws NoSuchAlgorithmException {
-        System.out.println("get user!");
         List<User> users = getAllUsersFromDB();
-        int flag = 0;
+        boolean user_found = false;
         for (User user : users) {
-            if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword()) && !user.isLoggedIn()) {
-                if (user instanceof Manager) {
-                    msg.setUserType("Manager");
-                    System.out.println(msg.getUserType());
-                    user.setLoggedIn(true);
-                    msg.setUser(user);
-                    flag = 1;
-                } else if (user instanceof Employee) {
-                    msg.setUserType("Employee");
-                    System.out.println(msg.getUserType());
-                    user.setLoggedIn(true);
-                    msg.setUser(user);
-                    flag = 1;
-                } else msg.setUserType("null");
-            } else if (user.getUsername().equals(msg.getUsername()) && user.checkPassword(msg.getPassword()) && user.isLoggedIn()) {
-                msg.setType("you are already logged in");
-                flag = 1;
+            if (user.getUsername().equals(msg.getUsername())) {
+                user_found = true;
+                if (user.checkPassword(msg.getPassword())) {
+                    if (!user.isLoggedIn()) {
+                        if (user instanceof Manager) {
+                            msg.setUserType("Manager");
+                            System.out.println(msg.getUserType());
+                            user.setLoggedIn(true);
+                            msg.setStatus("logged in");
+                            msg.setUser(user);
+                        } else if (user instanceof Employee) {
+                            msg.setUserType("Employee");
+                            System.out.println(msg.getUserType());
+                            user.setLoggedIn(true);
+                            msg.setStatus("logged in");
+                            msg.setUser(user);
+                        }
+                    } else {
+                        msg.setStatus("you are already logged in");
+                    }
+                } else {
+                    msg.setStatus("wrong password");
+                }
             }
         }
-        if (flag == 0) {
-            msg.setType("This user does not exist");
+        if(!user_found) {
+            msg.setStatus("This user does not exist");
         }
     }
 

@@ -89,8 +89,11 @@ public class loginController implements Initializable {
             if (status.equals("you are already logged in")) {
                 loginFailedWarning.setText("Login Failed- user is already logged in");
                 loginFailedWarning.setVisible(true);
+            } else if (status.equals(("wrong password"))){
+                loginFailedWarning.setText("Login Failed- incorrect password.Please try again or go to the main office");
+                loginFailedWarning.setVisible(true);
             } else if (status.equals("This user does not exist")) {
-                loginFailedWarning.setText("Login Failed- incorrect username or password.Please try again or go to the main office");
+                loginFailedWarning.setText("Login Failed- incorrect username.Please try again or go to the main office");
                 loginFailedWarning.setVisible(true);
 
             }else {

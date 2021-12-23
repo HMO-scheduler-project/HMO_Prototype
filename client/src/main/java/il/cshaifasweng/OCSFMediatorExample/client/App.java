@@ -39,6 +39,7 @@ public class App extends Application {
             Parent root= loadFXML("login.fxml");
             Scene start = new Scene(root);
             String cssPath = getClass().getResource("/login_screen.css").toString();
+            stage.setTitle("Welcome");
 //            Parent root= loadFXML("openningHoursScreen.fxml");
 //            Scene start = new Scene(root);
 //            String cssPath = getClass().getResource("openningHoursScreen.css").toExternalForm();
@@ -144,9 +145,10 @@ public class App extends Application {
     }
 
     static void setContent(String pageName) throws IOException {
-        Parent openingHours= loadFXML(pageName+".fxml");
-        scene = new Scene(openingHours);
+        Parent root= loadFXML(pageName+".fxml");
+        scene = new Scene(root);
         appStage.setScene(scene);
+        String cssPath = App.class.getResource("/"+pageName+".css").toString();
         appStage.show();
     }
 
