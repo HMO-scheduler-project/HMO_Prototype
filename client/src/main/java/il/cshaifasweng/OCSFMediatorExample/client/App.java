@@ -34,12 +34,12 @@ public class App extends Application {
                 EventBus.getDefault().register(this);
                 isRegistered = true;
             }
-//            Parent root= loadFXML("login.fxml");
-//            Scene start = new Scene(root);
-//            String cssPath = getClass().getResource("login_screen.css").toExternalForm();
-            Parent root= loadFXML("openningHoursScreen.fxml");
+            Parent root= loadFXML("login.fxml");
             Scene start = new Scene(root);
-            String cssPath = getClass().getResource("openningHoursScreen.css").toExternalForm();
+            String cssPath = getClass().getResource("login_screen.css").toExternalForm();
+//            Parent root= loadFXML("openningHoursScreen.fxml");
+//            Scene start = new Scene(root);
+//            String cssPath = getClass().getResource("openningHoursScreen.css").toExternalForm();
             start.getStylesheets().add(cssPath);
             scene = start;
             stage.setScene(start);
@@ -106,9 +106,15 @@ public class App extends Application {
         username = null;
         user_type = null;
         isLogoutClicked = false;
+        Platform.runLater(() -> {
+            setWindowTitle("login");
+            try {
+                setContent("login");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-        setWindowTitle("login");
-        setContent("login");
     }
 
     public static String getUsername() {

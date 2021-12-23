@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,8 +11,14 @@ import java.io.IOException;
 public class ChangeScreens {
 
     public static void changeToOpenningHoursScreen() throws IOException {
+        Platform.runLater(() -> {
         App.setWindowTitle("Opening hours");
-        App.setContent("openningHoursScreen");
+            try {
+                App.setContent("openningHoursScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public static void changeToContactInfoScreen() throws IOException {

@@ -21,8 +21,8 @@
                             <children>
                                 <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                <TextField fx:id="userTF" onAction="#initialize" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <PasswordField fx:id="passwordTF" onAction="#initialize" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <TextField fx:id="userTF" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <PasswordField fx:id="passwordTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                             </children>
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="109.0" />

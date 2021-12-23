@@ -3,14 +3,17 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class loginController {
+public class loginController implements Initializable {
     private SimpleClient client;
     private static int sessionID = 0;
     private String sessionIDStr;
@@ -28,8 +31,8 @@ public class loginController {
     @FXML
     private Label loginFailedWarning;
 
-    @FXML
-    void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         EventBus.getDefault().register(this);
         emptyUsernameWarning.setVisible(false);
         emptyPasswordWarning.setVisible(false);
@@ -86,20 +89,20 @@ public class loginController {
             if (status.equals("you are already logged in")) {
                 loginFailedWarning.setText("Login Failed- user is already logged in");
                 loginFailedWarning.setVisible(true);
-                return;
-            }
-            if (status.equals("This user does not exist")) {
+            } else if (status.equals("This user does not exist")) {
                 loginFailedWarning.setText("Login Failed- incorrect username or password.Please try again or go to the main office");
                 loginFailedWarning.setVisible(true);
-                return;
-            }
-            App.setUsername(event.getUsername());
-            App.setUserType(event.getUserType());
-            try {
-                ChangeScreens.changeToOpenningHoursScreen();
-                //ChangeScreens.changeToMainPage();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            }else {
+                App.setUsername(event.getUsername());
+                App.setUserType(event.getUserType());
+                try {
+                    EventBus.getDefault().unregister(this);
+                    ChangeScreens.changeToOpenningHoursScreen();
+                    //ChangeScreens.changeToMainPage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
