@@ -1,11 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.ac.haifa.cs.sweng.OCSFSimpleChat.ocsf.server.AbstractServer;
-import il.ac.haifa.cs.sweng.OCSFSimpleChat.ocsf.server.ConnectionToClient;
-
 import java.io.IOException;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
+import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
+import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 public class SimpleServer extends AbstractServer {
 

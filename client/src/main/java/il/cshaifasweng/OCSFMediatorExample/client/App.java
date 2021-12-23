@@ -11,6 +11,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
+import java.net.URL;
+
 import org.greenrobot.eventbus.Subscribe;
 
 
@@ -28,7 +30,7 @@ public class App extends Application {
     private boolean isRegistered = false;
 
     @Override
-    public void start (Stage stage){
+    public void start (Stage stage) throws IOException{
         try{
             if(!isRegistered) {
                 EventBus.getDefault().register(this);
@@ -36,11 +38,11 @@ public class App extends Application {
             }
             Parent root= loadFXML("login.fxml");
             Scene start = new Scene(root);
-            String cssPath = getClass().getResource("login_screen.css").toExternalForm();
+            String cssPath = getClass().getResource("/login_screen.css").toString();
 //            Parent root= loadFXML("openningHoursScreen.fxml");
 //            Scene start = new Scene(root);
 //            String cssPath = getClass().getResource("openningHoursScreen.css").toExternalForm();
-            start.getStylesheets().add(cssPath);
+            root.getStylesheets().add(cssPath);
             scene = start;
             stage.setScene(start);
             appStage = stage;
