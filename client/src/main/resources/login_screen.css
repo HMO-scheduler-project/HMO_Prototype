@@ -1,6 +1,6 @@
 
-body {
-  -fx-background-image: "background.jpg";
+.documentRoot {
+  -fx-background-image: url("background.jpg");
 }
   
   > input {
@@ -16,7 +16,7 @@ body {
   }
   
   > button {
-    font-family:Ariel;
+    font-family: Arial;
     cursor: pointer;
     color: #fff;
     font-size: 16px;
