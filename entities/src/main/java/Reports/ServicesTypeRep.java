@@ -3,6 +3,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 //  static final int WorkingWeekDays = 6;
+
 @Entity
 public class ServicesTypeRep extends WeeklyReport  implements Serializable {
 
@@ -26,17 +27,17 @@ public class ServicesTypeRep extends WeeklyReport  implements Serializable {
       private int NurseCare;
 
       public ServicesTypeRep(int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare) {
-          if(ID%6==0)
+          if(ID%WorkingDaysOfTheWeek()==0)
               DayOfTheWeek="Sunday";
-          if(ID%6==1)
+          if(ID%WorkingDaysOfTheWeek()==1)
               DayOfTheWeek="Monday";
-          if(ID%6==2)
+          if(ID%WorkingDaysOfTheWeek()==2)
               DayOfTheWeek="Tuesday";
-          if(ID%6==3)
+          if(ID%WorkingDaysOfTheWeek()==3)
               DayOfTheWeek="Wednesday";
-          if(ID%6==4)
+          if(ID%WorkingDaysOfTheWeek()==4)
               DayOfTheWeek="thursday";
-          if(ID%6==5)
+          if(ID%WorkingDaysOfTheWeek()==5)
               DayOfTheWeek="Friday";
 
           FamilyDoctorPatientNumber = familyDoctorPatientNumber;
@@ -46,7 +47,10 @@ public class ServicesTypeRep extends WeeklyReport  implements Serializable {
           CovidTest = covidTest;
           NurseCare = nurseCare;
       }
-
+    private int WorkingDaysOfTheWeek() {
+        int WorkingDays=6;
+        return WorkingDays;
+    }
       public ServicesTypeRep() {
           super();
       }
