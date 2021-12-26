@@ -1,5 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
+import Reports.WeeklyReport;
+
 import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -17,6 +19,19 @@ public class Manager extends Employee {
 
     public Manager() {
         super();
+    }
+
+    //added to manager from WeeklyReport tell others tomorrow
+    @OneToOne(cascade =CascadeType.ALL )
+    @JoinColumn(name="WeeklyReport")
+    protected WeeklyReport WeeklyReportOfClinic;
+
+    public WeeklyReport getWeeklyReportOfClinic() {
+        return WeeklyReportOfClinic;
+    }
+
+    public void setWeeklyReportOfClinic(WeeklyReport weeklyReportOfClinic) {
+        WeeklyReportOfClinic = weeklyReportOfClinic;
     }
 
     public String getFullName(){
