@@ -17,10 +17,12 @@ public class Patient extends User implements Serializable {
     protected Boolean is_adult;
     @OneToOne(targetEntity = GreenPass.class)
     protected GreenPass greeny;
+    @OneToMany(targetEntity = SpecialDoctor.class)
+    protected SpecialDoctor special_doc;
 
 
     public Patient(String username, String password,String first_name,String last_name,String doctor,
-                   Appointment next_appointment,Boolean is_adult
+                   Appointment next_appointment,Boolean is_adult, SpecialDoctor spec_doc,
             ,int card,String Email,String clinic_name,GreenPass is_green) throws NoSuchAlgorithmException {
         super(username, password,card,first_name,last_name);
         this.doctor = doctor;
@@ -28,6 +30,7 @@ public class Patient extends User implements Serializable {
         this.clinic_name = clinic_name;
         this.is_adult=is_adult;
         this.greeny=is_green;
+        this.special_doc=spec_doc;
 
     }
 
@@ -37,6 +40,8 @@ public class Patient extends User implements Serializable {
         this.clinic_name = null;
         this.next_appointment = null;
         this.is_adult=null;
+        this.greeny=null;
+        this.special_doc=null;
 
     }
 

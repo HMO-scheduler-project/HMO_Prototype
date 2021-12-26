@@ -1,9 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
+@Entity
 public class SpecialDoctor extends Doctor{
 
     @OneToMany(targetEntity = Clinic.class)

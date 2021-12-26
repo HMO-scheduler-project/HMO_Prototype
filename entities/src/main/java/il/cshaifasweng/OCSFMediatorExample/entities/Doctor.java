@@ -1,8 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
+import javax.persistence.Entity;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-
+@Entity
 public class Doctor extends Employee {
 
 
