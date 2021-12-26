@@ -54,13 +54,21 @@ public class userController {
 
     public static void logOut(Message msg) throws NoSuchAlgorithmException {
         List<User> users = getAllUsersFromDB();
-        System.out.println("about to log out");
+        boolean user_found = false;
         for (User user : users) {
-            if (user.getUsername().equals(msg.getUsername()) && user.isLoggedIn()) {
-                user.setLoggedIn(false);
-            } else if (user.getUsername().equals(msg.getUsername()) && !user.isLoggedIn()) {
-                msg.setStatus("you are already logged out");
+            if (user.getUsername().equals(msg.getUsername())) {
+                user_found = true;
+                if (user.isLoggedIn()) {
+                    user.setLoggedIn(false);
+                    msg.setStatus("logout");
+                    msg.setUser(user);
+                } else {
+                    msg.setStatus("you are already logged out");
+                }
             }
+        }
+        if(!user_found) {
+            msg.setStatus("can't find user");
         }
     }
 

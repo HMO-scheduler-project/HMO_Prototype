@@ -11,7 +11,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
-import java.net.URL;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -38,11 +37,8 @@ public class App extends Application {
             }
             Parent root= loadFXML("login.fxml");
             Scene start = new Scene(root);
-            String cssPath = getClass().getResource("/login_screen.css").toString();
+            String cssPath = getClass().getResource("/style.css").toString();
             stage.setTitle("Welcome");
-//            Parent root= loadFXML("openningHoursScreen.fxml");
-//            Scene start = new Scene(root);
-//            String cssPath = getClass().getResource("openningHoursScreen.css").toExternalForm();
             root.getStylesheets().add(cssPath);
             scene = start;
             stage.setScene(start);
@@ -148,7 +144,7 @@ public class App extends Application {
         Parent root= loadFXML(pageName+".fxml");
         scene = new Scene(root);
         appStage.setScene(scene);
-        String cssPath = App.class.getResource("/"+pageName+".css").toString();
+        String cssPath = App.class.getResource("/style.css").toString();
         appStage.show();
     }
 

@@ -22,18 +22,76 @@ public class ChangeScreens {
     }
 
     public static void changeToContactInfoScreen() throws IOException {
-        App.setWindowTitle("Contact info");
-        App.setContent("contactInfoScreen");
+        Platform.runLater(() -> {
+            App.setWindowTitle("Contact info");
+            try {
+                App.setContent("contactInfoScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public static void changeToMainPage() throws IOException {
-        App.setWindowTitle("main page");
-        switch (App.getUserType()) {
-            case "Patient" -> App.setContent("PatientMainScreen");
-            case "Manager" -> App.setContent("ManagerMainScreen");
-            case "Employee" -> App.setContent("EmployeeMainPage");
-        }
+        Platform.runLater(() -> {
+            App.setWindowTitle("main page");
+            switch (App.getUserType()) {
+                case "Patient" -> {
+                    try {
+                        App.setContent("PatientMainScreen");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                case "Manager" -> {
+                    try {
+                        App.setContent("ManagerMainScreen");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                case "Employee" -> {
+                    try {
+                        App.setContent("EmployeeMainPage");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
+    public static void changeToLogin() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("login");
+            try {
+                App.setContent("login");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void changeToStationLogin() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("stationLogin");
+            try {
+                App.setContent("stationLogin");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void changeToWaitingRoomScreen() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("WaitingRoomScreen");
+            try {
+                App.setContent("WaitingRoomScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
 }

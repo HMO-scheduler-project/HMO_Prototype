@@ -18,6 +18,8 @@ public class User implements Serializable{
     protected String first_name;
     protected String last_name;
     boolean logged_in;
+    @OneToOne (targetEntity = GreenPass.class)
+    protected GreenPass greenPass;
 
     public User() { }
     public User(String username, String password,int card,String first_name,String last_name) throws NoSuchAlgorithmException {
@@ -27,6 +29,7 @@ public class User implements Serializable{
         this.card_num = card;
         this.password = hashPassword(password);
         this.logged_in = false;
+        this.greenPass = null;
     }
 
     public int getUserId() {
@@ -108,6 +111,14 @@ public class User implements Serializable{
 
     public void setLoggedIn(boolean log_in) {
         this.logged_in = log_in;
+    }
+
+    public GreenPass getGreenPass() {
+        return greenPass;
+    }
+
+    public void setGreenPass(GreenPass greenPass) {
+        this.greenPass = greenPass;
     }
 
     @Override

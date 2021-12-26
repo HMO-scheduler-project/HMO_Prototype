@@ -29,7 +29,7 @@ public class loginController implements Initializable {
     @FXML
     private Label emptyPasswordWarning;
     @FXML
-    private Label loginFailedWarning;
+    private TextField loginFailedWarning;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -41,6 +41,9 @@ public class loginController implements Initializable {
 
     @FXML
     void authorize(ActionEvent event)  {
+        emptyUsernameWarning.setVisible(false);
+        emptyPasswordWarning.setVisible(false);
+        loginFailedWarning.setVisible(false);
         try {
             String username = userTF.getText();
             if (username.equals("")) {
