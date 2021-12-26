@@ -4,8 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Clinic implements Serializable {
@@ -25,9 +23,9 @@ public class Clinic implements Serializable {
     protected String phone_number;
     @ManyToOne(targetEntity = Manager.class)
     protected Manager manager;
-    @OneToMany(targetEntity = Appointment.class)
-    protected List<Appointment> clinicAppointments=new ArrayList<>();
-
+//    @OneToMany(targetEntity = Appointment.class)
+//    protected List<Appointment> clinicAppointments=new ArrayList<>();
+//
 
     public Clinic() { }
     public Clinic(String name, String city, LocalTime start,LocalTime end,Manager manager,String address,String phone_number) throws NoSuchAlgorithmException {
@@ -120,12 +118,12 @@ public class Clinic implements Serializable {
         this.phone_number = phone_number;
     }
 
-    public List<Appointment> getClinicAppointments() {
-        return clinicAppointments;
-    }
-
-    public void setClinicAppointments(List<Appointment> clinicAppointments) {
-        this.clinicAppointments = clinicAppointments;
-    }
+//    public List<Appointment> getClinicAppointments() {
+//        return clinicAppointments;
+//    }
+//
+//    public void setClinicAppointments(List<Appointment> clinicAppointments) {
+//        this.clinicAppointments = clinicAppointments;
+//    }
 }
 
