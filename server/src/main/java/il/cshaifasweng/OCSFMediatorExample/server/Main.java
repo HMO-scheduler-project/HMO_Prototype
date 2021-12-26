@@ -16,7 +16,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class Main extends SimpleServer {
-
     private static SessionFactory sessionFactory = getSessionFactory();
     public static Session session;
     private Message serverMsg;
@@ -33,7 +32,13 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(Employee.class);
         configuration.addAnnotatedClass(Manager.class);
         configuration.addAnnotatedClass(HMO_Manager.class);
+        configuration.addAnnotatedClass(GreenPass.class);
         configuration.addAnnotatedClass(Appointment.class);
+        configuration.addAnnotatedClass(LabApp.class);
+        configuration.addAnnotatedClass(LabWorker.class);
+        configuration.addAnnotatedClass(Nurse.class);
+        configuration.addAnnotatedClass(NurseApp.class);
+        configuration.addAnnotatedClass(Patient.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }
@@ -173,8 +178,6 @@ public class Main extends SimpleServer {
 
     public static<T> void updateCellInDB(T objectType) {
         try {
-            session = sessionFactory.openSession();
-            session.beginTransaction();
             session.update(objectType);
             session.flush();
             session.getTransaction().commit();
@@ -185,8 +188,6 @@ public class Main extends SimpleServer {
             }
             System.err.println("An error occurred, changes have been rolled back.");
             e.printStackTrace();
-        } finally {
-            session.close();
         }
     }
 

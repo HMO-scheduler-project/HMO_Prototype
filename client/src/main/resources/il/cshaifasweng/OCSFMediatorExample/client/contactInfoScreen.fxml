@@ -13,30 +13,30 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@contactInfoScreen.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.contactInfoScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.contactInfoScreenController">
     <top>
-        <ToolBar BorderPane.alignment="CENTER">
+        <ToolBar BorderPane.alignment="CENTER" style = "-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
             <items>
-                <MenuBar prefHeight="26.0" prefWidth="523.0">
+                <MenuBar prefHeight="26.0" prefWidth="523.0" style = "-fx-background-color:transparent; -fx-border-color: #ADD8E6;">
                     <menus>
                         <Menu fx:id="MainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" text="Main page" />
-                        <Menu fx:id="ClinicsBtn" mnemonicParsing="false" text="Clinics">
+                        <Menu fx:id="ClinicsBtn" mnemonicParsing="false" text="Clinics"  style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
                             <items>
-                                <MenuItem fx:id="OpenningHoursBtn" mnemonicParsing="false" onAction="#pressOpenningHoursBtn" text="Openning Hours" />
-                                <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" text="Contact info" />
+                                <MenuItem fx:id="OpenningHoursBtn" mnemonicParsing="false" onAction="#pressOpenningHoursBtn" text="Openning Hours" style="-fx-background-color: transparent;"/>
+                                <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" text="Contact info" style="-fx-background-color: transparent;"/>
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Appointments">
+                        <Menu mnemonicParsing="false" text="Appointments" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
                             <items>
-                                <MenuItem fx:id="scheduledAppBtn" mnemonicParsing="false" onAction="#pressScheduledAppBtn" text="view scheduled appointments" />
-                                <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" text="schedule new appointment" />
-                                <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" text="change\cancel appointment" />
+                                <MenuItem fx:id="scheduledAppBtn" mnemonicParsing="false" onAction="#pressScheduledAppBtn" text="view scheduled appointments" style="-fx-background-color: transparent;"/>
+                                <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" text="schedule new appointment" style="-fx-background-color: transparent;"/>
+                                <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" text="change\cancel appointment" style="-fx-background-color: transparent;"/>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Contact us" />
                     </menus>
                 </MenuBar>
-                <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" text="logout" />
+                <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" text="logout" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
             </items>
         </ToolBar>
     </top>
@@ -55,13 +55,13 @@
             </rowConstraints>
             <children>
                 <Label maxWidth="110.0" prefHeight="18.0" prefWidth="118.0" text="Choose Clinic:" />
-                <ComboBox fx:id="ClinicsList" maxWidth="180.0" onAction="#chooseClinic" prefHeight="26.0" prefWidth="178.0" GridPane.columnIndex="1" />
-                <Button fx:id="ChangeAddressBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" maxWidth="110.0" mnemonicParsing="false" onAction="#pressChangeAddressBtn" prefHeight="26.0" prefWidth="110.0" text="Change address" GridPane.rowIndex="2" />
-                <Button fx:id="ChangePhoneNumBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" maxWidth="110.0" mnemonicParsing="false" onAction="#pressChangePhoneNumBtn" prefHeight="26.0" prefWidth="142.0" text="Change phone" GridPane.rowIndex="3" />
-            <TextField fx:id="addressTF" maxWidth="180.0" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="phoneNumTF" maxWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button fx:id="submitChangeAddressBtn" maxWidth="130.0" mnemonicParsing="false" onAction="#pressSubmitChangeAddressBtn" text="submit new address" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="submitChangePhoneBtn" maxWidth="130.0" mnemonicParsing="false" onAction="#pressSubmitChangePhoneNumBtn" text="submit new phone" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                <ComboBox fx:id="ClinicsList" maxWidth="180.0" onAction="#chooseClinic" prefHeight="26.0" prefWidth="178.0" GridPane.columnIndex="1" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; "/>
+                <Button fx:id="ChangeAddressBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" maxWidth="110.0" mnemonicParsing="false" onAction="#pressChangeAddressBtn" prefHeight="26.0" prefWidth="110.0" text="Change address" GridPane.rowIndex="2" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+                <Button fx:id="ChangePhoneNumBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" maxWidth="110.0" mnemonicParsing="false" onAction="#pressChangePhoneNumBtn" prefHeight="26.0" prefWidth="142.0" text="Change phone" GridPane.rowIndex="3" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+            <TextField fx:id="addressTF" maxWidth="180.0" prefHeight="26.0" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+            <TextField fx:id="phoneNumTF" maxWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+            <Button fx:id="submitChangeAddressBtn" maxWidth="180.0" mnemonicParsing="false" onAction="#pressSubmitChangeAddressBtn" text="submit new address" GridPane.columnIndex="2" GridPane.rowIndex="2" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+            <Button fx:id="submitChangePhoneBtn" maxWidth="180.0" mnemonicParsing="false" onAction="#pressSubmitChangePhoneNumBtn" text="submit new phone" GridPane.columnIndex="2" GridPane.rowIndex="3" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
             </children>
         </GridPane>
     </center>
@@ -76,10 +76,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField text="Address" />
-                <TextField text="phone number" GridPane.columnIndex="1" />
-                <TextField fx:id="ShowAddressTF" GridPane.rowIndex="1" />
-                <TextField fx:id="ShowPhoneNumTF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField text="Address" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; "/>
+                <TextField text="phone number" GridPane.columnIndex="1" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " />
+                <TextField fx:id="ShowAddressTF" GridPane.rowIndex="1" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; "/>
+                <TextField fx:id="ShowPhoneNumTF" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; "/>
             </children>
         </GridPane>
     </bottom>
