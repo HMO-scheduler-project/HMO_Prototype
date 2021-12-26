@@ -12,10 +12,10 @@ public class Appointment implements Serializable {
     protected int appointment_id;
     protected LocalTime time;
     protected LocalDate date;
-//    @ManyToOne(targetEntity = Clinic.class)
-//    protected Clinic clinic;
-    @ManyToOne(targetEntity = Patient.class)
-    Patient patient;
+    @ManyToOne(targetEntity = Clinic.class)
+    protected Clinic clinic;
+//    @ManyToOne(targetEntity = Patient.class)
+//    Patient patient;
 
     public Appointment() {
     }
@@ -24,8 +24,8 @@ public class Appointment implements Serializable {
         this.appointment_id = appointment_id;
         this.time = time;
         this.date = date;
-//        this.clinic = clinic;
-        this.patient = patient;
+        this.clinic = clinic;
+//        this.patient = patient;
     }
 
 
@@ -33,9 +33,6 @@ public class Appointment implements Serializable {
         return appointment_id;
     }
 
-    public LocalTime getTime() {
-        return time;
-    }
 
     public void setTime(LocalTime time) {
         this.time = time;
@@ -52,18 +49,18 @@ public class Appointment implements Serializable {
 //    public Clinic getClinic() {
 //        return clinic;
 //    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
 //
-//    public void setClinic(Clinic clinic) {
-//        this.clinic = clinic;
+//    public Patient getPatient() {
+//        return patient;
 //    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
+//
+//    public void setPatient(Patient patient) {
+//        this.patient = patient;
+//    }
 
 }
 

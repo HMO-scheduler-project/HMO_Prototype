@@ -33,6 +33,7 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(Employee.class);
         configuration.addAnnotatedClass(Manager.class);
         configuration.addAnnotatedClass(HMO_Manager.class);
+        configuration.addAnnotatedClass(Appointment.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }
