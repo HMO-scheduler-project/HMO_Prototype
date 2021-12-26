@@ -14,12 +14,18 @@ public class AwaitingTimeRep extends WeeklyReport  implements Serializable {
     @Column(name = "Doctor")
     String DoctorName;
     @Column(name = "Average Waiting Time")
-    String AverageWaitingTime;
+    double AverageWaitingTime;
 
     public AwaitingTimeRep() {
-        super();
+        AverageWaitingTime=0;
     }
-    public AwaitingTimeRep(String doctorName, String averageWaitingTime) {
+
+    public AwaitingTimeRep(String doctorName) {
+        DoctorName = doctorName;
+        AverageWaitingTime = 0;
+    }
+
+    public AwaitingTimeRep(String doctorName, double averageWaitingTime) {
         DoctorName = doctorName;
         AverageWaitingTime = averageWaitingTime;
     }
@@ -36,11 +42,18 @@ public class AwaitingTimeRep extends WeeklyReport  implements Serializable {
         DoctorName = doctorName;
     }
 
-    public String getAverageWaitingTime() {
+    public double getAverageWaitingTime() {
         return AverageWaitingTime;
     }
 
-    public void setAverageWaitingTime(String averageWaitingTime) {
+    public void setAverageWaitingTime(double averageWaitingTime) {
         AverageWaitingTime = averageWaitingTime;
     }
+
+    //all those below need to be on the server
+    public void addAverageWaitingTime(double waitingtime,int Currentnumberofappointments) {
+        AverageWaitingTime = (((AverageWaitingTime*Currentnumberofappointments)+waitingtime)/(Currentnumberofappointments+1));
+    }
+    //remember that the Currentnumberofappointments needs to be increased by one in the server after this function
+
 }

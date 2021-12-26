@@ -26,6 +26,7 @@ public class MissedAppRep extends WeeklyReport implements Serializable {
     private int NurseCare;
 
     public MissedAppRep(int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare) {
+        super();
         FamilyDoctorPatientNumber = familyDoctorPatientNumber;
         PediatricianPatientNumber = pediatricianPatientNumber;
         VaccineAppointment = vaccineAppointment;
@@ -36,6 +37,12 @@ public class MissedAppRep extends WeeklyReport implements Serializable {
 
     public MissedAppRep() {
         super();
+        FamilyDoctorPatientNumber=0;
+        PediatricianPatientNumber=0;
+        VaccineAppointment=0;
+        LabResults=0;
+        CovidTest=0;
+        NurseCare=0;
     }
 
     public int getID() {
