@@ -27,14 +27,37 @@ public class WeeklyReport  implements Serializable {
     //each report has one manager and and one HMOMANAGER
     //each manager has one Report and each HMOManager has alot of reports one from each clinic
     //did i write the code correctly?
-
-
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    protected String ClinicName;
+    protected LocalDate date;
 
     @OneToOne(cascade = CascadeType.ALL,mappedBy ="WeeklyReport" )
     private Manager manager;
     @ManyToOne(targetEntity = HMO_Manager.class,cascade = CascadeType.ALL)
     protected HMO_Manager Hmo_Manager;
+    public WeeklyReport() {
+        this.date= LocalDate.now();
+    }
+
+    public WeeklyReport(int id) {
+        this.id=id;
+        this.date= LocalDate.now();
+    }
+    public WeeklyReport(String clinicName, Manager manager, HMO_Manager hmo_Manager) {
+        this. ClinicName = clinicName;
+        this.manager = manager;
+        this.Hmo_Manager = hmo_Manager;
+        this.date =  LocalDate.now();
+    }
+
+    public WeeklyReport(String clinicName, LocalDate date, Manager manager, HMO_Manager hmo_Manager) {
+        this.ClinicName = clinicName;
+        this.date = date;
+        this.manager = manager;
+        this.Hmo_Manager = hmo_Manager;
+    }
 
     public Manager getManager() {
         return manager;
@@ -52,15 +75,9 @@ public class WeeklyReport  implements Serializable {
         Hmo_Manager = hmo_Manager;
     }
 
-    protected String ClinicName;
-    protected LocalDate date;
 
-    @Id
-    private Long id;
 
-    public WeeklyReport() {
-        this.date= LocalDate.now();
-    }
+
 
     public WeeklyReport(String clinicName, LocalDate date) {
         ClinicName = clinicName;
@@ -83,11 +100,11 @@ public class WeeklyReport  implements Serializable {
         this.date = date;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 }

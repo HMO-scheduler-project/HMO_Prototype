@@ -23,7 +23,6 @@ public class Manager extends Employee {
 
     //added to manager from WeeklyReport tell others tomorrow
     @OneToOne(cascade =CascadeType.ALL )
-    @JoinColumn(name="WeeklyReport")
     protected WeeklyReport WeeklyReportOfClinic;
 
     public WeeklyReport getWeeklyReportOfClinic() {
