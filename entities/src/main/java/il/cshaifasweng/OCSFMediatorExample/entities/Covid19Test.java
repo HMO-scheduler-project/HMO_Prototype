@@ -3,38 +3,27 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
 public class Covid19Test extends LabApp{
 
-    @OneToMany(targetEntity = Clinic.class)
-    List<Clinic> clinicList; // one Covid19Test can be done at several clinics
-
-    @OneToOne(targetEntity = Patient.class)
-    protected Patient covidStatus; // one covid status refers to one patient
+    protected boolean result;
 
     public Covid19Test() {
         super();
-        covidStatus=null;
-        clinicList=null;
-        // fillQuestionnaire();
+        result=false;
     }
 
-    public Patient getCovidStatus() {
-        return covidStatus;
+    public Covid19Test(LocalTime time, LocalDate date, Clinic clinic, Patient patient, LabWorker worker){
+        super(time, date, clinic, patient, worker);
+        this.result=false;
     }
 
-    public void setCovidStatus(Patient covidStatus) {
-        this.covidStatus = covidStatus;
-    }
+    public boolean getResult() { return result; }
 
-    /*
-    public void fillQuestionnaire(){
-        // the ques. checks whether the patient encountered a covid patient
-        // and asks if there are any covid symptoms
-
-    }
-    */
+    public void setResult(boolean result) { this.result = result; }
 
 }

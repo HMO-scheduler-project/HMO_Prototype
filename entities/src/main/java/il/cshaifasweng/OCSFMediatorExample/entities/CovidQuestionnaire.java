@@ -1,9 +1,17 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class CovidQuestionnaire extends Covid19Test{
+public class CovidQuestionnaire implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected int covidQuestId;
+
+    @OneToOne(targetEntity = Patient.class)
+    protected Patient patient; // a single questionnaire refers to a single patient
 
     // fields representing Covid19 symptoms
     public boolean metCovid19Patient; // did you meet a covid patient?
@@ -13,11 +21,10 @@ public class CovidQuestionnaire extends Covid19Test{
     public boolean taste; // loss of taste
     public boolean smell; // loss of smell
 
-    public CovidQuestionnaire(){
-        super();
-    }
+    public CovidQuestionnaire(){ super(); }
 
-    public CovidQuestionnaire(boolean met, boolean f, boolean c, boolean tired, boolean taste, boolean s){
+    public CovidQuestionnaire(Patient patient, boolean met, boolean f, boolean c, boolean tired, boolean taste, boolean s){
+        this.patient=patient;
         this.metCovid19Patient=met;
         this.hasFever=f;
         this.hasCough=c;
@@ -25,6 +32,12 @@ public class CovidQuestionnaire extends Covid19Test{
         this.taste=taste;
         this.smell=s;
     }
+
+    public int getId() { return covidQuestId; }
+
+    public Patient getPatient() { return patient; }
+
+    public void setPatient(Patient patient) { this.patient = patient; }
 
     public boolean getMetCovid19Patient() { return metCovid19Patient; }
 
