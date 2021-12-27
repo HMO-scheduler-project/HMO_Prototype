@@ -16,13 +16,13 @@ public class MissedAppRep extends WeeklyReport implements Serializable {
     private int FamilyDoctorPatientNumber;
     @Column(name = "Pediatrician")
     private int PediatricianPatientNumber;
-    @Column(name = "Vaccine Appointments")
+    @Column(name = "Vaccine_Appointments")
     private int VaccineAppointment;
-    @Column(name = "Lab Test Appointments")
+    @Column(name = "Lab_Test_Appointments")
     private int LabResults;
-    @Column(name = "Covid Test")
+    @Column(name = "Covid_Test")
     private int CovidTest;
-    @Column(name = "Nurse Care")
+    @Column(name = "Nurse_Care")
     private int NurseCare;
 
     public MissedAppRep(int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare) {
