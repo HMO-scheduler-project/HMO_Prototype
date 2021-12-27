@@ -14,18 +14,21 @@ public class Appointment implements Serializable {
     protected LocalDate date;
     @ManyToOne(targetEntity = Clinic.class)
     protected Clinic clinic;
-//    @ManyToOne(targetEntity = Patient.class)
-//    Patient patient;
+    @ManyToOne(targetEntity = Patient.class)
+    Patient patient;
+    @ManyToOne(targetEntity = Employee.class)
+    Employee employee;
 
     public Appointment() {
     }
 
-    public Appointment(int appointment_id, LocalTime time, LocalDate date, Clinic clinic, Patient patient) {
-        this.appointment_id = appointment_id;
+    public Appointment(int appointment_id, LocalTime time, LocalDate date, Clinic clinic, Patient patient,Employee employee) {
+        //this.appointment_id = appointment_id;
         this.time = time;
         this.date = date;
         this.clinic = clinic;
-//        this.patient = patient;
+        this.patient = patient;
+        this.employee = employee;
     }
 
 
@@ -33,6 +36,9 @@ public class Appointment implements Serializable {
         return appointment_id;
     }
 
+    public LocalTime getTime() {
+        return time;
+    }
 
     public void setTime(LocalTime time) {
         this.time = time;
@@ -46,21 +52,28 @@ public class Appointment implements Serializable {
         this.date = date;
     }
 
-//    public Clinic getClinic() {
-//        return clinic;
-//    }
+    public Clinic getClinic() {
+        return clinic;
+    }
 
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
     }
-//
-//    public Patient getPatient() {
-//        return patient;
-//    }
-//
-//    public void setPatient(Patient patient) {
-//        this.patient = patient;
-//    }
 
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 }
 

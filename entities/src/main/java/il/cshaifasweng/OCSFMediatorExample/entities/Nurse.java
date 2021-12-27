@@ -26,6 +26,14 @@ public class Nurse extends Employee {
         this.nurseApps = nurseApps;
     }
 
+    public void addNurseApp(NurseApp new_app){
+        this.nurseApps.add(new_app);
+    }
+
+    public void removeNurseApp(NurseApp app_to_delete){
+        this.nurseApps.remove(app_to_delete);
+    }
+
     @Override
     public String toString() {
         return "Nurse[ "+super.toString() + " ]";

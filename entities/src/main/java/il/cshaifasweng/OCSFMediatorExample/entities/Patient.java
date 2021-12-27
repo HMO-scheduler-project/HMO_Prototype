@@ -3,66 +3,123 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Patient extends User implements Serializable {
-//    @OneToMany(targetEntity = Appointment.class)
-//    private List<Appointment> patientAppointments;
-
-    protected String doctor;
+    @OneToMany(targetEntity = Appointment.class)
+    protected List<Appointment> patientAppointments;
+    //family/children doctor assigned.
+    @ManyToOne(targetEntity = Doctor.class)
+    protected Doctor doctor;
     @ManyToOne(targetEntity = Appointment.class)
     protected Appointment next_appointment;
-    protected String clinic_name;
-    protected Boolean is_adult;
+    @ManyToOne(targetEntity = Clinic.class)
+    protected Clinic clinic;
+//    protected Boolean is_adult;
+    LocalDate date_of_birth;
     @OneToOne(targetEntity = GreenPass.class)
-    protected GreenPass greeny;
+    protected GreenPass green_pass;
     @OneToMany(targetEntity = SpecialDoctor.class)
-    protected SpecialDoctor special_doc;
+    protected List<SpecialDoctor> special_doctors;
 
 
-    public Patient(String username, String password,String first_name,String last_name,String doctor,
-                   Appointment next_appointment,Boolean is_adult, SpecialDoctor spec_doc,
-            ,int card,String Email,String clinic_name,GreenPass is_green) throws NoSuchAlgorithmException {
+    public Patient(String username, String password,String first_name,String last_name,Doctor doctor
+            ,LocalDate date_of_birth,int card,String Email,Clinic clinic,
+                   GreenPass green_pass) throws NoSuchAlgorithmException {
         super(username, password,card,first_name,last_name);
+        this.patientAppointments = null;
         this.doctor = doctor;
-        this.next_appointment = next_appointment;
-        this.clinic_name = clinic_name;
-        this.is_adult=is_adult;
-        this.greeny=is_green;
-        this.special_doc=spec_doc;
+        this.next_appointment = null;
+        this.clinic = clinic;
+   //     this.is_adult=is_adult;
+        this.date_of_birth = date_of_birth;
+        this.green_pass=green_pass;
+        this.special_doctors= null;
 
     }
 
     public Patient() {
         super();
+        this.patientAppointments = null;
         this.doctor = null;
-        this.clinic_name = null;
         this.next_appointment = null;
-        this.is_adult=null;
-        this.greeny=null;
-        this.special_doc=null;
+        this.clinic = null;
+        //     this.is_adult=is_adult;
+        this.date_of_birth = null;
+        this.green_pass = null;
+        this.special_doctors= null;
 
     }
 
-    public void newFamilyDoctorAppointment(Appointment new_app) {
+    public void addFamilyDoctorAppointment(Appointment new_app) {
         this.next_appointment=new_app;
+        addAppointment(new_app);
     }
 
-    public void cancelAppointment(){
+    public void addAppointment(Appointment new_app){
+        this.patientAppointments.add(new_app);
+//        if(new_app instanceof SpecialDoctorApp) {
+//            SpecialDoctor doc = new_app.getSpecialDoctor();
+//            if (this.special_doctors.contains(doc)) {
+//               this.special_doctors.remove(doc)
+//            }
+//            this.special_doctors.add(0, doc);
+//        }
+    }
+
+    public void cancelFamilyDoctorAppointment(Appointment app){
         this.next_appointment=null;
+        cancelAppointment(app);
     }
 
-    public void changeAppointment(Appointment new_app){
+    public void cancelAppointment(Appointment app){
+        this.patientAppointments.remove(app);
+    }
+
+    public void changeFamilyDoctorAppointment(Appointment app_to_change,Appointment new_app){
         this.next_appointment=new_app;
+        changeAppointment(app_to_change,new_app);
     }
 
-    public void setGreenPass(GreenPass is_green){
-        this.greeny=is_green;
+    public void changeAppointment(Appointment app_to_change,Appointment new_app){
+        cancelAppointment(app_to_change);
+        addAppointment(new_app);
     }
 
+    public GreenPass getGreen_pass() {
+        return green_pass;
+    }
 
+    public void setGreen_pass(GreenPass green_pass) {
+        this.green_pass = green_pass;
+    }
 
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Clinic getClinic() {
+        return clinic;
+    }
+
+    public void setClinic(Clinic clinic) {
+        this.clinic = clinic;
+    }
+
+    public LocalDate getDate_of_birth() {
+        return date_of_birth;
+    }
+
+    public void setDate_of_birth(LocalDate date_of_birth) {
+        this.date_of_birth = date_of_birth;
+    }
 
 
 }
+
