@@ -9,7 +9,7 @@ import java.util.List;
 public class SpecialDoctor extends Doctor{
 
     @OneToMany(targetEntity = Clinic.class)
-    protected List<Clinic> docClinics;
+    protected List<Clinic> docClinics; //one special doctor works in several clinics
 
     public SpecialDoctor(String username, String password, String first_name, String last_name,String role, int card,
                   String email, String main_clinic, List<Clinic> doc_clinics) throws NoSuchAlgorithmException {

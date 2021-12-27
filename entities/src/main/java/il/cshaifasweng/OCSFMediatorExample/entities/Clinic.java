@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name="clinics", schema="project")
 public class Clinic implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,6 @@ public class Clinic implements Serializable {
     protected Manager manager;
     @OneToMany(targetEntity = Appointment.class)
     protected List<Appointment> clinicAppointments=new ArrayList<>();
-
 
     public Clinic() { }
     public Clinic(String name, String city, LocalTime start,LocalTime end,Manager manager,String address,String phone_number) throws NoSuchAlgorithmException {

@@ -12,6 +12,7 @@ public class Appointment implements Serializable {
     protected int appointment_id;
     protected LocalTime time;
     protected LocalDate date;
+    // Many to Many?
     @ManyToOne(targetEntity = Clinic.class)
     protected Clinic clinic;
     @ManyToOne(targetEntity = Patient.class)
@@ -22,8 +23,7 @@ public class Appointment implements Serializable {
     public Appointment() {
     }
 
-    public Appointment(int appointment_id, LocalTime time, LocalDate date, Clinic clinic, Patient patient,Employee employee) {
-        //this.appointment_id = appointment_id;
+    public Appointment(LocalTime time, LocalDate date, Clinic clinic, Patient patient,Employee employee) {
         this.time = time;
         this.date = date;
         this.clinic = clinic;

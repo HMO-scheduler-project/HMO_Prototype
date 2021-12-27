@@ -7,17 +7,22 @@ import java.util.List;
 
 @Entity
 public class Nurse extends Employee {
+
+    protected String role = "Nurse";
+
     @OneToMany(targetEntity = NurseApp.class)
-    protected List<NurseApp> nurseApps;
+    protected List<NurseApp> nurseApps; // one Nurse can refer to several Nurse Appointments
 
     public Nurse(String username, String password,String first_name,String last_name,int card,String Email,String main_clinic,List<NurseApp> nurseApps) throws NoSuchAlgorithmException {
         super(username, password,first_name,last_name,"nurse",card,Email,main_clinic);
         this.nurseApps = nurseApps;
     }
+
     public Nurse() {
         super();
         nurseApps=null;
     }
+
     public List<NurseApp> getNurseApps() {
         return nurseApps;
     }
@@ -36,7 +41,7 @@ public class Nurse extends Employee {
 
     @Override
     public String toString() {
-        return "Nurse[ "+super.toString() + " ]";
+        return "Nurse[ " + super.toString() + " ]";
     }
 }
 

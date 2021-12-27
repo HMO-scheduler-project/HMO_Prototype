@@ -192,7 +192,7 @@ public class Main extends SimpleServer {
     }
 
     public static void main( String[] args ) throws IOException, NoSuchAlgorithmException {
-        server = new Main(3002);
+        server = new Main(3004);
         server.listen();
         System.out.println("server says: hello!");
 
