@@ -14,7 +14,6 @@ public class HMO_Manager extends Manager {
 
     //added tell to others--Yoni
     @OneToMany(targetEntity = WeeklyReport.class,cascade =CascadeType.ALL)
-    @JoinColumn(name="Weekly_Clinic_Reports")
     protected List<WeeklyReport> Weekly_Reports=new ArrayList<>();
 
 

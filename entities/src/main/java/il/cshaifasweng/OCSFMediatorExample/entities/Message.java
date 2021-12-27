@@ -2,7 +2,6 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Message implements Serializable {
     /* ---------- Message Necessary Info ---------- */
@@ -168,4 +167,5 @@ public class Message implements Serializable {
     public void setPhoneNum(String phone_num) {
         this.phone_num = phone_num;
     }
+
 }

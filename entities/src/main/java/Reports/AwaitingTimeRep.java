@@ -13,7 +13,7 @@ public class AwaitingTimeRep extends WeeklyReport  implements Serializable {
     public int ID;
     @Column(name = "Doctor")
     String DoctorName;
-    @Column(name = "Average Waiting Time")
+    @Column(name = "Average_Waiting_Time")
     double AverageWaitingTime;
 
     public AwaitingTimeRep() {

@@ -29,7 +29,11 @@ public class WeeklyReport  implements Serializable {
     //did i write the code correctly?
 
 
-
+    protected String ClinicName;
+    protected LocalDate date;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @OneToOne(cascade = CascadeType.ALL,mappedBy ="WeeklyReport" )
     private Manager manager;
@@ -52,11 +56,7 @@ public class WeeklyReport  implements Serializable {
         Hmo_Manager = hmo_Manager;
     }
 
-    protected String ClinicName;
-    protected LocalDate date;
 
-    @Id
-    private Long id;
 
     public WeeklyReport() {
         this.date= LocalDate.now();
