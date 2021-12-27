@@ -4,15 +4,16 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
 @Entity
 public class SpecialDoctor extends Doctor{
 
     @OneToMany(targetEntity = Clinic.class)
     protected List<Clinic> docClinics;
 
-    public SpecialDoctor(String username, String password, String first_name, String last_name, int card,
+    public SpecialDoctor(String username, String password, String first_name, String last_name,String role, int card,
                   String email, String main_clinic, List<Clinic> doc_clinics) throws NoSuchAlgorithmException {
-        super(username, password,first_name,last_name,"Doctor",card,email,main_clinic);
+        super(username, password,first_name,last_name,role,card,email,main_clinic);
         this.docClinics=doc_clinics;
 
     }
@@ -21,6 +22,12 @@ public class SpecialDoctor extends Doctor{
         this.docClinics=null;
     }
 
+    public void addClinic(Clinic clinic){
+        this.docClinics.add(clinic);
+    }
 
+    public void removeClinic(Clinic clinic){
+        this.docClinics.remove(clinic);
+    }
 
 }

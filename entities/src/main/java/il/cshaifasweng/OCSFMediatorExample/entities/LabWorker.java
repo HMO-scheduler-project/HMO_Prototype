@@ -27,6 +27,15 @@ public class LabWorker extends Employee{
     public void setLabApps(List<LabApp> labApps) {
         this.labApps = labApps;
     }
+
+    public void addLabApp(LabApp new_app){
+        this.labApps.add(new_app);
+    }
+
+    public void removeLabApp(LabApp app_to_delete){
+        this.labApps.remove(app_to_delete);
+    }
+
     @Override
     public String toString() {
         return "Lab Worker[ "+super.toString() + " ]";
