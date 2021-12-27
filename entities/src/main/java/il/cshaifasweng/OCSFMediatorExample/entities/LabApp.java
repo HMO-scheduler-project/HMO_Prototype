@@ -9,7 +9,7 @@ import java.time.LocalTime;
 public class LabApp extends Appointment {
 
     @ManyToOne(targetEntity = LabWorker.class)
-    protected LabWorker labworker; // many lab appointments can refer to a single labWorker
+    protected LabWorker labworker;
 
     public LabApp()
     {
@@ -17,8 +17,8 @@ public class LabApp extends Appointment {
     }
 
     public LabApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, LabWorker worker){
-        super(time, date, clinic, patient, worker);
-        this.labworker=worker;
+        super(time, date, clinic, patient);
+        this.labworker = worker;
     }
 
     public LabWorker getLabworker() {

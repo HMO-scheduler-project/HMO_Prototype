@@ -1,5 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
+import Reports.WeeklyReport;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -8,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="clinics", schema="project")
 public class Clinic implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,9 @@ public class Clinic implements Serializable {
     @ManyToOne(targetEntity = Manager.class)
     protected Manager manager;
     @OneToMany(targetEntity = Appointment.class)
-    protected List<Appointment> clinicAppointments=new ArrayList<>();
+    protected List<Appointment> clinicAppointments;
+    @OneToOne(targetEntity = WeeklyReport.class)
+    protected WeeklyReport WeeklyReportOfClinic;
 
     public Clinic() { }
     public Clinic(String name, String city, LocalTime start,LocalTime end,Manager manager,String address,String phone_number) throws NoSuchAlgorithmException {
@@ -126,6 +129,14 @@ public class Clinic implements Serializable {
 
     public void setClinicAppointments(List<Appointment> clinicAppointments) {
         this.clinicAppointments = clinicAppointments;
+    }
+
+    public WeeklyReport getWeeklyReportOfClinic() {
+        return WeeklyReportOfClinic;
+    }
+
+    public void setWeeklyReportOfClinic(WeeklyReport weeklyReportOfClinic) {
+        WeeklyReportOfClinic = weeklyReportOfClinic;
     }
 }
 

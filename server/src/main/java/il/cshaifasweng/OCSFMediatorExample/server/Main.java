@@ -1,5 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import Reports.AwaitingTimeRep;
+import Reports.MissedAppRep;
+import Reports.ServicesTypeRep;
+import Reports.WeeklyReport;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 import org.hibernate.HibernateException;
@@ -39,6 +43,19 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(Nurse.class);
         configuration.addAnnotatedClass(NurseApp.class);
         configuration.addAnnotatedClass(Patient.class);
+        configuration.addAnnotatedClass(childrenDoctorApp.class);
+        configuration.addAnnotatedClass(Covid19Test.class);
+        configuration.addAnnotatedClass(Covid19VaccineApp.class);
+        configuration.addAnnotatedClass(Doctor.class);
+        configuration.addAnnotatedClass(doctorApp.class);
+        configuration.addAnnotatedClass(familyDoctorApp.class);
+        configuration.addAnnotatedClass(InfluenzaVaccineApp.class);
+        configuration.addAnnotatedClass(specialDoctorApp.class);
+        configuration.addAnnotatedClass(SpecialDoctor.class);
+        configuration.addAnnotatedClass(AwaitingTimeRep.class);
+        configuration.addAnnotatedClass(MissedAppRep.class);
+        configuration.addAnnotatedClass(ServicesTypeRep.class);
+        configuration.addAnnotatedClass(WeeklyReport.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }

@@ -4,8 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Arrays;
 
 @Entity
 public class User implements Serializable{
@@ -72,7 +70,7 @@ public class User implements Serializable{
     }
 
     private String getSalt() throws NoSuchAlgorithmException {
-        return first_name+card_num;
+        return String.valueOf(card_num);
     }
 
 

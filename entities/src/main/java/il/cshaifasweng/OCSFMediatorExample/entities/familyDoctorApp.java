@@ -8,7 +8,6 @@ import java.time.LocalTime;
 @Entity
 public class familyDoctorApp extends doctorApp{
 
-
     public familyDoctorApp() {
         super();
     }

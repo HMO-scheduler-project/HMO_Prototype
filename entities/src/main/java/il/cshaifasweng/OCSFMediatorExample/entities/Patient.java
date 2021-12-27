@@ -17,7 +17,6 @@ public class Patient extends User implements Serializable {
     protected Appointment next_appointment;
     @ManyToOne(targetEntity = Clinic.class)
     protected Clinic clinic;
-//    protected Boolean is_adult;
     LocalDate date_of_birth;
     @OneToOne(targetEntity = GreenPass.class)
     protected GreenPass green_pass;
@@ -33,7 +32,6 @@ public class Patient extends User implements Serializable {
         this.doctor = doctor;
         this.next_appointment = null;
         this.clinic = clinic;
-   //     this.is_adult=is_adult;
         this.date_of_birth = date_of_birth;
         this.green_pass=green_pass;
         this.special_doctors= null;
@@ -46,7 +44,6 @@ public class Patient extends User implements Serializable {
         this.doctor = null;
         this.next_appointment = null;
         this.clinic = null;
-        //     this.is_adult=is_adult;
         this.date_of_birth = null;
         this.green_pass = null;
         this.special_doctors= null;
@@ -60,13 +57,14 @@ public class Patient extends User implements Serializable {
 
     public void addAppointment(Appointment new_app){
         this.patientAppointments.add(new_app);
-//        if(new_app instanceof SpecialDoctorApp) {
-//            SpecialDoctor doc = new_app.getSpecialDoctor();
-//            if (this.special_doctors.contains(doc)) {
-//               this.special_doctors.remove(doc)
-//            }
-//            this.special_doctors.add(0, doc);
-//        }
+    }
+
+    public void addSpecialAppointment(Appointment new_app,SpecialDoctor doctor){
+        addAppointment(new_app);
+        if (this.special_doctors.contains(doctor)) {
+            this.special_doctors.remove(doctor);
+        }
+        this.special_doctors.add(0, doctor);
     }
 
     public void cancelFamilyDoctorAppointment(Appointment app){

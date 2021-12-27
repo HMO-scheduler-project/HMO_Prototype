@@ -11,24 +11,21 @@ public class Appointment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int appointment_id;
     protected LocalTime time;
+    protected LocalTime actual_time;
     protected LocalDate date;
-    // Many to Many?
     @ManyToOne(targetEntity = Clinic.class)
     protected Clinic clinic;
     @ManyToOne(targetEntity = Patient.class)
     Patient patient;
-    @ManyToOne(targetEntity = Employee.class)
-    Employee employee;
 
     public Appointment() {
     }
 
-    public Appointment(LocalTime time, LocalDate date, Clinic clinic, Patient patient,Employee employee) {
+    public Appointment(LocalTime time, LocalDate date, Clinic clinic, Patient patient) {
         this.time = time;
         this.date = date;
         this.clinic = clinic;
         this.patient = patient;
-        this.employee = employee;
     }
 
 
@@ -68,12 +65,12 @@ public class Appointment implements Serializable {
         this.patient = patient;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public LocalTime getActual_time() {
+        return actual_time;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setActual_time(LocalTime actual_time) {
+        this.actual_time = actual_time;
     }
 }
 

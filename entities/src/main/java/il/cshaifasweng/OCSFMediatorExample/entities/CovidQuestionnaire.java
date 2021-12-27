@@ -63,11 +63,5 @@ public class CovidQuestionnaire implements Serializable {
 
     public void setSmell(boolean smell) { this.smell = smell; }
 
-    /*
-    // this method helps with filling the questionnaire
-    public void fillQuestionnaire(){
-
-    }
-*/
 
 }

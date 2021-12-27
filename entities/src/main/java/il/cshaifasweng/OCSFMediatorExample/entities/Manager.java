@@ -21,18 +21,6 @@ public class Manager extends Employee {
         super();
     }
 
-    //added to manager from WeeklyReport tell others tomorrow
-    @OneToOne(cascade =CascadeType.ALL )
-    protected WeeklyReport WeeklyReportOfClinic;
-
-    public WeeklyReport getWeeklyReportOfClinic() {
-        return WeeklyReportOfClinic;
-    }
-
-    public void setWeeklyReportOfClinic(WeeklyReport weeklyReportOfClinic) {
-        WeeklyReportOfClinic = weeklyReportOfClinic;
-    }
-
     public String getFullName(){
         return getFirstName()+getLastName();
     }

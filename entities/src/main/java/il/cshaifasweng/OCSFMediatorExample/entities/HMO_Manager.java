@@ -4,7 +4,6 @@ import Reports.WeeklyReport;
 
 import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,9 +11,8 @@ public class HMO_Manager extends Manager {
     @OneToMany(targetEntity = Clinic.class)
     protected List<Clinic> managing_clinics;
 
-    //added tell to others--Yoni
-    @OneToMany(targetEntity = WeeklyReport.class,cascade =CascadeType.ALL)
-    protected List<WeeklyReport> Weekly_Reports=new ArrayList<>();
+    @OneToMany(targetEntity = WeeklyReport.class)
+    protected List<WeeklyReport> Weekly_Reports;
 
 
     public HMO_Manager(String username, String password,String first_name,String last_name,int card,String Email,String main_clinic,List<Clinic> managing_clinics) throws NoSuchAlgorithmException {
