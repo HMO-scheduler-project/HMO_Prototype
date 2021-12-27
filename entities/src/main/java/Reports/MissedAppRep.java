@@ -5,8 +5,9 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 
 import javax.persistence.*;
 import java.io.Serializable;
+//need extend WeeklyReport?
 @Entity
-public class MissedAppRep extends WeeklyReport implements Serializable {
+public class MissedAppRep implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

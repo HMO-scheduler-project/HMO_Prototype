@@ -6,8 +6,10 @@ import java.io.Serializable;
 //if we decide we want to restart the week every week/ save last week we need to do that
 //-save at the server last week and start a new one
 //if we get empty report should we initialise the report to 0 at all items instead of the super thing?
+
+//need extend WeeklyReport?
 @Entity
-public class ServicesTypeRep extends WeeklyReport  implements Serializable {
+public class ServicesTypeRep implements Serializable {
 //do i need to place ID? i allready have id and day in weekly report
       @Id
       @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +27,7 @@ public class ServicesTypeRep extends WeeklyReport  implements Serializable {
       private int LabResults;
       @Column(name = "Covid_Test")
       private int CovidTest;
-      @Column(name = "Nurse Care")
+      @Column(name = "Nurse_Care")
       private int NurseCare;
 
       public ServicesTypeRep(int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare) {

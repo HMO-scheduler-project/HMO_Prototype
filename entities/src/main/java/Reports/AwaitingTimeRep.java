@@ -5,8 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-
-public class AwaitingTimeRep extends WeeklyReport  implements Serializable {
+//need extend WeeklyReport?
+public class AwaitingTimeRep implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Num")
