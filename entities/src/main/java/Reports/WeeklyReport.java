@@ -3,6 +3,7 @@ package Reports;
 import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
 import il.cshaifasweng.OCSFMediatorExample.entities.HMO_Manager;
 import il.cshaifasweng.OCSFMediatorExample.entities.Manager;
+import il.cshaifasweng.OCSFMediatorExample.entities.SpecialDoctor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -29,82 +30,51 @@ public class WeeklyReport  implements Serializable {
     //did i write the code correctly?
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    protected String ClinicName;
+    protected int id;
     protected LocalDate date;
-
-    @OneToOne(cascade = CascadeType.ALL,mappedBy ="WeeklyReport" )
-    private Manager manager;
-    @ManyToOne(targetEntity = HMO_Manager.class,cascade = CascadeType.ALL)
+    @OneToOne( targetEntity = Clinic.class )
+    private Clinic Clinic;
+    @ManyToOne( targetEntity = HMO_Manager.class )
     protected HMO_Manager Hmo_Manager;
+
     public WeeklyReport() {
         this.date= LocalDate.now();
     }
-
-    public WeeklyReport(int id) {
-        this.id=id;
-        this.date= LocalDate.now();
-    }
-    public WeeklyReport(String clinicName, Manager manager, HMO_Manager hmo_Manager) {
-        this. ClinicName = clinicName;
-        this.manager = manager;
-        this.Hmo_Manager = hmo_Manager;
-        this.date =  LocalDate.now();
-    }
-
-    public WeeklyReport(String clinicName, LocalDate date, Manager manager, HMO_Manager hmo_Manager) {
-        this.ClinicName = clinicName;
-        this.date = date;
-        this.manager = manager;
-        this.Hmo_Manager = hmo_Manager;
-    }
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-
-    public HMO_Manager getHmo_Manager() {
-        return Hmo_Manager;
-    }
-
-    public void setHmo_Manager(HMO_Manager hmo_Manager) {
+    public WeeklyReport(Clinic clinic, HMO_Manager hmo_Manager) {
+        this.date=LocalDate.now();
+        Clinic = clinic;
         Hmo_Manager = hmo_Manager;
     }
 
-
-
-
-
-    public WeeklyReport(String clinicName, LocalDate date) {
-        ClinicName = clinicName;
+    public WeeklyReport( Clinic clinic,LocalDate date) {
         this.date = date;
+        Clinic = clinic;
     }
 
-    public String getClinicName() {
-        return ClinicName;
+    public WeeklyReport( Clinic clinic,LocalDate date, HMO_Manager hmo_Manager) {
+        this.date = date;
+        Clinic = clinic;
+        Hmo_Manager = hmo_Manager;
     }
-
-    public void setClinicName(String clinicName) {
-        ClinicName = clinicName;
+    public HMO_Manager getHmo_Manager() {
+        return Hmo_Manager;
     }
-
+    public void setHmo_Manager(HMO_Manager hmo_Manager) {
+        Hmo_Manager = hmo_Manager;
+    }
     public LocalDate getDate() {
         return date;
     }
-
     public void setDate(LocalDate date) {
         this.date = date;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
+    }
+    public Clinic getClinic() {
+        return Clinic;
+    }
+    public void setClinic(Clinic clinic) {
+        Clinic = clinic;
     }
 }

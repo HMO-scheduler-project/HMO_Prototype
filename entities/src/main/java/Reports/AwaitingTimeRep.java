@@ -5,17 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-//need extend WeeklyReport?
-public class AwaitingTimeRep implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Num")
-    public int ID;
+public class AwaitingTimeRep extends WeeklyReport  {
     @Column(name = "Doctor")
-    String DoctorName;
+    protected String DoctorName;
     @Column(name = "Average_Waiting_Time")
-    double AverageWaitingTime;
-
+    protected  double AverageWaitingTime;
+    @Column(name = "Number_Of_Patient")
+    protected int Number_Of_Patient=0;
     public AwaitingTimeRep() {
         AverageWaitingTime=0;
     }
@@ -30,9 +26,6 @@ public class AwaitingTimeRep implements Serializable {
         AverageWaitingTime = averageWaitingTime;
     }
 
-    public int getID() {
-        return ID;
-    }
 
     public String getDoctorName() {
         return DoctorName;
@@ -51,8 +44,9 @@ public class AwaitingTimeRep implements Serializable {
     }
 
     //all those below need to be on the server
-    public void addAverageWaitingTime(double waitingtime,int Currentnumberofappointments) {
-        AverageWaitingTime = (((AverageWaitingTime*Currentnumberofappointments)+waitingtime)/(Currentnumberofappointments+1));
+    public void addAverageWaitingTime(double waitingtime) {
+        AverageWaitingTime = (((AverageWaitingTime*Number_Of_Patient)+waitingtime)/(Number_Of_Patient+1));
+        Number_Of_Patient++;
     }
     //remember that the Currentnumberofappointments needs to be increased by one in the server after this function
 

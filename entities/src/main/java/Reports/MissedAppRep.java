@@ -1,18 +1,15 @@
 package Reports;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
+import il.cshaifasweng.OCSFMediatorExample.entities.HMO_Manager;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 
 import javax.persistence.*;
 import java.io.Serializable;
-//need extend WeeklyReport?
-@Entity
-public class MissedAppRep implements Serializable {
+import java.time.LocalDate;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Num")
-    public int ID;
+@Entity
+public class MissedAppRep extends WeeklyReport {
     @Column(name = "FamilyDoctor")
     private int FamilyDoctorPatientNumber;
     @Column(name = "Pediatrician")
@@ -26,8 +23,8 @@ public class MissedAppRep implements Serializable {
     @Column(name = "Nurse_Care")
     private int NurseCare;
 
-    public MissedAppRep(int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare) {
-        super();
+    public MissedAppRep(Clinic clinic, LocalDate date, HMO_Manager hmo_manager,int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare) {
+        super(clinic,date,hmo_manager);
         FamilyDoctorPatientNumber = familyDoctorPatientNumber;
         PediatricianPatientNumber = pediatricianPatientNumber;
         VaccineAppointment = vaccineAppointment;
@@ -36,8 +33,8 @@ public class MissedAppRep implements Serializable {
         NurseCare = nurseCare;
     }
 
-    public MissedAppRep() {
-        super();
+    public MissedAppRep(Clinic clinic, LocalDate date, HMO_Manager hmo_manager) {
+        super(clinic,date,hmo_manager);
         FamilyDoctorPatientNumber=0;
         PediatricianPatientNumber=0;
         VaccineAppointment=0;
@@ -46,9 +43,11 @@ public class MissedAppRep implements Serializable {
         NurseCare=0;
     }
 
-    public int getID() {
-        return ID;
+    public MissedAppRep() {
+
     }
+
+
     public int getFamilyDoctorPatientNumber() {
         return FamilyDoctorPatientNumber;
     }

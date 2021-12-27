@@ -1,20 +1,19 @@
 package Reports;
+import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
+import il.cshaifasweng.OCSFMediatorExample.entities.HMO_Manager;
+
 import javax.persistence.*;
-import java.io.Serializable;
 
-//  static final int WorkingWeekDays = 6;
-//if we decide we want to restart the week every week/ save last week we need to do that
-//-save at the server last week and start a new one
-//if we get empty report should we initialise the report to 0 at all items instead of the super thing?
+import java.time.LocalDate;
 
-//need extend WeeklyReport?
+
+//save last week we need to do that
+//save at the server last week and start a new one
+
+
 @Entity
-public class ServicesTypeRep implements Serializable {
-//do i need to place ID? i allready have id and day in weekly report
-      @Id
-      @GeneratedValue(strategy = GenerationType.IDENTITY)
-      @Column(name = "Num")
-      public int ID;
+public class ServicesTypeRep extends WeeklyReport {
+
       @Column(name = "Day")
       private String DayOfTheWeek;
       @Column(name = "FamilyDoctor")
@@ -30,21 +29,10 @@ public class ServicesTypeRep implements Serializable {
       @Column(name = "Nurse_Care")
       private int NurseCare;
 
-      public ServicesTypeRep(int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare) {
-          super();
-          if(ID%WorkingDaysOfTheWeek()==0)
-              DayOfTheWeek="Sunday";
-          if(ID%WorkingDaysOfTheWeek()==1)
-              DayOfTheWeek="Monday";
-          if(ID%WorkingDaysOfTheWeek()==2)
-              DayOfTheWeek="Tuesday";
-          if(ID%WorkingDaysOfTheWeek()==3)
-              DayOfTheWeek="Wednesday";
-          if(ID%WorkingDaysOfTheWeek()==4)
-              DayOfTheWeek="thursday";
-          if(ID%WorkingDaysOfTheWeek()==5)
-              DayOfTheWeek="Friday";
-
+      public ServicesTypeRep(Clinic clinic, LocalDate date, HMO_Manager hmo_manager, int familyDoctorPatientNumber, int pediatricianPatientNumber,
+                             int vaccineAppointment, int labResults, int covidTest, int nurseCare,String day) {
+          super(clinic,date,hmo_manager);
+          this.DayOfTheWeek=day;
           FamilyDoctorPatientNumber = familyDoctorPatientNumber;
           PediatricianPatientNumber = pediatricianPatientNumber;
           VaccineAppointment = vaccineAppointment;
@@ -52,25 +40,18 @@ public class ServicesTypeRep implements Serializable {
           CovidTest = covidTest;
           NurseCare = nurseCare;
       }
+
+    public ServicesTypeRep() {
+    }
+
     private int WorkingDaysOfTheWeek() {
         int WorkingDays=6;
         return WorkingDays;
     }
     //acts as the start of a new day/week
-      public ServicesTypeRep() {
-          super();
-          if(ID%WorkingDaysOfTheWeek()==0)
-              DayOfTheWeek="Sunday";
-          if(ID%WorkingDaysOfTheWeek()==1)
-              DayOfTheWeek="Monday";
-          if(ID%WorkingDaysOfTheWeek()==2)
-              DayOfTheWeek="Tuesday";
-          if(ID%WorkingDaysOfTheWeek()==3)
-              DayOfTheWeek="Wednesday";
-          if(ID%WorkingDaysOfTheWeek()==4)
-              DayOfTheWeek="thursday";
-          if(ID%WorkingDaysOfTheWeek()==5)
-              DayOfTheWeek="Friday";
+      public ServicesTypeRep(Clinic clinic, LocalDate date, HMO_Manager hmo_manager,String day) {
+          super(clinic,date,hmo_manager);
+          this.DayOfTheWeek=day;
           FamilyDoctorPatientNumber=0;
           PediatricianPatientNumber=0;
           VaccineAppointment=0;
@@ -79,9 +60,6 @@ public class ServicesTypeRep implements Serializable {
           NurseCare=0;
       }
 
-      public int getID() {
-          return ID;
-      }
 
       public String getDayOfTheWeek() {
           return DayOfTheWeek;
@@ -165,7 +143,18 @@ public class ServicesTypeRep implements Serializable {
         NurseCare++;
     }
 
-
-
-
+//
+//
+// if(id%WorkingDaysOfTheWeek()==0)
+//    DayOfTheWeek="Sunday";
+//          if(id%WorkingDaysOfTheWeek()==1)
+//    DayOfTheWeek="Monday";
+//          if(id%WorkingDaysOfTheWeek()==2)
+//    DayOfTheWeek="Tuesday";
+//          if(id%WorkingDaysOfTheWeek()==3)
+//    DayOfTheWeek="Wednesday";
+//          if(id%WorkingDaysOfTheWeek()==4)
+//    DayOfTheWeek="Thursday";
+//          if(id%WorkingDaysOfTheWeek()==5)
+//    DayOfTheWeek="Friday";
 }
