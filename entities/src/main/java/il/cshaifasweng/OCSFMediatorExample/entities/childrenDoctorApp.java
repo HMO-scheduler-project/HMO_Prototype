@@ -3,25 +3,23 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 public class childrenDoctorApp extends doctorApp{
 
-    @ManyToOne (targetEntity = Doctor.class)
-    Doctor Doctor;
 
     public childrenDoctorApp() {
         super();
     }
-    @Override
-    public il.cshaifasweng.OCSFMediatorExample.entities.Doctor getDoctor() {
-        return Doctor;
-    }
 
-    @Override
-    public void setDoctor(il.cshaifasweng.OCSFMediatorExample.entities.Doctor doctor) {
-        Doctor = doctor;
+    public childrenDoctorApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, Doctor doctor) {
+        super(time, date, clinic, patient, doctor);
     }
 
 
+    public int getDuration(){
+        return 15;
+    }
 }
