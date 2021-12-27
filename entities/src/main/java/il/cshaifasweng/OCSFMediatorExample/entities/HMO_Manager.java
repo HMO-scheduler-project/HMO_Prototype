@@ -12,22 +12,12 @@ public class HMO_Manager extends Manager {
     @OneToMany(targetEntity = Clinic.class)
     protected List<Clinic> managing_clinics;
 
-    //added tell to others--Yoni
-    @OneToMany(targetEntity = WeeklyReport.class,cascade =CascadeType.ALL)
-    protected List<WeeklyReport> Weekly_Reports=new ArrayList<>();
 
 
     public HMO_Manager(String username, String password,String first_name,String last_name,int card,String Email,String main_clinic,List<Clinic> managing_clinics) throws NoSuchAlgorithmException {
         super(username, password,first_name,last_name,"HMO_Manager",card,Email,main_clinic,managing_clinics);
     }
 
-    public List<WeeklyReport> getWeekly_Reports() {
-        return Weekly_Reports;
-    }
-
-    public void setWeekly_Reports(List<WeeklyReport> weekly_Reports) {
-        Weekly_Reports = weekly_Reports;
-    }
 
     public HMO_Manager() {
         super();
