@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Message implements Serializable {
     /* ---------- Message Necessary Info ---------- */
@@ -18,7 +19,7 @@ public class Message implements Serializable {
     private String sessionID;
     /*----------Handling clinics----*/
     private Clinic clinic;
-    public ArrayList<String> ClinicList;
+    public List<String> ClinicList;
     private String clinic_name;
     private LocalTime openning_hour;
     private LocalTime closing_hour;
@@ -117,14 +118,11 @@ public class Message implements Serializable {
         this.clinic = clinic;
     }
 
-    public ArrayList<String> getClinicList() {
-        if(ClinicList==null){
-            return new ArrayList();
-        }
+    public List<String> getClinicList() {
         return ClinicList;
     }
 
-    public void setClinicList(ArrayList<String> clinicList) {
+    public void setClinicList(List<String> clinicList) {
         ClinicList = clinicList;
     }
 

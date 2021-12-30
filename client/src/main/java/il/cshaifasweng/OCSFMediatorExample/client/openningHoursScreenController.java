@@ -3,7 +3,9 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
@@ -16,51 +18,24 @@ public class openningHoursScreenController {
     String chosen_clinic;
 
     @FXML
-    private MenuItem ChangeAppBtn;
+    Pane menubar;
     @FXML
     private TextField OpenningHourTF;
     @FXML
     private TextField ClosingHourTF;
     @FXML
     private Button ChangeHoursBtn;
-    @FXML
-    private Menu ClinicsBtn;
+
     @FXML
     private ComboBox<String> ClinicsList;
     @FXML
     private TextField closeHourTF;
-    @FXML
-    private Menu MainPageBtn;
-    @FXML
-    private MenuItem OpenningHoursBtn;
+
     @FXML
     private Button submitChangeHoursBtn;
-    @FXML
-    private MenuItem contactInfoBtn;
-    @FXML
-    private MenuItem newAppBtn;
+
     @FXML
     private TextField openHourTF;
-    @FXML
-    private MenuItem scheduledAppBtn;
-
-    @FXML
-    void pressChangeAppBtn(ActionEvent event) {}
-
-    @FXML
-    void pressContactInfoBtn(ActionEvent event) throws IOException {
-        ChangeScreens.changeToContactInfoScreen();
-    }
-
-    @FXML
-    void pressMainPageBtn(ActionEvent event) {}
-
-    @FXML
-    void pressNewAppBtn(ActionEvent event) {}
-    @FXML
-    void pressOpenningHoursBtn(ActionEvent event) throws IOException {
-        ChangeScreens.changeToOpenningHoursScreen();
-    }
 
     @FXML
     void pressChangeHoursBtn(ActionEvent event) {
@@ -93,10 +68,12 @@ public class openningHoursScreenController {
     }
 
     @FXML
-    void pressScheduledAppBtn(ActionEvent event) {}
-
-    @FXML
-    void initialize() {
+    void initialize() throws IOException {
+        Parent menuBarParent = App.loadFXML("menuBar.fxml");
+        String cssPath = getClass().getResource("/style.css").toString();
+        menuBarParent.getStylesheets().add(cssPath);
+        menubar.getChildren().clear();
+        menubar.getChildren().add(menuBarParent);
         EventBus.getDefault().register(this);
         manager = App.getUserType().equals("Manager");
         try {
@@ -151,9 +128,5 @@ public class openningHoursScreenController {
         }
     }
 
-    @FXML
-    void pressOnLogout(ActionEvent event){
-        App.logout(true);
-    }
 }
 

@@ -21,6 +21,7 @@ public class userController {
     public static void getUser(Message msg) throws NoSuchAlgorithmException {
         List<User> users = getAllUsersFromDB();
         boolean user_found = false;
+        boolean wrong_password = false;
         for (User user : users) {
             if (user.getUsername().equals(msg.getUsername())) {
                 user_found = true;
@@ -43,12 +44,13 @@ public class userController {
                         msg.setStatus("you are already logged in");
                     }
                 } else {
-                    msg.setStatus("wrong password");
+                    wrong_password=true;
+                    break;
                 }
             }
         }
-        if(!user_found) {
-            msg.setStatus("This user does not exist");
+        if(!user_found || wrong_password) {
+            msg.setStatus("Wrong username or password");
         }
     }
 

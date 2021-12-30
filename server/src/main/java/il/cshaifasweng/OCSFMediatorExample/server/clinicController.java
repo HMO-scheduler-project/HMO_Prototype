@@ -6,10 +6,12 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Manager;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class clinicController {
 
@@ -20,23 +22,22 @@ public class clinicController {
         return Main.session.createQuery(query).getResultList();
     }
 
-    public static ArrayList<String> getAllClinicNamesFromDB() {
-        ArrayList<String> clinicsNames = new ArrayList();
-        List<Clinic> clinics = getAllClinicsFromDB();
-        for (Clinic clinic : clinics) {
-            clinicsNames.add(clinic.getName());
-        }
-        return clinicsNames;
+    public static List<String> getAllClinicNamesFromDB() {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Clinic> query = builder.createQuery(Clinic.class);
+        Root<Clinic> root = query.from(Clinic.class);
+        query.select(root);
+        return Main.session.createQuery(query).getResultList().stream()
+                .map((clinic -> clinic.getName())).collect(Collectors.toList());
     }
 
     public static Clinic getClinicByName (String name) {
-        List<Clinic> clinics = getAllClinicsFromDB();
-        for (Clinic clinic : clinics) {
-            if (clinic.getName().equals(name)) {
-                return clinic;
-            }
-        }
-        return null;
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Clinic> query = builder.createQuery(Clinic.class);
+        Root<Clinic> root = query.from(Clinic.class);
+        query.select(root);
+        query.where(builder.equal(root.get("name"), name));
+        return Main.session.createQuery(query).getSingleResult();
     }
 
     public static LocalTime getOpenningHourByClinic(Clinic clinic){

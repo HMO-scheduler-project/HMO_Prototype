@@ -3,44 +3,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.openningHoursScreenController">
-    <top>
-        <ToolBar BorderPane.alignment="CENTER" style = "-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
-            <items>
-                <MenuBar prefHeight="26.0" prefWidth="523.0" style = "-fx-background-color:transparent; -fx-border-color: #ADD8E6;">
-                    <menus>
-                        <Menu fx:id="MainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" text="Main page" />
-                        <Menu fx:id="ClinicsBtn" mnemonicParsing="false" text="Clinics" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
-                            <items>
-                                <MenuItem fx:id="OpenningHoursBtn" mnemonicParsing="false" onAction="#pressOpenningHoursBtn" text="Openning Hours"  style="-fx-background-color: transparent;"/>
-                                <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" text="Contact info" style="-fx-background-color: transparent;"/>
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Appointments" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
-                            <items>
-                                <MenuItem fx:id="scheduledAppBtn" mnemonicParsing="false" onAction="#pressScheduledAppBtn" text="view scheduled appointments" style="-fx-background-color: transparent;"/>
-                                <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" text="schedule new appointment" style="-fx-background-color: transparent;"/>
-                                <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" text="change\cancel appointment" style="-fx-background-color: transparent;"/>
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Contact us" />
-                    </menus>
-                </MenuBar>
-                <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" text="logout" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
-            </items>
-        </ToolBar>
-    </top>
     <center>
         <GridPane maxHeight="93.0" maxWidth="300.0" prefHeight="93.0" prefWidth="300.0">
             <columnConstraints>
@@ -54,8 +24,8 @@
             </rowConstraints>
             <children>
                 <Label prefHeight="18.0" prefWidth="118.0" text="Choose Clinic:" />
-                <ComboBox fx:id="ClinicsList" onAction="#chooseClinic" prefWidth="150.0" GridPane.columnIndex="1" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; "/>
-                <Button fx:id="ChangeHoursBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressChangeHoursBtn" prefHeight="26.0" prefWidth="93.0" text="ChangeHours" visible="false" GridPane.rowIndex="1" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+                <ComboBox fx:id="ClinicsList" onAction="#chooseClinic" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " GridPane.columnIndex="1" />
+                <Button fx:id="ChangeHoursBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressChangeHoursBtn" prefHeight="26.0" prefWidth="93.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="ChangeHours" visible="false" GridPane.rowIndex="1" />
                 <GridPane GridPane.rowIndex="2">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -65,11 +35,11 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <TextField fx:id="openHourTF" visible="false" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
-                        <TextField fx:id="closeHourTF" visible="false" GridPane.columnIndex="1" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+                        <TextField fx:id="openHourTF" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" visible="false" />
+                        <TextField fx:id="closeHourTF" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" visible="false" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
-            <Button fx:id="submitChangeHoursBtn" mnemonicParsing="false" onAction="#pressSubmitChangeHoursBtn" text="Submit change" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+            <Button fx:id="submitChangeHoursBtn" mnemonicParsing="false" onAction="#pressSubmitChangeHoursBtn" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Submit change" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
     </center>
@@ -84,13 +54,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField text="Opening Hour" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;
-  -fx-font-weight: bold; -fx-text-fill: #333333; "/>
-            <TextField text="Closing hour" GridPane.columnIndex="1" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;
-  -fx-font-weight: bold;-fx-text-fill: #333333;"/>
-            <TextField fx:id="OpenningHourTF" GridPane.rowIndex="1" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333;"/>
-            <TextField fx:id="ClosingHourTF" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; "/>
+            <TextField style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " text="Opening Hour" />
+            <TextField style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold;-fx-text-fill: #333333;" text="Closing hour" GridPane.columnIndex="1" />
+            <TextField fx:id="OpenningHourTF" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333;" GridPane.rowIndex="1" />
+            <TextField fx:id="ClosingHourTF" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </bottom>
+   <top>
+      <Pane fx:id="menubar" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>

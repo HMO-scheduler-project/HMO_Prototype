@@ -37,3 +37,9 @@
     margin-left: -5px;
     border-radius: 5px;
   }
+
+  .list-view,.list-cell, .context-menu{
+    -fx-background-color: transparent;
+  }
+
+

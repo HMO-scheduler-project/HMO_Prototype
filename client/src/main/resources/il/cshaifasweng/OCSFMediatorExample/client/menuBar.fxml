@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToolBar?>
+
+<ToolBar style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.MenuBarController">
+   <items>
+      <MenuBar prefHeight="26.0" prefWidth="523.0" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;">
+         <menus>
+            <Menu fx:id="MainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" text="Main page" />
+            <Menu fx:id="ClinicsBtn" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Clinics">
+               <items>
+                  <MenuItem fx:id="OpenningHoursBtn" mnemonicParsing="false" onAction="#pressOpenningHoursBtn" style="-fx-background-color: transparent;" text="Openning Hours" />
+                  <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" style="-fx-background-color: transparent;" text="Contact info" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointments">
+               <items>
+                  <MenuItem fx:id="scheduledAppBtn" mnemonicParsing="false" onAction="#pressScheduledAppBtn" style="-fx-background-color: transparent;" text="view scheduled appointments" />
+                  <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" style="-fx-background-color: transparent;" text="schedule new appointment" />
+                  <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" style="-fx-background-color: transparent;" text="change\cancel appointment" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Contact us" />
+            <Menu mnemonicParsing="false" text="Reports" visible="false">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="logout" />
+   </items>
+</ToolBar>

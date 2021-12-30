@@ -1,15 +1,16 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClinicListUpdateEvent {
-    private ArrayList<String> clinicNames;
+    private List<String> clinicNames;
 
-    public ClinicListUpdateEvent(ArrayList<String> clinicNames) {
+    public ClinicListUpdateEvent(List<String> clinicNames) {
         this.clinicNames = clinicNames;
     }
 
-    public ArrayList<String> getClinicNames() {
+    public List<String> getClinicNames() {
         return clinicNames;
     }
 

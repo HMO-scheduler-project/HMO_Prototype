@@ -36,7 +36,7 @@ public class SimpleClient extends AbstractClient {
 //		EventBus.getDefault().post(currMsg);
 //
 		if (currMsg.getAction().equals("ShowClinics")) {
-			ArrayList<String> clinicList = currMsg.getClinicList();
+			List<String> clinicList = currMsg.getClinicList();
 			EventBus.getDefault().post(new ClinicListUpdateEvent(clinicList));
 		}
 		if(currMsg.getAction().equals("Chosen clinic")){
