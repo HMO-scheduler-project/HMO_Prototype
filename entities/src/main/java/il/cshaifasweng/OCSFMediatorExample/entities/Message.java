@@ -21,7 +21,7 @@ public class Message implements Serializable {
     private Clinic clinic;
     public List<String> ClinicList;
     private String clinic_name;
-    private LocalTime openning_hour;
+    private LocalTime opening_hour;
     private LocalTime closing_hour;
     private String address;
     private String phone_num;
@@ -134,12 +134,12 @@ public class Message implements Serializable {
         this.clinic_name = name;
     }
 
-    public void setOpenningHour (LocalTime openning_hour){
-        this.openning_hour = openning_hour;
+    public void setOpeningHour (LocalTime opening_hour){
+        this.opening_hour = opening_hour;
     }
 
-    public LocalTime getOpenningHour(){
-        return openning_hour;
+    public LocalTime getOpeningHour(){
+        return opening_hour;
     }
 
     public void setClosingHour (LocalTime closing_hour){

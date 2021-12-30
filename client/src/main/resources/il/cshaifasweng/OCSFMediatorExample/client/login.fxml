@@ -1,52 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 
-<StackPane prefHeight="193.0" prefWidth="301.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;   -fx-background-size: stretch;-fx-background-position: center center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.loginController">
-    <children>
-        <StackPane>
-            <children>
-                <VBox spacing="10.0" styleClass="documentRoot">
-                    <children>
-                        <GridPane>
-                            <children>
-                                <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                <TextField fx:id="userTF" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <PasswordField fx:id="passwordTF" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                            </children>
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="109.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.0" minWidth="10.0" prefWidth="189.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                        </GridPane>
-                        <StackPane prefHeight="-1.0" prefWidth="-1.0" styleClass="main">
-                            <children>
-                                <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#authorize" text="Login" StackPane.alignment="CENTER" />
-                            </children>
-                        </StackPane>
-                  <Label fx:id="emptyUsernameWarning" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="283.0" text="Please enter username" textAlignment="CENTER" visible="false" />
-                  <Label fx:id="emptyPasswordWarning" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="294.0" text="Please enter password" textAlignment="CENTER" visible="false" />
-                  <TextField fx:id="loginFailedWarning" prefHeight="27.0" prefWidth="273.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " visible="false" />
-                    </children>
-                </VBox>
-            </children>
-        </StackPane>
-    </children>
-    <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-    </padding>
-</StackPane>
+<BorderPane style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.loginController">
+   <center>
+      <BorderPane BorderPane.alignment="CENTER">
+         <top>
+                  <GridPane BorderPane.alignment="CENTER">
+                      <children>
+                          <Label text="Username:" GridPane.columnIndex="0" />
+                          <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                          <TextField fx:id="userTF" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" GridPane.columnIndex="1" />
+                  <PasswordField fx:id="passwordTF" prefWidth="303.0" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                      </children>
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" />
+                          <ColumnConstraints hgrow="SOMETIMES" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints maxHeight="41.599992942810054" minHeight="31.999987792968746" prefHeight="41.599992942810054" vgrow="SOMETIMES" />
+                          <RowConstraints maxHeight="39.99998779296875" minHeight="31.999987792968753" prefHeight="39.99998779296875" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                  </GridPane>
+         </top>
+         <bottom>
+            <TextArea fx:id="loginFailedWarning" visible="false" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <Pane BorderPane.alignment="CENTER">
+               <children>
+                   <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" layoutX="226.0" layoutY="41.0" mnemonicParsing="false" onAction="#authorize" text="Login" textAlignment="CENTER" />
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

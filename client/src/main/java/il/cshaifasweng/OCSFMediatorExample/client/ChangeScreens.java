@@ -1,27 +1,34 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.util.Pair;
 
 import java.io.IOException;
 
 public class ChangeScreens {
 
-    public static void changeToOpenningHoursScreen() throws IOException {
+    public static void changeToOpeningHoursScreen() {
         Platform.runLater(() -> {
         App.setWindowTitle("Opening hours");
             try {
-                App.setContent("openningHoursScreen");
+                App.setContent("openingHoursScreen");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    public static void changeToContactInfoScreen() throws IOException {
+    public static void changeToReportsScreen(){
+        Platform.runLater(()->{
+            App.setWindowTitle("reports screen");
+            try{
+                App.setContent("reportsScreen");
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void changeToContactInfoScreen() {
         Platform.runLater(() -> {
             App.setWindowTitle("Contact info");
             try {
@@ -32,7 +39,7 @@ public class ChangeScreens {
         });
     }
 
-    public static void changeToMainPage() throws IOException {
+    public static void changeToMainPage() {
         Platform.runLater(() -> {
             App.setWindowTitle("main page");
             switch (App.getUserType()) {

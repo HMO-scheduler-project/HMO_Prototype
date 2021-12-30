@@ -2,16 +2,14 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class MenuBarController implements Initializable {
+
+public class MenuBarController {
     @FXML
     private MenuItem ChangeAppBtn;
     @FXML
@@ -19,18 +17,22 @@ public class MenuBarController implements Initializable {
     @FXML
     private Menu ClinicsBtn;
     @FXML
-    private MenuItem OpenningHoursBtn;
+    private MenuItem OpeningHoursBtn;
     @FXML
     private MenuItem contactInfoBtn;
     @FXML
     private MenuItem newAppBtn;
     @FXML
+    private Menu reportsBtn;
+    @FXML
     private MenuItem scheduledAppBtn;
+    @FXML
+    private Button logoutBtn;
 
     @FXML
     void pressChangeAppBtn(ActionEvent event) {}
     @FXML
-    void pressContactInfoBtn(ActionEvent event) throws IOException {
+    void pressContactInfoBtn(ActionEvent event) {
         ChangeScreens.changeToContactInfoScreen();
     }
     @FXML
@@ -46,13 +48,18 @@ public class MenuBarController implements Initializable {
     }
 
     @FXML
-    void pressOpenningHoursBtn(ActionEvent event) throws IOException {
-        ChangeScreens.changeToOpenningHoursScreen();
+    void pressOpeningHoursBtn(ActionEvent event) {
+        ChangeScreens.changeToOpeningHoursScreen();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-//        EventBus.getDefault().register(this);
+
+    @FXML
+    void pressReportsBtn(ActionEvent event){
+        ChangeScreens.changeToReportsScreen();
+    }
+
+    public void initialize() {
+        reportsBtn.setVisible(App.getUserType().equals("Manager"));
     }
 
 }

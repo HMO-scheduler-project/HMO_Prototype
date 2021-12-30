@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.openningHoursScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.openingHoursScreenController">
     <center>
         <GridPane maxHeight="93.0" maxWidth="300.0" prefHeight="93.0" prefWidth="300.0">
             <columnConstraints>
@@ -56,7 +56,7 @@
          <children>
             <TextField style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " text="Opening Hour" />
             <TextField style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold;-fx-text-fill: #333333;" text="Closing hour" GridPane.columnIndex="1" />
-            <TextField fx:id="OpenningHourTF" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333;" GridPane.rowIndex="1" />
+            <TextField fx:id="OpeningHourTF" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333;" GridPane.rowIndex="1" />
             <TextField fx:id="ClosingHourTF" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>

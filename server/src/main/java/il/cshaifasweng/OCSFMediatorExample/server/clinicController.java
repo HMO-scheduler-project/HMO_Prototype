@@ -40,8 +40,8 @@ public class clinicController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
-    public static LocalTime getOpenningHourByClinic(Clinic clinic){
-        return clinic.getOpenningHour();
+    public static LocalTime getOpeningHourByClinic(Clinic clinic){
+        return clinic.getOpeningHour();
     }
 
     public static LocalTime getClosingHourByClinic(Clinic clinic){

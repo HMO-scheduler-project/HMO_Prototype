@@ -7,7 +7,6 @@ import Reports.WeeklyReport;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 import org.hibernate.HibernateException;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -17,7 +16,6 @@ import org.hibernate.service.ServiceRegistry;
 import java.io.IOException;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 
 public class Main extends SimpleServer {
     private static SessionFactory sessionFactory = getSessionFactory();
@@ -91,13 +89,13 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-            if (currMsg.getAction().equals("pull openning hours")) {
+            if (currMsg.getAction().equals("pull opening hours")) {
                 try {
                     serverMsg = currMsg;
                     currMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
-                    serverMsg.setOpenningHour(clinicController.getOpenningHourByClinic(currMsg.getClinic()));
+                    serverMsg.setOpeningHour(clinicController.getOpeningHourByClinic(currMsg.getClinic()));
                     serverMsg.setClosingHour(clinicController.getClosingHourByClinic(currMsg.getClinic()));
-                    serverMsg.setAction("got openning hours");
+                    serverMsg.setAction("got opening hours");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -107,15 +105,15 @@ public class Main extends SimpleServer {
                 try {
                     serverMsg = currMsg;
                     serverMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
-                    if(serverMsg.getOpenningHour()!=null) {
-                        serverMsg.getClinic().setOpenningHour(serverMsg.getOpenningHour());
+                    if(serverMsg.getOpeningHour()!=null) {
+                        serverMsg.getClinic().setOpeningHour(serverMsg.getOpeningHour());
                     }
                     if(serverMsg.getClosingHour()!=null) {
                         serverMsg.getClinic().setClosingHour(serverMsg.getClosingHour());
                     }
                     updateCellInDB(serverMsg.getClinic());
                     serverMsg.setAction("saved new hours");
-                    serverMsg.setOpenningHour(serverMsg.getClinic().getOpenningHour());
+                    serverMsg.setOpeningHour(serverMsg.getClinic().getOpeningHour());
                     serverMsg.setClosingHour(serverMsg.getClinic().getClosingHour());
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {

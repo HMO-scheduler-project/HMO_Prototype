@@ -20,7 +20,7 @@ public class Clinic implements Serializable {
     @Column(name="City")
     protected String city;
     @Column(name="OpenningHour")
-    protected LocalTime openning_hour;
+    protected LocalTime opening_hour;
     @Column(name="ClosingHour")
     protected LocalTime closing_hour ;
     protected String address;
@@ -36,7 +36,7 @@ public class Clinic implements Serializable {
     public Clinic(String name, String city, LocalTime start,LocalTime end,Manager manager,String address,String phone_number) throws NoSuchAlgorithmException {
         this.name = name;
         this.city = city;
-        this.openning_hour = start;
+        this.opening_hour = start;
         this.closing_hour = end;
         this.manager = manager;
         this.address = address;
@@ -59,12 +59,12 @@ public class Clinic implements Serializable {
         this.city = city;
     }
 
-    public LocalTime getOpenningHour() {
-        return openning_hour;
+    public LocalTime getOpeningHour() {
+        return opening_hour;
     }
 
-    public void setOpenningHour(LocalTime start) {
-        this.openning_hour = start;
+    public void setOpeningHour(LocalTime start) {
+        this.opening_hour = start;
     }
 
     public LocalTime getClosingHour() {
@@ -97,14 +97,6 @@ public class Clinic implements Serializable {
 
     public void setPhoneNum(String phone_number) {
         this.phone_number = phone_number;
-    }
-
-    public LocalTime getOpenning_hour() {
-        return openning_hour;
-    }
-
-    public void setOpenning_hour(LocalTime openning_hour) {
-        this.openning_hour = openning_hour;
     }
 
     public LocalTime getClosing_hour() {

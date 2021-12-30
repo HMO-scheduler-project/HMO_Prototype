@@ -13,7 +13,7 @@
             <Menu fx:id="MainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" text="Main page" />
             <Menu fx:id="ClinicsBtn" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Clinics">
                <items>
-                  <MenuItem fx:id="OpenningHoursBtn" mnemonicParsing="false" onAction="#pressOpenningHoursBtn" style="-fx-background-color: transparent;" text="Openning Hours" />
+                  <MenuItem fx:id="OpeningHoursBtn" mnemonicParsing="false" onAction="#pressOpeningHoursBtn" style="-fx-background-color: transparent;" text="Openning Hours" />
                   <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" style="-fx-background-color: transparent;" text="Contact info" />
                </items>
             </Menu>
@@ -24,12 +24,7 @@
                   <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" style="-fx-background-color: transparent;" text="change\cancel appointment" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Contact us" />
-            <Menu mnemonicParsing="false" text="Reports" visible="false">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
+            <Menu fx:id="reportsBtn" mnemonicParsing="false" onAction="#pressReportsBtn" text="Reports" visible="false" />
          </menus>
       </MenuBar>
       <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="logout" />
