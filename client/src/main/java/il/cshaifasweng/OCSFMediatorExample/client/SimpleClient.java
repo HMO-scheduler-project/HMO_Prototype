@@ -51,10 +51,13 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new ChangePhoneNumEvent(currMsg.getPhoneNum()));
 		}
 		if(currMsg.getAction().equals("login done")){
-			EventBus.getDefault().post(new loginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername()));
+			EventBus.getDefault().post(new loginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getFirst_name()));
 		}
 		if(currMsg.getAction().equals("logged out")){
 			EventBus.getDefault().post(new logoutEvent(currMsg.getStatus()));
+		}
+		if(currMsg.getAction().equals("got nearest apps")){
+			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
 		}
 	}
 

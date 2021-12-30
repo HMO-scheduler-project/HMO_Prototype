@@ -58,6 +58,7 @@ public class MenuBarController {
         ChangeScreens.changeToReportsScreen();
     }
 
+
     public void initialize() {
         reportsBtn.setVisible(App.getUserType().equals("Manager"));
     }

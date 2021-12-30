@@ -72,6 +72,7 @@ public class Main extends SimpleServer {
                         updateCellInDB(currMsg.getUser());
                         serverMsg = currMsg;
                         serverMsg.setAction("login done");
+                        System.out.println(currMsg.getUser().getUsername());
                         client.sendToClient(serverMsg);
                     }
                 } catch (IOException | NoSuchAlgorithmException e) {
@@ -177,6 +178,15 @@ public class Main extends SimpleServer {
                     updateCellInDB(serverMsg.getClinic());
                     serverMsg.setAction("saved new phone");
                     serverMsg.setPhoneNum(serverMsg.getClinic().getPhoneNum());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("GetNearestApps")){
+                try {
+                    serverMsg.setNearest_apps(appointmentController.getNearestAppsFromDB(userController.getUserByUsername(currMsg.getUsername()).getUserId()));
+                    serverMsg.setAction("got nearest apps");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();

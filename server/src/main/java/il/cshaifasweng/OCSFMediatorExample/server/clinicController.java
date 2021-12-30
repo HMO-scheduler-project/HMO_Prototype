@@ -1,15 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
-import il.cshaifasweng.OCSFMediatorExample.entities.Employee;
-import il.cshaifasweng.OCSFMediatorExample.entities.Manager;
-
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

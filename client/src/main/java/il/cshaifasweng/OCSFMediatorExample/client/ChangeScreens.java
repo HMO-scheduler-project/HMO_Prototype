@@ -70,7 +70,7 @@ public class ChangeScreens {
 
     public static void changeToLogin() {
         Platform.runLater(() -> {
-            App.setWindowTitle("login");
+            App.setWindowTitle("Welcome");
             try {
                 App.setContent("login");
             } catch (IOException e) {
@@ -81,7 +81,7 @@ public class ChangeScreens {
 
     public static void changeToStationLogin() {
         Platform.runLater(() -> {
-            App.setWindowTitle("stationLogin");
+            App.setWindowTitle("Welcome");
             try {
                 App.setContent("stationLogin");
             } catch (IOException e) {
@@ -95,6 +95,17 @@ public class ChangeScreens {
             App.setWindowTitle("WaitingRoomScreen");
             try {
                 App.setContent("WaitingRoomScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void changeNewAppScreen(){
+        Platform.runLater(() -> {
+            App.setWindowTitle("schedule new appointment");
+            try {
+                App.setContent("newAppointmentScreen");
             } catch (IOException e) {
                 e.printStackTrace();
             }

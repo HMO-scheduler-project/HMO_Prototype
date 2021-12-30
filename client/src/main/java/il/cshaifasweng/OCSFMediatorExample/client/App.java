@@ -24,6 +24,7 @@ public class App extends Application {
     private SimpleClient client;
     private static String username;
     private static String user_type;
+    private static String first_name;
     private static Boolean isLogoutClicked = false;
     private static Stage appStage;
     private boolean isRegistered = false;
@@ -35,7 +36,8 @@ public class App extends Application {
                 EventBus.getDefault().register(this);
                 isRegistered = true;
             }
-            Parent root= loadFXML("login.fxml");
+          //  Parent root= loadFXML("login.fxml");
+            Parent root = loadFXML("chooseDevice.fxml");
             Scene start = new Scene(root);
             String cssPath = getClass().getResource("/style.css").toString();
             stage.setTitle("Welcome");
@@ -106,7 +108,7 @@ public class App extends Application {
         user_type = null;
         isLogoutClicked = false;
         Platform.runLater(() -> {
-            setWindowTitle("login");
+            setWindowTitle("Welcome");
             try {
                 setContent("login");
             } catch (IOException e) {
@@ -132,6 +134,14 @@ public class App extends Application {
         App.user_type = user_type;
     }
 
+    public static String getFirst_name() {
+        return first_name;
+    }
+
+    public static void setFirst_name(String first_name) {
+        App.first_name = first_name;
+    }
+
     public static Stage getAppStage(){
         return appStage;
     }
@@ -143,10 +153,12 @@ public class App extends Application {
     static void setContent(String pageName) throws IOException {
         Parent root= loadFXML(pageName+".fxml");
         scene = new Scene(root);
-        appStage.setScene(scene);
         String cssPath = App.class.getResource("/style.css").toString();
+        root.getStylesheets().add(cssPath);
+        appStage.setScene(scene);
         appStage.show();
     }
+
 
     public static void main(String[] args) {
         launch();

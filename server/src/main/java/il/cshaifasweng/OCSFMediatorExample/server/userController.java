@@ -1,12 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Employee;
-import il.cshaifasweng.OCSFMediatorExample.entities.Manager;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import il.cshaifasweng.OCSFMediatorExample.entities.User;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -19,6 +17,7 @@ public class userController {
     }
 
     public static void getUser(Message msg) throws NoSuchAlgorithmException {
+        System.out.println("getUser");
         List<User> users = getAllUsersFromDB();
         boolean user_found = false;
         boolean wrong_password = false;
@@ -35,6 +34,12 @@ public class userController {
                             msg.setUser(user);
                         } else if (user instanceof Employee) {
                             msg.setUserType("Employee");
+                            System.out.println(msg.getUserType());
+                            user.setLoggedIn(true);
+                            msg.setStatus("logged in");
+                            msg.setUser(user);
+                        }else if (user instanceof Patient){
+                            msg.setUserType("Patient");
                             System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
@@ -106,6 +111,15 @@ public class userController {
             }
         }
         return null;
+    }
+
+    public static User getUserByUsername (String username) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root);
+        query.where(builder.equal(root.get("username"), username));
+        return Main.session.createQuery(query).getSingleResult();
     }
 }
 
