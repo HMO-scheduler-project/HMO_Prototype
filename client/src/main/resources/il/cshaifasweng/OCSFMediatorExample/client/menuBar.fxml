@@ -13,16 +13,16 @@
             <Menu fx:id="MainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" text="Main page" />
             <Menu fx:id="ClinicsBtn" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Clinics">
                <items>
-                  <MenuItem fx:id="OpeningHoursBtn" mnemonicParsing="false" onAction="#pressOpeningHoursBtn" style="-fx-background-color: transparent;" text="Openning Hours" />
-                  <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" style="-fx-background-color: transparent;" text="Contact info" />
+                  <MenuItem fx:id="OpeningHoursBtn" mnemonicParsing="false" onAction="#pressOpeningHoursBtn" style="-fx-background-color: #87CEEB;" text="Openning Hours" />
+                  <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" style="-fx-background-color: #87CEEB;" text="Contact info" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointments">
                <items>
-                  <MenuItem fx:id="viewAppsBtn" mnemonicParsing="false" onAction="#pressViewAppsBtn" style="-fx-background-color: transparent;" text="view scheduled appointments" />
-                  <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" style="-fx-background-color: transparent;" text="schedule new appointment" />
-                  <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" style="-fx-background-color: transparent;" text="change appointment" />
-                  <MenuItem fx:id="CancelAppBtn" mnemonicParsing="false" onAction="#pressCancelAppBtn" style="-fx-background-color: transparent;" text="cancel appointment" />
+                  <MenuItem fx:id="viewAppsBtn" mnemonicParsing="false" onAction="#pressViewAppsBtn" style="-fx-background-color: #87CEEB;" text="view scheduled appointments" />
+                  <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" style="-fx-background-color: #87CEEB;" text="schedule new appointment" />
+                  <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" style="-fx-background-color: #87CEEB;" text="change appointment" />
+                  <MenuItem fx:id="CancelAppBtn" mnemonicParsing="false" onAction="#pressCancelAppBtn" style="-fx-background-color: #87CEEB;" text="cancel appointment" />
                </items>
             </Menu>
             <Menu fx:id="reportsBtn" mnemonicParsing="false" onAction="#pressReportsBtn" text="Reports" />

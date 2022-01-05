@@ -98,8 +98,7 @@ public class LoginWithCardController  implements Initializable {
                 App.setUsername(event.getUsername());
                 App.setUserType(event.getUserType());
                 EventBus.getDefault().unregister(this);
-                ///change to athers main page not to main page
-                ChangeScreens.changeToMainPage();
+                ChangeScreens.changeToStationMainPage();
             }
         }
     }

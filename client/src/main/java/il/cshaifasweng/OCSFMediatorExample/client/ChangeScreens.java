@@ -90,6 +90,17 @@ public class ChangeScreens {
         });
     }
 
+    public static void changeToStationMainPage(){
+        Platform.runLater(() -> {
+            App.setWindowTitle("Welcome");
+            try {
+                App.setContent("StationMainPage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     public static void changeToWaitingRoomScreen() {
         Platform.runLater(() -> {
             App.setWindowTitle("WaitingRoomScreen");
