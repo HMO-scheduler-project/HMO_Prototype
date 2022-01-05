@@ -13,8 +13,6 @@ public class loginEvent {
         this.first_name = first_name;
     }
 
-
-
     public String getUserType() {
         return userType;
     }

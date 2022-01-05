@@ -33,42 +33,12 @@ public class Message implements Serializable {
     /*-------Handling appointments---*/
     private Appointment appointment;
     private List<Appointment> nearest_apps;
-    /*----------Handling Reports----*/
-    private AwaitingTimeRep awaitingTimeRep;
-    private MissedAppRep missedAppRep;
-    private ServicesTypeRep servicesTypeRep;
-
-    public AwaitingTimeRep getAwaitingTimeRep() {
-        return awaitingTimeRep;
-    }
-
-    public void setAwaitingTimeRep(AwaitingTimeRep awaitingTimeRep) {
-        this.awaitingTimeRep = awaitingTimeRep;
-    }
-
-    public MissedAppRep getMissedAppRep() {
-        return missedAppRep;
-    }
-
-    public void setMissedAppRep(MissedAppRep missedAppRep) {
-        this.missedAppRep = missedAppRep;
-    }
-
-    public ServicesTypeRep getServicesTypeRep() {
-        return servicesTypeRep;
-    }
-
-    public void setServicesTypeRep(ServicesTypeRep servicesTypeRep) {
-        this.servicesTypeRep = servicesTypeRep;
-    }
-
-    public String getUserCardNumber() {
-        return UserCardNumber;
-    }
-
-    public void setUserCardNumber(String userCardNumber) {
-        UserCardNumber = userCardNumber;
-    }
+    private boolean arrived;
+    private int card_num;
+    /*-------Handling updates-------*/
+    private String service_name;
+    private List<String> services;
+    private String doctor_name;
 
     public Message() {
         super();
@@ -162,6 +132,14 @@ public class Message implements Serializable {
         this.sessionID = sessionID;
     }
 
+    public String getUserCardNumber() {
+        return UserCardNumber;
+    }
+
+    public void setUserCardNumber(String userCardNumber) {
+        UserCardNumber = userCardNumber;
+    }
+
     public Clinic getClinic() {
         return clinic;
     }
@@ -232,5 +210,45 @@ public class Message implements Serializable {
 
     public void setNearest_apps(List<Appointment> nearest_apps) {
         this.nearest_apps = nearest_apps;
+    }
+
+    public String getService_name() {
+        return service_name;
+    }
+
+    public void setService_name(String service_name) {
+        this.service_name = service_name;
+    }
+
+    public String getDoctor_name() {
+        return doctor_name;
+    }
+
+    public void setDoctor_name(String doctor_name) {
+        this.doctor_name = doctor_name;
+    }
+
+    public List<String> getServices() {
+        return services;
+    }
+
+    public void setServices(List<String> services) {
+        this.services = services;
+    }
+
+    public boolean patientArrived() {
+        return arrived;
+    }
+
+    public void setArrived(boolean arrived) {
+        this.arrived = arrived;
+    }
+
+    public int getCardNum() {
+        return card_num;
+    }
+
+    public void setCardNum(int card_num) {
+        this.card_num = card_num;
     }
 }

@@ -58,7 +58,6 @@ public class MenuBarController {
         ChangeScreens.changeToOpeningHoursScreen();
     }
 
-
     @FXML
     void pressReportsBtn(ActionEvent event){
         ChangeScreens.changeToReportsScreen();

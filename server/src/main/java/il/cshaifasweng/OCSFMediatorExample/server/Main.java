@@ -326,7 +326,7 @@ public class Main extends SimpleServer {
         }
     }
 
-    public static void main( String[] args ) throws IOException, NoSuchAlgorithmException {
+    public static void main( String[] args ) throws IOException {
         server = new Main(3004);
         server.listen();
         System.out.println("server says: hello!");

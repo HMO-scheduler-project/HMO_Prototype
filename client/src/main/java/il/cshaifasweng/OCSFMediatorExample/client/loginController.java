@@ -76,6 +76,8 @@ public class loginController implements Initializable {
 
     @Subscribe
     public void onLoginEvent(loginEvent event) {
+        System.out.println("in login event");
+        System.out.println(event.getUsername());
         String status = event.getStatus();
         if (status != null) {
             if (status.equals("you are already logged in")) {
