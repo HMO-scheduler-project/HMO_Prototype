@@ -1,34 +1,30 @@
+
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-public class loginEvent {
+public class stationLoginEvent {
     private String userType;
     private String username;
-    private String first_name;
     private String status;
+    private String cardnumber;
 
-    public loginEvent(String userType,String status,String username,String first_name) {
+    public stationLoginEvent(String userType,String status,String username,String CardNumber) {
         this.userType = userType;
         this.status = status;
         this.username = username;
-        this.first_name = first_name;
+        this.cardnumber = CardNumber;
     }
-
-
-
+    public String getCardnumber() {
+        return cardnumber;
+    }
+    public void setCardnumber(String cardnumber) {
+        this.cardnumber = cardnumber;
+    }
     public String getUserType() {
         return userType;
     }
 
     public void setUserType(String userType) {
         this.userType = userType;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
     }
 
     public String getStatus() {
@@ -47,3 +43,4 @@ public class loginEvent {
         this.username = username;
     }
 }
+

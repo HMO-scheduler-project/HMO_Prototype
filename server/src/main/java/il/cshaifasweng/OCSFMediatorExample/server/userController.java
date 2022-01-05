@@ -26,6 +26,14 @@ public class userController {
                 user_found = true;
                 if (user.checkPassword(msg.getPassword())) {
                     if (!user.isLoggedIn()) {
+                        if(user instanceof HMO_Manager)
+                        {
+                            msg.setUserType("HMO_Manager");
+                            System.out.println(msg.getUserType());
+                            user.setLoggedIn(true);
+                            msg.setStatus("logged in");
+                            msg.setUser(user);
+                        }
                         if (user instanceof Manager) {
                             msg.setUserType("Manager");
                             System.out.println(msg.getUserType());
@@ -56,6 +64,43 @@ public class userController {
         }
         if(!user_found || wrong_password) {
             msg.setStatus("Wrong username or password");
+        }
+    }
+    public static void getUserWithCardNumber(Message msg) throws NoSuchAlgorithmException {
+        List<User> users = getAllUsersFromDB();
+        boolean user_found = false;
+        for (User user : users) {
+            if (user.checkCard(msg.getUserCardNumber())) {
+                user_found = true;
+                    if (!user.isLoggedIn()) {
+                        if(user instanceof HMO_Manager)
+                        {
+                            msg.setUserType("HMO_Manager");
+                            System.out.println(msg.getUserType());
+                            user.setLoggedIn(true);
+                            msg.setStatus("logged in");
+                            msg.setUser(user);
+                        }
+                        if (user instanceof Manager) {
+                            msg.setUserType("Manager");
+                            System.out.println(msg.getUserType());
+                            user.setLoggedIn(true);
+                            msg.setStatus("logged in");
+                            msg.setUser(user);
+                        } else if (user instanceof Employee) {
+                            msg.setUserType("Employee");
+                            System.out.println(msg.getUserType());
+                            user.setLoggedIn(true);
+                            msg.setStatus("logged in");
+                            msg.setUser(user);
+                        }
+                    } else {
+                        msg.setStatus("you are already logged in");
+                    }
+            }
+        }
+        if(!user_found) {
+            msg.setStatus("Wrong CardNumber");
         }
     }
 

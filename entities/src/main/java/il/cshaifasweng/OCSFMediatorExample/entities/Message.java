@@ -1,4 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
+import Reports.AwaitingTimeRep;
+import Reports.MissedAppRep;
+import Reports.ServicesTypeRep;
+
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -13,11 +17,11 @@ public class Message implements Serializable {
     /* ---------- Handling users ---------- */
     private User user;
     private String username;
-    private String first_name;
     private String password;
     private String userType;
     private String status;
     private String sessionID;
+    private String UserCardNumber;
     /*----------Handling clinics----*/
     private Clinic clinic;
     public List<String> ClinicList;
@@ -26,9 +30,42 @@ public class Message implements Serializable {
     private LocalTime closing_hour;
     private String address;
     private String phone_num;
-    /*-------Handling appointments---*/
-    private Appointment appointment;
-    private List<Appointment> nearest_apps;
+    /*----------Handling Reports----*/
+    private AwaitingTimeRep awaitingTimeRep;
+    private MissedAppRep missedAppRep;
+    private ServicesTypeRep servicesTypeRep;
+
+    public AwaitingTimeRep getAwaitingTimeRep() {
+        return awaitingTimeRep;
+    }
+
+    public void setAwaitingTimeRep(AwaitingTimeRep awaitingTimeRep) {
+        this.awaitingTimeRep = awaitingTimeRep;
+    }
+
+    public MissedAppRep getMissedAppRep() {
+        return missedAppRep;
+    }
+
+    public void setMissedAppRep(MissedAppRep missedAppRep) {
+        this.missedAppRep = missedAppRep;
+    }
+
+    public ServicesTypeRep getServicesTypeRep() {
+        return servicesTypeRep;
+    }
+
+    public void setServicesTypeRep(ServicesTypeRep servicesTypeRep) {
+        this.servicesTypeRep = servicesTypeRep;
+    }
+
+    public String getUserCardNumber() {
+        return UserCardNumber;
+    }
+
+    public void setUserCardNumber(String userCardNumber) {
+        UserCardNumber = userCardNumber;
+    }
 
     public Message() {
         super();
@@ -96,14 +133,6 @@ public class Message implements Serializable {
 
     public void setUserType(String userType) {
         this.userType = userType;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
     }
 
     public String getStatus() {
@@ -178,19 +207,4 @@ public class Message implements Serializable {
         this.phone_num = phone_num;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
-
-    public List<Appointment> getNearest_apps() {
-        return nearest_apps;
-    }
-
-    public void setNearest_apps(List<Appointment> nearest_apps) {
-        this.nearest_apps = nearest_apps;
-    }
 }

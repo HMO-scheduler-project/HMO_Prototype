@@ -12,7 +12,7 @@ public class User implements Serializable{
     public int user_id;
     protected String username;
     protected String password;
-    protected int card_num;
+    protected String card_num;
     protected String first_name;
     protected String last_name;
     boolean logged_in;
@@ -20,7 +20,7 @@ public class User implements Serializable{
     protected GreenPass greenPass;
 
     public User() { }
-    public User(String username, String password,int card,String first_name,String last_name) throws NoSuchAlgorithmException {
+    public User(String username, String password,String card,String first_name,String last_name) throws NoSuchAlgorithmException {
         this.username = username;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -91,15 +91,15 @@ public class User implements Serializable{
         this.last_name = name;
     }
 
-    public int getCardNum(){
+    public String getCardNum(){
         return card_num;
     }
 
-    public void setCardNum(int num){
+    public void setCardNum(String num){
         this.card_num = num;
     }
 
-    public boolean checkCard(int num){
+    public boolean checkCard(String num){
         return num==card_num;
     }
 
