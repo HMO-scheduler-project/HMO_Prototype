@@ -7,6 +7,8 @@ import java.time.LocalTime;
 
 @Entity
 public class familyDoctorApp extends doctorApp{
+    @ManyToOne(targetEntity = Doctor.class)
+    protected Doctor doctor;
 
     public familyDoctorApp() {
         super();

@@ -11,7 +11,7 @@ public class SpecialDoctor extends Doctor{
     @OneToMany(targetEntity = Clinic.class)
     protected List<Clinic> docClinics; //one special doctor works in several clinics
 
-    public SpecialDoctor(String username, String password, String first_name, String last_name,String role, int card,
+    public SpecialDoctor(String username, String password, String first_name, String last_name,String role, String card,
                   String email, String main_clinic, List<Clinic> doc_clinics) throws NoSuchAlgorithmException {
         super(username, password,first_name,last_name,role,card,email,main_clinic);
         this.docClinics=doc_clinics;

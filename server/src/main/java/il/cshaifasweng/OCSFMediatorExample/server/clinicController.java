@@ -23,8 +23,9 @@ public class clinicController {
         Root<Clinic> root = query.from(Clinic.class);
         query.select(root);
         return Main.session.createQuery(query).getResultList().stream()
-                .map((clinic -> clinic.getName())).collect(Collectors.toList());
+                .map((Clinic::getName)).collect(Collectors.toList());
     }
+
 
     public static Clinic getClinicByName (String name) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
@@ -34,6 +35,36 @@ public class clinicController {
         query.where(builder.equal(root.get("name"), name));
         return Main.session.createQuery(query).getSingleResult();
     }
+
+
+
+    public static List<String> getServicesList(String name) {
+        Clinic clinic = getClinicByName(name);
+        List<String> services = null;
+        services.add("doctor appointments");
+        services.add("nurse");
+        if(clinic.hasLabServices()){
+            services.add("lab");
+        }
+        if(clinic.hasCovidTestService()){
+            services.add("covid test");
+        }
+        if(clinic.hasCovidVaccine()){
+            services.add("covid vaccine");
+        }
+        if(clinic.hasInfluenzaVaccine()){
+            services.add("influenza vaccine");
+        }
+        if(clinic.hasSpecialists()){
+            services.add("specialists");
+        }
+        return services;
+    }
+
+//    public static List<String> getDoctorsofClinic(String name){
+//        Clinic clinic = getClinicByName(name);
+//
+//    }
 
     public static LocalTime getOpeningHourByClinic(Clinic clinic){
         return clinic.getOpeningHour();

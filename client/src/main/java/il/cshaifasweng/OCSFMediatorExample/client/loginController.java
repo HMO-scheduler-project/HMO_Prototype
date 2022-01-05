@@ -90,8 +90,8 @@ public class loginController implements Initializable {
                 App.setUserType(event.getUserType());
                 App.setFirst_name(event.getFirst_name());
                 EventBus.getDefault().unregister(this);
-                ChangeScreens.changeToOpeningHoursScreen();
-//                ChangeScreens.changeToMainPage();
+//                ChangeScreens.changeToOpeningHoursScreen();
+                ChangeScreens.changeToMainPage();
             }
         }
     }

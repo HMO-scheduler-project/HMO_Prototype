@@ -112,4 +112,15 @@ public class ChangeScreens {
         });
     }
 
+    public static void changeToUpdateHoursScreen(){
+        Platform.runLater(() -> {
+            App.setWindowTitle("update hours");
+            try {
+                App.setContent("UpdateHoursScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 }

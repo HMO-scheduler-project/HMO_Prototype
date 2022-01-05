@@ -16,6 +16,7 @@ import org.hibernate.service.ServiceRegistry;
 import java.io.IOException;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public class Main extends SimpleServer {
     private static SessionFactory sessionFactory = getSessionFactory();
@@ -93,10 +94,6 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-
-
-
-
             if (currMsg.getAction().equals("logout")) {
                 try {
                     userController.logOut(currMsg);
@@ -120,19 +117,19 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-            if (currMsg.getAction().equals("Pull Reports")) {
-                try {
-                    serverMsg = currMsg;
-                    currMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
-                    serverMsg.setAwaitingTimeRep(clinicController.getAwaitingTimeRepByClinic(currMsg.getClinic()));
-                    serverMsg.setMissedAppRep(clinicController.getMissedAppRepByClinic(currMsg.getClinic()));
-                    serverMsg.setServicesTypeRep(clinicController.getServicesTypeRepByClinic(currMsg.getClinic()));
-                    serverMsg.setAction("Got Reports");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+//            if (currMsg.getAction().equals("Pull Reports")) {
+//                try {
+//                    serverMsg = currMsg;
+//                    currMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
+//                    serverMsg.setAwaitingTimeRep(clinicController.getAwaitingTimeRepByClinic(currMsg.getClinic()));
+//                    serverMsg.setMissedAppRep(clinicController.getMissedAppRepByClinic(currMsg.getClinic()));
+//                    serverMsg.setServicesTypeRep(clinicController.getServicesTypeRepByClinic(currMsg.getClinic()));
+//                    serverMsg.setAction("Got Reports");
+//                    client.sendToClient(serverMsg);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
             if (currMsg.getAction().equals("change hours")) {
                 try {
@@ -185,8 +182,6 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-
-
             if(currMsg.getAction().equals("change address")){
                 try {
                     serverMsg = currMsg;
@@ -219,13 +214,64 @@ public class Main extends SimpleServer {
             }
             if(currMsg.getAction().equals("GetNearestApps")){
                 try {
-                    serverMsg.setNearest_apps(appointmentController.getNearestAppsFromDB(userController.getUserByUsername(currMsg.getUsername()).getUserId()));
+                    serverMsg.setNearest_apps(appointmentController.getNearestAppsFromDB(userController.getUserByUsername(currMsg.getUsername())));
                     serverMsg.setAction("got nearest apps");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+//            if(currMsg.getAction().equals("GetPatientsList")){
+//                try {
+//                    serverMsg.setNearest_apps(appointmentController.getPatientListFromDB(currMsg.getUsername()));
+//                    serverMsg.setAction("got patient apps");
+//                    client.sendToClient(serverMsg);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if(currMsg.getAction().equals("updateArrivedTime")){
+//                try {
+//                    Appointment app = appointmentController.findAppinDB(currMsg.getCardNum(), LocalDate.now());
+//                    app.setActual_time(LocalTime.now());
+//                    app.setArrived(currMsg.patientArrived());
+//                    updateCellInDB(app);
+//                    serverMsg.setAction("got nearest apps");
+//                    client.sendToClient(serverMsg);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if(currMsg.getAction().equals("GetAllManagedClinics")){
+//                try {
+//                    List<String> clinicNames = getManagedClinicNames(userController.getManagerByUsername(currMsg.getUsername()));
+//                    serverMsg.setClinicList(clinicNames);
+//                    serverMsg.setAction("ShowManagedClinics");
+//                    client.sendToClient(serverMsg);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if(currMsg.getAction().equals("pull services")){
+//                try {
+//                    List<String> servicesNames = clinicController.getServicesList(currMsg.getClinicName());
+//                    serverMsg.setClinicList(servicesNames);
+//                    serverMsg.setAction("ShowServices");
+//                    client.sendToClient(serverMsg);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if(currMsg.getAction().equals("pull doctors")){
+//                try {
+//                    List<String> doctors = clinicController.getDoctorsofClinic(currMsg.getClinicName());
+//                    serverMsg.setClinicList(doctors);
+//                    serverMsg.setAction("ShowDoctors");
+//                    client.sendToClient(serverMsg);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -250,11 +296,49 @@ public class Main extends SimpleServer {
         }
     }
 
+    public static <T> void saveRowInDB(T objectType) {
+        try {
+            session.save(objectType);
+            session.flush();
+            session.getTransaction().commit();
+            session.clear();
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+    }
+
+    public static <T> void deleteRowInDB(T objectType) {
+        try {
+            session.delete(objectType);
+            session.flush();
+            session.getTransaction().commit();
+            session.clear();
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+    }
+
     public static void main( String[] args ) throws IOException, NoSuchAlgorithmException {
         server = new Main(3004);
         server.listen();
         System.out.println("server says: hello!");
 
+    }
+
+    private List<String> getManagedClinicNames(Manager manager){
+        List<String> names = null;
+        for(Clinic clinic : manager.getManaging_clinics()){
+            names.add(clinic.getName());
+        }
+        return names;
     }
 }
 

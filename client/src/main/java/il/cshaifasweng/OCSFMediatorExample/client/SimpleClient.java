@@ -63,6 +63,12 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("got nearest apps")){
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
 		}
+//		if(currMsg.getAction().equals("ShowManagedClinics")){
+//			EventBus.getDefault().post(new ManagedClinicListUpdateEvent(currMsg.getClinicList()));
+//		}
+//		if(currMsg.getAction().equals("ShowServices")){
+//			EventBus.getDefault().post(new ServiceListUpdateEvent(currMsg.getServices()));
+//		}
 	}
 
 	public static SimpleClient getClient() {

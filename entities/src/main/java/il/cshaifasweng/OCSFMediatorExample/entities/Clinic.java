@@ -31,6 +31,12 @@ public class Clinic implements Serializable {
     protected List<Appointment> clinicAppointments;
     @OneToOne(targetEntity = WeeklyReport.class)
     protected WeeklyReport WeeklyReportOfClinic;
+    protected boolean labServices;
+    protected boolean covidTestService;
+    protected boolean covidVaccine;
+    protected boolean influenzaVaccine;
+    protected boolean specialists;
+
 
     public Clinic() { }
     public Clinic(String name, String city, LocalTime start,LocalTime end,Manager manager,String address,String phone_number) throws NoSuchAlgorithmException {
@@ -41,6 +47,11 @@ public class Clinic implements Serializable {
         this.manager = manager;
         this.address = address;
         this.phone_number = phone_number;
+        this.labServices = false;
+        this.covidTestService = false;
+        this.covidVaccine = false;
+        this.influenzaVaccine = false;
+        this.specialists = false;
     }
 
     public String getName() {
@@ -129,6 +140,46 @@ public class Clinic implements Serializable {
 
     public void setWeeklyReportOfClinic(WeeklyReport weeklyReportOfClinic) {
         WeeklyReportOfClinic = weeklyReportOfClinic;
+    }
+
+    public boolean hasLabServices() {
+        return labServices;
+    }
+
+    public void setLabServices(boolean labServices) {
+        this.labServices = labServices;
+    }
+
+    public boolean hasCovidTestService() {
+        return covidTestService;
+    }
+
+    public void setCovidTestService(boolean covidTestService) {
+        this.covidTestService = covidTestService;
+    }
+
+    public boolean hasCovidVaccine() {
+        return covidVaccine;
+    }
+
+    public void setCovidVaccine(boolean covidVaccine) {
+        this.covidVaccine = covidVaccine;
+    }
+
+    public boolean hasInfluenzaVaccine() {
+        return influenzaVaccine;
+    }
+
+    public void setInfluenzaVaccine(boolean influenzaVaccine) {
+        this.influenzaVaccine = influenzaVaccine;
+    }
+
+    public boolean hasSpecialists() {
+        return specialists;
+    }
+
+    public void setSpecialists(boolean specialists) {
+        this.specialists = specialists;
     }
 }
 

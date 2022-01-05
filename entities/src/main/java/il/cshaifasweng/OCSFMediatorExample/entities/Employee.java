@@ -12,7 +12,7 @@ public class Employee extends User {
     @OneToMany(targetEntity = Appointment.class)
     protected List<Appointment> appointments;
 
-    public Employee(String username, String password,String first_name,String last_name,String role,int card,String Email,String main_clinic) throws NoSuchAlgorithmException {
+    public Employee(String username, String password,String first_name,String last_name,String role,String card,String Email,String main_clinic) throws NoSuchAlgorithmException {
         super(username, password,card,first_name,last_name);
         this.role = role;
         this.Email = Email;

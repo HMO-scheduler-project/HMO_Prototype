@@ -12,7 +12,7 @@ public class Manager extends Employee {
     @OneToMany(targetEntity = Clinic.class)
     protected List<Clinic> managing_clinics;
 
-    public Manager(String username, String password,String first_name,String last_name,String role,int card,String Email,String main_clinic,List<Clinic> managing_clinics) throws NoSuchAlgorithmException {
+    public Manager(String username, String password,String first_name,String last_name,String role,String card,String Email,String main_clinic,List<Clinic> managing_clinics) throws NoSuchAlgorithmException {
         super(username, password,first_name,last_name,role,card,Email,main_clinic);
         this.managing_clinics = managing_clinics;
     }

@@ -17,7 +17,6 @@ public class userController {
     }
 
     public static void getUser(Message msg) throws NoSuchAlgorithmException {
-        System.out.println("getUser");
         List<User> users = getAllUsersFromDB();
         boolean user_found = false;
         boolean wrong_password = false;
@@ -40,18 +39,21 @@ public class userController {
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
+                            msg.setFirst_name(user.getFirstName());
                         } else if (user instanceof Employee) {
                             msg.setUserType("Employee");
                             System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
+                            msg.setFirst_name(user.getFirstName());
                         }else if (user instanceof Patient){
                             msg.setUserType("Patient");
                             System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
+                            msg.setFirst_name(user.getFirstName());
                         }
                     } else {
                         msg.setStatus("you are already logged in");
@@ -66,6 +68,7 @@ public class userController {
             msg.setStatus("Wrong username or password");
         }
     }
+
     public static void getUserWithCardNumber(Message msg) throws NoSuchAlgorithmException {
         List<User> users = getAllUsersFromDB();
         boolean user_found = false;
@@ -164,6 +167,24 @@ public class userController {
         Root<User> root = query.from(User.class);
         query.select(root);
         query.where(builder.equal(root.get("username"), username));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
+    public static Manager getManagerByUsername (String username) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Manager> query = builder.createQuery(Manager.class);
+        Root<Manager> root = query.from(Manager.class);
+        query.select(root);
+        query.where(builder.equal(root.get("username"), username));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
+    public static User getUserById (int id) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root);
+        query.where(builder.equal(root.get("user_id"), id));
         return Main.session.createQuery(query).getSingleResult();
     }
 }

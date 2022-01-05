@@ -25,23 +25,29 @@ public class MenuBarController {
     @FXML
     private Menu reportsBtn;
     @FXML
-    private MenuItem scheduledAppBtn;
+    private MenuItem CancelAppBtn;
+    @FXML
+    private MenuItem viewAppsBtn;
     @FXML
     private Button logoutBtn;
+    @FXML
+    private Menu UpdateBtn;
 
     @FXML
     void pressChangeAppBtn(ActionEvent event) {}
+    @FXML
+    void pressCancelAppBtn(ActionEvent event) {}
     @FXML
     void pressContactInfoBtn(ActionEvent event) {
         ChangeScreens.changeToContactInfoScreen();
     }
     @FXML
-    void pressMainPageBtn(ActionEvent event) {}
+    void pressMainPageBtn(ActionEvent event) { ChangeScreens.changeToMainPage();}
     @FXML
-    void pressNewAppBtn(ActionEvent event) {}
+    void pressNewAppBtn(ActionEvent event) { ChangeScreens.changeNewAppScreen();}
 
     @FXML
-    void pressScheduledAppBtn(ActionEvent event) {}
+    void pressViewAppsBtn(ActionEvent event) {}
     @FXML
     void pressOnLogout(ActionEvent event){
         App.logout(true);
@@ -58,9 +64,15 @@ public class MenuBarController {
         ChangeScreens.changeToReportsScreen();
     }
 
+    @FXML
+    void pressHoursUpdate(ActionEvent event){
+        ChangeScreens.changeToUpdateHoursScreen();
+    }
+
 
     public void initialize() {
         reportsBtn.setVisible(App.getUserType().equals("Manager"));
+        UpdateBtn.setVisible(App.getUserType().equals("Manager"));
     }
 
 }

@@ -12,8 +12,8 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <Button fx:id="pcBtn" layoutX="191.0" layoutY="119.0" mnemonicParsing="false" onAction="#goToPCLogin" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="PC" />
-      <Button fx:id="AppStationBtn" layoutX="191.0" layoutY="176.0" maxHeight="30.0" maxWidth="200.0" mnemonicParsing="false" onAction="#goToStationLogin" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointment station" />
-      <Button fx:id="waitingRoomBtn" layoutX="191.0" layoutY="238.0" maxHeight="30.0" maxWidth="200.0" mnemonicParsing="false" onAction="#goToWaitingroomScreen" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Waiting room screen" />
+      <Button fx:id="pcBtn" layoutX="201.0" layoutY="118.0" mnemonicParsing="false" onAction="#goToPCLogin" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="PC" />
+      <Button fx:id="AppStationBtn" layoutX="201.0" layoutY="177.0" maxHeight="30.0" maxWidth="180.0" mnemonicParsing="false" onAction="#goToStationLogin" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointment station" />
+      <Button fx:id="waitingRoomBtn" layoutX="201.0" layoutY="237.0" maxHeight="30.0" maxWidth="180.0" mnemonicParsing="false" onAction="#goToWaitingroomScreen" prefHeight="30.0" prefWidth="180.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Waiting room screen" />
    </children>
 </AnchorPane>

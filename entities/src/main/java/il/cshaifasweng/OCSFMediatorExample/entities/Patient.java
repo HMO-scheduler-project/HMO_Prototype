@@ -25,7 +25,7 @@ public class Patient extends User implements Serializable {
 
 
     public Patient(String username, String password,String first_name,String last_name,Doctor doctor
-            ,LocalDate date_of_birth,int card,String Email,Clinic clinic,
+            ,LocalDate date_of_birth,String card,String Email,Clinic clinic,
                    GreenPass green_pass) throws NoSuchAlgorithmException {
         super(username, password,card,first_name,last_name);
         this.patientAppointments = null;
@@ -117,6 +117,11 @@ public class Patient extends User implements Serializable {
     public void setDate_of_birth(LocalDate date_of_birth) {
         this.date_of_birth = date_of_birth;
     }
+
+    public String getFullName(){
+        return getFirstName()+getLastName();
+    }
+
 
 
 }

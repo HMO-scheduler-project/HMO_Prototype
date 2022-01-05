@@ -5,7 +5,6 @@ import Reports.ServicesTypeRep;
 
 import java.io.Serializable;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Message implements Serializable {
@@ -17,6 +16,7 @@ public class Message implements Serializable {
     /* ---------- Handling users ---------- */
     private User user;
     private String username;
+    private String first_name;
     private String password;
     private String userType;
     private String status;
@@ -30,6 +30,9 @@ public class Message implements Serializable {
     private LocalTime closing_hour;
     private String address;
     private String phone_num;
+    /*-------Handling appointments---*/
+    private Appointment appointment;
+    private List<Appointment> nearest_apps;
     /*----------Handling Reports----*/
     private AwaitingTimeRep awaitingTimeRep;
     private MissedAppRep missedAppRep;
@@ -135,6 +138,14 @@ public class Message implements Serializable {
         this.userType = userType;
     }
 
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -207,4 +218,19 @@ public class Message implements Serializable {
         this.phone_num = phone_num;
     }
 
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
+    }
+
+    public List<Appointment> getNearest_apps() {
+        return nearest_apps;
+    }
+
+    public void setNearest_apps(List<Appointment> nearest_apps) {
+        this.nearest_apps = nearest_apps;
+    }
 }

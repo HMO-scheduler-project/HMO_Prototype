@@ -70,7 +70,7 @@ public class User implements Serializable{
     }
 
     private String getSalt() throws NoSuchAlgorithmException {
-        return String.valueOf(card_num);
+        return card_num;
     }
 
 
@@ -100,7 +100,7 @@ public class User implements Serializable{
     }
 
     public boolean checkCard(String num){
-        return num==card_num;
+        return num.equals(card_num);
     }
 
     public boolean isLoggedIn() {

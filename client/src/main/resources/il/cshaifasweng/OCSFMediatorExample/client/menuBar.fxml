@@ -19,12 +19,15 @@
             </Menu>
             <Menu mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointments">
                <items>
-                  <MenuItem fx:id="scheduledAppBtn" mnemonicParsing="false" onAction="#pressScheduledAppBtn" style="-fx-background-color: transparent;" text="view scheduled appointments" />
+                  <MenuItem fx:id="viewAppsBtn" mnemonicParsing="false" onAction="#pressViewAppsBtn" style="-fx-background-color: transparent;" text="view scheduled appointments" />
                   <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" style="-fx-background-color: transparent;" text="schedule new appointment" />
-                  <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" style="-fx-background-color: transparent;" text="change\cancel appointment" />
+                  <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" style="-fx-background-color: transparent;" text="change appointment" />
+                  <MenuItem fx:id="CancelAppBtn" mnemonicParsing="false" onAction="#pressCancelAppBtn" style="-fx-background-color: transparent;" text="cancel appointment" />
                </items>
             </Menu>
-            <Menu fx:id="reportsBtn" mnemonicParsing="false" onAction="#pressReportsBtn" text="Reports" visible="false" />
+            <Menu fx:id="reportsBtn" mnemonicParsing="false" onAction="#pressReportsBtn" text="Reports" />
+            <Menu fx:id="UpdateBtn" mnemonicParsing="false" onAction="#pressHoursUpdate" text="Updates">
+            </Menu>
          </menus>
       </MenuBar>
       <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="logout" />
