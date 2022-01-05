@@ -78,6 +78,24 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+            if (currMsg.getAction().equals("login with card number")) {
+                try {
+                    if (currMsg.getUserCardNumber().equals("")){
+                    } else {
+                        userController.getUserWithCardNumber(currMsg);
+                        updateCellInDB(currMsg.getUser());
+                        serverMsg = currMsg;
+                        serverMsg.setAction("loginByCard done");
+                        client.sendToClient(serverMsg);
+                    }
+                } catch (IOException | NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+
             if (currMsg.getAction().equals("logout")) {
                 try {
                     userController.logOut(currMsg);
@@ -101,6 +119,20 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+            if (currMsg.getAction().equals("Pull Reports")) {
+                try {
+                    serverMsg = currMsg;
+                    currMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
+                    serverMsg.setAwaitingTimeRep(clinicController.getAwaitingTimeRepByClinic(currMsg.getClinic()));
+                    serverMsg.setMissedAppRep(clinicController.getMissedAppRepByClinic(currMsg.getClinic()));
+                    serverMsg.setServicesTypeRep(clinicController.getServicesTypeRepByClinic(currMsg.getClinic()));
+                    serverMsg.setAction("Got Reports");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             if (currMsg.getAction().equals("change hours")) {
                 try {
                     serverMsg = currMsg;
@@ -152,6 +184,8 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+
+
             if(currMsg.getAction().equals("change address")){
                 try {
                     serverMsg = currMsg;
