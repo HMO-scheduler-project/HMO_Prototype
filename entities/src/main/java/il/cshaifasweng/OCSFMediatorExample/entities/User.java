@@ -15,17 +15,21 @@ public class User implements Serializable{
     protected String card_num;
     protected String first_name;
     protected String last_name;
+    protected String Email;
+    protected String phone_number;
     boolean logged_in;
     @OneToOne (targetEntity = GreenPass.class)
     protected GreenPass greenPass;
 
     public User() { }
-    public User(String username, String password,String card,String first_name,String last_name) throws NoSuchAlgorithmException {
+    public User(String username, String password,String card,String first_name,String last_name,String Email,String phone_number) throws NoSuchAlgorithmException {
         this.username = username;
         this.first_name = first_name;
         this.last_name = last_name;
         this.card_num = card;
         this.password = hashPassword(password);
+        this.Email = Email;
+        this.phone_number = phone_number;
         this.logged_in = false;
         this.greenPass = null;
     }
@@ -73,8 +77,6 @@ public class User implements Serializable{
         return card_num;
     }
 
-
-
     public String getFirstName() {
         return first_name;
     }
@@ -101,6 +103,22 @@ public class User implements Serializable{
 
     public boolean checkCard(String num){
         return num.equals(card_num);
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public boolean isLoggedIn() {

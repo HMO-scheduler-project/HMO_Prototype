@@ -65,7 +65,7 @@ public class EmployeeMainPage {
 
     @FXML
     void pressOnCallNextPatient(ActionEvent event) {
-
+//        waitingRoomScreenController.CallNextPatient(patientName.getText());
     }
 
     @FXML

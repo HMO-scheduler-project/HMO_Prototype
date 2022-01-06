@@ -6,16 +6,14 @@ import java.util.List;
 
 @Entity
 public class Employee extends User {
-    protected String Email;
     protected String role;
     protected String main_clinic;
     @OneToMany(targetEntity = Appointment.class)
     protected List<Appointment> appointments;
 
-    public Employee(String username, String password,String first_name,String last_name,String role,String card,String Email,String main_clinic) throws NoSuchAlgorithmException {
-        super(username, password,card,first_name,last_name);
+    public Employee(String username, String password,String first_name,String last_name,String role,String card,String Email,String phone_number,String main_clinic) throws NoSuchAlgorithmException {
+        super(username, password,card,first_name,last_name,Email,phone_number);
         this.role = role;
-        this.Email = Email;
         this.main_clinic = main_clinic;
     }
 
@@ -31,14 +29,6 @@ public class Employee extends User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
     }
 
     public String getMain_clinic() {

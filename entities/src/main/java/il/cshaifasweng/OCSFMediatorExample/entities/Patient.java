@@ -25,9 +25,9 @@ public class Patient extends User implements Serializable {
 
 
     public Patient(String username, String password,String first_name,String last_name,Doctor doctor
-            ,LocalDate date_of_birth,String card,String Email,Clinic clinic,
+            ,LocalDate date_of_birth,String card,String Email,String phone_number,Clinic clinic,
                    GreenPass green_pass) throws NoSuchAlgorithmException {
-        super(username, password,card,first_name,last_name);
+        super(username, password,card,first_name,last_name,Email,phone_number);
         this.patientAppointments = null;
         this.doctor = doctor;
         this.next_appointment = null;

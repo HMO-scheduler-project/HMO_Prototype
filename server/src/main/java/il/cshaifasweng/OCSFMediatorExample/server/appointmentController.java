@@ -30,7 +30,21 @@ public class appointmentController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
-//    public static List<Appointment> getPatientListFromDB(Employee employee){
-//
-//    }
+    public static List<Appointment> getPatientListFromDB(Employee employee){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
+        Root<Appointment> root = query.from(Appointment.class);
+        query.select(root);
+        query.where(builder.equal(root.get("employee"), employee));
+        return Main.session.createQuery(query).getResultList();
+    }
+
+    public static Long countAppPerDay(String type,LocalDate date){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Long> query = builder.createQuery(Long.class);
+        Root<Appointment> root = query.from(Appointment.class);
+        query.select(builder.count(root));
+        query.where(builder.equal(root.get("type"), type),builder.equal(root.get("date"),date));
+        return Main.session.createQuery(query).getSingleResult();
+    }
 }

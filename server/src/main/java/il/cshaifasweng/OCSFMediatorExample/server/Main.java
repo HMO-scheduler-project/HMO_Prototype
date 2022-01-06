@@ -16,7 +16,9 @@ import org.hibernate.service.ServiceRegistry;
 import java.io.IOException;
 
 import java.security.NoSuchAlgorithmException;
+
 import java.util.List;
+
 
 public class Main extends SimpleServer {
     private static SessionFactory sessionFactory = getSessionFactory();
@@ -221,15 +223,15 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-//            if(currMsg.getAction().equals("GetPatientsList")){
-//                try {
-//                    serverMsg.setNearest_apps(appointmentController.getPatientListFromDB(currMsg.getUsername()));
-//                    serverMsg.setAction("got patient apps");
-//                    client.sendToClient(serverMsg);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            if(currMsg.getAction().equals("GetPatientsList")){
+                try {
+                    serverMsg.setNearest_apps(appointmentController.getPatientListFromDB((Employee)userController.getUserByUsername(currMsg.getUsername())));
+                    serverMsg.setAction("got patient apps");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 //            if(currMsg.getAction().equals("updateArrivedTime")){
 //                try {
 //                    Appointment app = appointmentController.findAppinDB(currMsg.getCardNum(), LocalDate.now());

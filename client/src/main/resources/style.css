@@ -52,4 +52,12 @@
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
   }
 
+ .table-view, .virtual-flow, .column-header-background, .cell indexed-cell .table-row-cell, .cell indexed-cell .table-cell .table-column {
+   -fx-background-color: transparent;
+   -fx-font-size: 12px;
+   -fx-font-weight: bold;
+   -fx-text-fill: #333333;
+   -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+ }
+
 

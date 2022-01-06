@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.List;
 
+
 public class Message implements Serializable {
     /* ---------- Message Necessary Info ---------- */
     private int id;

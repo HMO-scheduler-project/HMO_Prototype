@@ -17,8 +17,8 @@ public class LabWorker extends Employee{
     }
 
     public LabWorker(String username, String password, String first_name, String last_name, String card, String Email,
-                     String main_clinic, List<LabApp> labApps) throws NoSuchAlgorithmException {
-        super(username, password, first_name, last_name, "lab worker", card, Email, main_clinic);
+                     String phone_number,String main_clinic, List<LabApp> labApps) throws NoSuchAlgorithmException {
+        super(username, password, first_name, last_name, "lab worker", card, Email,phone_number, main_clinic);
         this.labApps = labApps;
     }
 

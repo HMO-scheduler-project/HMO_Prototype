@@ -15,8 +15,8 @@ public class HMO_Manager extends Manager {
     protected List<WeeklyReport> Weekly_Reports;
 
 
-    public HMO_Manager(String username, String password,String first_name,String last_name,String card,String Email,String main_clinic,List<Clinic> managing_clinics) throws NoSuchAlgorithmException {
-        super(username, password,first_name,last_name,"HMO_Manager",card,Email,main_clinic,managing_clinics);
+    public HMO_Manager(String username, String password,String first_name,String last_name,String card,String Email,String phone_number,String main_clinic,List<Clinic> managing_clinics) throws NoSuchAlgorithmException {
+        super(username, password,first_name,last_name,"HMO_Manager",card,Email,phone_number,main_clinic,managing_clinics);
     }
 
     public List<WeeklyReport> getWeekly_Reports() {

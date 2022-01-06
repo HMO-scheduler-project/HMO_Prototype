@@ -11,8 +11,8 @@ public class Doctor extends Employee {
     protected List<Patient> patientList;
 
     public Doctor(String username, String password, String first_name, String last_name,String role, String card,
-                 String email, String main_clinic) throws NoSuchAlgorithmException {
-        super(username, password,first_name,last_name,role,card,email,main_clinic);
+                 String email,String phone_number, String main_clinic) throws NoSuchAlgorithmException {
+        super(username, password,first_name,last_name,role,card,email,phone_number,main_clinic);
         this.patientList = null;
 
     }
