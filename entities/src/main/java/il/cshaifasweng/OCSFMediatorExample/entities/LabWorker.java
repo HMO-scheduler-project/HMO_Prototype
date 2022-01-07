@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -17,8 +18,8 @@ public class LabWorker extends Employee{
     }
 
     public LabWorker(String username, String password, String first_name, String last_name, String card, String Email,
-                     String phone_number,String main_clinic, List<LabApp> labApps) throws NoSuchAlgorithmException {
-        super(username, password, first_name, last_name, "lab worker", card, Email,phone_number, main_clinic);
+                     String phone_num, String main_clinic, List<LabApp> labApps, int room_num, LocalTime start, LocalTime end) throws NoSuchAlgorithmException {
+        super(username, password, first_name, last_name, "lab worker", card, Email, phone_num,main_clinic,room_num,start,end);
         this.labApps = labApps;
     }
 
@@ -36,10 +37,5 @@ public class LabWorker extends Employee{
 
     public void removeLabApp(LabApp app_to_delete){
         this.labApps.remove(app_to_delete);
-    }
-
-    @Override
-    public String toString() {
-        return "Lab Worker[ "+super.toString() + " ]";
     }
 }

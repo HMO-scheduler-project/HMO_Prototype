@@ -16,20 +16,20 @@ public class User implements Serializable{
     protected String first_name;
     protected String last_name;
     protected String Email;
-    protected String phone_number;
+    protected String phone_num;
     boolean logged_in;
     @OneToOne (targetEntity = GreenPass.class)
     protected GreenPass greenPass;
 
     public User() { }
-    public User(String username, String password,String card,String first_name,String last_name,String Email,String phone_number) throws NoSuchAlgorithmException {
+    public User(String username, String password,String card,String first_name,String last_name,String Email,String phone_num) throws NoSuchAlgorithmException {
         this.username = username;
         this.first_name = first_name;
         this.last_name = last_name;
         this.card_num = card;
-        this.password = hashPassword(password);
         this.Email = Email;
-        this.phone_number = phone_number;
+        this.phone_num = phone_num;
+        this.password = hashPassword(password);
         this.logged_in = false;
         this.greenPass = null;
     }
@@ -77,6 +77,8 @@ public class User implements Serializable{
         return card_num;
     }
 
+
+
     public String getFirstName() {
         return first_name;
     }
@@ -105,22 +107,6 @@ public class User implements Serializable{
         return num.equals(card_num);
     }
 
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
-
     public boolean isLoggedIn() {
         return logged_in;
     }
@@ -135,6 +121,22 @@ public class User implements Serializable{
 
     public void setGreenPass(GreenPass greenPass) {
         this.greenPass = greenPass;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getPhone_num() {
+        return phone_num;
+    }
+
+    public void setPhone_num(String phone_num) {
+        this.phone_num = phone_num;
     }
 
     @Override

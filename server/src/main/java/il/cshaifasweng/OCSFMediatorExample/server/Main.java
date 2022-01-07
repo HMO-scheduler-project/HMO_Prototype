@@ -17,6 +17,8 @@ import java.io.IOException;
 
 import java.security.NoSuchAlgorithmException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -75,7 +77,6 @@ public class Main extends SimpleServer {
                         updateCellInDB(currMsg.getUser());
                         serverMsg = currMsg;
                         serverMsg.setAction("login done");
-                        System.out.println(currMsg.getUser().getUsername());
                         client.sendToClient(serverMsg);
                     }
                 } catch (IOException | NoSuchAlgorithmException e) {
@@ -232,18 +233,18 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-//            if(currMsg.getAction().equals("updateArrivedTime")){
-//                try {
-//                    Appointment app = appointmentController.findAppinDB(currMsg.getCardNum(), LocalDate.now());
-//                    app.setActual_time(LocalTime.now());
-//                    app.setArrived(currMsg.patientArrived());
-//                    updateCellInDB(app);
-//                    serverMsg.setAction("got nearest apps");
-//                    client.sendToClient(serverMsg);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            if(currMsg.getAction().equals("updateArrivedTime")){
+                try {
+                    Appointment app = appointmentController.findAppinDB(currMsg.getUserCardNumber(), LocalDate.now());
+                    app.setActual_time(LocalTime.now());
+                    app.setArrived(true);
+                    updateCellInDB(app);
+                    serverMsg.setAction("updated arrival time");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 //            if(currMsg.getAction().equals("GetAllManagedClinics")){
 //                try {
 //                    List<String> clinicNames = getManagedClinicNames(userController.getManagerByUsername(currMsg.getUsername()));

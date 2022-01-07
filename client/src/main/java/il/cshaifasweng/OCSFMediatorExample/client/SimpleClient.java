@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import org.greenrobot.eventbus.EventBus;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -62,6 +63,12 @@ public class SimpleClient extends AbstractClient {
 		}
 		if(currMsg.getAction().equals("got nearest apps")){
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
+		}
+		if(currMsg.getAction().equals("got patient apps")){
+			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
+		}
+		if(currMsg.getAction().equals("updated arrival time")){
+			EventBus.getDefault().post(new updateArrivalTimeEvent());
 		}
 //		if(currMsg.getAction().equals("ShowManagedClinics")){
 //			EventBus.getDefault().post(new ManagedClinicListUpdateEvent(currMsg.getClinicList()));

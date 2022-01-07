@@ -35,10 +35,10 @@ public class EmployeeMainPage {
     private TextField currPatientTF;
 
     @FXML
-    private Pane menubar;
+    private Label successfulUpdateLabel;
 
     @FXML
-    private CheckBox arrivedCheck;
+    private Pane menubar;
 
     @FXML
     private TableView<Appointment> nearestAppTable;
@@ -54,9 +54,7 @@ public class EmployeeMainPage {
         try {
             Message msg= new Message();
             msg.setUserCardNumber(currPatientTF.getText());
-            msg.setArrived(arrivedCheck.isSelected());
             msg.setAction("updateArrivedTime");
-            SimpleClient.getClient().openConnection();
             SimpleClient.getClient().sendToServer(msg);
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,6 +72,7 @@ public class EmployeeMainPage {
         menubar.getChildren().clear();
         menubar.getChildren().add(menuBarParent);
         EventBus.getDefault().register(this);
+        successfulUpdateLabel.setVisible(false);
         welcomeTF.setText("Welcome " + App.getFirst_name());
         try {
             Message msg= new Message();
@@ -93,5 +92,10 @@ public class EmployeeMainPage {
         TimeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         patientName.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getPatient().getFullName()));
         nearestAppTable.setItems(FXCollections.observableList(event.getAppsList()));
+    }
+
+    @Subscribe
+    public void onUpdateArrivalTimeEvent(updateArrivalTimeEvent event){
+        successfulUpdateLabel.setVisible(true);
     }
 }

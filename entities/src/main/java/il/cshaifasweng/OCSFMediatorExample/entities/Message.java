@@ -35,7 +35,6 @@ public class Message implements Serializable {
     private Appointment appointment;
     private List<Appointment> nearest_apps;
     private boolean arrived;
-    private int card_num;
     /*-------Handling updates-------*/
     private String service_name;
     private List<String> services;
@@ -245,11 +244,4 @@ public class Message implements Serializable {
         this.arrived = arrived;
     }
 
-    public int getCardNum() {
-        return card_num;
-    }
-
-    public void setCardNum(int card_num) {
-        this.card_num = card_num;
-    }
 }

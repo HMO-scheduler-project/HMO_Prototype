@@ -83,8 +83,7 @@ public class userController {
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
-                        }
-                        if (user instanceof Manager) {
+                        }else if (user instanceof Manager) {
                             msg.setUserType("Manager");
                             System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
@@ -92,6 +91,12 @@ public class userController {
                             msg.setUser(user);
                         } else if (user instanceof Employee) {
                             msg.setUserType("Employee");
+                            System.out.println(msg.getUserType());
+                            user.setLoggedIn(true);
+                            msg.setStatus("logged in");
+                            msg.setUser(user);
+                        }else if (user instanceof Patient) {
+                            msg.setUserType("Patient");
                             System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
@@ -187,6 +192,18 @@ public class userController {
         query.where(builder.equal(root.get("user_id"), id));
         return Main.session.createQuery(query).getSingleResult();
     }
+
+
+    public static Patient getPatientByCardNum (String card_num) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Patient> query = builder.createQuery(Patient.class);
+        Root<Patient> root = query.from(Patient.class);
+        query.select(root);
+        query.where(builder.equal(root.get("card_num"), card_num));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
+
 }
 
 

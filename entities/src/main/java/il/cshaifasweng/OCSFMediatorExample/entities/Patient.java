@@ -10,7 +10,6 @@ import java.util.List;
 public class Patient extends User implements Serializable {
     @OneToMany(targetEntity = Appointment.class)
     protected List<Appointment> patientAppointments;
-    //family/children doctor assigned.
     @ManyToOne(targetEntity = Doctor.class)
     protected Doctor doctor;
     @ManyToOne(targetEntity = Appointment.class)
@@ -119,7 +118,7 @@ public class Patient extends User implements Serializable {
     }
 
     public String getFullName(){
-        return getFirstName()+getLastName();
+        return (getFirstName()+"  "+getLastName());
     }
 
 

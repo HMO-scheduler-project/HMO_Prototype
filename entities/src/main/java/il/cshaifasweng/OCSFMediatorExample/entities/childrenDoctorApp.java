@@ -9,7 +9,6 @@ import java.time.LocalTime;
 @Entity
 public class childrenDoctorApp extends doctorApp{
 
-
     public childrenDoctorApp() {
         super();
     }
