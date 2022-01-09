@@ -59,6 +59,7 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(MissedAppRep.class);
         configuration.addAnnotatedClass(ServicesTypeRep.class);
         configuration.addAnnotatedClass(WeeklyReport.class);
+        configuration.addAnnotatedClass(clinicSpecialService.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         return configuration.buildSessionFactory(serviceRegistry);
     }
@@ -282,6 +283,8 @@ public class Main extends SimpleServer {
                     serverMsg.setOpeningHour(clinic.getOpeningHour());
                     serverMsg.setClosingHour(clinic.getClosingHour());
                     serverMsg.setRoom(-1);
+                    serverMsg.setAction("ShowHours");
+                    client.sendToClient(serverMsg);
                 } else if (currMsg.getService_name().equals("nurse")) {
                     try {
                         List<Nurse> nursesList = userController.getNursesByClinic(currMsg.getClinicName());

@@ -91,12 +91,30 @@ public class UpdateHoursScreen {
     @Subscribe
     public void onManagedClinicListUpdateEvent(ManagedClinicListUpdateEvent event) {
         for (String clinic : event.getClinicNames()) {
-            ClinicsList.getItems().add(clinic);
+            if(!ClinicsList.getItems().contains(clinic)) {
+                ClinicsList.getItems().add(clinic);
+            }
         }
     }
 
     @FXML
     void chooseClinic() {
+        doctorLabel.setVisible(false);
+        doctorList.setVisible(false);
+        ChangeRoomBtn.setVisible(false);
+        ChangeHoursBtn.setVisible(false);
+        openHourTF.clear();
+        closeHourTF.clear();
+        openHourTF.setVisible(false);
+        closeHourTF.setVisible(false);
+        submitChangeHoursBtn.setVisible(false);
+        clientMsg.setOpeningHour(null);
+        clientMsg.setClosingHour(null);
+        updateRoomTF.clear();
+        updateRoomTF.setVisible(false);
+        submitChangeRoomBtn.setVisible(false);
+        clientMsg.setRoom(0);
+
         chosen_clinic = ClinicsList.getSelectionModel().getSelectedItem();;
         clientMsg.setClinicName(chosen_clinic);
         clientMsg.setAction("pull services");
@@ -110,12 +128,28 @@ public class UpdateHoursScreen {
     @Subscribe
     public void onServiceListUpdateEvent(ServiceListUpdateEvent event) {
         for (String service : event.getServiceNames()) {
-            serviceList.getItems().add(service);
+            if(!serviceList.getItems().contains(service)) {
+                serviceList.getItems().add(service);
+            }
         }
     }
 
     @FXML
     void chooseService(ActionEvent event) {
+        ChangeRoomBtn.setVisible(false);
+        ChangeHoursBtn.setVisible(false);
+        openHourTF.clear();
+        closeHourTF.clear();
+        openHourTF.setVisible(false);
+        closeHourTF.setVisible(false);
+        submitChangeHoursBtn.setVisible(false);
+        clientMsg.setOpeningHour(null);
+        clientMsg.setClosingHour(null);
+        updateRoomTF.clear();
+        updateRoomTF.setVisible(false);
+        submitChangeRoomBtn.setVisible(false);
+        clientMsg.setRoom(0);
+
         chosen_service = serviceList.getSelectionModel().getSelectedItem();
         clientMsg.setClinicName(chosen_clinic);
        if(chosen_service.equals("doctors")){
@@ -127,6 +161,8 @@ public class UpdateHoursScreen {
             doctorList.setVisible(true);
             clientMsg.setAction("pull specialists");
         }else{
+            doctorLabel.setVisible(false);
+            doctorList.setVisible(false);
             clientMsg.setService_name(chosen_service);
             clientMsg.setAction("pull service hours");
         }
@@ -140,7 +176,9 @@ public class UpdateHoursScreen {
     @Subscribe
     public void onDoctorListUpdateEvent(DoctorListUpdateEvent event) {
         for (String doctor : event.getDoctorsList()) {
-            doctorList.getItems().add(doctor);
+            if(!doctorList.getItems().contains(doctor)) {
+                doctorList.getItems().add(doctor);
+            }
         }
     }
 
@@ -188,6 +226,7 @@ public class UpdateHoursScreen {
 
     @FXML
     void pressSubmitChangeHoursBtn(ActionEvent event){
+        System.out.println("in change hours btn");
         clientMsg.setAction("change hours");
         clientMsg.setService_name(chosen_service);
         clientMsg.setClinicName(chosen_clinic);

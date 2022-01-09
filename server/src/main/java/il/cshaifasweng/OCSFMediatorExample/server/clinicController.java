@@ -86,12 +86,12 @@ public class clinicController {
 
     public static List<String> getSpecialDoctorsofClinic(String name){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
-        CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
-        Root<Employee> root = query.from(Employee.class);
+        CriteriaQuery<SpecialDoctor> query = builder.createQuery(SpecialDoctor.class);
+        Root<SpecialDoctor> root = query.from(SpecialDoctor.class);
         query.select(root);
-        query.where(builder.like(root.get("main_clinic"), name));
+        query.where(builder.like(root.get("main_clinic"), "%"+name+"%"));
         return Main.session.createQuery(query).getResultList().stream()
-                .map((Employee::getFullName)).collect(Collectors.toList());
+                .map((SpecialDoctor::getFullName)).collect(Collectors.toList());
     }
 
     public static clinicSpecialService getService(String service,String clinic_name){

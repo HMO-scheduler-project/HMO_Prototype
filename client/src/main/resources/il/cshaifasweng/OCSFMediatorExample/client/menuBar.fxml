@@ -12,7 +12,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="Main page">
                <items>
-                  <MenuItem fx:id="mainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" text="return to main page" />
+                  <MenuItem fx:id="mainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" style="-fx-background-color: #87CEEB;" text="return to main page" />
                </items></Menu>
             <Menu fx:id="ClinicsBtn" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Clinics">
                <items>
@@ -30,11 +30,11 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Reports">
                <items>
-                  <MenuItem fx:id="reportsBtn" mnemonicParsing="false" onAction="#pressReportsBtn" text="show reports" />
+                  <MenuItem fx:id="reportsBtn" mnemonicParsing="false" onAction="#pressReportsBtn" style="-fx-background-color: #87CEEB;" text="show reports" />
                </items></Menu>
             <Menu mnemonicParsing="false" text="Updates">
                <items>
-                  <MenuItem fx:id="UpdateBtn" mnemonicParsing="false" onAction="#pressHoursUpdate" text="Update hours and rooms" />
+                  <MenuItem fx:id="UpdateBtn" mnemonicParsing="false" onAction="#pressHoursUpdate" style="-fx-background-color: #87CEEB;" text="Update hours and rooms" />
                </items></Menu>
          </menus>
       </MenuBar>
