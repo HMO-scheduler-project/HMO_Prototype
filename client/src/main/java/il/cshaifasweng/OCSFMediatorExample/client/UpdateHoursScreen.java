@@ -175,10 +175,9 @@ public class UpdateHoursScreen {
 
     @Subscribe
     public void onDoctorListUpdateEvent(DoctorListUpdateEvent event) {
+        doctorList.getItems().clear();
         for (String doctor : event.getDoctorsList()) {
-            if(!doctorList.getItems().contains(doctor)) {
-                doctorList.getItems().add(doctor);
-            }
+            doctorList.getItems().add(doctor);
         }
     }
 
@@ -201,6 +200,8 @@ public class UpdateHoursScreen {
         ClosingHourTF.setText(String.valueOf(event.getFinish()));
         if(event.getRoom()>0){
             RoomTF.setText(Integer.toString(event.getRoom()));
+        }else{
+            RoomTF.clear();
         }
         ChangeHoursBtn.setVisible(true);
         openHourTF.clear();
@@ -226,7 +227,6 @@ public class UpdateHoursScreen {
 
     @FXML
     void pressSubmitChangeHoursBtn(ActionEvent event){
-        System.out.println("in change hours btn");
         clientMsg.setAction("change hours");
         clientMsg.setService_name(chosen_service);
         clientMsg.setClinicName(chosen_clinic);
@@ -240,6 +240,7 @@ public class UpdateHoursScreen {
             if(!closeHourTF.getText().equals("")) {
                 clientMsg.setClosingHour(LocalTime.parse(closeHourTF.getText()));
             }
+            System.out.println("before update");
             SimpleClient.getClient().sendToServer(clientMsg);
         } catch (Exception e) {
             e.printStackTrace();
@@ -248,6 +249,7 @@ public class UpdateHoursScreen {
 
     @Subscribe
     public void onChangeHoursEvent(ChangeHoursEvent event){
+        System.out.println("after update");
         OpeningHourTF.setText(String.valueOf(event.getOpening_hour()));
         ClosingHourTF.setText(String.valueOf(event.getClosing_hour()));
     }

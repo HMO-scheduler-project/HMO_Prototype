@@ -9,6 +9,7 @@ public class ChangeHoursEvent {
     public ChangeHoursEvent(LocalTime opening_hour,LocalTime closing_hour) {
         this.opening_hour = opening_hour;
         this.closing_hour = closing_hour;
+        System.out.println("new changeHoursEvent");
     }
 
     public LocalTime getOpening_hour() {

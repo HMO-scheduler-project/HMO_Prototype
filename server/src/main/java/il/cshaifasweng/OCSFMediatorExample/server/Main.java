@@ -72,8 +72,7 @@ public class Main extends SimpleServer {
             serverMsg = new Message();
             if (currMsg.getAction().equals("login")) {
                 try {
-                    if (currMsg.getUsername().equals("") || currMsg.getPassword().equals("")) {
-                    } else {
+                    if (!currMsg.getUsername().equals("") && !currMsg.getPassword().equals("")) {
                         userController.getUser(currMsg);
                         updateCellInDB(currMsg.getUser());
                         serverMsg = currMsg;
@@ -86,8 +85,7 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("login with card number")) {
                 try {
-                    if (currMsg.getUserCardNumber().equals("")){
-                    } else {
+                    if (!currMsg.getUserCardNumber().equals("")){
                         userController.getUserWithCardNumber(currMsg);
                         updateCellInDB(currMsg.getUser());
                         serverMsg = currMsg;
@@ -338,7 +336,7 @@ public class Main extends SimpleServer {
                         serverMsg.setAction("saved new hours");
                         serverMsg.setOpeningHour(serverMsg.getClinic().getOpeningHour());
                         serverMsg.setClosingHour(serverMsg.getClinic().getClosingHour());
-                    }else if(currMsg.getService_name().equals("doctor appointments") || currMsg.getService_name().equals("specialists")){
+                    }else if(currMsg.getService_name().equals("doctors") || currMsg.getService_name().equals("specialists")){
                        Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
                         if(currMsg.getOpeningHour()!=null) {
                             doctor.setStart_working_hour(currMsg.getOpeningHour());
@@ -398,7 +396,7 @@ public class Main extends SimpleServer {
             }
             if(currMsg.getAction().equals("change room")){
                 try {
-                    if(currMsg.getService_name().equals("doctor appointments") || currMsg.getService_name().equals("specialists")){
+                    if(currMsg.getService_name().equals("doctors") || currMsg.getService_name().equals("specialists")){
                         Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
                         if(currMsg.getRoom()>0) {
                             doctor.setRoom_num(currMsg.getRoom());

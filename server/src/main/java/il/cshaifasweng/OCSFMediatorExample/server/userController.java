@@ -28,28 +28,24 @@ public class userController {
                         if(user instanceof HMO_Manager)
                         {
                             msg.setUserType("HMO_Manager");
-                            System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
                         }
                         if (user instanceof Manager) {
                             msg.setUserType("Manager");
-                            System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
                             msg.setFirst_name(user.getFirstName());
                         } else if (user instanceof Employee) {
                             msg.setUserType("Employee");
-                            System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
                             msg.setFirst_name(user.getFirstName());
                         }else if (user instanceof Patient){
                             msg.setUserType("Patient");
-                            System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
@@ -79,25 +75,21 @@ public class userController {
                         if(user instanceof HMO_Manager)
                         {
                             msg.setUserType("HMO_Manager");
-                            System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
                         }else if (user instanceof Manager) {
                             msg.setUserType("Manager");
-                            System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
                         } else if (user instanceof Employee) {
                             msg.setUserType("Employee");
-                            System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
                         }else if (user instanceof Patient) {
                             msg.setUserType("Patient");
-                            System.out.println(msg.getUserType());
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
