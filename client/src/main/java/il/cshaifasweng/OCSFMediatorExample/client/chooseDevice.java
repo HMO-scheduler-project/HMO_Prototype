@@ -26,7 +26,7 @@ public class chooseDevice {
     }
 
     @FXML
-    void goToWaitingroomScreen(ActionEvent event) {
+    void goToWaitingRoomScreen(ActionEvent event) {
         ChangeScreens.changeToWaitingRoomScreen();
     }
 
