@@ -472,7 +472,7 @@ public class Main extends SimpleServer {
             if (session != null) {
                 session.getTransaction().rollback();
             }
-            System.err.println("An error occured, changes have been rolled back.");
+            System.err.println("An error occurred, changes have been rolled back.");
             e.printStackTrace();
         }
     }
@@ -487,7 +487,7 @@ public class Main extends SimpleServer {
             if (session != null) {
                 session.getTransaction().rollback();
             }
-            System.err.println("An error occured, changes have been rolled back.");
+            System.err.println("An error occurred, changes have been rolled back.");
             e.printStackTrace();
         }
     }
