@@ -13,7 +13,7 @@ public class MenuBarController {
     @FXML
     private MenuItem ChangeAppBtn;
     @FXML
-    private Menu MainPageBtn;
+    private MenuItem mainPageBtn;
     @FXML
     private Menu ClinicsBtn;
     @FXML
@@ -23,7 +23,7 @@ public class MenuBarController {
     @FXML
     private MenuItem newAppBtn;
     @FXML
-    private Menu reportsBtn;
+    private MenuItem reportsBtn;
     @FXML
     private MenuItem CancelAppBtn;
     @FXML
@@ -31,7 +31,7 @@ public class MenuBarController {
     @FXML
     private Button logoutBtn;
     @FXML
-    private Menu UpdateBtn;
+    private MenuItem UpdateBtn;
 
     @FXML
     void pressChangeAppBtn(ActionEvent event) {}

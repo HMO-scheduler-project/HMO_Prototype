@@ -133,27 +133,6 @@ public class Main extends SimpleServer {
 //                    e.printStackTrace();
 //                }
 //            }
-
-            if (currMsg.getAction().equals("change hours")) {
-                try {
-                    serverMsg = currMsg;
-                    serverMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
-                    if(serverMsg.getOpeningHour()!=null) {
-                        serverMsg.getClinic().setOpeningHour(serverMsg.getOpeningHour());
-                    }
-                    if(serverMsg.getClosingHour()!=null) {
-                        serverMsg.getClinic().setClosingHour(serverMsg.getClosingHour());
-                    }
-                    updateCellInDB(serverMsg.getClinic());
-                    serverMsg.setAction("saved new hours");
-                    serverMsg.setOpeningHour(serverMsg.getClinic().getOpeningHour());
-                    serverMsg.setClosingHour(serverMsg.getClinic().getClosingHour());
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
             if (currMsg.getAction().equals("GetAllClinics")) {
                 try {
                     serverMsg.setClinicList(clinicController.getAllClinicNamesFromDB());
@@ -245,36 +224,219 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-//            if(currMsg.getAction().equals("GetAllManagedClinics")){
-//                try {
-//                    List<String> clinicNames = getManagedClinicNames(userController.getManagerByUsername(currMsg.getUsername()));
-//                    serverMsg.setClinicList(clinicNames);
-//                    serverMsg.setAction("ShowManagedClinics");
-//                    client.sendToClient(serverMsg);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            if(currMsg.getAction().equals("pull services")){
-//                try {
-//                    List<String> servicesNames = clinicController.getServicesList(currMsg.getClinicName());
-//                    serverMsg.setClinicList(servicesNames);
-//                    serverMsg.setAction("ShowServices");
-//                    client.sendToClient(serverMsg);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            if(currMsg.getAction().equals("pull doctors")){
-//                try {
-//                    List<String> doctors = clinicController.getDoctorsofClinic(currMsg.getClinicName());
-//                    serverMsg.setClinicList(doctors);
-//                    serverMsg.setAction("ShowDoctors");
-//                    client.sendToClient(serverMsg);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            if(currMsg.getAction().equals("GetAllManagedClinics")){
+                try {
+                    List<String> clinicNames = clinicController.getManagedClinicNames(userController.getManagerByUsername(currMsg.getUsername()));
+                    serverMsg.setClinicList(clinicNames);
+                    serverMsg.setAction("ShowManagedClinics");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("pull services")){
+                try {
+                    List<String> servicesNames = clinicController.getServicesList(currMsg.getClinicName());
+                    serverMsg.setServices(servicesNames);
+                    serverMsg.setAction("ShowServices");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("pull doctors")){
+                try {
+                    List<String> doctors = clinicController.getDoctorsofClinic(currMsg.getClinicName());
+                    serverMsg.setDoctors(doctors);
+                    serverMsg.setAction("ShowDoctors");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("pull doctor hours")){
+                try {
+                    Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
+                    serverMsg.setOpeningHour(doctor.getStart_working_hour());
+                    serverMsg.setClosingHour(doctor.getFinish_working_hour());
+                    serverMsg.setRoom(doctor.getRoom_num());
+                    serverMsg.setAction("ShowHours");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("pull specialists")){
+                try {
+                    List<String> doctors = clinicController.getSpecialDoctorsofClinic(currMsg.getClinicName());
+                    serverMsg.setDoctors(doctors);
+                    serverMsg.setAction("ShowDoctors");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("pull service hours")) {
+                if (currMsg.getService_name().equals("clinic")) {
+                    Clinic clinic = clinicController.getClinicByName(currMsg.getClinicName());
+                    serverMsg.setOpeningHour(clinic.getOpeningHour());
+                    serverMsg.setClosingHour(clinic.getClosingHour());
+                    serverMsg.setRoom(-1);
+                } else if (currMsg.getService_name().equals("nurse")) {
+                    try {
+                        List<Nurse> nursesList = userController.getNursesByClinic(currMsg.getClinicName());
+                        for (Nurse nurse : nursesList) {
+                            serverMsg.setOpeningHour(nurse.getStart_working_hour());
+                            serverMsg.setClosingHour(nurse.getFinish_working_hour());
+                            serverMsg.setRoom(nurse.getRoom_num());
+                            serverMsg.setAction("ShowHours");
+                            client.sendToClient(serverMsg);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (currMsg.getService_name().equals("lab")) {
+                    try {
+                        List<LabWorker> labWorkersList = userController.getLabWorkersByClinic(currMsg.getClinicName());
+                        for (LabWorker worker : labWorkersList) {
+                            serverMsg.setOpeningHour(worker.getStart_working_hour());
+                            serverMsg.setClosingHour(worker.getFinish_working_hour());
+                            serverMsg.setRoom(worker.getRoom_num());
+                            serverMsg.setAction("ShowHours");
+                            client.sendToClient(serverMsg);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (currMsg.getService_name().equals("covid test") || currMsg.getService_name().equals("covid vaccine") || currMsg.getService_name().equals("influenza vaccine")) {
+                    try {
+                        clinicSpecialService service = clinicController.getService(currMsg.getService_name(), currMsg.getClinicName());
+                        serverMsg.setOpeningHour(service.getStart());
+                        serverMsg.setClosingHour(service.getEnd());
+                        serverMsg.setRoom(service.getRoom_num());
+                        serverMsg.setAction("ShowHours");
+                        client.sendToClient(serverMsg);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            if (currMsg.getAction().equals("change hours")) {
+                try {
+                    if(currMsg.getService_name().equals("clinic")){
+                        serverMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
+                        if(currMsg.getOpeningHour()!=null) {
+                            serverMsg.getClinic().setOpeningHour(currMsg.getOpeningHour());
+                        }
+                        if(currMsg.getClosingHour()!=null) {
+                            serverMsg.getClinic().setClosingHour(currMsg.getClosingHour());
+                        }
+                        updateCellInDB(serverMsg.getClinic());
+                        serverMsg.setAction("saved new hours");
+                        serverMsg.setOpeningHour(serverMsg.getClinic().getOpeningHour());
+                        serverMsg.setClosingHour(serverMsg.getClinic().getClosingHour());
+                    }else if(currMsg.getService_name().equals("doctor appointments") || currMsg.getService_name().equals("specialists")){
+                       Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
+                        if(currMsg.getOpeningHour()!=null) {
+                            doctor.setStart_working_hour(currMsg.getOpeningHour());
+                        }
+                        if(currMsg.getClosingHour()!=null) {
+                           doctor.setFinish_working_hour(currMsg.getClosingHour());
+                        }
+                        updateCellInDB(doctor);
+                        serverMsg.setAction("saved new hours");
+                        serverMsg.setOpeningHour(doctor.getStart_working_hour());
+                        serverMsg.setClosingHour(doctor.getFinish_working_hour());
+                    }else if(currMsg.getService_name().equals("nurse")) {
+                        List<Nurse> nurseList = userController.getNursesByClinic(currMsg.getClinicName());
+                        for (Nurse nurse : nurseList) {
+                            if (currMsg.getOpeningHour() != null) {
+                                nurse.setStart_working_hour(currMsg.getOpeningHour());
+                            }
+                            if (currMsg.getClosingHour() != null) {
+                                nurse.setFinish_working_hour(currMsg.getClosingHour());
+                            }
+                            updateCellInDB(nurse);
+                            serverMsg.setAction("saved new hours");
+                            serverMsg.setOpeningHour(nurse.getStart_working_hour());
+                            serverMsg.setClosingHour(nurse.getFinish_working_hour());
+                        }
+                    }else if(currMsg.getService_name().equals("lab")) {
+                        List<LabWorker> labWorkerList = userController.getLabWorkersByClinic(currMsg.getClinicName());
+                        for (LabWorker worker : labWorkerList) {
+                            if (currMsg.getOpeningHour() != null) {
+                                worker.setStart_working_hour(currMsg.getOpeningHour());
+                            }
+                            if (currMsg.getClosingHour() != null) {
+                                worker.setFinish_working_hour(currMsg.getClosingHour());
+                            }
+                            updateCellInDB(worker);
+                            serverMsg.setAction("saved new hours");
+                            serverMsg.setOpeningHour(worker.getStart_working_hour());
+                            serverMsg.setClosingHour(worker.getFinish_working_hour());
+                        }
+                    }else if(currMsg.getService_name().equals("covid test") || currMsg.getService_name().equals("covid vaccine") || currMsg.getService_name().equals("influenza vaccine")) {
+                            clinicSpecialService service = clinicController.getService(currMsg.getService_name(),currMsg.getClinicName());
+                            if (currMsg.getOpeningHour() != null) {
+                                service.setStart(currMsg.getOpeningHour());
+                            }
+                            if (currMsg.getClosingHour() != null) {
+                                service.setEnd(currMsg.getClosingHour());
+                            }
+                            updateCellInDB(service);
+                            serverMsg.setAction("saved new hours");
+                            serverMsg.setOpeningHour(service.getStart());
+                            serverMsg.setClosingHour(service.getEnd());
+                    }
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("change room")){
+                try {
+                    if(currMsg.getService_name().equals("doctor appointments") || currMsg.getService_name().equals("specialists")){
+                        Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
+                        if(currMsg.getRoom()>0) {
+                            doctor.setRoom_num(currMsg.getRoom());
+                        }
+                        updateCellInDB(doctor);
+                        serverMsg.setAction("saved new room");
+                        serverMsg.setRoom(doctor.getRoom_num());
+                    }else if(currMsg.getService_name().equals("nurse")) {
+                        List<Nurse> nurseList = userController.getNursesByClinic(currMsg.getClinicName());
+                        for (Nurse nurse : nurseList) {
+                            if (currMsg.getRoom()>0) {
+                                nurse.setRoom_num(currMsg.getRoom());
+                            }
+                            updateCellInDB(nurse);
+                            serverMsg.setAction("saved new room");
+                            serverMsg.setRoom(nurse.getRoom_num());
+                        }
+                    }else if(currMsg.getService_name().equals("lab")) {
+                        List<LabWorker> labWorkerList = userController.getLabWorkersByClinic(currMsg.getClinicName());
+                        for (LabWorker worker : labWorkerList) {
+                            if (currMsg.getRoom()>0) {
+                                worker.setRoom_num(currMsg.getRoom());
+                            }
+                            updateCellInDB(worker);
+                            serverMsg.setAction("saved new room");
+                            serverMsg.setRoom(worker.getRoom_num());
+                        }
+                    }else if(currMsg.getService_name().equals("covid test") || currMsg.getService_name().equals("covid vaccine") || currMsg.getService_name().equals("influenza vaccine")) {
+                        clinicSpecialService service = clinicController.getService(currMsg.getService_name(),currMsg.getClinicName());
+                        if (currMsg.getRoom() >0) {
+                            service.setRoom_num(currMsg.getRoom());
+                        }
+                        updateCellInDB(service);
+                        serverMsg.setAction("saved new room");
+                        serverMsg.setRoom(service.getRoom_num());
+                    }
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -334,14 +496,6 @@ public class Main extends SimpleServer {
         server.listen();
         System.out.println("server says: hello!");
 
-    }
-
-    private List<String> getManagedClinicNames(Manager manager){
-        List<String> names = null;
-        for(Clinic clinic : manager.getManaging_clinics()){
-            names.add(clinic.getName());
-        }
-        return names;
     }
 }
 

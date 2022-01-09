@@ -117,10 +117,6 @@ public class Patient extends User implements Serializable {
         this.date_of_birth = date_of_birth;
     }
 
-    public String getFullName(){
-        return (getFirstName()+"  "+getLastName());
-    }
-
 
 
 }

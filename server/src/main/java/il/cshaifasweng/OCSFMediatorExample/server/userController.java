@@ -203,6 +203,33 @@ public class userController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
+    public static Doctor getDoctorByName (String name) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Doctor> query = builder.createQuery(Doctor.class);
+        Root<Doctor> root = query.from(Doctor.class);
+        query.select(root);
+        String[] nameArr = name.split(" ");
+        query.where(builder.equal(root.get("first_name"), nameArr[0]),builder.equal(root.get("last_name"),nameArr[1]));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
+    public static List<Nurse> getNursesByClinic (String clinic_name) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Nurse> query = builder.createQuery(Nurse.class);
+        Root<Nurse> root = query.from(Nurse.class);
+        query.select(root);
+        query.where(builder.equal(root.get("main_clinic"),clinic_name));
+        return Main.session.createQuery(query).getResultList();
+    }
+
+    public static List<LabWorker> getLabWorkersByClinic (String clinic_name) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<LabWorker> query = builder.createQuery(LabWorker.class);
+        Root<LabWorker> root = query.from(LabWorker.class);
+        query.select(root);
+        query.where(builder.equal(root.get("main_clinic"),clinic_name));
+        return Main.session.createQuery(query).getResultList();
+    }
 
 }
 

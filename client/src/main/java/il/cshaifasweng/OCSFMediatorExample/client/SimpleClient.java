@@ -70,12 +70,21 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("updated arrival time")){
 			EventBus.getDefault().post(new updateArrivalTimeEvent());
 		}
-//		if(currMsg.getAction().equals("ShowManagedClinics")){
-//			EventBus.getDefault().post(new ManagedClinicListUpdateEvent(currMsg.getClinicList()));
-//		}
-//		if(currMsg.getAction().equals("ShowServices")){
-//			EventBus.getDefault().post(new ServiceListUpdateEvent(currMsg.getServices()));
-//		}
+		if(currMsg.getAction().equals("ShowManagedClinics")){
+			EventBus.getDefault().post(new ManagedClinicListUpdateEvent(currMsg.getClinicList()));
+		}
+		if(currMsg.getAction().equals("ShowServices")){
+			EventBus.getDefault().post(new ServiceListUpdateEvent(currMsg.getServices()));
+		}
+		if(currMsg.getAction().equals("ShowDoctors")){
+			EventBus.getDefault().post(new DoctorListUpdateEvent(currMsg.getDoctors()));
+		}
+		if(currMsg.getAction().equals("ShowHours")){
+			EventBus.getDefault().post(new showServiceHoursEvent(currMsg.getOpeningHour(),currMsg.getClosingHour(), currMsg.getRoom()));
+		}
+		if(currMsg.getAction().equals("saved new room")){
+			EventBus.getDefault().post(new ChangeRoomEvent(currMsg.getRoom()));
+		}
 	}
 
 	public static SimpleClient getClient() {

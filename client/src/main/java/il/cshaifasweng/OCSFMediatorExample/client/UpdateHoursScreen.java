@@ -50,6 +50,14 @@ public class UpdateHoursScreen {
     private TextField closeHourTF;
     @FXML
     private Button submitChangeHoursBtn;
+    @FXML
+    private Button ChangeRoomBtn;
+    @FXML
+    private Button submitChangeRoomBtn;
+    @FXML
+    private TextField RoomTF;
+    @FXML
+    private TextField updateRoomTF;
 
     @FXML
     void initialize() throws IOException {
@@ -64,6 +72,9 @@ public class UpdateHoursScreen {
             openHourTF.setVisible(false);
             closeHourTF.setVisible(false);
             submitChangeHoursBtn.setVisible(false);
+            ChangeRoomBtn.setVisible(false);
+            updateRoomTF.setVisible(false);
+            submitChangeRoomBtn.setVisible(false);
             doctorList.setVisible(false);
             doctorLabel.setVisible(false);
             Message msg= new Message();
@@ -106,11 +117,15 @@ public class UpdateHoursScreen {
     @FXML
     void chooseService(ActionEvent event) {
         chosen_service = serviceList.getSelectionModel().getSelectedItem();
-        if(chosen_service.equals("doctor appointments")){
+        clientMsg.setClinicName(chosen_clinic);
+       if(chosen_service.equals("doctors")){
            doctorLabel.setVisible(true);
            doctorList.setVisible(true);
-           clientMsg.setClinicName(chosen_clinic);
            clientMsg.setAction("pull doctors");
+        }else if(chosen_service.equals("specialists")) {
+            doctorLabel.setVisible(true);
+            doctorList.setVisible(true);
+            clientMsg.setAction("pull specialists");
         }else{
             clientMsg.setService_name(chosen_service);
             clientMsg.setAction("pull service hours");
@@ -132,7 +147,7 @@ public class UpdateHoursScreen {
     @FXML
     void chooseDoctor(ActionEvent event) {
         chosen_doctor =  doctorList.getSelectionModel().getSelectedItem();
-        clientMsg.setDoctor_name(chosen_doctor);
+        clientMsg.setDoctor(chosen_doctor);
         clientMsg.setAction("pull doctor hours");
         try {
             SimpleClient.getClient().sendToServer(clientMsg);
@@ -143,9 +158,12 @@ public class UpdateHoursScreen {
 
 
     @Subscribe
-    public void onShowHoursEvent(showHoursEvent event){
-        OpeningHourTF.setText(String.valueOf(event.getOpening_hour()));
-        ClosingHourTF.setText(String.valueOf(event.getClosing_hour()));
+    public void onShowServiceHoursEvent(showServiceHoursEvent event){
+        OpeningHourTF.setText(String.valueOf(event.getStart()));
+        ClosingHourTF.setText(String.valueOf(event.getFinish()));
+        if(event.getRoom()>0){
+            RoomTF.setText(Integer.toString(event.getRoom()));
+        }
         ChangeHoursBtn.setVisible(true);
         openHourTF.clear();
         closeHourTF.clear();
@@ -154,6 +172,11 @@ public class UpdateHoursScreen {
         submitChangeHoursBtn.setVisible(false);
         clientMsg.setOpeningHour(null);
         clientMsg.setClosingHour(null);
+        ChangeRoomBtn.setVisible(true);
+        updateRoomTF.clear();
+        updateRoomTF.setVisible(false);
+        submitChangeRoomBtn.setVisible(false);
+        clientMsg.setRoom(0);
     }
 
     @FXML
@@ -168,8 +191,8 @@ public class UpdateHoursScreen {
         clientMsg.setAction("change hours");
         clientMsg.setService_name(chosen_service);
         clientMsg.setClinicName(chosen_clinic);
-        if(chosen_service.equals("doctor appointments")){
-            clientMsg.setDoctor_name(chosen_doctor);
+        if(chosen_service.equals("doctors") ||chosen_service.equals("specialists")){
+            clientMsg.setDoctor(chosen_doctor);
         }
         try{
             if(!openHourTF.getText().equals("")) {
@@ -186,10 +209,42 @@ public class UpdateHoursScreen {
 
     @Subscribe
     public void onChangeHoursEvent(ChangeHoursEvent event){
-        OpeningHourTF.setText(String.valueOf(clientMsg.getOpeningHour()));
-        ClosingHourTF.setText(String.valueOf(clientMsg.getClosingHour()));
+        OpeningHourTF.setText(String.valueOf(event.getOpening_hour()));
+        ClosingHourTF.setText(String.valueOf(event.getClosing_hour()));
     }
 
+    @FXML
+    public void pressChangeRoomBtn(){
+        updateRoomTF.setVisible(true);
+        submitChangeRoomBtn.setVisible(true);
+    }
+
+    @FXML
+    public void pressSubmitChangeRoomBtn(){
+        if(Integer.parseInt(updateRoomTF.getText())<1){
+            updateRoomTF.setPromptText("Illegal room number");
+        }else {
+            clientMsg.setAction("change room");
+            clientMsg.setService_name(chosen_service);
+            clientMsg.setClinicName(chosen_clinic);
+            if (chosen_service.equals("doctors") || chosen_service.equals("specialists")) {
+                clientMsg.setDoctor(chosen_doctor);
+            }
+            try {
+                if (!updateRoomTF.getText().equals("")) {
+                    clientMsg.setRoom(Integer.parseInt(updateRoomTF.getText()));
+                }
+                SimpleClient.getClient().sendToServer(clientMsg);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Subscribe
+    public void onChangeRoomEvent(ChangeRoomEvent event){
+        RoomTF.setText(String.valueOf(event.getRoom()));
+    }
 
 }
 

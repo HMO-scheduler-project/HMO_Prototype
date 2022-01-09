@@ -31,6 +31,7 @@ public class Message implements Serializable {
     private LocalTime closing_hour;
     private String address;
     private String phone_num;
+    private int room;
     /*-------Handling appointments---*/
     private Appointment appointment;
     private List<Appointment> nearest_apps;
@@ -38,7 +39,8 @@ public class Message implements Serializable {
     /*-------Handling updates-------*/
     private String service_name;
     private List<String> services;
-    private String doctor_name;
+    private List<String> doctors;
+    private String doctor;
 
     public Message() {
         super();
@@ -220,12 +222,20 @@ public class Message implements Serializable {
         this.service_name = service_name;
     }
 
-    public String getDoctor_name() {
-        return doctor_name;
+    public List<String> getDoctors() {
+        return doctors;
     }
 
-    public void setDoctor_name(String doctor_name) {
-        this.doctor_name = doctor_name;
+    public void setDoctors(List<String> doctors) {
+        this.doctors = doctors;
+    }
+
+    public String getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(String doctor) {
+        this.doctor = doctor;
     }
 
     public List<String> getServices() {
@@ -244,4 +254,11 @@ public class Message implements Serializable {
         this.arrived = arrived;
     }
 
+    public int getRoom() {
+        return room;
+    }
+
+    public void setRoom(int room) {
+        this.room = room;
+    }
 }

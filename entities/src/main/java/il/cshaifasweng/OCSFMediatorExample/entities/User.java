@@ -77,8 +77,6 @@ public class User implements Serializable{
         return card_num;
     }
 
-
-
     public String getFirstName() {
         return first_name;
     }
@@ -137,6 +135,10 @@ public class User implements Serializable{
 
     public void setPhone_num(String phone_num) {
         this.phone_num = phone_num;
+    }
+
+    public String getFullName(){
+        return this.first_name+" "+this.last_name;
     }
 
     @Override
