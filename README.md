@@ -45,6 +45,16 @@ clinic contact information screen:
 
 ![image](https://user-images.githubusercontent.com/84031027/148528158-3f8ee660-18a6-4bcb-b75e-2c0279531a3a.png)
 
+update clinic and clinic's services hours screen:
+![image](https://user-images.githubusercontent.com/84031027/148689655-ca162613-4044-4987-9e3e-aa60f3c13be9.png)
+
+![image](https://user-images.githubusercontent.com/84031027/148689673-fdc918a9-da8e-44cf-af5e-034f988f7126.png)
+
+![image](https://user-images.githubusercontent.com/84031027/148689691-4fd83ea2-adc6-4a63-91ee-4d581752d9d0.png)
+
+![image](https://user-images.githubusercontent.com/84031027/148689702-f4999d7f-d72f-4bc9-932e-57b9109ee3aa.png)
+
+![image](https://user-images.githubusercontent.com/84031027/148692211-05b22323-9672-4a8e-814c-a84592c4ebbc.png)
 
 
 
