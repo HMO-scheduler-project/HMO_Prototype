@@ -63,6 +63,24 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("got nearest apps")){
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
 		}
+
+
+		if(currMsg.getAction().equals("got appointment")){
+			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment()));
+		}
+
+		if(currMsg.getAction().equals("got nurse app")){
+			EventBus.getDefault().post(new nurseAppEvent(currMsg.getAppointment()));
+		}
+
+		if(currMsg.getAction().equals("got nurseAppCounter")){
+			EventBus.getDefault().post(new nurseAppCounterEvent(currMsg.getAppointment(),currMsg.getAppCount()));
+		}
+
+		if(currMsg.getAction().equals("got lab app")){
+			EventBus.getDefault().post(new labAppEvent(currMsg.getAppointment()));
+		}
+
 //		if(currMsg.getAction().equals("ShowManagedClinics")){
 //			EventBus.getDefault().post(new ManagedClinicListUpdateEvent(currMsg.getClinicList()));
 //		}

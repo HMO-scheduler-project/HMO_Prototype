@@ -7,17 +7,16 @@ import java.time.LocalTime;
 
 @Entity
 public class NurseApp extends Appointment {
+
     int counter=1;
+
     @ManyToOne(targetEntity = Nurse.class)
     Nurse nurse;
 
-    public NurseApp()
-    {
-        super();
-    }
+    public NurseApp() { super(); }
 
     public NurseApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, Nurse nurse) {
-        super(time, date, clinic, patient);
+        super(time, date, clinic, patient, nurse);
         this.nurse = nurse;
         this.counter++;
     }
