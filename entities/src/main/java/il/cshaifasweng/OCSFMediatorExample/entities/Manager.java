@@ -22,6 +22,10 @@ public class Manager extends Employee {
         super();
     }
 
+    public String getFullName(){
+        return getFirstName()+getLastName();
+    }
+
     @Override
     public String getRole() {
         return role;

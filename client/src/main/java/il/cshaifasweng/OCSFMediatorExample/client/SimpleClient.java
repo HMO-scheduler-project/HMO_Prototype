@@ -50,9 +50,22 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("saved new phone")){
 			EventBus.getDefault().post(new ChangePhoneNumEvent(currMsg.getPhoneNum()));
 		}
+		if(currMsg.getAction().equals("clinicNameFromUserName")){
+			EventBus.getDefault().post(new ClinicNameUpdateEvent(currMsg.getClinicName()));
+		}
+		if(currMsg.getAction().equals("MissedAppRepToRep")){
+			EventBus.getDefault().post(new MissedAppRepEvent(currMsg.getMissedAppRep()));
+		}
+		if(currMsg.getAction().equals("AwaitingTimeRepToRep")){
+			EventBus.getDefault().post(new AwaitingTimeRepEvent(currMsg.getAwaitingTimeRep()));
+
+		}if(currMsg.getAction().equals("ServicesTypeRepToRep")){
+			EventBus.getDefault().post(new ServicesTypeRepEvent(currMsg.getServicesTypeRep()));
+		}
 		if(currMsg.getAction().equals("login done")){
 			EventBus.getDefault().post(new loginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getFirst_name()));
 		}
+
 		if(currMsg.getAction().equals("loginByCard done")){
 			EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getUserCardNumber()));
 		}
@@ -83,6 +96,9 @@ public class SimpleClient extends AbstractClient {
 		}
 		if(currMsg.getAction().equals("saved new room")){
 			EventBus.getDefault().post(new ChangeRoomEvent(currMsg.getRoom()));
+		}
+		if(currMsg.getAction().equals("loginByCard done")){
+			EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getUserCardNumber()));
 		}
 	}
 

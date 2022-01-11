@@ -1,5 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
+import Reports.AwaitingTimeRep;
+import Reports.MissedAppRep;
+import Reports.ServicesTypeRep;
 import Reports.WeeklyReport;
 
 import javax.persistence.*;
@@ -37,6 +40,12 @@ public class Clinic implements Serializable {
     protected boolean influenzaVaccine;
     protected boolean specialists;
 
+    @OneToOne(targetEntity = AwaitingTimeRep.class)
+    protected AwaitingTimeRep awaitingTimeRep;
+    @OneToOne(targetEntity = MissedAppRep.class)
+    protected MissedAppRep missedAppRep;
+    @OneToOne(targetEntity = ServicesTypeRep.class)
+    protected ServicesTypeRep servicesTypeRep;
 
     public Clinic() { }
     public Clinic(String name, String city, LocalTime start,LocalTime end,Manager manager,String address,String phone_number) throws NoSuchAlgorithmException {
@@ -53,7 +62,29 @@ public class Clinic implements Serializable {
         this.influenzaVaccine = false;
         this.specialists = false;
     }
+    public AwaitingTimeRep getAwaitingTimeRep() {
+        return awaitingTimeRep;
+    }
 
+    public void setAwaitingTimeRep(AwaitingTimeRep awaitingTimeRep) {
+        this.awaitingTimeRep = awaitingTimeRep;
+    }
+
+    public MissedAppRep getMissedAppRep() {
+        return missedAppRep;
+    }
+
+    public void setMissedAppRep(MissedAppRep missedAppRep) {
+        this.missedAppRep = missedAppRep;
+    }
+
+    public ServicesTypeRep getServicesTypeRep() {
+        return servicesTypeRep;
+    }
+
+    public void setServicesTypeRep(ServicesTypeRep servicesTypeRep) {
+        this.servicesTypeRep = servicesTypeRep;
+    }
     public String getName() {
         return name;
     }

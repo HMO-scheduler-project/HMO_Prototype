@@ -394,6 +394,47 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+
+            if (currMsg.getAction().equals("getMissedAppRep")) {
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setMissedAppRep(clinicController.getClinicByName(serverMsg.getClinicName()).getMissedAppRep());
+                    serverMsg.setAction("MissedAppRepToRep");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("getAwaitingTimeRep")) {
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setAwaitingTimeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getAwaitingTimeRep());
+                    serverMsg.setAction("AwaitingTimeRepToRep");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("getServicesTypeRep")) {
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setServicesTypeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getServicesTypeRep());
+                    serverMsg.setAction("ServicesTypeRepToRep");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("getClinicNameFromUserName")) {
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setClinicName(userController.getManagerByUserName(serverMsg.getUsername()).getMain_clinic());
+                    serverMsg.setAction("clinicNameFromUserName");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             if(currMsg.getAction().equals("change room")){
                 try {
                     if(currMsg.getService_name().equals("doctors") || currMsg.getService_name().equals("specialists")){

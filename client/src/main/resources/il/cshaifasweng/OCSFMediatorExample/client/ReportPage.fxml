@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="725.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ReportJavas.ReportPageController">
+    <top>
+        <ToolBar prefHeight="48.0" prefWidth="582.0" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" BorderPane.alignment="CENTER">
+            <items>
+                <MenuBar prefHeight="26.0" prefWidth="523.0" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;">
+                    <menus>
+                        <Menu fx:id="MainPageBtn" mnemonicParsing="false" onAction="#pressMainPageBtn" text="Main page" />
+                        <Menu fx:id="ClinicsBtn" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Clinics">
+                            <items>
+                                <MenuItem fx:id="OpenningHoursBtn" mnemonicParsing="false" onAction="#pressOpenningHoursBtn" style="-fx-background-color: transparent;" text="Openning Hours" />
+                                <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" style="-fx-background-color: transparent;" text="Contact info" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointments">
+                            <items>
+                                <MenuItem fx:id="scheduledAppBtn" mnemonicParsing="false" onAction="#pressScheduledAppBtn" style="-fx-background-color: transparent;" text="view scheduled appointments" />
+                                <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" style="-fx-background-color: transparent;" text="schedule new appointment" />
+                                <MenuItem fx:id="ChangeAppBtn" mnemonicParsing="false" onAction="#pressChangeAppBtn" style="-fx-background-color: transparent;" text="change\cancel appointment" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Contact us" />
+                    </menus>
+                </MenuBar>
+                <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="logout" />
+            </items>
+        </ToolBar>
+    </top>
+   <left>
+        <GridPane maxHeight="380.0" maxWidth="300.0" prefHeight="362.0" prefWidth="236.0" BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="128.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="108.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label prefHeight="18.0" prefWidth="118.0" text="Choose Clinic:" visible="false" GridPane.rowIndex="3" />
+                <ComboBox fx:id="ClinicsList" onAction="#PressChooseClinicBtn" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Button fx:id="WaitingTimeReport" alignment="TOP_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressWaitingTimeReportBtn" prefHeight="25.0" prefWidth="137.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Waiting Time Report" />
+            <Button fx:id="MissedAppRep" mnemonicParsing="false" onAction="#pressMissedAppBtn" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointment Report" GridPane.rowIndex="1" />
+            <Button fx:id="ServicesTypeBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressServicesTypeBtn" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Services Type Report" GridPane.rowIndex="2" />
+            </children>
+        </GridPane>
+   </left>
+   <center>
+      <SplitPane prefHeight="362.0" prefWidth="394.0" BorderPane.alignment="CENTER">
+         <items>
+            <TableView fx:id="ReportTable" prefHeight="386.0" prefWidth="403.0">
+              <columns>
+                <TableColumn fx:id="ColumnA" prefWidth="64.0" />
+                <TableColumn fx:id="ColumnB" prefWidth="54.0" />
+                  <TableColumn fx:id="ColumnC" prefWidth="69.0" />
+                  <TableColumn fx:id="ColumnD" prefWidth="73.0" />
+                  <TableColumn fx:id="ColumnE" prefWidth="64.0" />
+                  <TableColumn fx:id="ColumnF" minWidth="0.0" prefWidth="76.0" />
+                  <TableColumn fx:id="ColumnG" prefWidth="125.0" />
+              </columns>
+            </TableView>
+         </items>
+      </SplitPane>
+   </center>
+</BorderPane>
