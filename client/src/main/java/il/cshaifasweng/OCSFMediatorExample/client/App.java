@@ -19,7 +19,6 @@ import java.util.Objects;
 
 import org.greenrobot.eventbus.Subscribe;
 
-
 /**
  * JavaFX App
  */
@@ -57,7 +56,19 @@ public class App extends Application {
             e.printStackTrace();
         }
     }
+    @Subscribe
+    public static Employee getEmployee(){
+        //send message
+        Message msg = new Message();
+        msg.setAction("get employee");
+        msg.setUsername(App.getUsername());
 
+        //receive message
+        EventBus.getDefault().register();
+
+        //return employee
+        return this;
+    }
 
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml));
