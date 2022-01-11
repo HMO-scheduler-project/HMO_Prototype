@@ -56,6 +56,28 @@ update clinic and clinic's services hours screen:
 
 ![image](https://user-images.githubusercontent.com/84031027/148692211-05b22323-9672-4a8e-814c-a84592c4ebbc.png)
 
+**Appointment station:** 
+
+choose clinic screen:
+
+![image](https://user-images.githubusercontent.com/84031027/148946749-c3f59785-40fd-411c-b218-b16c87b0121e.png)
+
+login with card:
+
+![image](https://user-images.githubusercontent.com/84031027/148946865-c51ee7c9-47fe-4052-a5f7-b5cacaa99149.png)
+
+main page:
+
+![image](https://user-images.githubusercontent.com/84031027/148952748-1b08c3df-d0f5-48fa-9c7d-92ca0ea49e4b.png)
+
+![image](https://user-images.githubusercontent.com/84031027/148952781-5171bdd1-16ea-47c4-b7e0-a9a507317c52.png)
+
+![image](https://user-images.githubusercontent.com/84031027/148952859-239099a4-2955-438f-8c0b-402ce40dfcc3.png)
+
+![image](https://user-images.githubusercontent.com/84031027/148954897-29a0f020-104d-4984-8de0-3902a13209b9.png)
+
+![image](https://user-images.githubusercontent.com/84031027/148954950-0847b773-4b8c-41c8-8ca6-53b18335208d.png)
+
 
 
 
