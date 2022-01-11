@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="il.cshaifasweng.OCSFMediatorExample.client.waitingRoomScreenController"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="waitingRoomScreenController">
+   <children>
+      <Label layoutX="51.0" layoutY="88.0" text="Time">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <graphic>
+            <TextField id="corentTime">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+         </graphic>
+      </Label>
+      <Label layoutX="43.0" layoutY="180.0" text="Next patient is :">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <graphic>
+            <TextField>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+         </graphic>
+      </Label>
+      <Label layoutX="51.0" layoutY="279.0" text="Go to room ">
+         <font>
+            <Font size="28.0" />
+         </font>
+         <graphic>
+            <TextField>
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+         </graphic>
+      </Label>
+   </children>
+</Pane>

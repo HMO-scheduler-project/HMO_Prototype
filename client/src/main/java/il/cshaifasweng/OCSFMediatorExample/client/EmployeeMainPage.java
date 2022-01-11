@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
+import il.cshaifasweng.OCSFMediatorExample.entities.Employee;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class EmployeeMainPage {
+    private Employee employee ;        //need to have this field to get the room number in the waiting room screen
 
     @FXML
     private Button CallNextPatientBtn;
@@ -63,7 +65,7 @@ public class EmployeeMainPage {
 
     @FXML
     void pressOnCallNextPatient(ActionEvent event) {
-//        waitingRoomScreenController.CallNextPatient(patientName.getText());
+        waitingRoomScreenController.callNextPatient(patientName.getText(), this.employee);
     }
 
     @FXML
@@ -74,6 +76,7 @@ public class EmployeeMainPage {
         EventBus.getDefault().register(this);
         successfulUpdateLabel.setVisible(false);
         welcomeTF.setText("Welcome " + App.getFirst_name());
+        employee=App.getEmployee();                                 //to do- get employee name from user via server
         try {
             Message msg= new Message();
             msg.setUsername(App.getUsername());

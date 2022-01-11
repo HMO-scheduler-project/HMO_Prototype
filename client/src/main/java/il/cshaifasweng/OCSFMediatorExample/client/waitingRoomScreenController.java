@@ -1,5 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import antlr.ASTNULLType;
+import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
+import il.cshaifasweng.OCSFMediatorExample.entities.Employee;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.Patient;
 import javafx.fxml.FXML;
@@ -9,23 +12,34 @@ import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
+import java.util.List;
 
 public class waitingRoomScreenController {
 
     @FXML
     Pane menubar;
     @FXML
-    private Label timeLabel;
+    private static Label timeLabel;
     @FXML
-    private TextField time;     //show the current time
+    private static TextField time;             //show the current time
     @FXML
-    private Label nextPatientLabel;
+    private static Label nextPatientLabel;
     @FXML
-    private TextField nextPatient;  //show the next patient name
+    private static TextField nextPatient;      //show the next patient name
     @FXML
-    private Label roomLabel;
+    private static Label roomLabel;
     @FXML
-    private TextField room;         //show the next patient room number
+    private static TextField room;             //show the next patient room number
+
+    @Subscribe
+    public static void callNextPatient(String patientName, Employee employee) {
+        nextPatient.setText(patientName);
+        String room_num= Integer.toString(employee.getRoom_num());
+        room.setText(room_num);
+
+        nextPatient.setVisible(true);
+        room.setVisible(true);
+    }
 
     @FXML
     void initialize() throws IOException {
@@ -36,15 +50,9 @@ public class waitingRoomScreenController {
         menubar.getChildren().add(menuBarParent);
         EventBus.getDefault().register(this);
 
+        nextPatient.setVisible(false);
+        room.setVisible(false);
+
     }
-
-    @Subscribe
-    public void showNextPatient (Patient event){
-        nextPatientLabel.setText(event.getFullName());
-    }
-
-    @Subscribe
-    public void showNextRoom (){}
-
-
+    //need to do local real time clock
 }

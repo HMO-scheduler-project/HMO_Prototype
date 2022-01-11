@@ -140,7 +140,15 @@ public class userController {
         }
         return null;
     }
-
+    public static Employee getEmployeeFromUserName(String username) {           //new
+        List<Employee> employees = getAllEmployeesFromDB();
+        for (Employee employee : employees) {
+            if (employee.getUsername() == username) {
+                return employee;
+            }
+        }
+        return null;
+    }
     public static List<Manager> getAllManagersFromDB(){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Manager> query = builder.createQuery(Manager.class);

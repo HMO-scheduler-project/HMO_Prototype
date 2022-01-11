@@ -9,7 +9,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 
-
 public class openingHoursScreenController {
     Message clientMsg = new Message();
     String chosen_clinic;
