@@ -50,7 +50,7 @@ public class MenuBarController {
     void pressViewAppsBtn(ActionEvent event) {}
     @FXML
     void pressOnLogout(ActionEvent event){
-        App.logout(true);
+        App.logout(true,"PC");
     }
 
     @FXML

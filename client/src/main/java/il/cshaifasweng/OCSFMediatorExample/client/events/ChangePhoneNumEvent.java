@@ -1,4 +1,4 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client.events;
 
 public class ChangePhoneNumEvent {
     private String phone_num;

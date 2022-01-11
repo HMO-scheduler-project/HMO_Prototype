@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;   -fx-background-size: stretch;-fx-background-position: center center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ReportJavas.LoginWithCardController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;   -fx-background-size: stretch;-fx-background-position: center center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.LoginWithCardController">
    <children>
       <Label fx:id="Textbox" alignment="CENTER" contentDisplay="CENTER" layoutX="180.0" layoutY="46.0" prefHeight="34.0" prefWidth="222.0" text="Please swipe card to login">
          <font>

@@ -37,6 +37,7 @@ public class Message implements Serializable {
     private Appointment appointment;
     private List<Appointment> nearest_apps;
     private boolean arrived;
+    private long app_count;
     private AwaitingTimeRep awaitingTimeRep;
     private MissedAppRep missedAppRep;
     private ServicesTypeRep servicesTypeRep;
@@ -231,6 +232,14 @@ public class Message implements Serializable {
 
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
+    }
+
+    public long getAppCount() {
+        return app_count;
+    }
+
+    public void setAppCount(long app_count) {
+        this.app_count = app_count;
     }
 
     public List<Appointment> getNearest_apps() {

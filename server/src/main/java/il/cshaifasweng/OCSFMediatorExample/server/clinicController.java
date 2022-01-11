@@ -110,6 +110,24 @@ public class clinicController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
+    public static LabWorker getLabWorkerByClinic(String clinic_name){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<LabWorker> query = builder.createQuery(LabWorker.class);
+        Root<LabWorker> root = query.from(LabWorker.class);
+        query.select(root);
+        query.where(builder.equal(root.get("main_clinic"),clinic_name));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
+    public static Nurse getNurseByClinic(String clinic_name){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Nurse> query = builder.createQuery(Nurse.class);
+        Root<Nurse> root = query.from(Nurse.class);
+        query.select(root);
+        query.where(builder.equal(root.get("main_clinic"),clinic_name));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
     public static LocalTime getOpeningHourByClinic(Clinic clinic){
         return clinic.getOpeningHour();
     }

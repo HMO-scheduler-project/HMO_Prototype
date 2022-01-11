@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import Reports.WeeklyReport;
 import il.cshaifasweng.OCSFMediatorExample.client.*;
+import il.cshaifasweng.OCSFMediatorExample.client.events.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 

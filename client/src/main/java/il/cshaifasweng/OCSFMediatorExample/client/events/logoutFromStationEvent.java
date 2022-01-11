@@ -1,9 +1,9 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client.events;
 
-public class logoutEvent {
+public class logoutFromStationEvent {
     private String status;
 
-    public logoutEvent(String status) {
+    public logoutFromStationEvent(String status) {
         this.status = status;
     }
 

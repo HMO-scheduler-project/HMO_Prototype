@@ -1,5 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.WarningEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.logoutEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.logoutFromStationEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -25,6 +28,7 @@ public class App extends Application {
     private static String username;
     private static String user_type;
     private static String first_name;
+    private static String clinic_name;
     private static Boolean isLogoutClicked = false;
     private static Stage appStage;
     private boolean isRegistered = false;
@@ -36,8 +40,7 @@ public class App extends Application {
                 EventBus.getDefault().register(this);
                 isRegistered = true;
             }
-          //  Parent root= loadFXML("login.fxml");
-            Parent root = loadFXML("LoginWithCard.fxml");
+            Parent root= loadFXML("chooseDevice.fxml");
             Scene start = new Scene(root);
             String cssPath = getClass().getResource("/style.css").toString();
             stage.setTitle("Welcome");
@@ -86,14 +89,18 @@ public class App extends Application {
         }
     }
 
-    public static void logout(Boolean logoutClicked) {
+    public static void logout(Boolean logoutClicked,String device) {
         if(username == null) {
             Platform.exit();
             System.exit(0);
         }
         isLogoutClicked = logoutClicked;
         Message msg = new Message();
-        msg.setAction("logout");
+        if(device.equals("PC")) {
+            msg.setAction("logout");
+        }else if(device.equals("Station")){
+            msg.setAction("logoutFromStation");
+        }
         msg.setUsername(username);
         try {
             SimpleClient.getClient().sendToServer(msg);
@@ -111,6 +118,22 @@ public class App extends Application {
             setWindowTitle("Welcome");
             try {
                 setContent("login");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    @Subscribe
+    public void onLogoutFromStationEvent(logoutFromStationEvent event) throws IOException {
+        username = null;
+        user_type = null;
+        isLogoutClicked = false;
+        Platform.runLater(() -> {
+            setWindowTitle("Welcome");
+            try {
+                setContent("LoginWithCard");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -140,6 +163,14 @@ public class App extends Application {
 
     public static void setFirst_name(String first_name) {
         App.first_name = first_name;
+    }
+
+    public static String getClinic_name() {
+        return clinic_name;
+    }
+
+    public static void setClinic_name(String clinic_name) {
+        App.clinic_name = clinic_name;
     }
 
     public static Stage getAppStage(){

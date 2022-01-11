@@ -1,10 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.*;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import org.greenrobot.eventbus.EventBus;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -31,6 +31,10 @@ public class SimpleClient extends AbstractClient {
 		if (currMsg.getAction().equals("ShowClinics")) {
 			List<String> clinicList = currMsg.getClinicList();
 			EventBus.getDefault().post(new ClinicListUpdateEvent(clinicList));
+		}
+		if (currMsg.getAction().equals("ShowClinicsForStation")) {
+			List<String> clinicList = currMsg.getClinicList();
+			EventBus.getDefault().post(new ClinicListStationUpdateEvent(clinicList));
 		}
 		if(currMsg.getAction().equals("Chosen clinic")){
 			EventBus.getDefault().post(new ChosenClinicEvent(currMsg.getClinic()));
@@ -67,14 +71,36 @@ public class SimpleClient extends AbstractClient {
 		}
 
 		if(currMsg.getAction().equals("loginByCard done")){
-			EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getUserCardNumber()));
+			System.out.println(currMsg.getUser().getUsername());
+			EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUser()));
 		}
 
 		if(currMsg.getAction().equals("logged out")){
 			EventBus.getDefault().post(new logoutEvent(currMsg.getStatus()));
 		}
+		if(currMsg.getAction().equals("logged out from station")){
+			EventBus.getDefault().post(new logoutFromStationEvent(currMsg.getStatus()));
+		}
 		if(currMsg.getAction().equals("got nearest apps")){
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
+		}
+		if(currMsg.getAction().equals("got appointment")){
+			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment()));
+		}
+		if(currMsg.getAction().equals("got nurse app")){
+			EventBus.getDefault().post(new nurseAppEvent(currMsg.getAppointment()));
+		}
+		if(currMsg.getAction().equals("got nurseAppCounter")){
+			EventBus.getDefault().post(new nurseAppCounterEvent(currMsg.getAppointment(),currMsg.getAppCount()));
+		}
+		if(currMsg.getAction().equals("got lab app")){
+			EventBus.getDefault().post(new labAppEvent(currMsg.getAppointment()));
+		}
+		if(currMsg.getAction().equals("got labAppCounter")){
+			EventBus.getDefault().post(new labAppCounterEvent(currMsg.getAppointment(),currMsg.getAppCount()));
+		}
+		if(currMsg.getAction().equals("got Appointment")){
+			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment()));
 		}
 		if(currMsg.getAction().equals("got patient apps")){
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
@@ -96,9 +122,6 @@ public class SimpleClient extends AbstractClient {
 		}
 		if(currMsg.getAction().equals("saved new room")){
 			EventBus.getDefault().post(new ChangeRoomEvent(currMsg.getRoom()));
-		}
-		if(currMsg.getAction().equals("loginByCard done")){
-			EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getUserCardNumber()));
 		}
 	}
 

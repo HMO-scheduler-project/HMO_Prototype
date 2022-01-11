@@ -1,5 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.nearestAppsEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.updateArrivalTimeEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.beans.property.SimpleStringProperty;

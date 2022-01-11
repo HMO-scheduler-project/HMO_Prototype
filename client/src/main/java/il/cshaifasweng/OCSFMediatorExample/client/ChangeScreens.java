@@ -83,7 +83,7 @@ public class ChangeScreens {
         Platform.runLater(() -> {
             App.setWindowTitle("Welcome");
             try {
-                App.setContent("stationLogin");
+                App.setContent("LoginWithCard");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -95,6 +95,17 @@ public class ChangeScreens {
             App.setWindowTitle("Welcome");
             try {
                 App.setContent("StationMainPage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void changeToStationChooseClinic(){
+        Platform.runLater(() -> {
+            App.setWindowTitle("Welcome");
+            try {
+                App.setContent("ChooseClinic");
             } catch (IOException e) {
                 e.printStackTrace();
             }

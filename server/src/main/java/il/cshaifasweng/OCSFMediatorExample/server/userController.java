@@ -235,6 +235,15 @@ public class userController {
         return Main.session.createQuery(query).getResultList();
     }
 
+    public static Patient getPatientByUsername (String username) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Patient> query = builder.createQuery(Patient.class);
+        Root<Patient> root = query.from(Patient.class);
+        query.select(root);
+        query.where(builder.equal(root.get("username"), username));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
 }
 
 

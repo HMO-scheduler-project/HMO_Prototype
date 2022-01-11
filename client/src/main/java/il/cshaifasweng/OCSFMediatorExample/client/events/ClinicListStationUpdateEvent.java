@@ -1,12 +1,12 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client.events;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManagedClinicListUpdateEvent {
+public class ClinicListStationUpdateEvent {
     private List<String> clinicNames;
 
-    public ManagedClinicListUpdateEvent(List<String> clinicNames) {
+    public ClinicListStationUpdateEvent(List<String> clinicNames) {
         this.clinicNames = clinicNames;
     }
 

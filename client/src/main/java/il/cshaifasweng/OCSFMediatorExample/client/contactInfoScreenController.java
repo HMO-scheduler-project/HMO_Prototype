@@ -1,5 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.ChangeAddressEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.ChangePhoneNumEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.ClinicListUpdateEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.showContactInfoEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
