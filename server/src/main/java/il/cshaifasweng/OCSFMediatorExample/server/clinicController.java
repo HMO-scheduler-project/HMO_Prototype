@@ -1,5 +1,12 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import Reports.AwaitingTimeRep;
+import Reports.MissedAppRep;
+import Reports.ServicesTypeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
+import il.cshaifasweng.OCSFMediatorExample.entities.Employee;
+import il.cshaifasweng.OCSFMediatorExample.entities.Manager;
+
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -114,4 +121,9 @@ public class clinicController {
     public static String getAddressOfClinic(Clinic clinic){ return clinic.getAddress();}
 
     public static String getPhoneNumOfClinic(Clinic clinic){ return clinic.getPhoneNum();}
+
+
+    public static AwaitingTimeRep getAwaitingTimeRepByClinic(Clinic clinic){ return clinic.getAwaitingTimeRep();}
+    public static MissedAppRep getMissedAppRepByClinic(Clinic clinic){ return clinic.getMissedAppRep();}
+    public static ServicesTypeRep getServicesTypeRepByClinic(Clinic clinic){ return clinic.getServicesTypeRep();}
 }

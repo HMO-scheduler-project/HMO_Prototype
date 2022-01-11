@@ -155,9 +155,10 @@ public class Main extends SimpleServer {
                 try {
                     serverMsg = currMsg;
                     currMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
-                    serverMsg.setAddress(clinicController.getAddressOfClinic(currMsg.getClinic()));
-                    serverMsg.setPhoneNum(clinicController.getPhoneNumOfClinic(currMsg.getClinic()));
-                    serverMsg.setAction("got contact info");
+                    serverMsg.setAwaitingTimeRep(clinicController.getAwaitingTimeRepByClinic(currMsg.getClinic()));
+                    serverMsg.setMissedAppRep(clinicController.getMissedAppRepByClinic(currMsg.getClinic()));
+                    serverMsg.setServicesTypeRep(clinicController.getServicesTypeRepByClinic(currMsg.getClinic()));
+                    serverMsg.setAction("Got Reports");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -389,6 +390,47 @@ public class Main extends SimpleServer {
                             serverMsg.setOpeningHour(service.getStart());
                             serverMsg.setClosingHour(service.getEnd());
                     }
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (currMsg.getAction().equals("getMissedAppRep")) {
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setMissedAppRep(clinicController.getClinicByName(serverMsg.getClinicName()).getMissedAppRep());
+                    serverMsg.setAction("MissedAppRepToRep");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("getAwaitingTimeRep")) {
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setAwaitingTimeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getAwaitingTimeRep());
+                    serverMsg.setAction("AwaitingTimeRepToRep");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("getServicesTypeRep")) {
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setServicesTypeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getServicesTypeRep());
+                    serverMsg.setAction("ServicesTypeRepToRep");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("getClinicNameFromUserName")) {
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setClinicName(userController.getManagerByUserName(serverMsg.getUsername()).getMain_clinic());
+                    serverMsg.setAction("clinicNameFromUserName");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();

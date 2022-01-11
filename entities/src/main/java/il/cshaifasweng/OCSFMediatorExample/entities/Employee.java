@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 public class Employee extends User {
+    protected String Email;
     protected String role;
     protected String main_clinic;
     protected int room_num;
@@ -18,6 +19,7 @@ public class Employee extends User {
     public Employee(String username, String password,String first_name,String last_name,String role,String card,String Email,String phone_num,String main_clinic,int room_num,LocalTime start,LocalTime finish) throws NoSuchAlgorithmException {
         super(username, password,card,first_name,last_name,Email,phone_num);
         this.role = role;
+        this.Email = Email;
         this.main_clinic = main_clinic;
         this.room_num = room_num;
         this.start_working_hour = start;

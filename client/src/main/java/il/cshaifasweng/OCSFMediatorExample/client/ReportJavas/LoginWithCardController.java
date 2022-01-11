@@ -30,26 +30,11 @@ public class LoginWithCardController  implements Initializable {
 
     @FXML
     void pressOnLogin(ActionEvent event) {
-
-    }
-    @FXML
-    private Label loginFailedWarning;
-
-    @FXML
-    private Label Textbox;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        EventBus.getDefault().register(this);
-        loginFailedWarning.setVisible(false);
-    }
-    @FXML
-    void authorize(ActionEvent event)  {
         loginFailedWarning.setVisible(false);
         try {
             String cardnumber = CardNumber.getText();
 
-            if (CardNumber.equals("")) {
+            if (cardnumber.equals("")) {
                 loginFailedWarning.setText("Please enter Card Number");
                 loginFailedWarning.setVisible(true);
             } else {
@@ -63,6 +48,7 @@ public class LoginWithCardController  implements Initializable {
                     }
                 }
                 try {
+                    loginFailedWarning.setVisible(false);
                     Message msg = new Message();
                     msg.setUserCardNumber(cardnumber);
                     msg.setAction("login with card number");
@@ -74,7 +60,52 @@ public class LoginWithCardController  implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
+    @FXML
+    private Label loginFailedWarning;
+
+    @FXML
+    private Label Textbox;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        EventBus.getDefault().register(this);
+        loginFailedWarning.setVisible(false);
+    }
+//    @FXML
+//    void authorize(ActionEvent event)  {
+//        loginFailedWarning.setVisible(false);
+//        try {
+//            String cardnumber = CardNumber.getText();
+//
+//            if (cardnumber.equals("")) {
+//                System.out.println("asdsd");
+//                loginFailedWarning.setText("Please enter Card Number");
+//                loginFailedWarning.setVisible(true);
+//            } else {
+//                SimpleClient.setClientNull();
+//                client = SimpleClient.getClient();
+//                if (client != null) {
+//                    try {
+//                        client.openConnection();
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                try {
+//                    Message msg = new Message();
+//                    msg.setUserCardNumber(cardnumber);
+//                    msg.setAction("login with card number");
+//                    SimpleClient.getClient().sendToServer(msg);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     @FXML
@@ -86,11 +117,12 @@ public class LoginWithCardController  implements Initializable {
     @Subscribe
     public void onLoginWithCardEvent(stationLoginEvent event) {
         String status = event.getStatus();
+        System.out.println(status);
         if (status != null) {
             if (status.equals("you are already logged in")) {
                 loginFailedWarning.setText("Login Failed- user is already logged in");
                 loginFailedWarning.setVisible(true);
-            } else if (status.equals(("Wrong Card Number."))){
+            } else if (status.equals(("Wrong CardNumber"))){
                 loginFailedWarning.setText("Login Failed- incorrect Card Number.\nPlease try again or go to the main office");
                 loginFailedWarning.setVisible(true);
 

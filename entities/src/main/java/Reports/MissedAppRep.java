@@ -22,7 +22,8 @@ public class MissedAppRep extends WeeklyReport {
     private int CovidTest;
     @Column(name = "Nurse_Care")
     private int NurseCare;
-
+    @OneToOne( targetEntity = Clinic.class )
+    private Clinic Clinic;
     public MissedAppRep(Clinic clinic, LocalDate date, HMO_Manager hmo_manager,int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare) {
         super(clinic,date,hmo_manager);
         FamilyDoctorPatientNumber = familyDoctorPatientNumber;

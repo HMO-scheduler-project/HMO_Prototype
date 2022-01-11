@@ -5,6 +5,7 @@ import Reports.ServicesTypeRep;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,11 +37,37 @@ public class Message implements Serializable {
     private Appointment appointment;
     private List<Appointment> nearest_apps;
     private boolean arrived;
+    private AwaitingTimeRep awaitingTimeRep;
+    private MissedAppRep missedAppRep;
+    private ServicesTypeRep servicesTypeRep;
     /*-------Handling updates-------*/
     private String service_name;
     private List<String> services;
     private List<String> doctors;
     private String doctor;
+    public AwaitingTimeRep getAwaitingTimeRep() {
+        return awaitingTimeRep;
+    }
+
+    public void setAwaitingTimeRep(AwaitingTimeRep awaitingTimeRep) {
+        this.awaitingTimeRep = awaitingTimeRep;
+    }
+
+    public MissedAppRep getMissedAppRep() {
+        return missedAppRep;
+    }
+
+    public void setMissedAppRep(MissedAppRep missedAppRep) {
+        this.missedAppRep = missedAppRep;
+    }
+
+    public ServicesTypeRep getServicesTypeRep() {
+        return servicesTypeRep;
+    }
+
+    public void setServicesTypeRep(ServicesTypeRep servicesTypeRep) {
+        this.servicesTypeRep = servicesTypeRep;
+    }
 
     public Message() {
         super();

@@ -37,7 +37,7 @@ public class App extends Application {
                 isRegistered = true;
             }
           //  Parent root= loadFXML("login.fxml");
-            Parent root = loadFXML("chooseDevice.fxml");
+            Parent root = loadFXML("LoginWithCard.fxml");
             Scene start = new Scene(root);
             String cssPath = getClass().getResource("/style.css").toString();
             stage.setTitle("Welcome");

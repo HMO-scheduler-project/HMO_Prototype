@@ -158,6 +158,18 @@ public class userController {
         return null;
     }
 
+    public static Manager getManagerByUserName (String name) {
+        List<Manager> managers =getAllManagersFromDB();
+        for (Manager manager : managers) {
+            if (manager.getUsername() == name) {
+                return manager;
+            }
+        }
+        return null;
+    }
+
+
+
     public static User getUserByUsername (String username) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);

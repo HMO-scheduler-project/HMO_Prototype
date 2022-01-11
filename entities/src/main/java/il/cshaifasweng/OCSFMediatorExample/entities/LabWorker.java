@@ -38,4 +38,9 @@ public class LabWorker extends Employee{
     public void removeLabApp(LabApp app_to_delete){
         this.labApps.remove(app_to_delete);
     }
+
+    @Override
+    public String toString() {
+        return "Lab Worker[ "+super.toString() + " ]";
+    }
 }
