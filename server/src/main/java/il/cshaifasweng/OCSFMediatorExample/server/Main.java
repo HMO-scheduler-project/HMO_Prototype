@@ -74,7 +74,9 @@ public class Main extends SimpleServer {
                 try {
                     if (!currMsg.getUsername().equals("") && !currMsg.getPassword().equals("")) {
                         userController.getUser(currMsg);
-                        updateCellInDB(currMsg.getUser());
+                        if(currMsg.getUser()!=null) {
+                            updateCellInDB(currMsg.getUser());
+                        }
                         serverMsg = currMsg;
                         serverMsg.setAction("login done");
                         client.sendToClient(serverMsg);
@@ -87,7 +89,9 @@ public class Main extends SimpleServer {
                 try {
                     if (!currMsg.getUserCardNumber().equals("")){
                         userController.getUserWithCardNumber(currMsg);
-                        updateCellInDB(currMsg.getUser());
+                        if(currMsg.getUser()!=null) {
+                            updateCellInDB(currMsg.getUser());
+                        }
                         serverMsg = currMsg;
                         serverMsg.setAction("loginByCard done");
                         client.sendToClient(serverMsg);

@@ -74,13 +74,16 @@ public class LoginWithCardController  implements Initializable {
 
     @Subscribe
     public void onLoginWithCardEvent(stationLoginEvent event) {
+        System.out.println("in onLoginWithCardEvent");
         String status = event.getStatus();
         System.out.println(status);
         if (status != null) {
+            System.out.println("status isn't null");
             if (status.equals("you are already logged in")) {
 //                loginFailedWarning.setText("Login Failed- user is already logged in");
 //                loginFailedWarning.setVisible(true);
             } else if (status.equals(("Wrong CardNumber"))){
+                System.out.println("wrong card num");
 //                loginFailedWarning.setText("Login Failed- incorrect Card Number.\nPlease try again or go to the main office");
 //                loginFailedWarning.setVisible(true);
 

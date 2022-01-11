@@ -23,6 +23,8 @@ public class MenuBarController {
     @FXML
     private MenuItem newAppBtn;
     @FXML
+    private Menu reports;
+    @FXML
     private MenuItem reportsBtn;
     @FXML
     private MenuItem CancelAppBtn;
@@ -30,6 +32,8 @@ public class MenuBarController {
     private MenuItem viewAppsBtn;
     @FXML
     private Button logoutBtn;
+    @FXML
+    private Menu updates;
     @FXML
     private MenuItem UpdateBtn;
 
@@ -70,8 +74,10 @@ public class MenuBarController {
 
 
     public void initialize() {
-        reportsBtn.setVisible(App.getUserType().equals("Manager"));
-        UpdateBtn.setVisible(App.getUserType().equals("Manager"));
+        if(App.getUserType().equals("Manager") || App.getUserType().equals("HMO_Manager")) {
+            reports.setVisible(true);
+            updates.setVisible(true);
+        }
     }
 
 }

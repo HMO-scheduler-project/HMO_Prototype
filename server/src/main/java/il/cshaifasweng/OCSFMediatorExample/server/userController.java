@@ -50,6 +50,7 @@ public class userController {
                             msg.setStatus("logged in");
                             msg.setUser(user);
                             msg.setFirst_name(user.getFirstName());
+                            System.out.println(msg.getUserType());
                         }
                     } else {
                         msg.setStatus("you are already logged in");
