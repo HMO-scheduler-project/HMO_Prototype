@@ -155,10 +155,9 @@ public class Main extends SimpleServer {
                 try {
                     serverMsg = currMsg;
                     currMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
-                    serverMsg.setAwaitingTimeRep(clinicController.getAwaitingTimeRepByClinic(currMsg.getClinic()));
-                    serverMsg.setMissedAppRep(clinicController.getMissedAppRepByClinic(currMsg.getClinic()));
-                    serverMsg.setServicesTypeRep(clinicController.getServicesTypeRepByClinic(currMsg.getClinic()));
-                    serverMsg.setAction("Got Reports");
+                    serverMsg.setAddress(clinicController.getAddressOfClinic(currMsg.getClinic()));
+                    serverMsg.setPhoneNum(clinicController.getPhoneNumOfClinic(currMsg.getClinic()));
+                    serverMsg.setAction("got contact info");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
