@@ -571,7 +571,7 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("Get special doctor")) {
                 try {
-                    serverMsg.setSpecialDoctorList(userController.getSpecialDoctor(currMsg.getRole(), (Patient) userController.getUserByUsername(currMsg.getUsername())));
+                    serverMsg.setSpecialDoctorList(userController.getSpecialDoctor(currMsg.getRole(), userController.getPatientByUsername(currMsg.getUsername())));
                     serverMsg.setAction("got special doctors");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -599,7 +599,7 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("ViewApps")) {
                 try {
-                    serverMsg.setNearest_apps(appointmentController.getNearestAppsFromDB(userController.getUserByUsername(currMsg.getUsername())));
+                    serverMsg.setNearest_apps(appointmentController.getAllAppsFromDB(userController.getUserByUsername(currMsg.getUsername())));
                     serverMsg.setAction("got patient appointments");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -713,6 +713,16 @@ public class Main extends SimpleServer {
                     serverMsg.setAppTime(currMsg.getAppTime());
                     serverMsg.setAppDate(currMsg.getAppDate());
                     serverMsg.setClinicName(currMsg.getClinicName());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Get green pass")) {
+                try {
+                    User user=userController.getUserByUsername(currMsg.getUsername());
+                    serverMsg.setGreenPass(userController.getUserGreenPass(user));
+                    serverMsg.setAction("Got green pass");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();

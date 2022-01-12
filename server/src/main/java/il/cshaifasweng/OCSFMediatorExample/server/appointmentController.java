@@ -31,7 +31,15 @@ public class appointmentController {
         query.where(builder.equal(root.get("patient"), patient),builder.equal(root.get("date"),date));
         return Main.session.createQuery(query).getSingleResult();
     }
-
+    public static List<Appointment> getAllAppsFromDB(User user) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
+        Root<Appointment> root = query.from(Appointment.class);
+        query.select(root);
+        query.where(builder.equal(root.get("patient"), user));
+        query.orderBy(builder.asc(root.get("date")),builder.asc(root.get("time")));
+        return Main.session.createQuery(query).getResultList();
+    }
     public static List<Appointment> getPatientListFromDB(Employee employee){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
@@ -69,6 +77,16 @@ public class appointmentController {
         query.select(root);
         query.where(builder.equal(root.get("employee"), specialDoctor));
         query.orderBy(builder.asc(root.get("time")));
+        return Main.session.createQuery(query).getResultList();
+    }
+    public static List<specialDoctorApp> getSpecialPatientApps(Patient patient) {
+
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<specialDoctorApp> query = builder.createQuery(specialDoctorApp.class);
+        Root<specialDoctorApp> root = query.from(specialDoctorApp.class);
+        query.select(root);
+        query.where(builder.equal(root.get("patient"), patient));
+        query.orderBy(builder.asc(root.get("date")),builder.asc(root.get("time")));
         return Main.session.createQuery(query).getResultList();
     }
     public static List<Appointment> EmployeeAppointments(Clinic clinic, LocalDate date){
@@ -152,4 +170,16 @@ public class appointmentController {
 //        SendingMail.sendScheduledAppointmentMessage( "briootTovaPatient@gmail.com, appointment)
         return true;
     }
+    public static List<Covid19VaccineApp> getVaccineApp(String user)
+    {
+        Patient patient=userController.getPatientByUsername(user);
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Covid19VaccineApp> query = builder.createQuery(Covid19VaccineApp.class);
+        Root<Covid19VaccineApp> root = query.from(Covid19VaccineApp.class);
+        query.select(root);
+        query.where(builder.equal(root.get("patient"), patient),builder.equal(root.get("arrived"),true));
+        query.orderBy(builder.desc(root.get("date")));
+        return Main.session.createQuery(query).getResultList();
+    }
+
 }

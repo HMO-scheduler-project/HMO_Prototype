@@ -205,5 +205,14 @@ public class ChangeScreens {
             }
         });
     }
-
+    public static void changeToGreenPassScreen(){
+        Platform.runLater(() -> {
+            App.setWindowTitle("Green Pass");
+            try {
+                App.setContent("GreenPassScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }
