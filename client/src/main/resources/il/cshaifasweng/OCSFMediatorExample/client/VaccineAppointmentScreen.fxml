@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.VaccineAppointmentController">
+   <children>
+      <Pane fx:id="Menubar" layoutX="4.0" layoutY="3.0" prefHeight="62.0" prefWidth="591.0" />
+      <Label fx:id="chooseLabel" layoutX="15.0" layoutY="145.0" prefHeight="43.0" prefWidth="247.0" text="Choose a vaccine appointment:">
+         <font>
+            <Font name="Calibri Bold" size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="Table1" layoutX="15.0" layoutY="180.0" prefHeight="185.0" prefWidth="434.0">
+         <columns>
+            <TableColumn fx:id="dateCol1" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="TimeCol1" prefWidth="98.22216796875" text="Time" />
+            <TableColumn fx:id="EmployeeName1" prefWidth="117.77783203125" text="Lab worker name" />
+            <TableColumn fx:id="ClinicCol1" prefWidth="141.77776421440973" text="Clinic" />
+         </columns>
+      </TableView>
+      <Button fx:id="save" layoutX="12.0" layoutY="399.0" mnemonicParsing="false" onAction="#SaveNewApp" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Save Appointment">
+         <font>
+            <Font name="Calibri Bold" size="13.0" />
+         </font>
+      </Button>
+      <Label fx:id="warningtext" layoutX="12.0" layoutY="373.0" prefHeight="26.0" prefWidth="236.0" text="Please choose an appointment!" textFill="#c92423">
+         <font>
+            <Font name="Calibri Bold" size="14.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="VaccineType" layoutX="15.0" layoutY="124.0" prefWidth="150.0" />
+      <Label fx:id="vaccinelabel" layoutX="15.0" layoutY="99.0" text="Choose vaccine type:">
+         <font>
+            <Font name="Calibri Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="cliniclabel" layoutX="203.0" layoutY="99.0" text="Choose clinic:">
+         <font>
+            <Font name="Calibri Bold" size="13.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="ClinicName" layoutX="203.0" layoutY="124.0" prefWidth="150.0" />
+      <Button fx:id="ok" layoutX="370.0" layoutY="123.0" mnemonicParsing="false" onAction="#ViewTable" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Ok">
+         <font>
+            <Font name="Calibri Bold" size="13.0" />
+         </font>
+      </Button>
+      <Label fx:id="warningtext1" layoutX="412.0" layoutY="105.0" prefHeight="62.0" prefWidth="182.0" text="Please choose " textFill="#c92423">
+         <font>
+            <Font name="Calibri Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

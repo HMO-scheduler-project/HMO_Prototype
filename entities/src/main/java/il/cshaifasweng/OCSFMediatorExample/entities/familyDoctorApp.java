@@ -16,6 +16,7 @@ public class familyDoctorApp extends doctorApp{
 
     public familyDoctorApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, Doctor doctor) {
         super(time, date, clinic, patient, doctor);
+        this.type="Family doctor appointment";
     }
 
 

@@ -28,11 +28,11 @@
                   <MenuItem fx:id="CancelAppBtn" mnemonicParsing="false" onAction="#pressCancelAppBtn" style="-fx-background-color: #87CEEB;" text="cancel appointment" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Reports">
+            <Menu fx:id="reports" mnemonicParsing="false" text="Reports" visible="false">
                <items>
                   <MenuItem fx:id="reportsBtn" mnemonicParsing="false" onAction="#pressReportsBtn" style="-fx-background-color: #87CEEB;" text="show reports" />
                </items></Menu>
-            <Menu mnemonicParsing="false" text="Updates">
+            <Menu fx:id="updates" mnemonicParsing="false" text="Updates" visible="false">
                <items>
                   <MenuItem fx:id="UpdateBtn" mnemonicParsing="false" onAction="#pressHoursUpdate" style="-fx-background-color: #87CEEB;" text="Update hours and rooms" />
                </items></Menu>

@@ -1,5 +1,12 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import Reports.AwaitingTimeRep;
+import Reports.MissedAppRep;
+import Reports.ServicesTypeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
+import il.cshaifasweng.OCSFMediatorExample.entities.Employee;
+import il.cshaifasweng.OCSFMediatorExample.entities.Manager;
+
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -103,6 +110,24 @@ public class clinicController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
+    public static LabWorker getLabWorkerByClinic(String clinic_name){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<LabWorker> query = builder.createQuery(LabWorker.class);
+        Root<LabWorker> root = query.from(LabWorker.class);
+        query.select(root);
+        query.where(builder.equal(root.get("main_clinic"),clinic_name));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
+    public static Nurse getNurseByClinic(String clinic_name){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Nurse> query = builder.createQuery(Nurse.class);
+        Root<Nurse> root = query.from(Nurse.class);
+        query.select(root);
+        query.where(builder.equal(root.get("main_clinic"),clinic_name));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
     public static LocalTime getOpeningHourByClinic(Clinic clinic){
         return clinic.getOpeningHour();
     }
@@ -114,4 +139,19 @@ public class clinicController {
     public static String getAddressOfClinic(Clinic clinic){ return clinic.getAddress();}
 
     public static String getPhoneNumOfClinic(Clinic clinic){ return clinic.getPhoneNum();}
+
+
+    public static AwaitingTimeRep getAwaitingTimeRepByClinic(Clinic clinic){ return clinic.getAwaitingTimeRep();}
+    public static MissedAppRep getMissedAppRepByClinic(Clinic clinic){ return clinic.getMissedAppRep();}
+    public static ServicesTypeRep getServicesTypeRepByClinic(Clinic clinic){ return clinic.getServicesTypeRep();}
+    public static List<Clinic> getSpecialDoctorsClinic(String name){
+        List<Clinic> clinicList =getAllClinicsFromDB();
+        List<Clinic> clinics = new ArrayList<>();
+        for (Clinic clinic: clinicList)
+            if(name.contains(clinic.getName())) {
+                clinics.add(clinic);
+                System.out.println(clinic.getName());
+            }
+        return clinics;
+    }
 }

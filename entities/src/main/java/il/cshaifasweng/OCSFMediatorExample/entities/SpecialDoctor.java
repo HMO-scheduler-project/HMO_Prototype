@@ -23,6 +23,14 @@ public class SpecialDoctor extends Doctor{
         this.docClinics=null;
     }
 
+    public List<Clinic> getDocClinics() {
+        return docClinics;
+    }
+
+    public void setDocClinics(List<Clinic> docClinics) {
+        this.docClinics = docClinics;
+    }
+
     public void addClinic(Clinic clinic){
         this.docClinics.add(clinic);
     }

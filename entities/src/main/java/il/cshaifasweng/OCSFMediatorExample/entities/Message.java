@@ -4,7 +4,9 @@ import Reports.MissedAppRep;
 import Reports.ServicesTypeRep;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,7 +25,10 @@ public class Message implements Serializable {
     private String status;
     private String sessionID;
     private String UserCardNumber;
-    private Employee employee;
+    private LocalDate BirthDate=null;
+    private boolean covid_vaccine;
+    private boolean influenza_vaccine;
+    private int age;
     /*----------Handling clinics----*/
     private Clinic clinic;
     public List<String> ClinicList;
@@ -33,15 +38,63 @@ public class Message implements Serializable {
     private String address;
     private String phone_num;
     private int room;
+    List<Clinic> clinics;
     /*-------Handling appointments---*/
     private Appointment appointment;
     private List<Appointment> nearest_apps;
     private boolean arrived;
+    private long app_count;
+    private AwaitingTimeRep awaitingTimeRep;
+    private MissedAppRep missedAppRep;
+    private ServicesTypeRep servicesTypeRep;
+    private LocalDate appDate;
+    private LocalTime appTime;
+    private boolean saved;
+    private List<specialDoctorApp> specialDoctorAppList;
+    /*-------Handling Employees-------*/
+    private int employee_id;
+    private String role;
+    private Employee employee;
+    private List<Doctor> employeeList;
+    private List<LabWorker> labWorkerList;
+    private List<SpecialDoctor> specialDoctorList;
+    private SpecialDoctor specialDoctor;
+    /*-------Handling questionnaires-------*/
+    private boolean met;
+    private boolean fever;
+    private boolean cough;
+    private boolean tired;
+    private boolean taste;
+    private boolean smell;
+
     /*-------Handling updates-------*/
     private String service_name;
     private List<String> services;
     private List<String> doctors;
     private String doctor;
+    public AwaitingTimeRep getAwaitingTimeRep() {
+        return awaitingTimeRep;
+    }
+
+    public void setAwaitingTimeRep(AwaitingTimeRep awaitingTimeRep) {
+        this.awaitingTimeRep = awaitingTimeRep;
+    }
+
+    public MissedAppRep getMissedAppRep() {
+        return missedAppRep;
+    }
+
+    public void setMissedAppRep(MissedAppRep missedAppRep) {
+        this.missedAppRep = missedAppRep;
+    }
+
+    public ServicesTypeRep getServicesTypeRep() {
+        return servicesTypeRep;
+    }
+
+    public void setServicesTypeRep(ServicesTypeRep servicesTypeRep) {
+        this.servicesTypeRep = servicesTypeRep;
+    }
 
     public Message() {
         super();
@@ -139,6 +192,14 @@ public class Message implements Serializable {
         return UserCardNumber;
     }
 
+    public List<specialDoctorApp> getSpecialDoctorAppList() {
+        return specialDoctorAppList;
+    }
+
+    public void setSpecialDoctorAppList(List<specialDoctorApp> specialDoctorAppList) {
+        this.specialDoctorAppList = specialDoctorAppList;
+    }
+
     public void setUserCardNumber(String userCardNumber) {
         UserCardNumber = userCardNumber;
     }
@@ -207,6 +268,14 @@ public class Message implements Serializable {
         this.appointment = appointment;
     }
 
+    public long getAppCount() {
+        return app_count;
+    }
+
+    public void setAppCount(long app_count) {
+        this.app_count = app_count;
+    }
+
     public List<Appointment> getNearest_apps() {
         return nearest_apps;
     }
@@ -263,11 +332,179 @@ public class Message implements Serializable {
         this.room = room;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public LocalDate getBirthDate() {
+        return BirthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        BirthDate = birthDate;
+    }
+
+    public boolean isCovid_vaccine() {
+        return covid_vaccine;
+    }
+
+    public void setCovid_vaccine(boolean covid_vaccine) {
+        this.covid_vaccine = covid_vaccine;
+    }
+
+    public boolean isInfluenza_vaccine() {
+        return influenza_vaccine;
+    }
+
+    public void setInfluenza_vaccine(boolean influenza_vaccine) {
+        this.influenza_vaccine = influenza_vaccine;
+    }
+
+    public String getClinic_name() {
+        return clinic_name;
+    }
+
+    public void setClinic_name(String clinic_name) {
+        this.clinic_name = clinic_name;
+    }
+
+    public List<Clinic> getClinics() {
+        return clinics;
+    }
+
+    public void setClinics(List<Clinic> clinics) {
+        this.clinics = clinics;
+    }
+
+    public LocalDate getAppDate() {
+        return appDate;
+    }
+
+    public void setAppDate(LocalDate appDate) {
+        this.appDate = appDate;
+    }
+
+    public LocalTime getAppTime() {
+        return appTime;
+    }
+
+    public void setAppTime(LocalTime appTime) {
+        this.appTime = appTime;
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
+
+    public int getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public List<Doctor> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Doctor> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    public List<LabWorker> getLabWorkerList() {
+        return labWorkerList;
+    }
+
+    public void setLabWorkerList(List<LabWorker> labWorkerList) {
+        this.labWorkerList = labWorkerList;
+    }
+
+    public List<SpecialDoctor> getSpecialDoctorList() {
+        return specialDoctorList;
+    }
+
+    public void setSpecialDoctorList(List<SpecialDoctor> specialDoctorList) {
+        this.specialDoctorList = specialDoctorList;
+    }
+
+    public boolean isMet() {
+        return met;
+    }
+
+    public void setMet(boolean met) {
+        this.met = met;
+    }
+
+    public boolean isFever() {
+        return fever;
+    }
+
+    public void setFever(boolean fever) {
+        this.fever = fever;
+    }
+
+    public boolean isCough() {
+        return cough;
+    }
+
+    public void setCough(boolean cough) {
+        this.cough = cough;
+    }
+
+    public boolean isTired() {
+        return tired;
+    }
+
+    public void setTired(boolean tired) {
+        this.tired = tired;
+    }
+
+    public boolean isTaste() {
+        return taste;
+    }
+
+    public void setTaste(boolean taste) {
+        this.taste = taste;
+    }
+
+    public boolean isSmell() {
+        return smell;
+    }
+
+    public void setSmell(boolean smell) {
+        this.smell = smell;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public SpecialDoctor getSpecialDoctor() {
+        return specialDoctor;
+    }
+
+    public void setSpecialDoctor(SpecialDoctor specialDoctor) {
+        this.specialDoctor = specialDoctor;
     }
 }

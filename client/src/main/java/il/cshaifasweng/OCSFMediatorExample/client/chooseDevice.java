@@ -22,7 +22,7 @@ public class chooseDevice {
 
     @FXML
     void goToStationLogin(ActionEvent event) {
-        ChangeScreens.changeToStationLogin();
+        ChangeScreens.changeToStationChooseClinic();
     }
 
     @FXML

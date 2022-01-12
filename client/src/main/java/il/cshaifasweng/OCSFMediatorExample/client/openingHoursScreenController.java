@@ -1,5 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.ClinicListUpdateEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.showHoursEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -11,6 +13,7 @@ import java.io.IOException;
 
 public class openingHoursScreenController {
     Message clientMsg = new Message();
+    boolean manager;
     String chosen_clinic;
 
     @FXML

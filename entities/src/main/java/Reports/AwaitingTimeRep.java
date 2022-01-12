@@ -5,13 +5,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
+
+import javax.persistence.*;
+import java.io.Serializable;
+@Entity
 public class AwaitingTimeRep extends WeeklyReport  {
-    @Column(name = "Doctor")
     protected String DoctorName;
-    @Column(name = "Average_Waiting_Time")
     protected  double AverageWaitingTime;
-    @Column(name = "Number_Of_Patient")
     protected int Number_Of_Patient=0;
+    @OneToOne( targetEntity = il.cshaifasweng.OCSFMediatorExample.entities.Clinic.class )
+    private Clinic Clinic;
+
     public AwaitingTimeRep() {
         AverageWaitingTime=0;
     }
