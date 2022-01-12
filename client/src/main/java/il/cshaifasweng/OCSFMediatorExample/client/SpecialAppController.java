@@ -218,6 +218,7 @@ public class SpecialAppController {
     public void onSavedApp(SavedAppEvent event) {
         if (event.isSaved()) {
             showAlert("Saved", "The appointment was saved successfully!");
+            ChangeScreens.changeToMainPage();
         } else {
             showAlert("Error", "This appointment wasn't saved please try again!");
         }
