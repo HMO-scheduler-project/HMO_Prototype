@@ -438,13 +438,12 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-            if (currMsg.getAction().equals("get employee")) {         //get employee new
+            if (currMsg.getAction().equals("get employee from username")) {         //get employee new
                 try {
-                    userController.getEmployeeFromUserName(currMsg.getUsername());
-
+                    serverMsg.setEmployee(userController.getEmployeeFromUserName(currMsg.getUsername()));
                     serverMsg.setAction("got employee");
-                    client.sendToClient(serverMsg);
-                } catch (IOException | NoSuchAlgorithmException e) {
+                    client.sendToClient(serverMsg);                 //sending the user not the employee
+                } catch (IOException  e) {
                     e.printStackTrace();
                 }
             }

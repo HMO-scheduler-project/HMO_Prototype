@@ -23,6 +23,7 @@ public class Message implements Serializable {
     private String status;
     private String sessionID;
     private String UserCardNumber;
+    private Employee employee;
     /*----------Handling clinics----*/
     private Clinic clinic;
     public List<String> ClinicList;
@@ -260,5 +261,13 @@ public class Message implements Serializable {
 
     public void setRoom(int room) {
         this.room = room;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Employee getEmployee() {
+        return employee;
     }
 }

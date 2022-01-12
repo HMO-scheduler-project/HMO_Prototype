@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class EmployeeMainPage {
-    private Employee employee ;        //need to have this field to get the room number in the waiting room screen
+    private Employee employee ;
 
     @FXML
     private Button CallNextPatientBtn;
@@ -67,6 +67,17 @@ public class EmployeeMainPage {
     void pressOnCallNextPatient(ActionEvent event) {
         waitingRoomScreenController.callNextPatient(patientName.getText(), this.employee);
     }
+    public static void getEmployee() throws IOException {
+        Message msg = new Message();
+        msg.setAction("get employee from username");
+        msg.setUsername(App.getUsername());
+        SimpleClient.getClient().sendToServer(msg);
+    }
+
+    @Subscribe
+    public void employeeEvent (EmployeeEvent event){
+        employee = event.getEmployee();       //to do- set employee name from user via server
+    }
 
     @FXML
     void initialize() throws IOException {
@@ -76,7 +87,8 @@ public class EmployeeMainPage {
         EventBus.getDefault().register(this);
         successfulUpdateLabel.setVisible(false);
         welcomeTF.setText("Welcome " + App.getFirst_name());
-        employee=App.getEmployee();                                 //to do- get employee name from user via server
+        getEmployee();
+
         try {
             Message msg= new Message();
             msg.setUsername(App.getUsername());

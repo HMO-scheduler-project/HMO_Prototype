@@ -84,6 +84,9 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("saved new room")){
 			EventBus.getDefault().post(new ChangeRoomEvent(currMsg.getRoom()));
 		}
+		if(currMsg.getAction().equals("got employee")){
+			EventBus.getDefault().post(new EmployeeEvent(currMsg.getEmployee()));
+		}
 	}
 
 	public static SimpleClient getClient() {

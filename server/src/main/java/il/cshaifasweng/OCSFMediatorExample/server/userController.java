@@ -143,7 +143,7 @@ public class userController {
     public static Employee getEmployeeFromUserName(String username) {           //new
         List<Employee> employees = getAllEmployeesFromDB();
         for (Employee employee : employees) {
-            if (employee.getUsername() == username) {
+            if (employee.getUsername().equals(username)) {
                 return employee;
             }
         }
