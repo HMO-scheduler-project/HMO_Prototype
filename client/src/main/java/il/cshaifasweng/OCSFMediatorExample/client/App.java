@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -204,7 +205,7 @@ public class App extends Application {
     static void setContent(String pageName) throws IOException {
         Parent root= loadFXML(pageName+".fxml");
         scene = new Scene(root);
-        String cssPath = App.class.getResource("/style.css").toString();
+        String cssPath = Objects.requireNonNull(App.class.getResource("/style.css")).toString();
         root.getStylesheets().add(cssPath);
         appStage.setScene(scene);
         appStage.show();

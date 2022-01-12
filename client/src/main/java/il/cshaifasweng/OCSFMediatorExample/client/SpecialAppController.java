@@ -145,7 +145,6 @@ public class SpecialAppController {
                             break;
                         }
                     msg.setUsername(specialDoctor.getUsername());
-                    System.out.println("SEND TO SERVER");
                     msg.setAction("Get special doctor appointments and clinics");
                     SimpleClient.getClient().openConnection();
                     SimpleClient.getClient().sendToServer(msg);
@@ -172,7 +171,6 @@ public class SpecialAppController {
 
     @Subscribe
     public void GotClinicsEvent(SpecialDocClinicsEvent event) {
-        System.out.println("TRYING TO VIEW TABLE"+ specialDoctor.getFullName());
         specialDoctor=event.getSpecialDoctor();
         List<Clinic> clinicList = event.getClinics();
         List<specialDoctorApp> appointmentList = event.getAppointments();
@@ -181,7 +179,6 @@ public class SpecialAppController {
         LocalDate end_date = date.plusMonths(3);
         end_date = end_date.plusDays(1);
         LocalTime time = specialDoctor.getStart_working_hour();
-//        Table.getItems().clear();
             while (date.isBefore(end_date)) {
                 while ((time.isAfter(specialDoctor.getStart_working_hour() )|| time.equals(specialDoctor.getStart_working_hour())) && (time.isBefore(specialDoctor.getFinish_working_hour())|| time.equals(specialDoctor.getFinish_working_hour()))) {
                     boolean available = true;
@@ -223,6 +220,7 @@ public class SpecialAppController {
     @Subscribe
     public void onSavedApp(SavedAppEvent event) {
         if (event.isSaved()) {
+            sendingMail.sendMessage("ayamahajna96@gmail.com","Attemp","Appointment was saved");
             showAlert("Saved", "The appointment was saved successfully!");
         } else {
             showAlert("Error", "This appointment wasn't saved please try again!");
@@ -236,7 +234,7 @@ public class SpecialAppController {
                 alert.setTitle(title);
                 alert.setHeaderText(null);
                 alert.setContentText(head);
-                alert.showAndWait();
+                alert.show();
             }
         });
     }
@@ -249,11 +247,6 @@ public class SpecialAppController {
         EventBus.getDefault().register(this);
         warningtext.setVisible(false);
         warningtext.setVisible(false);
-//        dateCol.setVisible(false);
-//        timeCol.setVisible(false);
-//        employeeName.setVisible(false);
-//        clinicCol.setVisible(false);
-//        Table.setVisible(false);
         save.setVisible(false);
         chooseLabel.setVisible(false);
         warningtext.setVisible(false);

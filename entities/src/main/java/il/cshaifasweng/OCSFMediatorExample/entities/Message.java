@@ -72,6 +72,7 @@ public class Message implements Serializable {
     private List<String> services;
     private List<String> doctors;
     private String doctor;
+    private GreenPass greenPass;
     public AwaitingTimeRep getAwaitingTimeRep() {
         return awaitingTimeRep;
     }
@@ -498,6 +499,14 @@ public class Message implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public GreenPass getGreenPass() {
+        return greenPass;
+    }
+
+    public void setGreenPass(GreenPass greenPass) {
+        this.greenPass = greenPass;
     }
 
     public SpecialDoctor getSpecialDoctor() {

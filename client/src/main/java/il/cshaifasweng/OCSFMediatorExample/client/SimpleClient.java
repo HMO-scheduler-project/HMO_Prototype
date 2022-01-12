@@ -165,6 +165,10 @@ public class SimpleClient extends AbstractClient {
 		{
 			EventBus.getDefault().post(new BirthDateClinicEvent(currMsg.getBirthDate(),currMsg.getClinic(),currMsg.getAge()));
 		}
+		if(currMsg.getAction().equals("Got green pass"))
+		{
+			EventBus.getDefault().post(new GreenPassEvent(currMsg.getGreenPass()));
+		}
 	}
 
 	public static SimpleClient getClient() {
