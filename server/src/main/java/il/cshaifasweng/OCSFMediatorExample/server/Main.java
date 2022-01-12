@@ -571,7 +571,7 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("Get special doctor")) {
                 try {
-                    serverMsg.setSpecialDoctorList(userController.getSpecialDoctor(currMsg.getRole(), (Patient) userController.getUserByUsername(currMsg.getUsername())));
+                    serverMsg.setSpecialDoctorList(userController.getSpecialDoctor(currMsg.getRole(), userController.getPatientByUsername(currMsg.getUsername())));
                     serverMsg.setAction("got special doctors");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {

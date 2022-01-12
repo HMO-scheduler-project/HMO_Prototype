@@ -270,12 +270,12 @@ public class userController {
         query.select(root);
         query.where(builder.equal(root.get("role"), role));
         List<SpecialDoctor> specialDoctorList = Main.session.createQuery(query).getResultList();
-        List<SpecialDoctor> patientSpecialDoctors = patient.getSpecial_doctors();
-        if (patientSpecialDoctors != null && !patientSpecialDoctors.isEmpty()) {
-            for (SpecialDoctor specialDoctor : patientSpecialDoctors) {
-                if (specialDoctor.getRole().equals(role)) {
-                    specialDoctorList.remove(specialDoctor);
-                    specialDoctorList.add(0, specialDoctor);
+        List<specialDoctorApp> appList = appointmentController.getSpecialPatientApps(patient);
+        if (appList != null && !appList.isEmpty()) {
+            for (specialDoctorApp doctorApp : appList) {
+                if (doctorApp.getSpecialDoctor().getRole().equals(role)) {
+                    specialDoctorList.remove(doctorApp.getSpecialDoctor());
+                    specialDoctorList.add(0, doctorApp.getSpecialDoctor());
                 }
             }
         }

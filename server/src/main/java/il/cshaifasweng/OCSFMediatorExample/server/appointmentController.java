@@ -79,6 +79,16 @@ public class appointmentController {
         query.orderBy(builder.asc(root.get("time")));
         return Main.session.createQuery(query).getResultList();
     }
+    public static List<specialDoctorApp> getSpecialPatientApps(Patient patient) {
+
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<specialDoctorApp> query = builder.createQuery(specialDoctorApp.class);
+        Root<specialDoctorApp> root = query.from(specialDoctorApp.class);
+        query.select(root);
+        query.where(builder.equal(root.get("patient"), patient));
+        query.orderBy(builder.asc(root.get("date")));
+        return Main.session.createQuery(query).getResultList();
+    }
     public static List<Appointment> EmployeeAppointments(Clinic clinic, LocalDate date){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
