@@ -178,7 +178,7 @@ public class SpecialAppController {
         List<specialDoctorApp> appointmentList = event.getAppointments();
         LocalDate date = LocalDate.now();
         date = date.plusDays(1);
-        LocalDate end_date = date.plusWeeks(4);
+        LocalDate end_date = date.plusMonths(3);
         end_date = end_date.plusDays(1);
         LocalTime time = specialDoctor.getStart_working_hour();
 //        Table.getItems().clear();
@@ -205,7 +205,7 @@ public class SpecialAppController {
                             }
                         }
                     }
-                    time = time.plusMinutes(15);
+                    time = time.plusMinutes(20);
                     System.out.println(time.toString());
                 }
                 time = specialDoctor.getStart_working_hour();
