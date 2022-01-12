@@ -123,6 +123,48 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("saved new room")){
 			EventBus.getDefault().post(new ChangeRoomEvent(currMsg.getRoom()));
 		}
+		if (currMsg.getAction().equals("got patient appointments")) {
+			EventBus.getDefault().post(new ViewAppsEvent(currMsg.getNearest_apps()));
+		}
+		if (currMsg.getAction().equals("got employees")) {
+			EventBus.getDefault().post(new GotDoctorsEvent(currMsg.getEmployeeList(),currMsg.getNearest_apps()));
+		}
+		if (currMsg.getAction().equals("Doctor appointment added")) {
+			EventBus.getDefault().post(new SavedAppEvent(currMsg.isSaved()));
+		}
+		if (currMsg.getAction().equals("Influenza vaccine appointment added")) {
+			EventBus.getDefault().post(new SavedAppEvent(currMsg.isSaved()));
+		}
+		if (currMsg.getAction().equals("Got LabWorkers and clinic apps")) {
+			EventBus.getDefault().post(new GotLabWorkersVaccineEven(currMsg.getLabWorkerList(), currMsg.getNearest_apps(), currMsg.getClinic()));
+		}
+		if (currMsg.getAction().equals("Questionnaire added")) {
+			EventBus.getDefault().post(new QuestionnaireEvent(currMsg.isSaved()));
+		}
+		if (currMsg.getAction().equals("Covid test appointment added")) {
+			EventBus.getDefault().post(new SavedAppEvent(currMsg.isSaved()));
+		}
+		if (currMsg.getAction().equals("Covid vaccine appointment added")) {
+			EventBus.getDefault().post(new SavedAppEvent(currMsg.isSaved()));
+		}
+		if (currMsg.getAction().equals("Special doctor appointment added")) {
+			EventBus.getDefault().post(new SavedAppEvent(currMsg.isSaved()));
+		}
+		if (currMsg.getAction().equals("got special doctors")) {
+			EventBus.getDefault().post(new GotSpecialDocEvent(currMsg.getSpecialDoctorList()));
+		}
+
+		if(currMsg.getAction().equals("Got vaccines")){
+			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine()));
+		}
+
+		if(currMsg.getAction().equals("Got special doctor appointments and clinics")){
+			EventBus.getDefault().post(new SpecialDocClinicsEvent(currMsg.getSpecialDoctorAppList(),currMsg.getClinics(),currMsg.getSpecialDoctor()));
+		}
+		if(currMsg.getAction().equals("Got birthdate and clinic"))
+		{
+			EventBus.getDefault().post(new BirthDateClinicEvent(currMsg.getBirthDate(),currMsg.getClinic(),currMsg.getAge()));
+		}
 	}
 
 	public static SimpleClient getClient() {

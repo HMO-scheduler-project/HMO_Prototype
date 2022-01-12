@@ -51,7 +51,7 @@ public class MenuBarController {
     void pressNewAppBtn(ActionEvent event) { ChangeScreens.changeNewAppScreen();}
 
     @FXML
-    void pressViewAppsBtn(ActionEvent event) {}
+    void pressViewAppsBtn(ActionEvent event) {ChangeScreens.changeToViewAppsScreen();}
     @FXML
     void pressOnLogout(ActionEvent event){
         App.logout(true,"PC");

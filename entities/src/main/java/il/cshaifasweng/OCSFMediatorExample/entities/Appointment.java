@@ -20,6 +20,7 @@ public class Appointment implements Serializable {
     Patient patient;
     @ManyToOne (targetEntity = Employee.class)
     Employee employee;
+    protected String type="Appointment";
 
     public Appointment() {
     }
@@ -91,6 +92,14 @@ public class Appointment implements Serializable {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
 

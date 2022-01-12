@@ -127,7 +127,68 @@ public class ChangeScreens {
         Platform.runLater(() -> {
             App.setWindowTitle("schedule new appointment");
             try {
-                App.setContent("newAppointmentScreen");
+                App.setContent("NewAppointment");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+    public static void changeToViewAppsScreen() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("View Appointments");
+            try {
+                App.setContent("ViewAppointmentsScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    public static void changeToDoctorAppScreen() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("Doctor appointment");
+            try {
+                App.setContent("DoctorAppointmentScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    public static void changeToVaccineAppScreen() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("Vaccine appointment");
+            try {
+                App.setContent("VaccineAppointmentScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    public static void changeQuestionnaireScreen() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("Questionnaire");
+            try {
+                App.setContent("QuestionnaireScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    public static void changeTestAppScreen() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("Covid test appointment");
+            try {
+                App.setContent("CovidTestAppScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    public static void changeSpecialAppScreen() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("Special doctor appointment");
+            try {
+                App.setContent("SpecialDoctorAppScreen");
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -244,6 +244,61 @@ public class userController {
         query.where(builder.equal(root.get("username"), username));
         return Main.session.createQuery(query).getSingleResult();
     }
+    public static List<Doctor> getDoctorsByRole(String role,String clinicName){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Doctor> query = builder.createQuery(Doctor.class);
+        Root<Doctor> root = query.from(Doctor.class);
+        query.select(root);
+        query.where(builder.equal(root.get("role"), role));
+        List<Doctor> doctorList= Main.session.createQuery(query).getResultList();
+        doctorList.removeIf(doctor -> !doctor.getMain_clinic().equals(clinicName));
+        return doctorList;
+    }
+    public static SpecialDoctor getSpecialDoctorByUsername(String username)
+    {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<SpecialDoctor> query = builder.createQuery(SpecialDoctor.class);
+        Root<SpecialDoctor> root = query.from(SpecialDoctor.class);
+        query.select(root);
+        query.where(builder.equal(root.get("username"), username));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+    public static List<SpecialDoctor> getSpecialDoctor(String role, Patient patient){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<SpecialDoctor> query = builder.createQuery(SpecialDoctor.class);
+        Root<SpecialDoctor> root = query.from(SpecialDoctor.class);
+        query.select(root);
+        query.where(builder.equal(root.get("role"), role));
+        List<SpecialDoctor> specialDoctorList=Main.session.createQuery(query).getResultList();
+        List<SpecialDoctor> patientSpecialDoctors=patient.getSpecial_doctors();
+        if(patientSpecialDoctors!=null && !patientSpecialDoctors.isEmpty())
+        {
+            for (SpecialDoctor specialDoctor:patientSpecialDoctors)
+            {
+                if (specialDoctor.getRole().equals(role))
+                {
+                    specialDoctorList.remove(specialDoctor);
+                    specialDoctorList.add(0,specialDoctor);
+                }
+            }
+        }
+        return specialDoctorList;
+    }
+    public static List<LabWorker> getLabWorkers(String clinicName){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<LabWorker> query = builder.createQuery(LabWorker.class);
+        Root<LabWorker> root = query.from(LabWorker.class);
+        query.select(root);
+        query.where(builder.equal(root.get("main_clinic"), clinicName));
+        return Main.session.createQuery(query).getResultList();
+    }
+    public static void addQuestionnaire(Patient patient, boolean met, boolean fever, boolean cough, boolean tired, boolean taste, boolean smell)
+    {
+        CovidQuestionnaire questionnaire=new CovidQuestionnaire(patient,met,fever,cough,tired,taste,smell);
+        Main.session.save(questionnaire);
+        Main.session.flush();
+    }
+
 
 }
 

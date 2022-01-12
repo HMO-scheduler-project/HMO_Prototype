@@ -144,4 +144,14 @@ public class clinicController {
     public static AwaitingTimeRep getAwaitingTimeRepByClinic(Clinic clinic){ return clinic.getAwaitingTimeRep();}
     public static MissedAppRep getMissedAppRepByClinic(Clinic clinic){ return clinic.getMissedAppRep();}
     public static ServicesTypeRep getServicesTypeRepByClinic(Clinic clinic){ return clinic.getServicesTypeRep();}
+    public static List<Clinic> getSpecialDoctorsClinic(String name){
+        List<Clinic> clinicList =getAllClinicsFromDB();
+        List<Clinic> clinics = new ArrayList<>();
+        for (Clinic clinic: clinicList)
+            if(name.contains(clinic.getName())) {
+                clinics.add(clinic);
+                System.out.println(clinic.getName());
+            }
+        return clinics;
+    }
 }
