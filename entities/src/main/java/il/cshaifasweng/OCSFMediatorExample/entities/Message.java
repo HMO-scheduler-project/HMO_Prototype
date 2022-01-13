@@ -194,6 +194,14 @@ public class Message implements Serializable {
         return UserCardNumber;
     }
 
+    public List<specialDoctorApp> getSpecialDoctorAppList() {
+        return specialDoctorAppList;
+    }
+
+    public void setSpecialDoctorAppList(List<specialDoctorApp> specialDoctorAppList) {
+        this.specialDoctorAppList = specialDoctorAppList;
+    }
+
     public void setUserCardNumber(String userCardNumber) {
         UserCardNumber = userCardNumber;
     }
