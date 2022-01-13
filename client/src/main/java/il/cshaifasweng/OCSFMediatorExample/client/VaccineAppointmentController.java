@@ -225,7 +225,7 @@ public class VaccineAppointmentController {
     public void onSavedApp(SavedAppEvent event) {
         if (event.isSaved()) {
             showAlert("Saved", "The appointment was saved successfully!");
-            ChangeScreens.changeToMainPage();
+            ChangeScreens.changeToViewAppsScreen();
         } else {
             showAlert("Error", "This appointment wasn't saved please try again!");
         }
