@@ -288,13 +288,15 @@ public class appointmentController {
     public static long PatientTicket(Appointment app)
     {
         List<Appointment> appointments=getPatientListFromDB(app.getEmployee());
-        long count=1;
+        long count=1,late=0;
         if(app.getTime().isBefore(LocalTime.now()))
         {
             for (Appointment appointment:appointments)
             {
                 if (appointment.getTime().equals(LocalTime.now())||appointment.getTime().isAfter(LocalTime.now()))
-                    return count;
+                    return count+late;
+                if (appointment.getTime().isBefore(app.getTime())&& !app.isArrived())
+                    late++;
                 count++;
             }
         }
@@ -302,11 +304,13 @@ public class appointmentController {
             for (Appointment appointment:appointments)
             {
                 if (appointment.equals(app))
-                    return count;
+                    return count+late;
+                if (!app.isArrived())
+                    late++;
                 count++;
             }
         }
-        return count;
+        return count+late;
     }
 
 }
