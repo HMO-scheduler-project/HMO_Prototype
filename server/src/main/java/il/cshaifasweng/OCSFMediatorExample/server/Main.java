@@ -166,6 +166,27 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+            if (currMsg.getAction().equals("GetAllClinicsWithCovidTest")) {
+                try {
+                    List<String> clinicNames = clinicController.getClinicWithService("covid test");
+                    serverMsg.setClinicList(clinicNames);
+                    serverMsg.setAction("GetAllClinicsWithCovidTest");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("GetAllClinicsWithVaccine")) {
+                try {
+                    List<String> clinicNames = clinicController.getClinicWithService(currMsg.getService_name());
+                    serverMsg.setClinicList(clinicNames);
+                    serverMsg.setAction("GetAllClinicsWithVaccine");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             if (currMsg.getAction().equals("GetClinicFromName")) {
                 try {
                     serverMsg = currMsg;
@@ -639,7 +660,7 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("Add covid test appointment")) {
                 try {
-                    serverMsg.setSaved(appointmentController.AddNewCovidTestApp(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), (Patient) userController.getUserByUsername(currMsg.getUsername()), (LabWorker) userController.getEmployee(currMsg.getEmployee_id())));
+                    serverMsg.setSaved(appointmentController.AddNewCovidTestApp(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), userController.getPatientByUsername(currMsg.getUsername()), (LabWorker) userController.getEmployee(currMsg.getEmployee_id())));
                     serverMsg.setAction("Covid test appointment added");
                     serverMsg.setAppTime(currMsg.getAppTime());
                     serverMsg.setAppDate(currMsg.getAppDate());

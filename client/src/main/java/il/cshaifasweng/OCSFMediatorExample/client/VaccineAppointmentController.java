@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.GotClinicsWithVaccine;
 import il.cshaifasweng.OCSFMediatorExample.client.events.GotLabWorkersVaccineEven;
 import il.cshaifasweng.OCSFMediatorExample.client.events.SavedAppEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
@@ -56,7 +57,7 @@ public class VaccineAppointmentController {
     private TableColumn<AvailableApp, LocalTime> TimeCol1;
 
     @FXML
-    private ChoiceBox<String> VaccineType;
+    private ComboBox<String> VaccineType;
 
     @FXML
     private Label cliniclabel;
@@ -148,40 +149,56 @@ public class VaccineAppointmentController {
     }
 
     @FXML
-    void ViewTable(ActionEvent event) {
-        String clinic_name;
-            if ((VaccineType.getSelectionModel() == null || VaccineType.getSelectionModel().getSelectedIndex() == -1)) {
-                warningtext1.setText("Please choose vaccine type first!");
-                warningtext1.setVisible(true);
-            } else {
-                warningtext1.setVisible(false);
-                if (ClinicName.getSelectionModel() == null || ClinicName.getSelectionModel().getSelectedIndex() == -1) {
-                    warningtext1.setText("Please choose a clinic first!");
-                    warningtext1.setVisible(true);
-                } else {
-                    vaccine_Type = VaccineType.getSelectionModel().getSelectedItem();
-                    clinic_name = ClinicName.getSelectionModel().getSelectedItem();
-                    warningtext.setVisible(false);
-                    warningtext1.setVisible(false);
-                    VaccineType.setVisible(false);
-                    cliniclabel.setVisible(false);
-                    vaccinelabel.setVisible(false);
-                    ClinicName.setVisible(false);
-                    ok.setVisible(false);
-                    try {
-                        Message msg = new Message();
-                        msg.setClinicName(clinic_name);
-                        msg.setRole("lab worker");
-                        msg.setAction("Get LabWorkers and clinic apps");
-                        SimpleClient.getClient().openConnection();
-                        SimpleClient.getClient().sendToServer(msg);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
+    public void chooseClinic() {
+        vaccine_Type = VaccineType.getSelectionModel().getSelectedItem();
+        if ((vaccine_Type == null)) {
+            warningtext1.setText("Please choose vaccine type first!");
+            warningtext1.setVisible(true);
+        } else {
+            warningtext1.setVisible(false);
+            cliniclabel.setVisible(true);
+            ClinicName.setVisible(true);
+            ClinicName.getItems().clear();
+            try {
+                Message msg = new Message();
+                msg.setAction("GetAllClinicsWithVaccine");
+                msg.setService_name(vaccine_Type);
+                SimpleClient.getClient().openConnection();
+                SimpleClient.getClient().sendToServer(msg);
+            }catch (IOException e){
+                e.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    void ViewTable(ActionEvent event) {
+        String clinic_name;
+        if (ClinicName.getSelectionModel() == null || ClinicName.getSelectionModel().getSelectedIndex() == -1) {
+            warningtext1.setText("Please choose a clinic first!");
+            warningtext1.setVisible(true);
+        } else {
+            clinic_name = ClinicName.getSelectionModel().getSelectedItem();
+            warningtext.setVisible(false);
+            warningtext1.setVisible(false);
+            VaccineType.setVisible(false);
+            cliniclabel.setVisible(false);
+            vaccinelabel.setVisible(false);
+            ClinicName.setVisible(false);
+            ok.setVisible(false);
+            try {
+                Message msg = new Message();
+                msg.setClinicName(clinic_name);
+                msg.setRole("lab worker");
+                msg.setAction("Get LabWorkers and clinic apps");
+                SimpleClient.getClient().openConnection();
+                SimpleClient.getClient().sendToServer(msg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
     @FXML
     void initialize() throws IOException {
         Parent menuBarParent = App.loadFXML("menuBar.fxml");
@@ -203,26 +220,19 @@ public class VaccineAppointmentController {
         EmployeeName1.setVisible(false);
         ClinicCol1.setVisible(false);
         Table1.setVisible(false);
-        ClinicName.setVisible(true);
-        ClinicName.getItems().clear();
-        ClinicName.getItems().add("Denia");
-        ClinicName.getItems().add("Neve shaanan");
-        ClinicName.getItems().add("Hadar");
-        ClinicName.getItems().add("Nesher");
-        ClinicName.getItems().add("Carmel");
-        ClinicName.getItems().add("Tirat Carmel");
-        cliniclabel.setVisible(true);
         vaccinelabel.setText("Choose vaccine type");
         vaccinelabel.setVisible(true);
         VaccineType.getItems().clear();
         if(!App.isCovid_vaccine() )
-        VaccineType.getItems().add("Covid 19");
+        VaccineType.getItems().add("covid vaccine");
         if(!App.isInfluenza_vaccine())
-        VaccineType.getItems().add("Influenza");
+        VaccineType.getItems().add("influenza vaccine");
         VaccineType.setVisible(true);
         ok.setVisible(true);
         warningtext1.setVisible(false);
     }
+
+
     @Subscribe
     public void onSavedApp(SavedAppEvent event) {
         if (event.isSaved()) {
@@ -243,4 +253,18 @@ public class VaccineAppointmentController {
             }
         });
     }
+
+    @Subscribe
+    public void onClinicWithVaccineEvent(GotClinicsWithVaccine event){
+        for (String clinic : event.getClinicNames()) {
+            if(!ClinicName.getItems().contains(clinic)) {
+                ClinicName.getItems().add(clinic);
+            }
+        }
+        cliniclabel.setVisible(true);
+        ok.setVisible(true);
+        warningtext1.setVisible(false);
+    }
+
+
 }

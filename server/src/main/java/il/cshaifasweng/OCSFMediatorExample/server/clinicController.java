@@ -55,6 +55,24 @@ public class clinicController {
         return Main.session.createQuery(query).getResultList().stream()
                 .map((Clinic::getName)).collect(Collectors.toList());
     }
+    public static List<String> getClinicWithService(String service){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Clinic> query = builder.createQuery(Clinic.class);
+        Root<Clinic> root = query.from(Clinic.class);
+        query.select(root);
+        if(service.equals("covid test")){
+            query.where(builder.equal(root.get("covidTestService"), true));
+        }
+        if(service.equals("covid vaccine")){
+            query.where(builder.equal(root.get("covidVaccine"), true));
+        }
+        if(service.equals("influenza vaccine")) {
+            query.where(builder.equal(root.get("influenzaVaccine"), true));
+        }
+        return Main.session.createQuery(query).getResultList().stream()
+                .map((Clinic::getName)).collect(Collectors.toList());
+    }
+
 
     public static List<String> getServicesList(String name) {
         Clinic clinic = getClinicByName(name);

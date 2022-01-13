@@ -163,7 +163,12 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("Got vaccines")){
 			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine()));
 		}
-
+		if(currMsg.getAction().equals("GetAllClinicsWithCovidTest")){
+			EventBus.getDefault().post(new GotClinicsWithCovidTest(currMsg.getClinicList()));
+		}
+		if(currMsg.getAction().equals("GetAllClinicsWithVaccine")){
+			EventBus.getDefault().post(new GotClinicsWithVaccine(currMsg.getClinicList()));
+		}
 		if(currMsg.getAction().equals("Got special doctor appointments and clinics")){
 			EventBus.getDefault().post(new SpecialDocClinicsEvent(currMsg.getSpecialDoctorAppList(),currMsg.getClinics(),currMsg.getSpecialDoctor()));
 		}
