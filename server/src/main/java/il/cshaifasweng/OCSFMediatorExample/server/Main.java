@@ -646,6 +646,18 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+            if (currMsg.getAction().equals("remove app")) {
+                try {
+                    Employee employee = userController.getEmployeeByFullName(currMsg.getEmployeeName());
+                    Patient patient = userController.getPatientByUsername(currMsg.getUsername());
+                    Appointment app = appointmentController.findAppForDeletion(patient, currMsg.getAppDate(), currMsg.getAppTime(), employee);
+                    serverMsg.setRemoved(appointmentController.RemoveApp(app, patient));
+                    serverMsg.setAction("removed app");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             if (currMsg.getAction().equals("Add new doctor appointment")) {
                 try {
                     serverMsg.setSaved(appointmentController.AddNewDoctorAppointment(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), (Patient) userController.getUserByUsername(currMsg.getUsername()), (Doctor) userController.getEmployee(currMsg.getEmployee_id())));

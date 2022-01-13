@@ -40,6 +40,7 @@ public class appointmentController {
         query.orderBy(builder.asc(root.get("date")),builder.asc(root.get("time")));
         return Main.session.createQuery(query).getResultList();
     }
+
     public static List<Appointment> getPatientListFromDB(Employee employee){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
@@ -179,6 +180,26 @@ public class appointmentController {
         query.where(builder.equal(root.get("patient"), patient),builder.equal(root.get("arrived"),true));
         query.orderBy(builder.desc(root.get("date")));
         return Main.session.createQuery(query).getResultList();
+    }
+
+    public static Appointment findAppForDeletion(Patient patient, LocalDate date, LocalTime time, Employee employee){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
+        Root<Appointment> root = query.from(Appointment.class);
+        query.select(root);
+        query.where(builder.equal(root.get("patient"), patient),builder.equal(root.get("date"),date),builder.equal(root.get("time"),time),builder.equal(root.get("employee"),employee));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
+    public static boolean RemoveApp(Appointment app, Patient patient){
+        Main.deleteRowInDB(app);
+        List<Appointment> patientAppointments = getAllAppsFromDB(patient);
+        if(patientAppointments!=null && !patientAppointments.isEmpty()){
+            for (Appointment appointment:patientAppointments)
+                if(appointment.getDate().equals(app.getDate()) && appointment.getTime().equals(app.getTime()) && appointment.getEmployee().getUsername().equals(app.getEmployee().getUsername()) && app.getAppointment_id() == appointment.getAppointment_id())
+                    return false;
+        }
+        return true;
     }
 
 }

@@ -51,11 +51,13 @@ public class Message implements Serializable {
     private LocalDate appDate;
     private LocalTime appTime;
     private boolean saved;
+    private boolean removed;
     private List<specialDoctorApp> specialDoctorAppList;
     /*-------Handling Employees-------*/
     private int employee_id;
     private String role;
     private Employee employee;
+    private String employeeName;
     private List<Doctor> employeeList;
     private List<LabWorker> labWorkerList;
     private List<SpecialDoctor> specialDoctorList;
@@ -406,6 +408,14 @@ public class Message implements Serializable {
         this.saved = saved;
     }
 
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
     public int getEmployee_id() {
         return employee_id;
     }
@@ -420,6 +430,14 @@ public class Message implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
     public Employee getEmployee() {

@@ -132,6 +132,10 @@ public class SimpleClient extends AbstractClient {
 		if (currMsg.getAction().equals("got patient appointments")) {
 			EventBus.getDefault().post(new ViewAppsEvent(currMsg.getNearest_apps()));
 		}
+		if(currMsg.getAction().equals("removed app"))
+		{
+			EventBus.getDefault().post(new RemoveAppEvent(currMsg.isRemoved()));
+		}
 		if (currMsg.getAction().equals("got employees")) {
 			EventBus.getDefault().post(new GotDoctorsEvent(currMsg.getEmployeeList(),currMsg.getNearest_apps()));
 		}

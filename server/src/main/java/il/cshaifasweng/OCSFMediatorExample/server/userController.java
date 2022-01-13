@@ -206,6 +206,16 @@ public class userController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
+    public static Employee getEmployeeByFullName(String name){
+        String[] str = name.split(" ");
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Employee> query = builder.createQuery(Employee.class);
+        Root<Employee> root = query.from(Employee.class);
+        query.select(root);
+        query.where(builder.equal(root.get("first_name"), str[0]), builder.equal(root.get("last_name"), str[1]));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+
 
     public static Patient getPatientByCardNum(String card_num) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
