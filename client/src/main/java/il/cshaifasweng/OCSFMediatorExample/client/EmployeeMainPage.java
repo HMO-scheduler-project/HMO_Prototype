@@ -1,8 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.EmployeeEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.events.nearestAppsEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.events.updateArrivalTimeEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
+import il.cshaifasweng.OCSFMediatorExample.entities.Employee;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -20,6 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class EmployeeMainPage {
+    private Employee employee ;
 
     @FXML
     private Button CallNextPatientBtn;
@@ -65,7 +68,28 @@ public class EmployeeMainPage {
 
     @FXML
     void pressOnCallNextPatient(ActionEvent event) {
-//        waitingRoomScreenController.CallNextPatient(patientName.getText());
+        try {
+            Message msg = new Message();
+            msg.setAction("call next patient");
+            msg.setPatientName(patientName.getText());
+            msg.setEmployee(this.employee);
+            SimpleClient.getClient().sendToServer(msg);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void getEmployee() throws IOException {
+        Message msg = new Message();
+        msg.setAction("get employee from username");
+        msg.setUsername(App.getUsername());
+        SimpleClient.getClient().sendToServer(msg);
+    }
+
+    @Subscribe
+    public void employeeEvent (EmployeeEvent event){
+        System.out.println("in employeeEvent"+event.getEmployee().getFullName());
+        employee = event.getEmployee();
     }
 
     @FXML
@@ -76,6 +100,7 @@ public class EmployeeMainPage {
         EventBus.getDefault().register(this);
         successfulUpdateLabel.setVisible(false);
         welcomeTF.setText("Welcome " + App.getFirst_name());
+        getEmployee();
         try {
             Message msg= new Message();
             msg.setUsername(App.getUsername());

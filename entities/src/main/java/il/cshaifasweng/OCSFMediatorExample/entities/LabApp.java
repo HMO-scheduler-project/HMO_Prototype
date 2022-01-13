@@ -18,6 +18,7 @@ public class LabApp extends Appointment {
     public LabApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, LabWorker worker){
         super(time, date, clinic, patient,worker);
         this.labworker = worker;
+        this.type="Lab appointment";
     }
 
     public LabWorker getLabworker() {

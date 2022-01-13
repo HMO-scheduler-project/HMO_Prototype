@@ -15,6 +15,7 @@ public class Covid19VaccineApp extends LabApp implements Serializable {
 
     public Covid19VaccineApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, LabWorker worker) {
         super(time, date, clinic, patient, worker);
+        this.type="Covid 19 vaccine appointment";
     }
 
     public int getDuration(){

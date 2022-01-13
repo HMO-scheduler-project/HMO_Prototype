@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,9 @@ public class Patient extends User implements Serializable {
     protected GreenPass green_pass;
     @OneToMany(targetEntity = SpecialDoctor.class)
     protected List<SpecialDoctor> special_doctors;
-
+    protected boolean covid_vaccinated;
+    protected boolean Influenza_vaccinated;
+    protected LocalDate covidVaccine_date;
 
     public Patient(String username, String password,String first_name,String last_name,Doctor doctor
             ,LocalDate date_of_birth,String card,String Email,String phone_number,Clinic clinic,
@@ -34,7 +37,9 @@ public class Patient extends User implements Serializable {
         this.date_of_birth = date_of_birth;
         this.green_pass=green_pass;
         this.special_doctors= null;
-
+        this.Influenza_vaccinated=false;
+        this.covid_vaccinated=false;
+        covidVaccine_date=null;
     }
 
     public Patient() {
@@ -117,7 +122,49 @@ public class Patient extends User implements Serializable {
         this.date_of_birth = date_of_birth;
     }
 
+    public int getAge()
+    {
+        LocalDate now=LocalDate.now();
+        return (Period.between(date_of_birth,now).getYears());
+    }
+    public List<SpecialDoctor> getSpecial_doctors() {
+        return special_doctors;
+    }
 
+    public void setSpecial_doctors(List<SpecialDoctor> special_doctors) {
+        this.special_doctors = special_doctors;
+    }
 
+    public boolean isCovid_vaccinated() {
+        return covid_vaccinated;
+    }
+
+    public void setCovid_vaccinated(boolean covid_vaccinated) {
+        this.covid_vaccinated = covid_vaccinated;
+    }
+
+    public boolean isInfluenza_vaccinated() {
+        return Influenza_vaccinated;
+    }
+
+    public void setInfluenza_vaccinated(boolean influenza_vaccinated) {
+        Influenza_vaccinated = influenza_vaccinated;
+    }
+
+    public LocalDate getCovidVaccine_date() {
+        return covidVaccine_date;
+    }
+
+    public void setCovidVaccine_date(LocalDate covidVaccine_date) {
+        this.covidVaccine_date = covidVaccine_date;
+    }
+
+    public List<Appointment> getPatientAppointments() {
+        return patientAppointments;
+    }
+
+    public void setPatientAppointments(List<Appointment> patientAppointments) {
+        this.patientAppointments = patientAppointments;
+    }
 }
 

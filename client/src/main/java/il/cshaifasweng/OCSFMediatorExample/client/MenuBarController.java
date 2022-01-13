@@ -36,6 +36,10 @@ public class MenuBarController {
     private Menu updates;
     @FXML
     private MenuItem UpdateBtn;
+    @FXML
+    private MenuItem greenPassbtn;
+    @FXML
+    private Menu greenpass;
 
     @FXML
     void pressChangeAppBtn(ActionEvent event) {}
@@ -51,7 +55,9 @@ public class MenuBarController {
     void pressNewAppBtn(ActionEvent event) { ChangeScreens.changeNewAppScreen();}
 
     @FXML
-    void pressViewAppsBtn(ActionEvent event) {}
+    void pressViewAppsBtn(ActionEvent event) {
+        ChangeScreens.changeToViewAppsScreen();
+    }
     @FXML
     void pressOnLogout(ActionEvent event){
         App.logout(true,"PC");
@@ -79,5 +85,8 @@ public class MenuBarController {
             updates.setVisible(true);
         }
     }
-
+    @FXML
+    void pressGreenPass(ActionEvent event) {
+        ChangeScreens.changeToGreenPassScreen();
+    }
 }

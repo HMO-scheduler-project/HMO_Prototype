@@ -212,5 +212,9 @@ public class Clinic implements Serializable {
     public void setSpecialists(boolean specialists) {
         this.specialists = specialists;
     }
+
+    public boolean isSpecialists() {
+        return specialists;
+    }
 }
 

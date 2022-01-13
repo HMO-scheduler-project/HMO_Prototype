@@ -20,6 +20,7 @@ public class Covid19Test extends LabApp{
     public Covid19Test(LocalTime time, LocalDate date, Clinic clinic, Patient patient, LabWorker worker){
         super(time, date, clinic, patient, worker);
         this.result=false;
+        this.type="Covid test appointment";
     }
 
     public boolean getResult() { return result; }

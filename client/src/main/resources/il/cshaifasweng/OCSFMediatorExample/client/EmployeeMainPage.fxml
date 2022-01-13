@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="653.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.EmployeeMainPage">
+<AnchorPane maxHeight="600.0" maxWidth="630.0" prefHeight="600.0" prefWidth="630.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.EmployeeMainPage">
     <children>
         <Pane fx:id="menubar" />
         <TextField fx:id="welcomeTF" layoutX="49.0" layoutY="133.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 20; -fx-font-weight: bold;" />
-        <TableView fx:id="nearestAppTable" layoutY="487.0" prefHeight="214.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
+        <TableView fx:id="nearestAppTable" layoutY="487.0" prefHeight="214.0" prefWidth="630.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
             <columns>
-                <TableColumn fx:id="DateCol" prefWidth="124.80001831054688" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Date" />
-                <TableColumn fx:id="TimeCol" prefWidth="144.79998779296875" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Time" />
-                <TableColumn fx:id="patientName" prefWidth="331.20001220703125" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Patient name" />
+                <TableColumn fx:id="DateCol" prefWidth="151.19998168945312" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Date" />
+                <TableColumn fx:id="TimeCol" prefWidth="184.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Time" />
+                <TableColumn fx:id="patientName" prefWidth="293.5999755859375" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Patient name" />
             </columns>
         </TableView>
         <Button fx:id="CallNextPatientBtn" layoutX="28.0" layoutY="435.0" mnemonicParsing="false" onAction="#pressOnCallNextPatient" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Call next patient" />

@@ -13,6 +13,7 @@ public class InfluenzaVaccineApp extends LabApp{
 
     public InfluenzaVaccineApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, LabWorker worker){
         super(time, date, clinic, patient, worker);
+        this.type="Influenza vaccine appointment";
     }
 
     public int getDuration(){

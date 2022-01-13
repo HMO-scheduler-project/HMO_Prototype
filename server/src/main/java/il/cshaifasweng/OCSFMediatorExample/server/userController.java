@@ -6,6 +6,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class userController {
@@ -141,7 +143,15 @@ public class userController {
         }
         return null;
     }
-
+    public static Employee getEmployeeFromUserName(String username) {           //new
+        List<Employee> employees = getAllEmployeesFromDB();
+        for (Employee employee : employees) {
+            if (employee.getUsername().equals(username)) {
+                return employee;
+            }
+        }
+        return null;
+    }
     public static List<Manager> getAllManagersFromDB(){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Manager> query = builder.createQuery(Manager.class);
@@ -243,6 +253,84 @@ public class userController {
         query.select(root);
         query.where(builder.equal(root.get("username"), username));
         return Main.session.createQuery(query).getSingleResult();
+    }
+    public static List<Doctor> getDoctorsByRole(String role,String clinicName){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Doctor> query = builder.createQuery(Doctor.class);
+        Root<Doctor> root = query.from(Doctor.class);
+        query.select(root);
+        query.where(builder.equal(root.get("role"), role));
+        List<Doctor> doctorList= Main.session.createQuery(query).getResultList();
+        doctorList.removeIf(doctor -> !doctor.getMain_clinic().equals(clinicName));
+        return doctorList;
+    }
+    public static SpecialDoctor getSpecialDoctorByUsername(String username)
+    {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<SpecialDoctor> query = builder.createQuery(SpecialDoctor.class);
+        Root<SpecialDoctor> root = query.from(SpecialDoctor.class);
+        query.select(root);
+        query.where(builder.equal(root.get("username"), username));
+        return Main.session.createQuery(query).getSingleResult();
+    }
+    public static List<SpecialDoctor> getSpecialDoctor(String role, Patient patient){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<SpecialDoctor> query = builder.createQuery(SpecialDoctor.class);
+        Root<SpecialDoctor> root = query.from(SpecialDoctor.class);
+        query.select(root);
+        query.where(builder.equal(root.get("role"), role));
+        List<SpecialDoctor> specialDoctorList = Main.session.createQuery(query).getResultList();
+        List<specialDoctorApp> appList = appointmentController.getSpecialPatientApps(patient);
+        if (appList != null && !appList.isEmpty()) {
+            for (specialDoctorApp doctorApp : appList) {
+                if (doctorApp.getSpecialDoctor().getRole().equals(role)) {
+                    specialDoctorList.remove(doctorApp.getSpecialDoctor());
+                    specialDoctorList.add(0, doctorApp.getSpecialDoctor());
+                }
+
+            }
+        }
+        return specialDoctorList;
+    }
+
+    public static List<LabWorker> getLabWorkers(String clinicName){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<LabWorker> query = builder.createQuery(LabWorker.class);
+        Root<LabWorker> root = query.from(LabWorker.class);
+        query.select(root);
+        query.where(builder.equal(root.get("main_clinic"), clinicName));
+        return Main.session.createQuery(query).getResultList();
+    }
+    public static void addQuestionnaire(Patient patient, boolean met, boolean fever, boolean cough, boolean tired, boolean taste, boolean smell)
+    {
+        CovidQuestionnaire questionnaire=new CovidQuestionnaire(patient,met,fever,cough,tired,taste,smell);
+        Main.session.save(questionnaire);
+        Main.session.flush();
+    }
+
+    public static GreenPass getUserGreenPass(User user) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<GreenPass> query = builder.createQuery(GreenPass.class);
+        Root<GreenPass> root = query.from(GreenPass.class);
+        query.select(root);
+        query.where(builder.equal(root.get("user"), user));
+        query.orderBy(builder.desc(root.get("issue_date")));
+        List<GreenPass> greenPass = Main.session.createQuery(query).getResultList();
+        if (greenPass != null)
+            if (!greenPass.isEmpty())
+                if (greenPass.get(0).getExpiration_date().isAfter(LocalDate.now()))
+                    return greenPass.get(0);
+        List<Covid19VaccineApp> covid19VaccineApp = appointmentController.getVaccineApp(user.getUsername());
+        if (covid19VaccineApp == null)
+            return null;
+        if (covid19VaccineApp.isEmpty())
+            return null;
+        if (covid19VaccineApp.get(0).getDate().isBefore(LocalDate.now().minusYears(1)))
+            return null;
+        GreenPass greenPass1 = new GreenPass(user, covid19VaccineApp.get(0).getDate(), covid19VaccineApp.get(0).getDate().plusYears(1));
+        Main.session.save(greenPass1);
+        Main.session.flush();
+        return greenPass1;
     }
 
 }
