@@ -214,15 +214,6 @@ public class Message implements Serializable {
         this.patientName = patientName;
     }
 
-    public List<specialDoctorApp> getSpecialDoctorAppList() {
-        return specialDoctorAppList;
-    }
-
-    public void setSpecialDoctorAppList(List<specialDoctorApp> specialDoctorAppList) {
-        this.specialDoctorAppList = specialDoctorAppList;
-    }
-
-
     public Clinic getClinic() {
         return clinic;
     }

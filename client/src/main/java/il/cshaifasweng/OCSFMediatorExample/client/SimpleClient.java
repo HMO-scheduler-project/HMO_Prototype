@@ -123,6 +123,12 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("saved new room")){
 			EventBus.getDefault().post(new ChangeRoomEvent(currMsg.getRoom()));
 		}
+		if(currMsg.getAction().equals("got employee")){
+			EventBus.getDefault().post(new EmployeeEvent(currMsg.getEmployee()));
+		}
+		if(currMsg.getAction().equals("print message to screen")){
+			EventBus.getDefault().post(new printMessageToScreenEvent(currMsg.getRoom(),currMsg.getPatientName()));
+		}
 		if (currMsg.getAction().equals("got patient appointments")) {
 			EventBus.getDefault().post(new ViewAppsEvent(currMsg.getNearest_apps()));
 		}
