@@ -27,6 +27,7 @@ public class Main extends SimpleServer {
     public static Session session;
     private Message serverMsg;
     private static SimpleServer server;
+    private static long late=0;
 
     public Main(int port) {
         super(port);
@@ -296,7 +297,14 @@ public class Main extends SimpleServer {
                 try{
                     Appointment appointment=appointmentController.getAppointments(currMsg.getClinicName(),currMsg.getUsername());
                     serverMsg.setAppointment(appointment);
-                    serverMsg.setAppCount(appointmentController.PatientTicket(appointment));
+                    if (appointment!=null) {
+                        if (appointment.getTime().isBefore(LocalTime.now()))
+                            late++;
+                        serverMsg.setAppCount(appointmentController.PatientTicket(appointment) + late);
+                        System.out.println(appointment.getAppointment_id());
+                    }
+                    else
+                    serverMsg.setAppCount(0);
                     serverMsg.setAction("got Appointment");
                     client.sendToClient(serverMsg);
                 }catch(IOException e){
