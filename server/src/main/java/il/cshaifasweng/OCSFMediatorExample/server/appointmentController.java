@@ -86,7 +86,7 @@ public class appointmentController {
         Root<specialDoctorApp> root = query.from(specialDoctorApp.class);
         query.select(root);
         query.where(builder.equal(root.get("patient"), patient));
-        query.orderBy(builder.asc(root.get("date")),builder.asc(root.get("time")));
+        query.orderBy(builder.asc(root.get("date")));
         return Main.session.createQuery(query).getResultList();
     }
     public static List<Appointment> EmployeeAppointments(Clinic clinic, LocalDate date){

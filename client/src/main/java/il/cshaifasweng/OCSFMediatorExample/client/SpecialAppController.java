@@ -198,16 +198,13 @@ public class SpecialAppController {
                                 employeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
                                 clinicCol.setCellValueFactory(new PropertyValueFactory<>("clinicCol"));
                                 Table.getItems().add(new AvailableApp(date, time, specialDoctor.getFullName(), clinic1.getName(), specialDoctor.getUserId(), specialDoctor.getRole()));
-                            System.out.println(time.toString()+date.toString()+clinic1.getName());
                             }
                         }
                     }
                     time = time.plusMinutes(20);
-                    System.out.println(time.toString());
                 }
                 time = specialDoctor.getStart_working_hour();
                 date = date.plusDays(1);
-                System.out.println(date.toString());
             }
         dateCol.setVisible(true);
         timeCol.setVisible(true);
@@ -220,8 +217,8 @@ public class SpecialAppController {
     @Subscribe
     public void onSavedApp(SavedAppEvent event) {
         if (event.isSaved()) {
-            sendingMail.sendMessage("ayamahajna96@gmail.com","Attemp","Appointment was saved");
             showAlert("Saved", "The appointment was saved successfully!");
+            ChangeScreens.changeToViewAppsScreen();
         } else {
             showAlert("Error", "This appointment wasn't saved please try again!");
         }
