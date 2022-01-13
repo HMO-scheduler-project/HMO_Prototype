@@ -122,6 +122,7 @@ public class DoctorAppointmentController {
 public void onSavedApp(SavedAppEvent event) {
     if (event.isSaved()) {
         showAlert("Saved", "The appointment was saved successfully!");
+        ChangeScreens.changeToViewAppsScreen();
     } else {
         showAlert("Error", "This appointment wasn't saved please try again!");
     }
@@ -134,7 +135,7 @@ public void onSavedApp(SavedAppEvent event) {
                 alert.setTitle(title);
                 alert.setHeaderText(null);
                 alert.setContentText(head);
-                alert.showAndWait();
+                alert.show();
             }
         });
     }

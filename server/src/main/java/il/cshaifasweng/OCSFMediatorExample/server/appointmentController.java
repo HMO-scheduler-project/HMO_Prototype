@@ -86,7 +86,7 @@ public class appointmentController {
         Root<specialDoctorApp> root = query.from(specialDoctorApp.class);
         query.select(root);
         query.where(builder.equal(root.get("patient"), patient));
-        query.orderBy(builder.asc(root.get("date")),builder.asc(root.get("time")));
+        query.orderBy(builder.asc(root.get("date")));
         return Main.session.createQuery(query).getResultList();
     }
     public static List<Appointment> EmployeeAppointments(Clinic clinic, LocalDate date){
@@ -154,8 +154,12 @@ public class appointmentController {
         Covid19Test app= new Covid19Test(time,date,clinic,patient,employee);
         Main.session.save(app);
         Main.session.flush();
-//        SendingMail.sendScheduledAppointmentMessage( "briootTovaPatient@gmail.com, appointment)
-        return true;
+        List<Appointment> patientAppointments=patient.getPatientAppointments();
+        if(patientAppointments!=null && !patientAppointments.isEmpty()){
+            for (Appointment appointment:patientAppointments)
+                if(appointment.equals(app))
+                    return true;}
+        return false;
     }
     public static boolean AddSpecialDoctorAppointment(LocalTime time, LocalDate date, Clinic clinic, Patient patient, SpecialDoctor employee)
     {
@@ -167,7 +171,7 @@ public class appointmentController {
         specialDoctorApp  app=new specialDoctorApp(time,date,clinic,patient,employee);
         Main.session.save(app);
         Main.session.flush();
-//        SendingMail.sendScheduledAppointmentMessage( "briootTovaPatient@gmail.com, appointment)
+        sendingMail.sendScheduledAppointmentMessage( "Ayamahajna96@gmail.com",app);
         return true;
     }
     public static List<Covid19VaccineApp> getVaccineApp(String user)

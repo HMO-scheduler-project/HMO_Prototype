@@ -140,6 +140,7 @@ public class CovidTestAppController {
     public void onSavedApp(SavedAppEvent event) {
         if (event.isSaved()) {
             showAlert("Saved", "The appointment was saved successfully!");
+            ChangeScreens.changeToViewAppsScreen();
         } else {
             showAlert("Error", "This appointment wasn't saved please try again!");
         }
@@ -152,7 +153,7 @@ public class CovidTestAppController {
                 alert.setTitle(title);
                 alert.setHeaderText(null);
                 alert.setContentText(head);
-                alert.showAndWait();
+                alert.show();
             }
         });
     }
