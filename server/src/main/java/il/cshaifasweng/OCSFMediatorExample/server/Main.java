@@ -294,8 +294,9 @@ public class Main extends SimpleServer {
             }
             if(currMsg.getAction().equals("Provide Ticket")){
                 try{
-
-                    serverMsg.setAppointment(appointmentController.getAppointments(currMsg.getClinicName(),currMsg.getUsername()));
+                    Appointment appointment=appointmentController.getAppointments(currMsg.getClinicName(),currMsg.getUsername());
+                    serverMsg.setAppointment(appointment);
+                    serverMsg.setAppCount(appointmentController.PatientTicket(appointment));
                     serverMsg.setAction("got Appointment");
                     client.sendToClient(serverMsg);
                 }catch(IOException e){
@@ -437,12 +438,12 @@ public class Main extends SimpleServer {
                         serverMsg.setOpeningHour(serverMsg.getClinic().getOpeningHour());
                         serverMsg.setClosingHour(serverMsg.getClinic().getClosingHour());
                     }else if(currMsg.getService_name().equals("doctors") || currMsg.getService_name().equals("specialists")){
-                       Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
+                        Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
                         if(currMsg.getOpeningHour()!=null) {
                             doctor.setStart_working_hour(currMsg.getOpeningHour());
                         }
                         if(currMsg.getClosingHour()!=null) {
-                           doctor.setFinish_working_hour(currMsg.getClosingHour());
+                            doctor.setFinish_working_hour(currMsg.getClosingHour());
                         }
                         updateCellInDB(doctor);
                         serverMsg.setAction("saved new hours");
@@ -477,17 +478,17 @@ public class Main extends SimpleServer {
                             serverMsg.setClosingHour(worker.getFinish_working_hour());
                         }
                     }else if(currMsg.getService_name().equals("covid test") || currMsg.getService_name().equals("covid vaccine") || currMsg.getService_name().equals("influenza vaccine")) {
-                            clinicSpecialService service = clinicController.getService(currMsg.getService_name(),currMsg.getClinicName());
-                            if (currMsg.getOpeningHour() != null) {
-                                service.setStart(currMsg.getOpeningHour());
-                            }
-                            if (currMsg.getClosingHour() != null) {
-                                service.setEnd(currMsg.getClosingHour());
-                            }
-                            updateCellInDB(service);
-                            serverMsg.setAction("saved new hours");
-                            serverMsg.setOpeningHour(service.getStart());
-                            serverMsg.setClosingHour(service.getEnd());
+                        clinicSpecialService service = clinicController.getService(currMsg.getService_name(),currMsg.getClinicName());
+                        if (currMsg.getOpeningHour() != null) {
+                            service.setStart(currMsg.getOpeningHour());
+                        }
+                        if (currMsg.getClosingHour() != null) {
+                            service.setEnd(currMsg.getClosingHour());
+                        }
+                        updateCellInDB(service);
+                        serverMsg.setAction("saved new hours");
+                        serverMsg.setOpeningHour(service.getStart());
+                        serverMsg.setClosingHour(service.getEnd());
                     }
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -648,9 +649,8 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("remove app")) {
                 try {
-                    Employee employee = userController.getEmployeeByFullName(currMsg.getEmployeeName());
+                    Appointment app = currMsg.getAppointment();
                     Patient patient = userController.getPatientByUsername(currMsg.getUsername());
-                    Appointment app = appointmentController.findAppForDeletion(patient, currMsg.getAppDate(), currMsg.getAppTime(), employee);
                     serverMsg.setRemoved(appointmentController.RemoveApp(app, patient));
                     serverMsg.setAction("removed app");
                     client.sendToClient(serverMsg);
@@ -696,7 +696,9 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("Get vaccine")) {
                 try {
-                    Patient patient = (Patient) userController.getUserByUsername(currMsg.getUsername());
+                    serverMsg.setCovid19VaccineApp(appointmentController.getNearestCovidVaccineApp(userController.getPatientByUsername(currMsg.getUsername())));
+                    serverMsg.setInfluenzaVaccineApp(appointmentController.getNearestInfluenzaVaccineApp(userController.getPatientByUsername(currMsg.getUsername())));
+                    Patient patient=userController.getPatientByUsername(currMsg.getUsername());
                     serverMsg.setCovid_vaccine(patient.isCovid_vaccinated());
                     serverMsg.setInfluenza_vaccine(patient.isInfluenza_vaccinated());
                     serverMsg.setAction("Got vaccines");

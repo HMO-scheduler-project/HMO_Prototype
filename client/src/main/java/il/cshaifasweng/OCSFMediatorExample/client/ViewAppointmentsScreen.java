@@ -8,14 +8,15 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.event.ActionEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -42,7 +43,6 @@ public class ViewAppointmentsScreen {
 
     @FXML
     private TableView<Appointment> viewAppTab;
-
     @FXML
     private Button cancel;
 
@@ -98,34 +98,47 @@ public class ViewAppointmentsScreen {
     }
 
     @FXML
-    public void pressCancelAppButton(ActionEvent event){
-        date.setVisible(true);
-        time.setVisible(true);
-        employeeName.setVisible(true);
-        date.clear();
-        time.clear();
-        employeeName.clear();
-        submit.setVisible(true);
+    public void pressCancelAppButton(ActionEvent event) {
+//        date.setVisible(true);
+//        time.setVisible(true);
+//        employeeName.setVisible(true);
+//        date.clear();
+//        time.clear();
+//        employeeName.clear();
+//        submit.setVisible(true);
+        if (viewAppTab.getSelectionModel().getSelectedItems() != null && viewAppTab.getSelectionModel().getSelectedIndex() != -1) {
+            Message msg = new Message();
+            msg.setAppointment(viewAppTab.getSelectionModel().getSelectedItem());
+            msg.setUsername(App.getUsername());
+            msg.setAction("remove app");
+            try {
+                SimpleClient.getClient().sendToServer(msg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            showAlert("Error", "Please choose appointment first");
 
     }
 
     @FXML
-    public void pressSubmitAppButton(ActionEvent event){
-        Message msg = new Message();
-        msg.setAppDate(LocalDate.parse(date.getText()));
-        msg.setAppTime(LocalTime.parse(time.getText()));
-        msg.setEmployeeName(employeeName.getText());
-        msg.setUsername(App.getUsername());
-        msg.setAction("remove app");
-        try{
-            SimpleClient.getClient().sendToServer(msg);
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
+    public void pressSubmitAppButton(ActionEvent event) {
+//        Message msg = new Message();
+//        msg.setAppDate(LocalDate.parse(date.getText()));
+//        msg.setAppTime(LocalTime.parse(time.getText()));
+//        msg.setEmployeeName(employeeName.getText());
+//        msg.setUsername(App.getUsername());
+//        msg.setAction("remove app");
+//        try{
+//            SimpleClient.getClient().sendToServer(msg);
+//        }catch(IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Subscribe
-    public void onRemoveAppEvent(RemoveAppEvent event){
+    public void onRemoveAppEvent(RemoveAppEvent event) {
         if (event.isRemoved()) {
             showAlert("Removed", "The appointment was removed successfully!");
         } else {

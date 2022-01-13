@@ -73,32 +73,32 @@ public class userController {
         for (User user : users) {
             if (user.checkCard(msg.getUserCardNumber())) {
                 user_found = true;
-                    if (!user.isLoggedIn()) {
-                        if(user instanceof HMO_Manager)
-                        {
-                            msg.setUserType("HMO_Manager");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        }else if (user instanceof Manager) {
-                            msg.setUserType("Manager");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        } else if (user instanceof Employee) {
-                            msg.setUserType("Employee");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        }else if (user instanceof Patient) {
-                            msg.setUserType("Patient");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        }
-                    } else {
-                        msg.setStatus("you are already logged in");
+                if (!user.isLoggedIn()) {
+                    if(user instanceof HMO_Manager)
+                    {
+                        msg.setUserType("HMO_Manager");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
+                    }else if (user instanceof Manager) {
+                        msg.setUserType("Manager");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
+                    } else if (user instanceof Employee) {
+                        msg.setUserType("Employee");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
+                    }else if (user instanceof Patient) {
+                        msg.setUserType("Patient");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
                     }
+                } else {
+                    msg.setStatus("you are already logged in");
+                }
             }
         }
         if(!user_found) {
@@ -215,7 +215,6 @@ public class userController {
         query.where(builder.equal(root.get("first_name"), str[0]), builder.equal(root.get("last_name"), str[1]));
         return Main.session.createQuery(query).getSingleResult();
     }
-
 
     public static Patient getPatientByCardNum(String card_num) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();

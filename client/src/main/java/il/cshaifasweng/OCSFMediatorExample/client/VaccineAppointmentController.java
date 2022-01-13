@@ -9,11 +9,9 @@ import java.util.ResourceBundle;
 
 import il.cshaifasweng.OCSFMediatorExample.client.events.GotClinicsWithVaccine;
 import il.cshaifasweng.OCSFMediatorExample.client.events.GotLabWorkersVaccineEven;
+import il.cshaifasweng.OCSFMediatorExample.client.events.GotVaccineEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.events.SavedAppEvent;
-import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
-import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
-import il.cshaifasweng.OCSFMediatorExample.entities.LabWorker;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,13 +34,13 @@ public class VaccineAppointmentController {
     private URL location;
 
     @FXML
-    private TableColumn<AvailableApp,String> ClinicCol1;
+    private TableColumn<AvailableApp, String> ClinicCol1;
 
     @FXML
-    private ChoiceBox<String > ClinicName;
+    private ChoiceBox<String> ClinicName;
 
     @FXML
-    private TableColumn<AvailableApp,String> EmployeeName1;
+    private TableColumn<AvailableApp, String> EmployeeName1;
 
     @FXML
     private Pane Menubar;
@@ -78,6 +76,11 @@ public class VaccineAppointmentController {
     private Label warningtext;
 
     private String vaccine_Type;
+    private boolean isCovid_vaccine = false;
+    private boolean isInfluenza_vaccine = false;
+    private Covid19VaccineApp covid19VaccineApp;
+    private InfluenzaVaccineApp influenzaVaccineApp;
+
     @FXML
     void SaveNewApp(ActionEvent event) {
         if (Table1.getSelectionModel().getSelectedItems() != null && Table1.getSelectionModel().getSelectedIndex() != -1) {
@@ -91,10 +94,10 @@ public class VaccineAppointmentController {
                 msg.setEmployee_id(availableApp.getEmployee_id());
                 msg.setAppTime(availableApp.getTimeCol());
                 msg.setRole(availableApp.getRole());
-                if (vaccine_Type.equals("Influenza"))
+                if (vaccine_Type.equals("influenza vaccine"))
                     msg.setAction("Add influenza vaccine appointment");
                 else
-                    msg.setAction("Add covid test appointment");
+                    msg.setAction("Add covid vaccine appointment");
                 SimpleClient.getClient().openConnection();
                 SimpleClient.getClient().sendToServer(msg);
             } catch (IOException e) {
@@ -103,6 +106,7 @@ public class VaccineAppointmentController {
         } else
             warningtext1.setVisible(true);
     }
+
     @Subscribe
     public void onGotLabWorkersVaccineEven(GotLabWorkersVaccineEven event) {
         List<LabWorker> labWorkers = event.getLabworkers();
@@ -165,7 +169,7 @@ public class VaccineAppointmentController {
                 msg.setService_name(vaccine_Type);
                 SimpleClient.getClient().openConnection();
                 SimpleClient.getClient().sendToServer(msg);
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -178,27 +182,45 @@ public class VaccineAppointmentController {
             warningtext1.setText("Please choose a clinic first!");
             warningtext1.setVisible(true);
         } else {
-            clinic_name = ClinicName.getSelectionModel().getSelectedItem();
-            warningtext.setVisible(false);
-            warningtext1.setVisible(false);
-            VaccineType.setVisible(false);
-            cliniclabel.setVisible(false);
-            vaccinelabel.setVisible(false);
-            ClinicName.setVisible(false);
-            ok.setVisible(false);
-            try {
-                Message msg = new Message();
-                msg.setClinicName(clinic_name);
-                msg.setRole("lab worker");
-                msg.setAction("Get LabWorkers and clinic apps");
-                SimpleClient.getClient().openConnection();
-                SimpleClient.getClient().sendToServer(msg);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (VaccineType.getSelectionModel().getSelectedItem().equals("covid vaccine") && isCovid_vaccine) {
+                showAlert("Error", "You're already vaccinated you can't reserve a covid 19 vaccine appointment");
+                ChangeScreens.changeToMainPage();
             }
+            if (VaccineType.getSelectionModel().getSelectedItem().equals("covid vaccine") && covid19VaccineApp != null) {
+                showAlert("Error", "You've already reserved a covid 19 vaccine appointment in " + covid19VaccineApp.getDate() + " " + covid19VaccineApp.getTime() + " in clinic: " + covid19VaccineApp.getClinic().getName());
+                ChangeScreens.changeToViewAppsScreen();
+            }
+            if (VaccineType.getSelectionModel().getSelectedItem().equals("influenza vaccine") && isInfluenza_vaccine) {
+                showAlert("Error", "You're already vaccinated you can't reserve an influenza vaccine appointment");
+                ChangeScreens.changeToMainPage();
+            }
+            if (VaccineType.getSelectionModel().getSelectedItem().equals("influenza vaccine") && influenzaVaccineApp != null) {
+                showAlert("Error", "You've already reserved an influenza vaccine appointment in " + influenzaVaccineApp.getDate() + " " + influenzaVaccineApp.getTime() + " in clinic: " + influenzaVaccineApp.getClinic().getName());
+                ChangeScreens.changeToViewAppsScreen();
+            } else {
+                clinic_name = ClinicName.getSelectionModel().getSelectedItem();
+                warningtext.setVisible(false);
+                warningtext1.setVisible(false);
+                VaccineType.setVisible(false);
+                cliniclabel.setVisible(false);
+                vaccinelabel.setVisible(false);
+                ClinicName.setVisible(false);
+                ok.setVisible(false);
+                try {
+                    Message msg = new Message();
+                    msg.setClinicName(clinic_name);
+                    msg.setRole("lab worker");
+                    msg.setAction("Get LabWorkers and clinic apps");
+                    SimpleClient.getClient().openConnection();
+                    SimpleClient.getClient().sendToServer(msg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
+            }
         }
     }
+
     @FXML
     void initialize() throws IOException {
         Parent menuBarParent = App.loadFXML("menuBar.fxml");
@@ -223,13 +245,20 @@ public class VaccineAppointmentController {
         vaccinelabel.setText("Choose vaccine type");
         vaccinelabel.setVisible(true);
         VaccineType.getItems().clear();
-        if(!App.isCovid_vaccine() )
         VaccineType.getItems().add("covid vaccine");
-        if(!App.isInfluenza_vaccine())
         VaccineType.getItems().add("influenza vaccine");
         VaccineType.setVisible(true);
         ok.setVisible(true);
         warningtext1.setVisible(false);
+        try {
+            Message msg = new Message();
+            msg.setUsername(App.getUsername());
+            msg.setAction("Get vaccine");
+            SimpleClient.getClient().openConnection();
+            SimpleClient.getClient().sendToServer(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -237,6 +266,7 @@ public class VaccineAppointmentController {
     public void onSavedApp(SavedAppEvent event) {
         if (event.isSaved()) {
             showAlert("Saved", "The appointment was saved successfully!");
+            ChangeScreens.changeToViewAppsScreen();
         } else {
             showAlert("Error", "This appointment wasn't saved please try again!");
         }
@@ -255,9 +285,9 @@ public class VaccineAppointmentController {
     }
 
     @Subscribe
-    public void onClinicWithVaccineEvent(GotClinicsWithVaccine event){
+    public void onClinicWithVaccineEvent(GotClinicsWithVaccine event) {
         for (String clinic : event.getClinicNames()) {
-            if(!ClinicName.getItems().contains(clinic)) {
+            if (!ClinicName.getItems().contains(clinic)) {
                 ClinicName.getItems().add(clinic);
             }
         }
@@ -266,5 +296,11 @@ public class VaccineAppointmentController {
         warningtext1.setVisible(false);
     }
 
-
+    @Subscribe
+    public void OnGotVaccineEvent(GotVaccineEvent event) {
+        isCovid_vaccine = event.isCovid_vaccine();
+        isInfluenza_vaccine = event.isInfluenza_vaccine();
+        covid19VaccineApp = event.getCovid19VaccineApp();
+        influenzaVaccineApp = event.getInfluenzaVaccineApp();
+    }
 }

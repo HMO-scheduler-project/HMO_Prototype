@@ -85,7 +85,7 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
 		}
 		if(currMsg.getAction().equals("got appointment")){
-			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment()));
+			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment(),currMsg.getAppCount()));
 		}
 		if(currMsg.getAction().equals("got nurse app")){
 			EventBus.getDefault().post(new nurseAppEvent(currMsg.getAppointment()));
@@ -100,7 +100,7 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new labAppCounterEvent(currMsg.getAppointment(),currMsg.getAppCount()));
 		}
 		if(currMsg.getAction().equals("got Appointment")){
-			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment()));
+			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment(),currMsg.getAppCount()));
 		}
 		if(currMsg.getAction().equals("got patient apps")){
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
@@ -165,7 +165,7 @@ public class SimpleClient extends AbstractClient {
 		}
 
 		if(currMsg.getAction().equals("Got vaccines")){
-			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine()));
+			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine(),currMsg.getCovid19VaccineApp(),currMsg.getInfluenzaVaccineApp()));
 		}
 		if(currMsg.getAction().equals("GetAllClinicsWithCovidTest")){
 			EventBus.getDefault().post(new GotClinicsWithCovidTest(currMsg.getClinicList()));

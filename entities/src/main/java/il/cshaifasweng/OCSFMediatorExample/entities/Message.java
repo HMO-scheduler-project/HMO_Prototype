@@ -53,6 +53,8 @@ public class Message implements Serializable {
     private boolean saved;
     private boolean removed;
     private List<specialDoctorApp> specialDoctorAppList;
+    private Covid19VaccineApp covid19VaccineApp;
+    private InfluenzaVaccineApp influenzaVaccineApp;
     /*-------Handling Employees-------*/
     private int employee_id;
     private String role;
@@ -408,14 +410,6 @@ public class Message implements Serializable {
         this.saved = saved;
     }
 
-    public boolean isRemoved() {
-        return removed;
-    }
-
-    public void setRemoved(boolean removed) {
-        this.removed = removed;
-    }
-
     public int getEmployee_id() {
         return employee_id;
     }
@@ -430,14 +424,6 @@ public class Message implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
     }
 
     public Employee getEmployee() {
@@ -542,5 +528,36 @@ public class Message implements Serializable {
 
     public void setSpecialDoctor(SpecialDoctor specialDoctor) {
         this.specialDoctor = specialDoctor;
+    }
+
+    public Covid19VaccineApp getCovid19VaccineApp() {
+        return covid19VaccineApp;
+    }
+
+    public void setCovid19VaccineApp(Covid19VaccineApp covid19VaccineApp) {
+        this.covid19VaccineApp = covid19VaccineApp;
+    }
+
+    public InfluenzaVaccineApp getInfluenzaVaccineApp() {
+        return influenzaVaccineApp;
+    }
+
+    public void setInfluenzaVaccineApp(InfluenzaVaccineApp influenzaVaccineApp) {
+        this.influenzaVaccineApp = influenzaVaccineApp;
+    }
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 }

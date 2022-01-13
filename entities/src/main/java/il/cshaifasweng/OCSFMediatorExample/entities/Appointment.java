@@ -11,7 +11,7 @@ public class Appointment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int appointment_id;
     protected LocalTime time;
-    protected boolean arrived;
+    protected boolean arrived=false;
     protected LocalTime actual_time;
     protected LocalDate date;
     @ManyToOne(targetEntity = Clinic.class)
