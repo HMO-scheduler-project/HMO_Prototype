@@ -20,7 +20,7 @@
                   <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" style="-fx-background-color: #87CEEB;" text="Contact info" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointments">
+            <Menu fx:id="appointments" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointments">
                <items>
                   <MenuItem fx:id="viewAppsBtn" mnemonicParsing="false" onAction="#pressViewAppsBtn" style="-fx-background-color: #87CEEB;" text="view scheduled appointments" />
                   <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" style="-fx-background-color: #87CEEB;" text="schedule new appointment" />

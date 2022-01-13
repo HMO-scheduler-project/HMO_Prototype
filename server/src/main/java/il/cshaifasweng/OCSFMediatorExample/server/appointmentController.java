@@ -171,7 +171,6 @@ public class appointmentController {
         specialDoctorApp  app=new specialDoctorApp(time,date,clinic,patient,employee);
         Main.session.save(app);
         Main.session.flush();
-        sendingMail.sendScheduledAppointmentMessage( "Ayamahajna96@gmail.com",app);
         return true;
     }
     public static List<Covid19VaccineApp> getVaccineApp(String user)

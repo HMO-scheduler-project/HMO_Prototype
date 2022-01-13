@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
-import java.io.IOException;
 
 
 public class MenuBarController {
@@ -20,6 +19,8 @@ public class MenuBarController {
     private MenuItem OpeningHoursBtn;
     @FXML
     private MenuItem contactInfoBtn;
+    @FXML
+    private Menu appointments;
     @FXML
     private MenuItem newAppBtn;
     @FXML
@@ -84,6 +85,8 @@ public class MenuBarController {
             reports.setVisible(true);
             updates.setVisible(true);
         }
+        appointments.setVisible(App.getUserType().equals("Patient"));
+        greenpass.setVisible(App.getUserType().equals("Patient"));
     }
     @FXML
     void pressGreenPass(ActionEvent event) {

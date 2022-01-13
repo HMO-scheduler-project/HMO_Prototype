@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.UpdateHoursScreen">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.UpdateHoursScreen">
     <center>
         <GridPane maxHeight="189.0" maxWidth="334.0" prefHeight="189.0" prefWidth="334.0">
             <columnConstraints>
@@ -47,8 +47,8 @@
             <ComboBox fx:id="serviceList" onAction="#chooseService" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label fx:id="doctorLabel" text="Choose doctor:" GridPane.rowIndex="2" />
             <ComboBox fx:id="doctorList" onAction="#chooseDoctor" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="ChangeRoomBtn" mnemonicParsing="false" onAction="#pressChangeRoomBtn" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Change room" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button fx:id="submitChangeRoomBtn" mnemonicParsing="false" onAction="#pressSubmitChangeRoomBtn" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Submit change" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button fx:id="ChangeRoomBtn" mnemonicParsing="false" onAction="#pressChangeRoomBtn" prefHeight="30.0" prefWidth="120.0" text="Change room" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="submitChangeRoomBtn" mnemonicParsing="false" onAction="#pressSubmitChangeRoomBtn" prefHeight="30.0" prefWidth="120.0" text="Submit change" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <TextField fx:id="updateRoomTF" alignment="CENTER" maxHeight="26.0" maxWidth="94.0" prefHeight="26.0" prefWidth="94.0" promptText="room number" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             </children>
         </GridPane>
