@@ -75,7 +75,7 @@ public class GreenPassController {
         if (event.greenPass==null)
         {
             showAlert("Error","You have to be vaccinated to get a green pass");
-            ChangeScreens.changeToMainPage();
+            ChangeScreens.changeToVaccineAppScreen();
         }
         else {
             GreenPass greenPass=event.greenPass;

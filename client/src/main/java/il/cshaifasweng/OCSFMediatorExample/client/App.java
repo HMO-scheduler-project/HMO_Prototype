@@ -34,8 +34,8 @@ public class App extends Application {
     private static Boolean isLogoutClicked = false;
     private static Stage appStage;
     private boolean isRegistered = false;
-    private static boolean covid_vaccine;
-    private static boolean influenza_vaccine;
+    private static boolean covid_vaccine=false;
+    private static boolean influenza_vaccine=true;
 
     @Override
     public void start (Stage stage) throws IOException{
