@@ -166,5 +166,9 @@ public class Patient extends User implements Serializable {
     public void setPatientAppointments(List<Appointment> patientAppointments) {
         this.patientAppointments = patientAppointments;
     }
+
+    public Appointment getNext_appointment() {
+        return next_appointment;
+    }
 }
 

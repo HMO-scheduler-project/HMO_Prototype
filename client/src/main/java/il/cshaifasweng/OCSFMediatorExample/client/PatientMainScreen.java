@@ -80,7 +80,6 @@ much longer than those who do not\s"""};
     @FXML
     private TableColumn<Appointment,String> ClinicCol;
 
-
     @FXML
     private Button newAppBtn;
 

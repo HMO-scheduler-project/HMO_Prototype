@@ -586,8 +586,17 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("get employee from username")) {
                 try {
-                    serverMsg.setEmployee(userController.getEmployeeFromUserName(currMsg.getUsername()));
+                    serverMsg.setPatient(userController.getPatientByUsername(currMsg.getUsername()));
                     serverMsg.setAction("got employee");
+                    client.sendToClient(serverMsg);
+                } catch (IOException  e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("get patient from username")) {
+                try {
+                    serverMsg.setEmployee(userController.getEmployeeFromUserName(currMsg.getUsername()));
+                    serverMsg.setAction("got patient");
                     client.sendToClient(serverMsg);
                 } catch (IOException  e) {
                     e.printStackTrace();

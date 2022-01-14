@@ -18,6 +18,7 @@ public class Message implements Serializable {
     private String error;
     /* ---------- Handling users ---------- */
     private User user;
+    private Patient patient;
     private String username;
     private String first_name;
     private String password;
@@ -559,5 +560,13 @@ public class Message implements Serializable {
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Patient getPatient() {
+        return patient;
     }
 }
