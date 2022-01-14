@@ -165,7 +165,7 @@ public class appointmentController {
         }
         doctorApp app = new doctorApp(time, date, clinic, patient, employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
@@ -178,7 +178,7 @@ public class appointmentController {
         }
         Covid19VaccineApp app = new Covid19VaccineApp(time, date, clinic, patient, employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
@@ -210,7 +210,7 @@ public class appointmentController {
         }
         InfluenzaVaccineApp app = new InfluenzaVaccineApp(time, date, clinic, patient, employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
@@ -223,7 +223,7 @@ public class appointmentController {
         }
         Covid19Test app = new Covid19Test(time, date, clinic, patient, employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
@@ -236,7 +236,7 @@ public class appointmentController {
         }
         specialDoctorApp app = new specialDoctorApp(time, date, clinic, patient, employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
@@ -277,9 +277,10 @@ public class appointmentController {
             return null;
         InfluenzaVaccineApp influenzaVaccineApp = influenzaVaccineApps.get(0);
         if (influenzaVaccineApp.getDate().isBefore(LocalDate.now())) {
-            if (influenzaVaccineApp.isArrived())
+            if (influenzaVaccineApp.isArrived()) {
                 patient.setInfluenza_vaccinated(true);
-            return influenzaVaccineApp;
+                return influenzaVaccineApp;
+            }
         }
         if (influenzaVaccineApps.get(0).getDate().isAfter(LocalDate.now()))
             return influenzaVaccineApp;
