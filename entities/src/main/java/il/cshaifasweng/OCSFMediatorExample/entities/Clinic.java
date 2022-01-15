@@ -47,6 +47,10 @@ public class Clinic implements Serializable {
     @OneToOne(targetEntity = ServicesTypeRep.class)
     protected ServicesTypeRep servicesTypeRep;
 
+    public int getNum() {
+        return Counter;
+    }
+
     public Clinic() { }
     public Clinic(String name, String city, LocalTime start,LocalTime end,Manager manager,String address,String phone_number) throws NoSuchAlgorithmException {
         this.name = name;
@@ -66,6 +70,9 @@ public class Clinic implements Serializable {
         return awaitingTimeRep;
     }
 
+    public int getCounter() {
+        return Counter;
+    }
     public void setAwaitingTimeRep(AwaitingTimeRep awaitingTimeRep) {
         this.awaitingTimeRep = awaitingTimeRep;
     }
@@ -211,6 +218,10 @@ public class Clinic implements Serializable {
 
     public void setSpecialists(boolean specialists) {
         this.specialists = specialists;
+    }
+
+    public boolean isSpecialists() {
+        return specialists;
     }
 }
 

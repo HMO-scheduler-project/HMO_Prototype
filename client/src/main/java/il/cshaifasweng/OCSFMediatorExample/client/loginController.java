@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.loginEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,8 +77,6 @@ public class loginController implements Initializable {
 
     @Subscribe
     public void onLoginEvent(loginEvent event) {
-        System.out.println("in login event");
-        System.out.println(event.getUsername());
         String status = event.getStatus();
         if (status != null) {
             if (status.equals("you are already logged in")) {
@@ -86,7 +85,6 @@ public class loginController implements Initializable {
             } else if (status.equals(("Wrong username or password"))){
                 loginFailedWarning.setText("Login Failed- incorrect username or password.\nPlease try again or go to the main office");
                 loginFailedWarning.setVisible(true);
-
             }else {
                 App.setUsername(event.getUsername());
                 App.setUserType(event.getUserType());

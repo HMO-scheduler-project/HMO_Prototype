@@ -59,8 +59,10 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(MissedAppRep.class);
         configuration.addAnnotatedClass(ServicesTypeRep.class);
         configuration.addAnnotatedClass(WeeklyReport.class);
+        configuration.addAnnotatedClass(CovidQuestionnaire.class);
         configuration.addAnnotatedClass(clinicSpecialService.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        new WeeklyReportService();
         return configuration.buildSessionFactory(serviceRegistry);
     }
     @Override
@@ -74,7 +76,9 @@ public class Main extends SimpleServer {
                 try {
                     if (!currMsg.getUsername().equals("") && !currMsg.getPassword().equals("")) {
                         userController.getUser(currMsg);
+                        if(currMsg.getUser()!=null) {
                         updateCellInDB(currMsg.getUser());
+                        }
                         serverMsg = currMsg;
                         serverMsg.setAction("login done");
                         client.sendToClient(serverMsg);
@@ -87,7 +91,9 @@ public class Main extends SimpleServer {
                 try {
                     if (!currMsg.getUserCardNumber().equals("")){
                         userController.getUserWithCardNumber(currMsg);
+                        if(currMsg.getUser()!=null) {
                         updateCellInDB(currMsg.getUser());
+                        }
                         serverMsg = currMsg;
                         serverMsg.setAction("loginByCard done");
                         client.sendToClient(serverMsg);
@@ -102,6 +108,17 @@ public class Main extends SimpleServer {
                     updateCellInDB(currMsg.getUser());
                     serverMsg = currMsg;
                     serverMsg.setAction("logged out");
+                    client.sendToClient(serverMsg);
+                } catch (IOException | NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("logoutFromStation")) {
+                try {
+                    userController.logOut(currMsg);
+                    updateCellInDB(currMsg.getUser());
+                    serverMsg = currMsg;
+                    serverMsg.setAction("logged out from station");
                     client.sendToClient(serverMsg);
                 } catch (IOException | NoSuchAlgorithmException e) {
                     e.printStackTrace();
@@ -141,6 +158,36 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+            if (currMsg.getAction().equals("GetAllClinicsForStation")) {
+                try {
+                    serverMsg.setClinicList(clinicController.getAllClinicNamesFromDB());
+                    serverMsg.setAction("ShowClinicsForStation");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("GetAllClinicsWithCovidTest")) {
+                try {
+                    List<String> clinicNames = clinicController.getClinicWithService("covid test");
+                    serverMsg.setClinicList(clinicNames);
+                    serverMsg.setAction("GetAllClinicsWithCovidTest");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("GetAllClinicsWithVaccine")) {
+                try {
+                    List<String> clinicNames = clinicController.getClinicWithService(currMsg.getService_name());
+                    serverMsg.setClinicList(clinicNames);
+                    serverMsg.setAction("GetAllClinicsWithVaccine");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             if (currMsg.getAction().equals("GetClinicFromName")) {
                 try {
                     serverMsg = currMsg;
@@ -199,6 +246,65 @@ public class Main extends SimpleServer {
                     serverMsg.setAction("got nearest apps");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("newNurseApp")){
+                try{
+                    Clinic clinic = clinicController.getClinicByName(currMsg.getClinicName());
+                    NurseApp app = new NurseApp(LocalTime.now(), LocalDate.now(),clinic, (Patient)userController.getUserByUsername(currMsg.getUsername()), clinicController.getNurseByClinic(currMsg.getClinicName()));
+                    saveRowInDB(app);
+                    serverMsg.setAppointment(app);
+                    serverMsg.setAction("got nurse app");
+                    client.sendToClient(serverMsg);
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("nurseAppCounter")){
+                try{
+                    serverMsg.setAppCount(appointmentController.countAppPerDay(currMsg.getAppointment().getEmployee(), currMsg.getAppointment().getDate()));
+                    serverMsg.setAppointment(currMsg.getAppointment());
+                    serverMsg.setAction("got nurseAppCounter");
+                    client.sendToClient(serverMsg);
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("newLabApp")){
+                try{
+                    Clinic clinic = clinicController.getClinicByName(currMsg.getClinicName());
+                    LabApp app = new LabApp(LocalTime.now(), LocalDate.now(),clinic, (Patient)userController.getUserByUsername(currMsg.getUsername()), clinicController.getLabWorkerByClinic(currMsg.getClinicName()));
+                    saveRowInDB(app);
+                    serverMsg.setAppointment(app);
+                    serverMsg.setAction("got lab app");
+                    client.sendToClient(serverMsg);
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("labAppCounter")){
+                try{
+                    serverMsg.setAppCount(appointmentController.countAppPerDay(currMsg.getAppointment().getEmployee(), currMsg.getAppointment().getDate()));
+                    serverMsg.setAppointment(currMsg.getAppointment());
+                    serverMsg.setAction("got labAppCounter");
+                    client.sendToClient(serverMsg);
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("Provide Ticket")){
+                try{
+                    Appointment appointment=appointmentController.getAppointments(currMsg.getClinicName(),currMsg.getUsername());
+                    serverMsg.setAppointment(appointment);
+                    if (appointment!=null) {
+                        serverMsg.setAppCount(appointmentController.PatientTicket(appointment));
+                    }
+                    else
+                    serverMsg.setAppCount(0);
+                    serverMsg.setAction("got Appointment");
+                    client.sendToClient(serverMsg);
+                }catch(IOException e){
                     e.printStackTrace();
                 }
             }
@@ -395,31 +501,15 @@ public class Main extends SimpleServer {
                 }
             }
 
-            if (currMsg.getAction().equals("getMissedAppRep")) {
+            if (currMsg.getAction().equals("getAllRep")) {
                 try {
+                    //got clinic name(string)-> find the neededreport ->return it
                     serverMsg = currMsg;
-                    serverMsg.setMissedAppRep(clinicController.getClinicByName(serverMsg.getClinicName()).getMissedAppRep());
-                    serverMsg.setAction("MissedAppRepToRep");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (currMsg.getAction().equals("getAwaitingTimeRep")) {
-                try {
-                    serverMsg = currMsg;
-                    serverMsg.setAwaitingTimeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getAwaitingTimeRep());
-                    serverMsg.setAction("AwaitingTimeRepToRep");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (currMsg.getAction().equals("getServicesTypeRep")) {
-                try {
-                    serverMsg = currMsg;
-                    serverMsg.setServicesTypeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getServicesTypeRep());
-                    serverMsg.setAction("ServicesTypeRepToRep");
+                    serverMsg.setServicesTypeRep(Reportscontroller.getServicesTypeRepFromDB(serverMsg.getClinicName()));
+                    serverMsg.setMissedAppRep(Reportscontroller.getMissedAppRepFromDB(serverMsg.getClinicName()));
+                    serverMsg.setAwaitingTimeRep(Reportscontroller.getAwaitingTimeRepFromDB(serverMsg.getClinicName()));
+
+                    serverMsg.setAction("AllRepToRep");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -474,6 +564,208 @@ public class Main extends SimpleServer {
                         serverMsg.setAction("saved new room");
                         serverMsg.setRoom(service.getRoom_num());
                     }
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("get employee from username")) {
+                try {
+                    serverMsg.setEmployee(userController.getEmployeeFromUserName(currMsg.getUsername()));
+                    serverMsg.setAction("got employee");
+                    client.sendToClient(serverMsg);
+                } catch (IOException  e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("call next patient")){
+                try {
+                    serverMsg.setRoom(currMsg.getEmployee().getRoom_num());
+                    serverMsg.setPatientName(currMsg.getPatientName());
+                    serverMsg.setAction("print message to screen");
+                    client.sendToClient(serverMsg);
+                } catch (IOException  e) {
+                    e.printStackTrace();
+                }
+            }
+            //Get doctors and clinic apps
+            if (currMsg.getAction().equals("Get employees")) {
+                try {
+                    serverMsg.setEmployeeList(userController.getDoctorsByRole(currMsg.getRole(), currMsg.getClinicName()));
+                    serverMsg.setNearest_apps(appointmentController.ClinicAppointments(clinicController.getClinicByName(currMsg.getClinicName())));
+                    serverMsg.setAction("got employees");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Get special doctor")) {
+                try {
+                    serverMsg.setSpecialDoctorList(userController.getSpecialDoctor(currMsg.getRole(), (Patient) userController.getUserByUsername(currMsg.getUsername())));
+                    serverMsg.setAction("got special doctors");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Get employee appointments")) {
+                try {
+                    serverMsg.setNearest_apps(appointmentController.EmployeeAppointments(currMsg.getClinic(), currMsg.getAppDate()));
+                    serverMsg.setAction("got employee appointments");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Add questionnaire")) {
+                try {
+                    userController.addQuestionnaire((Patient) userController.getUserByUsername(currMsg.getUsername()), currMsg.isMet(), currMsg.isFever(), currMsg.isCough(), currMsg.isTired(), currMsg.isTaste(), currMsg.isSmell());
+                    serverMsg.setAction("Questionnaire added");
+                    serverMsg.setSaved(true);
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("ViewApps")) {
+                try {
+                    serverMsg.setNearest_apps(appointmentController.getNearestAppsFromDB(userController.getUserByUsername(currMsg.getUsername())));
+                    serverMsg.setAction("got patient appointments");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("remove app")) {
+                try {
+                    Appointment app = currMsg.getAppointment();
+                    Patient patient = userController.getPatientByUsername(currMsg.getUsername());
+                    serverMsg.setRemoved(appointmentController.RemoveApp(app, patient));
+                    serverMsg.setAction("removed app");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Add new doctor appointment")) {
+                try {
+                    serverMsg.setSaved(appointmentController.AddNewDoctorAppointment(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), (Patient) userController.getUserByUsername(currMsg.getUsername()), (Doctor) userController.getEmployee(currMsg.getEmployee_id())));
+                    serverMsg.setAction("Doctor appointment added");
+                    serverMsg.setAppTime(currMsg.getAppTime());
+                    serverMsg.setAppDate(currMsg.getAppDate());
+                    serverMsg.setClinicName(currMsg.getClinicName());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Add covid test appointment")) {
+                try {
+                    serverMsg.setSaved(appointmentController.AddNewCovidTestApp(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), userController.getPatientByUsername(currMsg.getUsername()), (LabWorker) userController.getEmployee(currMsg.getEmployee_id())));
+                    serverMsg.setAction("Covid test appointment added");
+                    serverMsg.setAppTime(currMsg.getAppTime());
+                    serverMsg.setAppDate(currMsg.getAppDate());
+                    serverMsg.setClinicName(currMsg.getClinicName());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Get LabWorkers and clinic apps")) {
+                try {
+                    serverMsg.setLabWorkerList(userController.getLabWorkersByClinic(currMsg.getClinicName()));
+                    serverMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
+                    serverMsg.setNearest_apps(appointmentController.ClinicAppointments(clinicController.getClinicByName(currMsg.getClinicName())));
+                    serverMsg.setAction("Got LabWorkers and clinic apps");
+                    serverMsg.setClinicName(currMsg.getClinicName());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Get vaccine")) {
+                try {
+                    serverMsg.setCovid19VaccineApp(appointmentController.getNearestCovidVaccineApp(userController.getPatientByUsername(currMsg.getUsername())));
+                    serverMsg.setInfluenzaVaccineApp(appointmentController.getNearestInfluenzaVaccineApp(userController.getPatientByUsername(currMsg.getUsername())));
+                    Patient patient=userController.getPatientByUsername(currMsg.getUsername());
+                    serverMsg.setCovid_vaccine(patient.isCovid_vaccinated());
+                    serverMsg.setInfluenza_vaccine(patient.isInfluenza_vaccinated());
+                    serverMsg.setAction("Got vaccines");
+                    serverMsg.setClinicName(currMsg.getClinicName());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Add covid vaccine appointment")) {
+                try {
+                    serverMsg.setSaved(appointmentController.AddNewCovidVaccineApp(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), (Patient) userController.getUserByUsername(currMsg.getUsername()), (LabWorker) userController.getEmployee(currMsg.getEmployee_id())));
+                    serverMsg.setAction("Covid vaccine appointment added");
+                    serverMsg.setAppTime(currMsg.getAppTime());
+                    serverMsg.setAppDate(currMsg.getAppDate());
+                    serverMsg.setClinicName(currMsg.getClinicName());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Add influenza vaccine appointment")) {
+                try {
+                    serverMsg.setSaved(appointmentController.AddNewInfluenzaVaccineApp(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), (Patient) userController.getUserByUsername(currMsg.getUsername()), (LabWorker) userController.getEmployee(currMsg.getEmployee_id())));
+                    serverMsg.setAction("Influenza vaccine appointment added");
+                    serverMsg.setAppTime(currMsg.getAppTime());
+                    serverMsg.setAppDate(currMsg.getAppDate());
+                    serverMsg.setClinicName(currMsg.getClinicName());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Get special doctor appointments and clinics")) {
+                try {
+                    SpecialDoctor specialDoctor= userController.getSpecialDoctorByUsername(currMsg.getUsername());
+                    serverMsg.setSpecialDoctorAppList(appointmentController.getAppointments(specialDoctor));
+                    serverMsg.setSpecialDoctor(specialDoctor);
+                    serverMsg.setClinics(clinicController.getSpecialDoctorsClinic(specialDoctor.getMain_clinic()));
+                    serverMsg.setAction("Got special doctor appointments and clinics");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (currMsg.getAction().equals("Add new special doctor appointment")) {
+                try {
+                    serverMsg.setSaved(appointmentController.AddSpecialDoctorAppointment(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), (Patient) userController.getUserByUsername(currMsg.getUsername()), (SpecialDoctor) userController.getEmployee(currMsg.getEmployee_id())));
+                    serverMsg.setAction("Special doctor appointment added");
+                    serverMsg.setAppTime(currMsg.getAppTime());
+                    serverMsg.setAppDate(currMsg.getAppDate());
+                    serverMsg.setClinicName(currMsg.getClinicName());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Get birthdate and clinic")) {
+                try {
+                    Patient patient=userController.getPatientByUsername(currMsg.getUsername());
+                    serverMsg.setBirthDate(patient.getDate_of_birth());
+                    serverMsg.setClinic(patient.getClinic());
+                    serverMsg.setAge(patient.getAge());
+                    serverMsg.setAction("Got birthdate and clinic");
+                    serverMsg.setAppTime(currMsg.getAppTime());
+                    serverMsg.setAppDate(currMsg.getAppDate());
+                    serverMsg.setClinicName(currMsg.getClinicName());
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Get green pass")) {
+                try {
+                    User user=userController.getUserByUsername(currMsg.getUsername());
+                    serverMsg.setGreenPass(userController.getUserGreenPass(user));
+                    serverMsg.setAction("Got green pass");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();

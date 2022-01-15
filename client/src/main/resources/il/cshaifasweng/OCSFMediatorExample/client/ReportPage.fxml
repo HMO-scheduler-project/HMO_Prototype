@@ -7,6 +7,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
@@ -43,40 +45,71 @@
         </ToolBar>
     </top>
    <left>
-        <GridPane maxHeight="380.0" maxWidth="300.0" prefHeight="362.0" prefWidth="236.0" BorderPane.alignment="CENTER">
+        <GridPane maxHeight="484.0" maxWidth="300.0" prefHeight="37.0" prefWidth="213.0" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="128.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="108.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="82.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="131.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label prefHeight="18.0" prefWidth="118.0" text="Choose Clinic:" visible="false" GridPane.rowIndex="3" />
-                <ComboBox fx:id="ClinicsList" onAction="#PressChooseClinicBtn" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                <Button fx:id="WaitingTimeReport" alignment="TOP_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressWaitingTimeReportBtn" prefHeight="25.0" prefWidth="137.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Waiting Time Report" />
-            <Button fx:id="MissedAppRep" mnemonicParsing="false" onAction="#pressMissedAppBtn" prefHeight="25.0" prefWidth="130.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointment Report" GridPane.rowIndex="1" />
-            <Button fx:id="ServicesTypeBtn" alignment="TOP_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressServicesTypeBtn" prefHeight="25.0" prefWidth="138.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Services Type Report" GridPane.rowIndex="2" />
+                <Label prefHeight="18.0" prefWidth="85.0" text="Choose Clinic:" />
+                <ComboBox fx:id="ClinicsList" onAction="#chooseClinic" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " GridPane.columnIndex="1" />
             </children>
         </GridPane>
    </left>
    <center>
-      <SplitPane prefHeight="362.0" prefWidth="394.0" BorderPane.alignment="CENTER">
+      <SplitPane prefHeight="472.0" prefWidth="489.0" BorderPane.alignment="CENTER">
          <items>
-            <TableView fx:id="ReportTable" prefHeight="386.0" prefWidth="403.0">
-              <columns>
-                <TableColumn fx:id="ColumnA" prefWidth="64.0" />
-                <TableColumn fx:id="ColumnB" prefWidth="54.0" />
-                  <TableColumn fx:id="ColumnC" prefWidth="69.0" />
-                  <TableColumn fx:id="ColumnD" prefWidth="73.0" />
-                  <TableColumn fx:id="ColumnE" prefWidth="64.0" />
-                  <TableColumn fx:id="ColumnF" minWidth="0.0" prefWidth="76.0" />
-                  <TableColumn fx:id="ColumnG" prefWidth="125.0" />
-              </columns>
-            </TableView>
+            <TabPane>
+               <tabs>
+                  <Tab fx:id="WaitingTimeReport" text="Waiting Time Report ">
+                     <content>
+                        <TableView fx:id="AwaitingTimeRepTable" prefHeight="473.0" prefWidth="259.0">
+                          <columns>
+                            <TableColumn fx:id="AwaitingTimeRepColumnA" prefWidth="63.0" text="Doctor" />
+                            <TableColumn fx:id="AwaitingTimeRepColumnB" prefWidth="86.0" text="Sunday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnC" prefWidth="75.0" text="Monday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnD" prefWidth="62.0" text="Tuesday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnE" minWidth="0.0" prefWidth="78.0" text="Wednesday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnF" minWidth="0.0" prefWidth="70.0" text="Thursday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnG" prefWidth="70.0" text="Friday" />
+                          </columns>
+                        </TableView>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="UnclaimedAppointmentRep" text="Unclaimed Appointment Report">
+                     <content>
+                        <TableView fx:id="MissedAppRepTable" prefHeight="473.0" prefWidth="259.0">
+                           <columns>
+                              <TableColumn fx:id="UnclaimedAppointmentColumnB" prefWidth="83.0" text="FamilyDoctor" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnC" prefWidth="78.0" text="Pediatrician" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnD" prefWidth="65.0" text="Vaccine" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnE" minWidth="0.0" prefWidth="75.0" text="Lab_Test" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnF" minWidth="0.0" prefWidth="98.0" text="Covid_Test" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnG" prefWidth="111.0" text="Nurse_Care" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="ServicesTypeBtn" text="Services Type Report">
+                     <content>
+                        <TableView fx:id="ServicesTypeRepTable" prefHeight="473.0" prefWidth="259.0">
+                           <columns>
+                              <TableColumn fx:id="ServicesTypeColumnA" prefWidth="63.0" text="Day" />
+                              <TableColumn fx:id="ServicesTypeColumnB" prefWidth="86.0" text="FamilyDoctor" />
+                              <TableColumn fx:id="ServicesTypeColumnC" prefWidth="75.0" text="Pediatrician" />
+                              <TableColumn fx:id="ServicesTypeColumnD" prefWidth="50.0" text="Vaccine" />
+                              <TableColumn fx:id="ServicesTypeColumnE" minWidth="0.0" prefWidth="61.0" text="Lab_Test" />
+                              <TableColumn fx:id="ServicesTypeColumnF" minWidth="0.0" prefWidth="85.0" text="Covid_Test" />
+                              <TableColumn fx:id="ServicesTypeColumnG" prefWidth="90.0" text="Nurse_Care" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
          </items>
       </SplitPane>
    </center>

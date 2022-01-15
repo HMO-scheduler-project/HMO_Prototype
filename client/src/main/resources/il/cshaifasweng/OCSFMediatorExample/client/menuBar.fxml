@@ -6,9 +6,9 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ToolBar?>
 
-<ToolBar style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.MenuBarController">
+<ToolBar prefHeight="42.0" prefWidth="630.0" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.MenuBarController">
    <items>
-      <MenuBar prefHeight="26.0" prefWidth="523.0" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;">
+      <MenuBar prefHeight="30.0" prefWidth="556.0" style="-fx-background-color:transparent; -fx-border-color: #ADD8E6;">
          <menus>
             <Menu mnemonicParsing="false" text="Main page">
                <items>
@@ -20,7 +20,7 @@
                   <MenuItem fx:id="contactInfoBtn" mnemonicParsing="false" onAction="#pressContactInfoBtn" style="-fx-background-color: #87CEEB;" text="Contact info" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointments">
+            <Menu fx:id="appointments" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Appointments">
                <items>
                   <MenuItem fx:id="viewAppsBtn" mnemonicParsing="false" onAction="#pressViewAppsBtn" style="-fx-background-color: #87CEEB;" text="view scheduled appointments" />
                   <MenuItem fx:id="newAppBtn" mnemonicParsing="false" onAction="#pressNewAppBtn" style="-fx-background-color: #87CEEB;" text="schedule new appointment" />
@@ -28,14 +28,19 @@
                   <MenuItem fx:id="CancelAppBtn" mnemonicParsing="false" onAction="#pressCancelAppBtn" style="-fx-background-color: #87CEEB;" text="cancel appointment" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Reports">
+            <Menu fx:id="reports" mnemonicParsing="false" text="Reports" visible="false">
                <items>
                   <MenuItem fx:id="reportsBtn" mnemonicParsing="false" onAction="#pressReportsBtn" style="-fx-background-color: #87CEEB;" text="show reports" />
                </items></Menu>
-            <Menu mnemonicParsing="false" text="Updates">
+            <Menu fx:id="updates" mnemonicParsing="false" text="Updates" visible="false">
                <items>
                   <MenuItem fx:id="UpdateBtn" mnemonicParsing="false" onAction="#pressHoursUpdate" style="-fx-background-color: #87CEEB;" text="Update hours and rooms" />
                </items></Menu>
+            <Menu fx:id="greenpass" mnemonicParsing="false" text="Green Pass">
+              <items>
+                  <MenuItem fx:id="greenPassbtn" mnemonicParsing="false" onAction="#pressGreenPass" style="-fx-background-color: #87CEEB;" text="Get green pass" />
+              </items>
+            </Menu>
          </menus>
       </MenuBar>
       <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="logout" />
