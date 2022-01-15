@@ -167,10 +167,18 @@ public class userController {
         return null;
     }
 
+    public static Manager getManagerByUserName(String name) {
+        List<Manager> managers = getAllManagersFromDB();
+        for (Manager manager : managers) {
+            if (manager.getUsername() == name) {
+                return manager;
+            }
+        }
+        return null;
+    }
 
 
-
-    public static User getUserByUsername (String username) {
+    public static User getUserByUsername(String username) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
         Root<User> root = query.from(User.class);
@@ -178,16 +186,8 @@ public class userController {
         query.where(builder.equal(root.get("username"), username));
         return Main.session.createQuery(query).getSingleResult();
     }
-//    public static Manager getManagerByUserName (String name) {
-//        List<Manager> managers =getAllManagersFromDB();
-//        for (Manager manager : managers) {
-//            if (manager.getUsername() == name) {
-//                return manager;
-//            }
-//        }
-//        return null;
-//    }
-    public static Manager getManagerByUsername (String username) {
+
+    public static Manager getManagerByUsername(String username) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Manager> query = builder.createQuery(Manager.class);
         Root<Manager> root = query.from(Manager.class);
@@ -220,7 +220,6 @@ public class userController {
     public static boolean IsHmo_ManagerByUsername (String username) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<HMO_Manager> query = builder.createQuery(HMO_Manager.class);
-
         Root<HMO_Manager> root = query.from(HMO_Manager.class);
         query.select(root);
         query.where(builder.equal(root.get("username"), username));
@@ -229,7 +228,7 @@ public class userController {
         return true;
 
     }
-    public static User getUserById (int id) {
+    public static User getUserById(int id) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
         Root<User> root = query.from(User.class);

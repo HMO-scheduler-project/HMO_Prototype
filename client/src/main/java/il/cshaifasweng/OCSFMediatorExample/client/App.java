@@ -101,7 +101,7 @@ public class App extends Application {
         isLogoutClicked = logoutClicked;
         Message msg = new Message();
         if(device.equals("PC")) {
-        msg.setAction("logout");
+            msg.setAction("logout");
         }else if(device.equals("Station")){
             msg.setAction("logoutFromStation");
         }
@@ -210,6 +210,7 @@ public class App extends Application {
         appStage.setScene(scene);
         appStage.show();
     }
+
 
     public static void main(String[] args) {
         launch();

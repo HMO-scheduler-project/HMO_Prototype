@@ -22,13 +22,13 @@ public class appointmentController {
         return Main.session.createQuery(query).getResultList();
     }
 
-    public static Appointment findAppinDB(String card_num, LocalDate date){
+    public static Appointment findAppinDB(String card_num, LocalDate date) {
         Patient patient = userController.getPatientByCardNum(card_num);
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
         Root<Appointment> root = query.from(Appointment.class);
         query.select(root);
-        query.where(builder.equal(root.get("patient"), patient),builder.equal(root.get("date"),date));
+        query.where(builder.equal(root.get("patient"), patient), builder.equal(root.get("date"), date));
         return Main.session.createQuery(query).getSingleResult();
     }
 
@@ -47,17 +47,17 @@ public class appointmentController {
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
         Root<Appointment> root = query.from(Appointment.class);
         query.select(root);
-        query.where(builder.equal(root.get("employee"), employee),builder.equal(root.get("date"),LocalDate.now()));
+        query.where(builder.equal(root.get("employee"), employee), builder.equal(root.get("date"), LocalDate.now()));
         query.orderBy(builder.asc(root.get("time")));
         return Main.session.createQuery(query).getResultList();
     }
 
-    public static Long countAppPerDay(Employee employee,LocalDate date){
+    public static Long countAppPerDay(Employee employee, LocalDate date) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Long> query = builder.createQuery(Long.class);
         Root<Appointment> root = query.from(Appointment.class);
         query.select(builder.count(root));
-        query.where(builder.equal(root.get("employee"), employee),builder.equal(root.get("date"),date));
+        query.where(builder.equal(root.get("employee"), employee), builder.equal(root.get("date"), date));
         return Main.session.createQuery(query).getSingleResult();
     }
 
