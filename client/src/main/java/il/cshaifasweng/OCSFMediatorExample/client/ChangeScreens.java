@@ -21,7 +21,7 @@ public class ChangeScreens {
         Platform.runLater(()->{
             App.setWindowTitle("reports screen");
             try{
-                App.setContent("reportsScreen");
+                App.setContent("ReportPage");
             }catch (IOException e){
                 e.printStackTrace();
             }

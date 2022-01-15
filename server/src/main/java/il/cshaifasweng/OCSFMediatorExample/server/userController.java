@@ -167,15 +167,7 @@ public class userController {
         return null;
     }
 
-    public static Manager getManagerByUserName (String name) {
-        List<Manager> managers =getAllManagersFromDB();
-        for (Manager manager : managers) {
-            if (manager.getUsername() == name) {
-                return manager;
-            }
-        }
-        return null;
-    }
+
 
 
     public static User getUserByUsername (String username) {
@@ -186,7 +178,15 @@ public class userController {
         query.where(builder.equal(root.get("username"), username));
         return Main.session.createQuery(query).getSingleResult();
     }
-
+//    public static Manager getManagerByUserName (String name) {
+//        List<Manager> managers =getAllManagersFromDB();
+//        for (Manager manager : managers) {
+//            if (manager.getUsername() == name) {
+//                return manager;
+//            }
+//        }
+//        return null;
+//    }
     public static Manager getManagerByUsername (String username) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Manager> query = builder.createQuery(Manager.class);
@@ -195,7 +195,40 @@ public class userController {
         query.where(builder.equal(root.get("username"), username));
         return Main.session.createQuery(query).getSingleResult();
     }
+//    public static HMO_Manager getHmoManagerByUsername (String username) {
+//        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+//        CriteriaQuery<HMO_Manager> query = builder.createQuery(HMO_Manager.class);
+//        Root<HMO_Manager> root = query.from(HMO_Manager.class);
+//        query.select(root);
+//        query.where(builder.equal(root.get("username"), username));
+//        return Main.session.createQuery(query).getSingleResult();
+//    }
+//    public static boolean IsManagerByUsername (String username) {
+//        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+//        CriteriaQuery<Manager> query = builder.createQuery(Manager.class);
+//        Root<Manager> root = query.from(Manager.class);
+//        query.select(root);
+//        query.where(builder.equal(root.get("username"), username));
+//        if(Main.session.createQuery(query).uniqueResult()==null)
+//         return false;
+//         return true;
+//
+//    }
 
+
+
+    public static boolean IsHmo_ManagerByUsername (String username) {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<HMO_Manager> query = builder.createQuery(HMO_Manager.class);
+
+        Root<HMO_Manager> root = query.from(HMO_Manager.class);
+        query.select(root);
+        query.where(builder.equal(root.get("username"), username));
+        if(Main.session.createQuery(query).uniqueResult()==null)
+            return false;
+        return true;
+
+    }
     public static User getUserById (int id) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);

@@ -29,7 +29,7 @@ public class Reportscontroller {
         CriteriaQuery<ServicesTypeRep> query = builder.createQuery(ServicesTypeRep.class);
         Root<ServicesTypeRep> root = query.from(ServicesTypeRep.class);
         query.select(root);
-        query.where(builder.equal(root.get("clinic"), clinic));
+        query.where(builder.equal(root.get("Clinic"), clinic));
         return Main.session.createQuery(query).getResultList();
     }
     public static List<MissedAppRep> getMissedAppRepFromDB(String clinicName) {
@@ -39,7 +39,7 @@ public class Reportscontroller {
         CriteriaQuery<MissedAppRep> query = builder.createQuery(MissedAppRep.class);
         Root<MissedAppRep> root = query.from(MissedAppRep.class);
         query.select(root);
-        query.where(builder.equal(root.get("clinic"), clinic));
+        query.where(builder.equal(root.get("Clinic"), clinic));
         return Main.session.createQuery(query).getResultList();
  }
 
@@ -49,7 +49,7 @@ public class Reportscontroller {
         CriteriaQuery<AwaitingTimeRep> query = builder.createQuery(AwaitingTimeRep.class);
         Root<AwaitingTimeRep> root = query.from(AwaitingTimeRep.class);
         query.select(root);
-        query.where(builder.equal(root.get("clinic"), clinic));
+        query.where(builder.equal(root.get("Clinic"), clinic));
         return Main.session.createQuery(query).getResultList();
     }
 }

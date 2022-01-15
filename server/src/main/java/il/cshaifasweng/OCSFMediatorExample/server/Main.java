@@ -516,9 +516,11 @@ public class Main extends SimpleServer {
                 }
             }
             if (currMsg.getAction().equals("getClinicNameFromUserName")) {
+
                 try {
+
                     serverMsg = currMsg;
-                    serverMsg.setClinicName(userController.getManagerByUserName(serverMsg.getUsername()).getMain_clinic());
+                    serverMsg.setClinicName(userController.getManagerByUsername(serverMsg.getUsername()).getMain_clinic());
                     serverMsg.setAction("clinicNameFromUserName");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -766,6 +768,22 @@ public class Main extends SimpleServer {
                     User user=userController.getUserByUsername(currMsg.getUsername());
                     serverMsg.setGreenPass(userController.getUserGreenPass(user));
                     serverMsg.setAction("Got green pass");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Is_Hmo_Manager")) {
+                try {
+                    //everything works exept that part i cant get function to say if its HMO_manager or not
+                    if(userController.IsHmo_ManagerByUsername(currMsg.getUsername()))
+                    {
+                        serverMsg.setAction("Is_HMO_ManagerEvent");
+                    }
+                    else{
+                        serverMsg.setAction("Is_ManagerEvent");
+                    }
+
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();

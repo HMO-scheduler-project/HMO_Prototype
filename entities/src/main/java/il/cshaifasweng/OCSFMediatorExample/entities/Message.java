@@ -64,6 +64,8 @@ public class Message implements Serializable {
     private List<LabWorker> labWorkerList;
     private List<SpecialDoctor> specialDoctorList;
     private SpecialDoctor specialDoctor;
+    private Manager manager;
+    private HMO_Manager hmo_manager;
     /*-------Handling questionnaires-------*/
     private boolean met;
     private boolean fever;
@@ -83,6 +85,22 @@ public class Message implements Serializable {
     private GreenPass greenPass;
     public List<AwaitingTimeRep> getAwaitingTimeRep() {
         return awaitingTimeRep;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    public HMO_Manager getHmo_manager() {
+        return hmo_manager;
+    }
+
+    public void setHmo_manager(HMO_Manager hmo_manager) {
+        this.hmo_manager = hmo_manager;
     }
 
     public void setAwaitingTimeRep(List<AwaitingTimeRep> awaitingTimeRep) {

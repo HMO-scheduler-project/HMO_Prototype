@@ -183,6 +183,12 @@ public class SimpleClient extends AbstractClient {
 		{
 			EventBus.getDefault().post(new GreenPassEvent(currMsg.getGreenPass()));
 		}
+		if(currMsg.getAction().equals("Is_HMO_ManagerEvent")){
+			EventBus.getDefault().post(new HMO_ManagerEvent());
+		}
+		if(currMsg.getAction().equals("Is_ManagerEvent")){
+			EventBus.getDefault().post(new ManagerEvent());
+		}
 	}
 
 	public static SimpleClient getClient() {

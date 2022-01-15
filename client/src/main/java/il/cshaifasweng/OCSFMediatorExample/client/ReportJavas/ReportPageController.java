@@ -9,9 +9,7 @@ import Reports.MissedAppRep;
 import Reports.ServicesTypeRep;
 import Reports.WeeklyReport;
 import il.cshaifasweng.OCSFMediatorExample.client.*;
-import il.cshaifasweng.OCSFMediatorExample.client.events.AllTypeRepEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.events.ClinicListUpdateEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.events.ClinicNameUpdateEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
@@ -26,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 public class ReportPageController {
     Message clientMsg = new Message();
@@ -64,8 +63,7 @@ public class ReportPageController {
     @FXML
     private MenuItem OpenningHoursBtn;
 
-    @FXML
-    private Button ServicesTypeBtn;
+
 
     @FXML
     private MenuItem contactInfoBtn;
@@ -79,31 +77,41 @@ public class ReportPageController {
     @FXML
     private MenuItem scheduledAppBtn;
 
+///////////
+
+
+
+
+
+
+///////////
 
     @FXML
-    private Tab MissedAppRep;
+    private Tab UnclaimedAppointment;
+
     @FXML
     private TableView<MissedAppRep> UnclaimedAppointmentRep;
     @FXML
-    private TableColumn<MissedAppRep, String> UnclaimedAppointmentColumnB;
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnB;
 
     @FXML
-    private TableColumn<MissedAppRep, String> UnclaimedAppointmentColumnC;
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnC;
 
     @FXML
-    private TableColumn<MissedAppRep, String> UnclaimedAppointmentColumnD;
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnD;
 
     @FXML
-    private TableColumn<MissedAppRep, String> UnclaimedAppointmentColumnE;
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnE;
 
     @FXML
-    private TableColumn<MissedAppRep, String> UnclaimedAppointmentColumnF;
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnF;
 
     @FXML
-    private TableColumn<MissedAppRep, String> UnclaimedAppointmentColumnG;
-
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnG;
     @FXML
-    private Tab WaitingTimeReport;
+    private Tab ServicesTypeBtn;
+
+
     @FXML
     private TableView<ServicesTypeRep> ServicesTypeRepTable;
 
@@ -111,46 +119,47 @@ public class ReportPageController {
     private TableColumn<ServicesTypeRep, String> ServicesTypeColumnA;
 
     @FXML
-    private TableColumn<ServicesTypeRep, String> ServicesTypeColumnB;
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnB;
 
     @FXML
-    private TableColumn<ServicesTypeRep, String> ServicesTypeColumnC;
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnC;
 
     @FXML
-    private TableColumn<ServicesTypeRep, String> ServicesTypeColumnD;
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnD;
 
     @FXML
-    private TableColumn<ServicesTypeRep, String> ServicesTypeColumnE;
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnE;
 
     @FXML
-    private TableColumn<ServicesTypeRep, String> ServicesTypeColumnF;
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnF;
 
     @FXML
-    private TableColumn<ServicesTypeRep, String> ServicesTypeColumnG;
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnG;
 
-
+    @FXML
+    private Tab WaitingTimeReport;
     @FXML
     private TableView<AwaitingTimeRep> AwaitingTimeRepTable;
     @FXML
     private TableColumn<AwaitingTimeRep, String> AwaitingTimeRepColumnA;
 
     @FXML
-    private TableColumn<AwaitingTimeRep, String> AwaitingTimeRepColumnB;
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnB;
 
     @FXML
-    private TableColumn<AwaitingTimeRep, String> AwaitingTimeRepColumnC;
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnC;
 
     @FXML
-    private TableColumn<AwaitingTimeRep, String> AwaitingTimeRepColumnD;
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnD;
 
     @FXML
-    private TableColumn<AwaitingTimeRep, String> AwaitingTimeRepColumnE;
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnE;
 
     @FXML
-    private TableColumn<AwaitingTimeRep, String> AwaitingTimeRepColumnF;
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnF;
 
     @FXML
-    private TableColumn<AwaitingTimeRep, String> AwaitingTimeRepColumnG;
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnG;
 
 
 
@@ -195,9 +204,6 @@ public class ReportPageController {
 
 
 
-
-
-
     @FXML
     void pressServicesTypeBtn(ActionEvent event) {
     }
@@ -220,34 +226,47 @@ public class ReportPageController {
         menubar.getChildren().clear();
         menubar.getChildren().add(menuBarParent);
         EventBus.getDefault().register(this);
-        Manager = App.getUserType().equals("Manager");
-        HMO_Manager=App.getUserType().equals("HMO_Manager");
-        try {
-            clientMsg.setClinicName("");
-            if(HMO_Manager) {
-                Message msg = new Message();
-                msg.setAction("GetAllClinics");
-                SimpleClient.getClient().openConnection();
-                SimpleClient.getClient().sendToServer(msg);
-            }
-            else {
-                clientMsg.setClinicName(App.getUsername());
-                Message msg = new Message();
-                msg.setAction("getClinicNameFromUserName");
-                SimpleClient.getClient().openConnection();
-                SimpleClient.getClient().sendToServer(msg);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clientMsg.setClinicName("");
+        Message msg = new Message();
+        msg.setUsername(clientMsg.getUsername());
+        msg.setAction("Is_Hmo_Manager");
+        System.out.println(msg.getAction());
+        SimpleClient.getClient().openConnection();
+        SimpleClient.getClient().sendToServer(msg);
 
 
 
     }
     @Subscribe
+    public void onHMO_ManagerEvent(HMO_ManagerEvent event){
+        try {
+            System.out.println("get all clinics event");
+            Message msg = new Message();
+            msg.setAction("GetAllClinics");
+            SimpleClient.getClient().openConnection();
+            SimpleClient.getClient().sendToServer(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Subscribe
+    public void onManagerEvent(ManagerEvent event){
+        try{
+            Message msg = new Message();
+            clientMsg.setUsername(App.getUsername());
+            msg.setAction("getClinicNameFromUserName");
+            msg.setUsername(App.getUsername());
+            SimpleClient.getClient().openConnection();
+            SimpleClient.getClient().sendToServer(msg);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Subscribe
     public void onClinicNameUpdateEvent(ClinicNameUpdateEvent event) {
         clientMsg.setClinicName(event.getClinicName());
-        ClinicsList.getItems().add(event.getClinicName());
+        ClinicsList.getItems().add(clientMsg.getClinicName());
     }
 
     @Subscribe
@@ -272,32 +291,37 @@ public class ReportPageController {
 
     @Subscribe
     public void onAllTypeRepEvent(AllTypeRepEvent event) {
-        AwaitingTimeRepColumnA.setCellValueFactory(new PropertyValueFactory<>("Doctor"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("Sunday"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("Monday"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("Tuesday"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("Wednesday"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("Thursday"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("Friday"));
+        AwaitingTimeRepColumnA.setCellValueFactory(new PropertyValueFactory<>("DoctorName"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_A"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_B"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_C"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_D"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_E"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_F"));
         AwaitingTimeRepTable.setItems(FXCollections.observableList(event.getAwaitingTimeRep()));
 
-        ServicesTypeColumnA.setCellValueFactory(new PropertyValueFactory<>("Day"));
-        ServicesTypeColumnB.setCellValueFactory(new PropertyValueFactory<>("FamilyDoctor"));
-        ServicesTypeColumnC.setCellValueFactory(new PropertyValueFactory<>("Pediatrician"));
-        ServicesTypeColumnD.setCellValueFactory(new PropertyValueFactory<>("Vaccine_Appointments"));
-        ServicesTypeColumnE.setCellValueFactory(new PropertyValueFactory<>("Lab_Test_Appointments"));
-        ServicesTypeColumnF.setCellValueFactory(new PropertyValueFactory<>("Covid_Test"));
-        ServicesTypeColumnG.setCellValueFactory(new PropertyValueFactory<>("Nurse_Care"));
+        ServicesTypeColumnA.setCellValueFactory(new PropertyValueFactory<>("DayOfTheWeek"));
+        ServicesTypeColumnB.setCellValueFactory(new PropertyValueFactory<>("FamilyDoctorPatientNumber"));
+        ServicesTypeColumnC.setCellValueFactory(new PropertyValueFactory<>("PediatricianPatientNumber"));
+        ServicesTypeColumnD.setCellValueFactory(new PropertyValueFactory<>("VaccineAppointment"));
+        ServicesTypeColumnE.setCellValueFactory(new PropertyValueFactory<>("LabResults"));
+        ServicesTypeColumnF.setCellValueFactory(new PropertyValueFactory<>("CovidTest"));
+        ServicesTypeColumnG.setCellValueFactory(new PropertyValueFactory<>("NurseCare"));
         ServicesTypeRepTable.setItems(FXCollections.observableList(event.getServicesTypeRep()));
 
 
 
-        UnclaimedAppointmentColumnB.setCellValueFactory(new PropertyValueFactory<>("FamilyDoctor"));
-        UnclaimedAppointmentColumnC.setCellValueFactory(new PropertyValueFactory<>("Pediatrician"));
-        UnclaimedAppointmentColumnD.setCellValueFactory(new PropertyValueFactory<>("Vaccine_Appointments"));
-        UnclaimedAppointmentColumnE.setCellValueFactory(new PropertyValueFactory<>("Lab_Test_Appointments"));
-        UnclaimedAppointmentColumnF.setCellValueFactory(new PropertyValueFactory<>("Covid_Test"));
-        UnclaimedAppointmentColumnG.setCellValueFactory(new PropertyValueFactory<>("Nurse_Care"));
+        UnclaimedAppointmentColumnB.setCellValueFactory(new PropertyValueFactory<>("FamilyDoctorPatientNumber"));
+        UnclaimedAppointmentColumnC.setCellValueFactory(new PropertyValueFactory<>("PediatricianPatientNumber"));
+        UnclaimedAppointmentColumnD.setCellValueFactory(new PropertyValueFactory<>("VaccineAppointment"));
+        UnclaimedAppointmentColumnE.setCellValueFactory(new PropertyValueFactory<>("LabResults"));
+        UnclaimedAppointmentColumnF.setCellValueFactory(new PropertyValueFactory<>("CovidTest"));
+        UnclaimedAppointmentColumnG.setCellValueFactory(new PropertyValueFactory<>("NurseCare"));
         UnclaimedAppointmentRep.setItems(FXCollections.observableList(event.getMissedAppRep()));
     }
+
+
+
+
+
 }
