@@ -19,7 +19,10 @@ import java.security.NoSuchAlgorithmException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Main extends SimpleServer {
@@ -856,6 +859,32 @@ public class Main extends SimpleServer {
         server = new Main(3004);
         server.listen();
         System.out.println("server says: hello!");
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        Timer timer = new Timer();
+        Calendar date = Calendar.getInstance();
+        //You can here change the reminding time
+//        date.set(Calendar.HOUR, 16);
+//        date.set(Calendar.MINUTE, 0);
+//        date.set(Calendar.SECOND, 0);
+//        date.set(Calendar.MILLISECOND, 0);
+        System.out.println(date.getTime());
+        timer.schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        System.out.println("Sending reminders");
+                        appointmentController.sendReminders();
+                    }
+                },
+                date.getTime(),
+                //The period in milliseconds - defined as daily
+                1000 * 60 * 60 * 24
+        );
 
     }
 }

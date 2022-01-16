@@ -313,5 +313,22 @@ public class appointmentController {
         }
         return count+late;
     }
+    public static List<Appointment> getTomorrowApps() {
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
+        Root<Appointment> root = query.from(Appointment.class);
+        query.select(root);
+        query.where(builder.equal(root.get("date"),LocalDate.now().plusDays(1)));
+        query.orderBy(builder.asc(root.get("time")));
+        return Main.session.createQuery(query).getResultList();
+    }
+    public static void sendReminders()
+    {
+        List<Appointment> appointments=getTomorrowApps();
+        if(appointments!=null)
+            if(!appointments.isEmpty())
+                for (Appointment appointment:appointments)
+                    sendingMail.sendRemainder("briootTovaPatient@gmail.com",appointment);
+    }
 
 }
