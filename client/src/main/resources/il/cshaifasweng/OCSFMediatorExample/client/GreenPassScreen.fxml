@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.GreenPassController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="630.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.GreenPassController">
    <children>
       <ImageView fx:id="image" fitHeight="62.0" fitWidth="134.0" layoutX="24.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -50,12 +50,12 @@
                   <Font name="Calibri Bold Italic" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="greenPassId" GridPane.columnIndex="1" />
-            <TextField fx:id="UserId" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="issueDate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="expireDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="greenPassId" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 14; -fx-font-weight: bold;" GridPane.columnIndex="1" />
+            <TextField fx:id="UserId" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 14; -fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="issueDate" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 14; -fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="expireDate" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 14; -fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Pane fx:id="Menubar" layoutX="-5.0" layoutY="14.0" prefHeight="62.0" prefWidth="601.0" />
+      <Pane fx:id="Menubar" prefHeight="62.0" prefWidth="630.0" />
    </children>
 </AnchorPane>

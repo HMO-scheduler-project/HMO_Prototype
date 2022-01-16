@@ -1,19 +1,25 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.CanceledAppEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.RemoveAppEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.ViewAppsEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+
+import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -39,6 +45,12 @@ public class ViewAppointmentsScreen {
 
     @FXML
     private TableView<Appointment> viewAppTab;
+
+    @FXML
+    private Button cancel;
+
+    @FXML
+    private Button change;
 
     @FXML
     public void initialize() {
@@ -71,5 +83,69 @@ public class ViewAppointmentsScreen {
         Clinic.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getClinic().getName()));
         viewAppTab.setItems(FXCollections.observableList(event.getAppsList()));
     }
+
+    @FXML
+    public void pressCancelAppButton(ActionEvent event) {
+        if (viewAppTab.getSelectionModel().getSelectedItems() != null && viewAppTab.getSelectionModel().getSelectedIndex() != -1) {
+            Message msg = new Message();
+            msg.setAppointment(viewAppTab.getSelectionModel().getSelectedItem());
+            msg.setUsername(App.getUsername());
+            msg.setAction("remove app");
+            try {
+                SimpleClient.getClient().sendToServer(msg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            showAlert("Error", "Please choose appointment first");
+
+    }
+
+
+    @Subscribe
+    public void onRemoveAppEvent(RemoveAppEvent event) {
+        if (event.isRemoved()) {
+            showAlert("Removed", "The appointment was removed successfully!");
+        } else {
+            showAlert("Error", "This appointment wasn't removed. Please try again!");
+        }
+        ChangeScreens.changeToViewAppsScreen();
+    }
+
+    @FXML
+    public void pressOnChangeAppBtn(ActionEvent event) {
+        if (viewAppTab.getSelectionModel().getSelectedItem() != null && viewAppTab.getSelectionModel().getSelectedIndex() != -1) {
+           Message msg = new Message();
+           msg.setAppointment(viewAppTab.getSelectionModel().getSelectedItem());
+           msg.setUsername(App.getUsername());
+           msg.setAction("cancel appointment");
+            try {
+                SimpleClient.getClient().sendToServer(msg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            showAlert("Error", "Please choose appointment first");
+    }
+
+    @Subscribe
+    public void onCancelAppEvent(CanceledAppEvent event){
+        ChangeScreens.changeNewAppScreen();
+    }
+
+    public void showAlert(String title, String head) {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(title);
+                alert.setHeaderText(null);
+                alert.setContentText(head);
+                alert.show();
+            }
+        });
+    }
+
 
 }

@@ -9,20 +9,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="671.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.SpecialAppController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="630.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.SpecialAppController">
    <children>
-      <Pane fx:id="Menubar" layoutX="14.0" layoutY="14.0" prefHeight="62.0" prefWidth="643.0" />
+      <Pane fx:id="Menubar" prefHeight="62.0" prefWidth="630.0" />
       <Label fx:id="chooseLabel" layoutX="11.0" layoutY="156.0" prefHeight="43.0" prefWidth="247.0" text="Choose a vaccine appointment:">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="Table" layoutX="11.0" layoutY="191.0" prefHeight="185.0" prefWidth="434.0">
+      <TableView fx:id="Table" layoutX="11.0" layoutY="191.0" prefHeight="186.0" prefWidth="486.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
          <columns>
-            <TableColumn fx:id="dateCol" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="timeCol" prefWidth="98.22216796875" text="Time" />
-            <TableColumn fx:id="clinicCol" prefWidth="141.77776421440973" text="Clinic" />
-            <TableColumn fx:id="employeeName" prefWidth="117.77783203125" text="Doctor name" />
+            <TableColumn fx:id="dateCol" prefWidth="75.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Date" />
+            <TableColumn fx:id="timeCol" prefWidth="98.22216796875" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Time" />
+            <TableColumn fx:id="clinicCol" prefWidth="141.77776421440973" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Clinic" />
+            <TableColumn fx:id="employeeName" prefWidth="164.800048828125" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Doctor name" />
          </columns>
       </TableView>
       <Button fx:id="save" layoutX="8.0" layoutY="410.0" mnemonicParsing="false" onAction="#SaveNewApp" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Save Appointment">
@@ -35,7 +35,7 @@
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="SpecialityType" layoutX="11.0" layoutY="134.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="SpecialityType" layoutX="11.0" layoutY="134.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " />
       <Label fx:id="specialityLabel" layoutX="11.0" layoutY="110.0" text="Choose a speciality:">
          <font>
             <Font name="Calibri Bold" size="13.0" />
@@ -46,7 +46,7 @@
             <Font name="Calibri Bold" size="13.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="doctorName" layoutX="197.0" layoutY="134.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="doctorName" layoutX="197.0" layoutY="134.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " />
       <Button fx:id="ok" layoutX="366.0" layoutY="134.0" mnemonicParsing="false" onAction="#ViewTable" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Ok">
          <font>
             <Font name="Calibri Bold" size="13.0" />

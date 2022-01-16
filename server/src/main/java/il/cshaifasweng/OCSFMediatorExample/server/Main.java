@@ -1,9 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import Reports.AwaitingTimeRep;
-import Reports.MissedAppRep;
-import Reports.ServicesTypeRep;
-import Reports.WeeklyReport;
+import il.cshaifasweng.OCSFMediatorExample.entities.AwaitingTimeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.MissedAppRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.ServicesTypeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.WeeklyReport;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 import org.hibernate.HibernateException;
@@ -19,7 +19,10 @@ import java.security.NoSuchAlgorithmException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Main extends SimpleServer {
@@ -61,7 +64,9 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(WeeklyReport.class);
         configuration.addAnnotatedClass(CovidQuestionnaire.class);
         configuration.addAnnotatedClass(clinicSpecialService.class);
+        configuration.addAnnotatedClass(MessageToManager.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        new WeeklyReportService();
         return configuration.buildSessionFactory(serviceRegistry);
     }
     @Override
@@ -94,7 +99,7 @@ public class Main extends SimpleServer {
                             updateCellInDB(currMsg.getUser());
                         }
                         serverMsg = currMsg;
-                        serverMsg.setAction("loginByCard done");
+                        serverMsg.setAction("loginByCarddone");
                         client.sendToClient(serverMsg);
                     }
                 } catch (IOException | NoSuchAlgorithmException e) {
@@ -135,19 +140,6 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-//            if (currMsg.getAction().equals("Pull Reports")) {
-//                try {
-//                    serverMsg = currMsg;
-//                    currMsg.setClinic(clinicController.getClinicByName(currMsg.getClinicName()));
-//                    serverMsg.setAwaitingTimeRep(clinicController.getAwaitingTimeRepByClinic(currMsg.getClinic()));
-//                    serverMsg.setMissedAppRep(clinicController.getMissedAppRepByClinic(currMsg.getClinic()));
-//                    serverMsg.setServicesTypeRep(clinicController.getServicesTypeRepByClinic(currMsg.getClinic()));
-//                    serverMsg.setAction("Got Reports");
-//                    client.sendToClient(serverMsg);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
             if (currMsg.getAction().equals("GetAllClinics")) {
                 try {
                     serverMsg.setClinicList(clinicController.getAllClinicNamesFromDB());
@@ -166,6 +158,27 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+            if (currMsg.getAction().equals("GetAllClinicsWithCovidTest")) {
+                try {
+                    List<String> clinicNames = clinicController.getClinicWithService("covid test");
+                    serverMsg.setClinicList(clinicNames);
+                    serverMsg.setAction("GetAllClinicsWithCovidTest");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("GetAllClinicsWithVaccine")) {
+                try {
+                    List<String> clinicNames = clinicController.getClinicWithService(currMsg.getService_name());
+                    serverMsg.setClinicList(clinicNames);
+                    serverMsg.setAction("GetAllClinicsWithVaccine");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             if (currMsg.getAction().equals("GetClinicFromName")) {
                 try {
                     serverMsg = currMsg;
@@ -273,8 +286,13 @@ public class Main extends SimpleServer {
             }
             if(currMsg.getAction().equals("Provide Ticket")){
                 try{
-
-                    serverMsg.setAppointment(appointmentController.getAppointments(currMsg.getClinicName(),currMsg.getUsername()));
+                    Appointment appointment=appointmentController.getAppointments(currMsg.getClinicName(),currMsg.getUsername());
+                    serverMsg.setAppointment(appointment);
+                    if (appointment!=null) {
+                        serverMsg.setAppCount(appointmentController.PatientTicket(appointment));
+                    }
+                    else
+                    serverMsg.setAppCount(0);
                     serverMsg.setAction("got Appointment");
                     client.sendToClient(serverMsg);
                 }catch(IOException e){
@@ -416,12 +434,12 @@ public class Main extends SimpleServer {
                         serverMsg.setOpeningHour(serverMsg.getClinic().getOpeningHour());
                         serverMsg.setClosingHour(serverMsg.getClinic().getClosingHour());
                     }else if(currMsg.getService_name().equals("doctors") || currMsg.getService_name().equals("specialists")){
-                       Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
+                        Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
                         if(currMsg.getOpeningHour()!=null) {
                             doctor.setStart_working_hour(currMsg.getOpeningHour());
                         }
                         if(currMsg.getClosingHour()!=null) {
-                           doctor.setFinish_working_hour(currMsg.getClosingHour());
+                            doctor.setFinish_working_hour(currMsg.getClosingHour());
                         }
                         updateCellInDB(doctor);
                         serverMsg.setAction("saved new hours");
@@ -456,49 +474,31 @@ public class Main extends SimpleServer {
                             serverMsg.setClosingHour(worker.getFinish_working_hour());
                         }
                     }else if(currMsg.getService_name().equals("covid test") || currMsg.getService_name().equals("covid vaccine") || currMsg.getService_name().equals("influenza vaccine")) {
-                            clinicSpecialService service = clinicController.getService(currMsg.getService_name(),currMsg.getClinicName());
-                            if (currMsg.getOpeningHour() != null) {
-                                service.setStart(currMsg.getOpeningHour());
-                            }
-                            if (currMsg.getClosingHour() != null) {
-                                service.setEnd(currMsg.getClosingHour());
-                            }
-                            updateCellInDB(service);
-                            serverMsg.setAction("saved new hours");
-                            serverMsg.setOpeningHour(service.getStart());
-                            serverMsg.setClosingHour(service.getEnd());
+                        clinicSpecialService service = clinicController.getService(currMsg.getService_name(),currMsg.getClinicName());
+                        if (currMsg.getOpeningHour() != null) {
+                            service.setStart(currMsg.getOpeningHour());
+                        }
+                        if (currMsg.getClosingHour() != null) {
+                            service.setEnd(currMsg.getClosingHour());
+                        }
+                        updateCellInDB(service);
+                        serverMsg.setAction("saved new hours");
+                        serverMsg.setOpeningHour(service.getStart());
+                        serverMsg.setClosingHour(service.getEnd());
                     }
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+            if (currMsg.getAction().equals("getAllRep")) {
+                try {
+                    serverMsg = currMsg;
+                    serverMsg.setServicesTypeRep(Reportscontroller.getServicesTypeRepFromDB(serverMsg.getClinicName()));
+                    serverMsg.setMissedAppRep(Reportscontroller.getMissedAppRepFromDB(serverMsg.getClinicName()));
+                    serverMsg.setAwaitingTimeRep(Reportscontroller.getAwaitingTimeRepFromDB(serverMsg.getClinicName()));
 
-            if (currMsg.getAction().equals("getMissedAppRep")) {
-                try {
-                    serverMsg = currMsg;
-                    serverMsg.setMissedAppRep(clinicController.getClinicByName(serverMsg.getClinicName()).getMissedAppRep());
-                    serverMsg.setAction("MissedAppRepToRep");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (currMsg.getAction().equals("getAwaitingTimeRep")) {
-                try {
-                    serverMsg = currMsg;
-                    serverMsg.setAwaitingTimeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getAwaitingTimeRep());
-                    serverMsg.setAction("AwaitingTimeRepToRep");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (currMsg.getAction().equals("getServicesTypeRep")) {
-                try {
-                    serverMsg = currMsg;
-                    serverMsg.setServicesTypeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getServicesTypeRep());
-                    serverMsg.setAction("ServicesTypeRepToRep");
+                    serverMsg.setAction("AllRepToRep");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -507,7 +507,7 @@ public class Main extends SimpleServer {
             if (currMsg.getAction().equals("getClinicNameFromUserName")) {
                 try {
                     serverMsg = currMsg;
-                    serverMsg.setClinicName(userController.getManagerByUserName(serverMsg.getUsername()).getMain_clinic());
+                    serverMsg.setClinicName(userController.getManagerByUsername(serverMsg.getUsername()).getMain_clinic());
                     serverMsg.setAction("clinicNameFromUserName");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -558,7 +558,34 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-            //Get doctors and clinic apps
+            if (currMsg.getAction().equals("get employee from username")) {
+                try {
+                    serverMsg.setEmployee(userController.getEmployeeFromUserName(currMsg.getUsername()));
+                    serverMsg.setAction("got employee");
+                    client.sendToClient(serverMsg);
+                } catch (IOException  e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("get patient from username")) {
+                try {
+                    serverMsg.setEmployee(userController.getEmployeeFromUserName(currMsg.getUsername()));
+                    serverMsg.setAction("got patient");
+                    client.sendToClient(serverMsg);
+                } catch (IOException  e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("call next patient")){
+                try {
+                    serverMsg.setRoom(currMsg.getEmployee().getRoom_num());
+                    serverMsg.setPatientName(currMsg.getPatientName());
+                    serverMsg.setAction("print message to screen");
+                    client.sendToClient(serverMsg);
+                } catch (IOException  e) {
+                    e.printStackTrace();
+                }
+            }
             if (currMsg.getAction().equals("Get employees")) {
                 try {
                     serverMsg.setEmployeeList(userController.getDoctorsByRole(currMsg.getRole(), currMsg.getClinicName()));
@@ -571,7 +598,7 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("Get special doctor")) {
                 try {
-                    serverMsg.setSpecialDoctorList(userController.getSpecialDoctor(currMsg.getRole(), userController.getPatientByUsername(currMsg.getUsername())));
+                    serverMsg.setSpecialDoctorList(userController.getSpecialDoctor(currMsg.getRole(), (Patient) userController.getUserByUsername(currMsg.getUsername())));
                     serverMsg.setAction("got special doctors");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -599,8 +626,30 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("ViewApps")) {
                 try {
-                    serverMsg.setNearest_apps(appointmentController.getAllAppsFromDB(userController.getUserByUsername(currMsg.getUsername())));
+                    serverMsg.setNearest_apps(appointmentController.getNearestAppsFromDB(userController.getUserByUsername(currMsg.getUsername())));
                     serverMsg.setAction("got patient appointments");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("remove app")) {
+                try {
+                    Appointment app = currMsg.getAppointment();
+                    Patient patient = userController.getPatientByUsername(currMsg.getUsername());
+                    serverMsg.setRemoved(appointmentController.RemoveApp(app, patient));
+                    serverMsg.setAction("removed app");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("cancel appointment")){
+                try {
+                    Appointment app = currMsg.getAppointment();
+                    Patient patient = userController.getPatientByUsername(currMsg.getUsername());
+                    serverMsg.setRemoved(appointmentController.RemoveApp(app, patient));
+                    serverMsg.setAction("canceled app");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -620,7 +669,7 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("Add covid test appointment")) {
                 try {
-                    serverMsg.setSaved(appointmentController.AddNewCovidTestApp(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), (Patient) userController.getUserByUsername(currMsg.getUsername()), (LabWorker) userController.getEmployee(currMsg.getEmployee_id())));
+                    serverMsg.setSaved(appointmentController.AddNewCovidTestApp(currMsg.getAppTime(), currMsg.getAppDate(), clinicController.getClinicByName(currMsg.getClinicName()), userController.getPatientByUsername(currMsg.getUsername()), (LabWorker) userController.getEmployee(currMsg.getEmployee_id())));
                     serverMsg.setAction("Covid test appointment added");
                     serverMsg.setAppTime(currMsg.getAppTime());
                     serverMsg.setAppDate(currMsg.getAppDate());
@@ -644,7 +693,9 @@ public class Main extends SimpleServer {
             }
             if (currMsg.getAction().equals("Get vaccine")) {
                 try {
-                    Patient patient = (Patient) userController.getUserByUsername(currMsg.getUsername());
+                    serverMsg.setCovid19VaccineApp(appointmentController.getNearestCovidVaccineApp(userController.getPatientByUsername(currMsg.getUsername())));
+                    serverMsg.setInfluenzaVaccineApp(appointmentController.getNearestInfluenzaVaccineApp(userController.getPatientByUsername(currMsg.getUsername())));
+                    Patient patient=userController.getPatientByUsername(currMsg.getUsername());
                     serverMsg.setCovid_vaccine(patient.isCovid_vaccinated());
                     serverMsg.setInfluenza_vaccine(patient.isInfluenza_vaccinated());
                     serverMsg.setAction("Got vaccines");
@@ -728,6 +779,49 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+            if(currMsg.getAction().equals("GetAllUnreadMessages")){
+                try {
+                    User user=userController.getUserByUsername(currMsg.getUsername());
+                    serverMsg.setMessagesToManagerList(MessagesToManagerController.getUnreadMessagesOfManager(user));
+                    serverMsg.setAction("GotMessagesToManager");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("show message")){
+                try {
+                    MessageToManager message = currMsg.getMessageToManager();
+                    message.setRead(true);
+                    serverMsg.setMessageToManager(message);
+                    serverMsg.setAction("GotChosenMessage");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("pull managers")){
+                try {
+                    List<String> managers = userController.getAllManagersNamesFromDB();
+                    serverMsg.setManagers(managers);
+                    serverMsg.setAction("ShowManagers");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(currMsg.getAction().equals("send message")){
+                try {
+                    MessageToManager message = currMsg.getMessageToManager();
+                    message.setFrom(userController.getUserByUsername(currMsg.getUsername()).getFullName());
+                    saveRowInDB(message);
+                    serverMsg.setMessageToManager(message);
+                    serverMsg.setAction("sentMessageSuccessfully");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -786,6 +880,32 @@ public class Main extends SimpleServer {
         server = new Main(3004);
         server.listen();
         System.out.println("server says: hello!");
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        Timer timer = new Timer();
+        Calendar date = Calendar.getInstance();
+        //You can here change the reminding time
+//        date.set(Calendar.HOUR, 16);
+//        date.set(Calendar.MINUTE, 0);
+//        date.set(Calendar.SECOND, 0);
+//        date.set(Calendar.MILLISECOND, 0);
+        System.out.println(date.getTime());
+        timer.schedule(
+                new TimerTask() {
+                    @Override
+                    public void run() {
+                        System.out.println("Sending reminders");
+                        appointmentController.sendReminders();
+                    }
+                },
+                date.getTime(),
+                //The period in milliseconds - defined as daily
+                1000 * 60 * 60 * 24
+        );
 
     }
 }

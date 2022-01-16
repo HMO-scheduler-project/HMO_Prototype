@@ -10,6 +10,10 @@ public class stationLoginEvent {
     private String cardnumber;
     private String first_name;
 
+    public stationLoginEvent(String status) {
+        this.status = status;
+    }
+
     public stationLoginEvent(String userType, String status, User user) {
         this.userType = userType;
         this.status = status;

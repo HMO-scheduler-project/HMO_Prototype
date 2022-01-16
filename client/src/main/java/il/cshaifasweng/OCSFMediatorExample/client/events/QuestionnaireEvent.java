@@ -1,4 +1,4 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client.events;
 public class QuestionnaireEvent {
     private boolean saved;
     public QuestionnaireEvent(boolean saved) {

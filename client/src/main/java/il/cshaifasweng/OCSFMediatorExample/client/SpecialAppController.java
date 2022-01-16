@@ -1,5 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.GotSpecialDocEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.SavedAppEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.SpecialDocClinicsEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -179,36 +182,34 @@ public class SpecialAppController {
         LocalDate end_date = date.plusMonths(3);
         end_date = end_date.plusDays(1);
         LocalTime time = specialDoctor.getStart_working_hour();
-            while (date.isBefore(end_date)) {
-                while ((time.isAfter(specialDoctor.getStart_working_hour() )|| time.equals(specialDoctor.getStart_working_hour())) && (time.isBefore(specialDoctor.getFinish_working_hour())|| time.equals(specialDoctor.getFinish_working_hour()))) {
-                    boolean available = true;
-                    if (appointmentList != null && !appointmentList.isEmpty()) {
-                        for (Appointment app : appointmentList) {
-                            if (app.getTime().equals(time) && app.getDate().equals(date)) {
-                                available = false;
-                                break;
-                            }
+//        Table.getItems().clear();
+        while (date.isBefore(end_date)) {
+            while ((time.isAfter(specialDoctor.getStart_working_hour() )|| time.equals(specialDoctor.getStart_working_hour())) && (time.isBefore(specialDoctor.getFinish_working_hour())|| time.equals(specialDoctor.getFinish_working_hour()))) {
+                boolean available = true;
+                if (appointmentList != null && !appointmentList.isEmpty()) {
+                    for (Appointment app : appointmentList) {
+                        if (app.getTime().equals(time) && app.getDate().equals(date)) {
+                            available = false;
+                            break;
                         }
                     }
-                    if (available) {
-                        for (Clinic clinic1 : clinicList) {
-                            if (time.isAfter(clinic1.getOpeningHour()) && time.isBefore(clinic1.getClosingHour())) {
-                                dateCol.setCellValueFactory(new PropertyValueFactory<>("dateCol"));
-                                timeCol.setCellValueFactory(new PropertyValueFactory<>("timeCol"));
-                                employeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
-                                clinicCol.setCellValueFactory(new PropertyValueFactory<>("clinicCol"));
-                                Table.getItems().add(new AvailableApp(date, time, specialDoctor.getFullName(), clinic1.getName(), specialDoctor.getUserId(), specialDoctor.getRole()));
-                            System.out.println(time.toString()+date.toString()+clinic1.getName());
-                            }
-                        }
-                    }
-                    time = time.plusMinutes(20);
-                    System.out.println(time.toString());
                 }
-                time = specialDoctor.getStart_working_hour();
-                date = date.plusDays(1);
-                System.out.println(date.toString());
+                if (available) {
+                    for (Clinic clinic1 : clinicList) {
+                        if (time.isAfter(clinic1.getOpeningHour()) && time.isBefore(clinic1.getClosingHour())) {
+                            dateCol.setCellValueFactory(new PropertyValueFactory<>("dateCol"));
+                            timeCol.setCellValueFactory(new PropertyValueFactory<>("timeCol"));
+                            employeeName.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
+                            clinicCol.setCellValueFactory(new PropertyValueFactory<>("clinicCol"));
+                            Table.getItems().add(new AvailableApp(date, time, specialDoctor.getFullName(), clinic1.getName(), specialDoctor.getUserId(), specialDoctor.getRole()));
+                        }
+                    }
+                }
+                time = time.plusMinutes(20);
             }
+            time = specialDoctor.getStart_working_hour();
+            date = date.plusDays(1);
+        }
         dateCol.setVisible(true);
         timeCol.setVisible(true);
         employeeName.setVisible(true);
@@ -220,8 +221,8 @@ public class SpecialAppController {
     @Subscribe
     public void onSavedApp(SavedAppEvent event) {
         if (event.isSaved()) {
-            sendingMail.sendMessage("ayamahajna96@gmail.com","Attemp","Appointment was saved");
             showAlert("Saved", "The appointment was saved successfully!");
+            ChangeScreens.changeToViewAppsScreen();
         } else {
             showAlert("Error", "This appointment wasn't saved please try again!");
         }
@@ -247,6 +248,11 @@ public class SpecialAppController {
         EventBus.getDefault().register(this);
         warningtext.setVisible(false);
         warningtext.setVisible(false);
+//        dateCol.setVisible(false);
+//        timeCol.setVisible(false);
+//        employeeName.setVisible(false);
+//        clinicCol.setVisible(false);
+//        Table.setVisible(false);
         save.setVisible(false);
         chooseLabel.setVisible(false);
         warningtext.setVisible(false);

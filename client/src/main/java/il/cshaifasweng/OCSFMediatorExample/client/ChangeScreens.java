@@ -21,7 +21,7 @@ public class ChangeScreens {
         Platform.runLater(()->{
             App.setWindowTitle("reports screen");
             try{
-                App.setContent("reportsScreen");
+                App.setContent("ReportPage");
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -51,6 +51,13 @@ public class ChangeScreens {
                     }
                 }
                 case "Manager" -> {
+                    try {
+                        App.setContent("ManagerMainScreen");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                case "HMO_Manager" -> {
                     try {
                         App.setContent("ManagerMainScreen");
                     } catch (IOException e) {
@@ -116,7 +123,7 @@ public class ChangeScreens {
         Platform.runLater(() -> {
             App.setWindowTitle("WaitingRoomScreen");
             try {
-                App.setContent("WaitingRoomScreen");
+                App.setContent("waitingRoomScreen");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -210,6 +217,17 @@ public class ChangeScreens {
             App.setWindowTitle("Green Pass");
             try {
                 App.setContent("GreenPassScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void changeToNewMessageToManagerScreen(){
+        Platform.runLater(() -> {
+            App.setWindowTitle("New message");
+            try {
+                App.setContent("NewMessageToManagerScreen");
             } catch (IOException e) {
                 e.printStackTrace();
             }

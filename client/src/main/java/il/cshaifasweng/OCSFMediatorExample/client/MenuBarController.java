@@ -6,12 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
-import java.io.IOException;
 
 
 public class MenuBarController {
-    @FXML
-    private MenuItem ChangeAppBtn;
     @FXML
     private MenuItem mainPageBtn;
     @FXML
@@ -21,13 +18,13 @@ public class MenuBarController {
     @FXML
     private MenuItem contactInfoBtn;
     @FXML
+    private Menu appointments;
+    @FXML
     private MenuItem newAppBtn;
     @FXML
     private Menu reports;
     @FXML
     private MenuItem reportsBtn;
-    @FXML
-    private MenuItem CancelAppBtn;
     @FXML
     private MenuItem viewAppsBtn;
     @FXML
@@ -40,11 +37,11 @@ public class MenuBarController {
     private MenuItem greenPassbtn;
     @FXML
     private Menu greenpass;
+    @FXML
+    private Menu MessageToManager;
+    @FXML
+    private MenuItem sendMessageToManager;
 
-    @FXML
-    void pressChangeAppBtn(ActionEvent event) {}
-    @FXML
-    void pressCancelAppBtn(ActionEvent event) {}
     @FXML
     void pressContactInfoBtn(ActionEvent event) {
         ChangeScreens.changeToContactInfoScreen();
@@ -84,10 +81,17 @@ public class MenuBarController {
             reports.setVisible(true);
             updates.setVisible(true);
         }
-
+        appointments.setVisible(App.getUserType().equals("Patient"));
+        greenpass.setVisible(App.getUserType().equals("Patient"));
+        MessageToManager.setVisible(App.getUserType().equals("Employee"));
     }
     @FXML
     void pressGreenPass(ActionEvent event) {
         ChangeScreens.changeToGreenPassScreen();
+    }
+
+    @FXML
+    void pressOnSendMessageToManager(ActionEvent event){
+        ChangeScreens.changeToNewMessageToManagerScreen();
     }
 }

@@ -1,6 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.events;
 
-import Reports.MissedAppRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.MissedAppRep;
 
 public class MissedAppRepEvent {
    private MissedAppRep missedAppRep;

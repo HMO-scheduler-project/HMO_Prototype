@@ -1,15 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import Reports.AwaitingTimeRep;
-import Reports.MissedAppRep;
-import Reports.ServicesTypeRep;
-import Reports.WeeklyReport;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -47,6 +42,10 @@ public class Clinic implements Serializable {
     @OneToOne(targetEntity = ServicesTypeRep.class)
     protected ServicesTypeRep servicesTypeRep;
 
+    public int getNum() {
+        return Counter;
+    }
+
     public Clinic() { }
     public Clinic(String name, String city, LocalTime start,LocalTime end,Manager manager,String address,String phone_number) throws NoSuchAlgorithmException {
         this.name = name;
@@ -66,6 +65,9 @@ public class Clinic implements Serializable {
         return awaitingTimeRep;
     }
 
+    public int getCounter() {
+        return Counter;
+    }
     public void setAwaitingTimeRep(AwaitingTimeRep awaitingTimeRep) {
         this.awaitingTimeRep = awaitingTimeRep;
     }

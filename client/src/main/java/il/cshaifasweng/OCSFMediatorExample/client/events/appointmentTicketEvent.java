@@ -6,11 +6,21 @@ import java.time.temporal.ChronoUnit;
 
 public class appointmentTicketEvent {
 
-    Appointment app;
+    private Appointment app;
+    private long ticketNum;
 
-    public appointmentTicketEvent(Appointment app) {
+    public appointmentTicketEvent(Appointment app,long ticketNum) {
         app.setTime(app.getTime().truncatedTo(ChronoUnit.MINUTES));
         this.app = app;
+        this.ticketNum=ticketNum;
+    }
+
+    public long getTicketNum() {
+        return ticketNum;
+    }
+
+    public void setTicketNum(long ticketNum) {
+        this.ticketNum = ticketNum;
     }
 
     public Appointment getApp() {

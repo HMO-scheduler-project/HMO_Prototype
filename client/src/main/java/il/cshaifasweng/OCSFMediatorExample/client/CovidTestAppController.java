@@ -7,6 +7,9 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.GotClinicsWithCovidTest;
+import il.cshaifasweng.OCSFMediatorExample.client.events.GotLabWorkersVaccineEven;
+import il.cshaifasweng.OCSFMediatorExample.client.events.SavedAppEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
 import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
 import il.cshaifasweng.OCSFMediatorExample.entities.LabWorker;
@@ -138,6 +141,7 @@ public class CovidTestAppController {
     public void onSavedApp(SavedAppEvent event) {
         if (event.isSaved()) {
             showAlert("Saved", "The appointment was saved successfully!");
+            ChangeScreens.changeToViewAppsScreen();
         } else {
             showAlert("Error", "This appointment wasn't saved please try again!");
         }
@@ -150,7 +154,7 @@ public class CovidTestAppController {
                 alert.setTitle(title);
                 alert.setHeaderText(null);
                 alert.setContentText(head);
-                alert.showAndWait();
+                alert.show();
             }
         });
     }
@@ -201,12 +205,19 @@ public class CovidTestAppController {
         Table1.setVisible(false);
         ClinicName.setVisible(true);
         ClinicName.getItems().clear();
-        ClinicName.getItems().add("Denia");
-        ClinicName.getItems().add("Neve shaanan");
-        ClinicName.getItems().add("Hadar");
-        ClinicName.getItems().add("Nesher");
-        ClinicName.getItems().add("Carmel");
-        ClinicName.getItems().add("Tirat Carmel");
+        Message msg= new Message();
+        msg.setAction("GetAllClinicsWithCovidTest");
+        SimpleClient.getClient().openConnection();
+        SimpleClient.getClient().sendToServer(msg);
+    }
+
+    @Subscribe
+    public void onClinicWithCovidTestEvent(GotClinicsWithCovidTest event){
+        for (String clinic : event.getClinicNames()) {
+            if(!ClinicName.getItems().contains(clinic)) {
+                ClinicName.getItems().add(clinic);
+            }
+        }
         cliniclabel.setVisible(true);
         ok.setVisible(true);
         warningtext1.setVisible(false);

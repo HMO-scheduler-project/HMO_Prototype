@@ -1,58 +1,55 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import antlr.ASTNULLType;
-import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
-import il.cshaifasweng.OCSFMediatorExample.entities.Employee;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import il.cshaifasweng.OCSFMediatorExample.entities.Patient;
+import il.cshaifasweng.OCSFMediatorExample.client.events.*;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.io.IOException;
-import java.util.List;
+import java.time.LocalTime;
 
 public class waitingRoomScreenController {
 
     @FXML
-    Pane menubar;
+    private TextField timeTF;
     @FXML
-    private static Label timeLabel;
+    private Label nextPatientLabel;
     @FXML
-    private static TextField time;             //show the current time
+    private TextField nextPatientTF;
     @FXML
-    private static Label nextPatientLabel;
+    private Label roomLabel;
     @FXML
-    private static TextField nextPatient;      //show the next patient name
-    @FXML
-    private static Label roomLabel;
-    @FXML
-    private static TextField room;             //show the next patient room number
+    private TextField roomTF;
 
     @Subscribe
-    public static void callNextPatient(String patientName, Employee employee) {
-        nextPatient.setText(patientName);
-        String room_num= Integer.toString(employee.getRoom_num());
-        room.setText(room_num);
-
-        nextPatient.setVisible(true);
-        room.setVisible(true);
+    public void printMessageToScreen(printMessageToScreenEvent event) {
+        nextPatientTF.setText(event.getPatient_name());
+        roomTF.setText(Integer.toString(event.getRoom()));
+        nextPatientTF.setVisible(true);
+        roomTF.setVisible(true);
     }
 
     @FXML
     void initialize() throws IOException {
-        Parent menuBarParent = App.loadFXML("menuBar.fxml");
-//        String cssPath = getClass().getResource("/style.css").toString();
-//        menuBarParent.getStylesheets().add(cssPath);
-        menubar.getChildren().clear();
-        menubar.getChildren().add(menuBarParent);
+
         EventBus.getDefault().register(this);
+        nextPatientLabel.setVisible(false);
+        roomLabel.setVisible(false);
+        nextPatientTF.setVisible(false);
+        roomTF.setVisible(false);
 
-        nextPatient.setVisible(false);
-        room.setVisible(false);
-
+        Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+            LocalTime currentTime = LocalTime.now();
+            timeTF.setText(currentTime.getHour() + ":" + currentTime.getMinute());
+        }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        clock.setCycleCount(Animation.INDEFINITE);
+        clock.play();
     }
-    //need to do local real time clock
 }

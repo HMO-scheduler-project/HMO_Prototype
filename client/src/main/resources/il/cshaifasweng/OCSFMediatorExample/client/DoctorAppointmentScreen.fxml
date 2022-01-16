@@ -8,28 +8,28 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.DoctorAppointmentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="630.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.DoctorAppointmentController">
    <children>
-      <Pane fx:id="Menubar" layoutX="4.0" layoutY="6.0" prefHeight="51.0" prefWidth="594.0" />
-      <Label layoutX="14.0" layoutY="64.0" prefHeight="83.0" prefWidth="247.0" text="Choose a doctor appointment:">
-         <font>
-            <Font name="Calibri Bold" size="14.0" />
-         </font>
-      </Label>
-      <TableView fx:id="Table1" layoutX="14.0" layoutY="124.0" prefHeight="185.0" prefWidth="434.0">
+      <Pane fx:id="Menubar" layoutX="4.0" layoutY="6.0" prefHeight="51.0" prefWidth="630.0" />
+      <TableView fx:id="Table1" layoutX="13.0" layoutY="107.0" prefHeight="198.0" prefWidth="550.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
          <columns>
-            <TableColumn fx:id="dateCol1" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="TimeCol1" prefWidth="98.22216796875" text="Time" />
-            <TableColumn fx:id="EmployeeName1" prefWidth="117.77783203125" text="Doctor name" />
-            <TableColumn fx:id="ClinicCol1" prefWidth="141.77776421440973" text="Clinic" />
+            <TableColumn fx:id="dateCol1" prefWidth="99.2000093460083" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Date" />
+            <TableColumn fx:id="TimeCol1" prefWidth="111.199951171875" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Time" />
+            <TableColumn fx:id="EmployeeName1" prefWidth="174.3999786376953" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Doctor name" />
+            <TableColumn fx:id="ClinicCol1" prefWidth="164.00006103515625" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Clinic" />
          </columns>
       </TableView>
-      <Button fx:id="save" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" onAction="#SaveNewApp" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Save Appointment">
+      <Button fx:id="save" layoutX="14.0" layoutY="314.0" mnemonicParsing="false" onAction="#SaveNewApp" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Save Appointment">
          <font>
             <Font name="Calibri Bold" size="13.0" />
          </font>
       </Button>
-      <Label fx:id="warningtext" layoutX="14.0" layoutY="316.0" prefHeight="26.0" prefWidth="236.0" text="Please choose an appointment!" textFill="#c92423">
+      <Label fx:id="warningtext" layoutX="156.0" layoutY="313.0" prefHeight="26.0" prefWidth="236.0" text="Please choose an appointment!" style = "textFill: #c92423">
+         <font>
+            <Font name="Calibri Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="57.0" prefHeight="51.0" prefWidth="207.0" text="Choose a doctor appointment:">
          <font>
             <Font name="Calibri Bold" size="14.0" />
          </font>

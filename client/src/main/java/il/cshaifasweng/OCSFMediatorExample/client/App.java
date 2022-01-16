@@ -14,7 +14,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Objects;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -33,8 +32,8 @@ public class App extends Application {
     private static Boolean isLogoutClicked = false;
     private static Stage appStage;
     private boolean isRegistered = false;
-    private static boolean covid_vaccine;
-    private static boolean influenza_vaccine;
+    private static boolean covid_vaccine=false;
+    private static boolean influenza_vaccine=true;
 
     @Override
     public void start (Stage stage) throws IOException{
@@ -209,6 +208,7 @@ public class App extends Application {
         appStage.setScene(scene);
         appStage.show();
     }
+
 
     public static void main(String[] args) {
         launch();

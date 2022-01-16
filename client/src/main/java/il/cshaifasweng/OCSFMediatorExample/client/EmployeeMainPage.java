@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.client.events.EmployeeEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.events.nearestAppsEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.events.updateArrivalTimeEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
@@ -67,8 +68,17 @@ public class EmployeeMainPage {
 
     @FXML
     void pressOnCallNextPatient(ActionEvent event) {
-        waitingRoomScreenController.callNextPatient(patientName.getText(), this.employee);
+        try {
+            Message msg = new Message();
+            msg.setAction("call next patient");
+            msg.setPatientName(patientName.getText());
+            msg.setEmployee(this.employee);
+            SimpleClient.getClient().sendToServer(msg);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
+
     public static void getEmployee() throws IOException {
         Message msg = new Message();
         msg.setAction("get employee from username");
@@ -78,7 +88,8 @@ public class EmployeeMainPage {
 
     @Subscribe
     public void employeeEvent (EmployeeEvent event){
-        employee = event.getEmployee();       //to do- set employee name from user via server
+        System.out.println("in employeeEvent"+event.getEmployee().getFullName());
+        employee = event.getEmployee();
     }
 
     @FXML
@@ -90,7 +101,6 @@ public class EmployeeMainPage {
         successfulUpdateLabel.setVisible(false);
         welcomeTF.setText("Welcome " + App.getFirst_name());
         getEmployee();
-
         try {
             Message msg= new Message();
             msg.setUsername(App.getUsername());

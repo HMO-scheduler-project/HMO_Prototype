@@ -1,9 +1,9 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client.events;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.GreenPass;
 
 public class GreenPassEvent {
-    GreenPass greenPass;
+    protected GreenPass greenPass;
 
     public GreenPassEvent(GreenPass greenPass) {
         this.greenPass = greenPass;

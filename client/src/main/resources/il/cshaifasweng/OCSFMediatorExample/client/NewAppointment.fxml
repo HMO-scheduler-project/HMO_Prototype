@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="633.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.NewAppointmentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="630.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.NewAppointmentController">
    <children>
       <Pane fx:id="Menubar" layoutY="7.0" prefHeight="51.0" prefWidth="633.0" />
       <Label fx:id="txtlabel" layoutX="14.0" layoutY="81.0" prefHeight="26.0" prefWidth="268.0" text="Choose appointment type:" textFill="#1b08ab">
@@ -14,22 +14,22 @@
             <Font name="Calibri Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="familyApp" layoutX="16.0" layoutY="124.0" mnemonicParsing="false" onAction="#FamilyAppView" prefHeight="26.0" prefWidth="252.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Family/Children Doctor Appointment">
+      <Button fx:id="familyApp" layoutX="16.0" layoutY="124.0" mnemonicParsing="false" onAction="#FamilyAppView" prefHeight="26.0" prefWidth="250.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Family/Children Doctor Appointment">
          <font>
             <Font name="Calibri Bold" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="specialdoctor" layoutX="16.0" layoutY="163.0" mnemonicParsing="false" onAction="#SpecialApp" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Special Doctor Appointment">
+      <Button fx:id="specialdoctor" layoutX="16.0" layoutY="163.0" mnemonicParsing="false" onAction="#SpecialApp" prefHeight="26.0" prefWidth="250.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Special Doctor Appointment">
          <font>
             <Font name="Calibri Bold" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="vaccine" layoutX="16.0" layoutY="202.0" mnemonicParsing="false" onAction="#VaccineApp" prefHeight="26.0" prefWidth="171.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Vaccine Appointment">
+      <Button fx:id="vaccine" layoutX="16.0" layoutY="202.0" mnemonicParsing="false" onAction="#VaccineApp" prefHeight="26.0" prefWidth="250.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Vaccine Appointment">
          <font>
             <Font name="Calibri Bold" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="covidTestApp" layoutX="15.0" layoutY="238.0" mnemonicParsing="false" onAction="#ViewQuestionnaire" prefHeight="26.0" prefWidth="171.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Covid 19 Test Appointment">
+      <Button fx:id="covidTestApp" layoutX="15.0" layoutY="238.0" mnemonicParsing="false" onAction="#ViewQuestionnaire" prefHeight="26.0" prefWidth="250.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Covid 19 Test Appointment">
          <font>
             <Font name="Calibri Bold" size="13.0" />
          </font>
