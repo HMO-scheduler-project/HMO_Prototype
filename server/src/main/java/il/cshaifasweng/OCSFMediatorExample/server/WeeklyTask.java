@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static java.time.DayOfWeek.SATURDAY;
 import static java.time.DayOfWeek.SUNDAY;
 import static java.time.temporal.ChronoUnit.MINUTES;
 import static java.time.temporal.TemporalAdjusters.previous;
@@ -89,6 +90,14 @@ public class WeeklyTask implements Runnable {
         ///first get today's date and sundays date
         // LocalDate nextSunday = today.with(next(SUNDAY));
         LocalDate thisPastSunday = today.with(previous(SUNDAY));
+        LocalDate thisPastSaturday = today.with(previous(SATURDAY));
+        //makeing today into the right saturday
+
+        Calendar c8 = Calendar.getInstance();
+        c8.setTime(Date.from(today.atStartOfDay(defaultZoneId1).toInstant()));
+        int dayOfWeek8 = c8.get(Calendar.DAY_OF_WEEK);
+        if(dayOfWeek8<7)
+            today=thisPastSaturday;
 
 //gets the query with the needed data
         CriteriaBuilder builder1 = Main.session.getCriteriaBuilder();
@@ -181,7 +190,14 @@ public class WeeklyTask implements Runnable {
         c1.setTime(Date.from(today.atStartOfDay(defaultZoneId1).toInstant()));
         // LocalDate nextSunday = today.with(next(SUNDAY));
         LocalDate thisPastSunday = today.with(previous(SUNDAY));
+        LocalDate thisPastSaturday = today.with(previous(SATURDAY));
+        //makeing today into the right saturday
 
+        Calendar c8 = Calendar.getInstance();
+        c8.setTime(Date.from(today.atStartOfDay(defaultZoneId1).toInstant()));
+        int dayOfWeek8 = c8.get(Calendar.DAY_OF_WEEK);
+        if(dayOfWeek8<7)
+            today=thisPastSaturday;
         //gets the query with the needed data
         CriteriaBuilder builder1 = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query1 = builder1.createQuery(Appointment.class);
@@ -251,7 +267,14 @@ public class WeeklyTask implements Runnable {
         c1.setTime(Date.from(today.atStartOfDay(defaultZoneId1).toInstant()));
         // LocalDate nextSunday = today.with(next(SUNDAY));
         LocalDate thisPastSunday = today.with(previous(SUNDAY));
+        LocalDate thisPastSaturday = today.with(previous(SATURDAY));
+        //makeing today into the right saturday
 
+        Calendar c8 = Calendar.getInstance();
+        c8.setTime(Date.from(today.atStartOfDay(defaultZoneId1).toInstant()));
+        int dayOfWeek8 = c8.get(Calendar.DAY_OF_WEEK);
+        if(dayOfWeek8<7)
+            today=thisPastSaturday;
 //gets the query with the needed data
         CriteriaBuilder builder1 = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query1 = builder1.createQuery(Appointment.class);
