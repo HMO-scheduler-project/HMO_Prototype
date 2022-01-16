@@ -1,4 +1,4 @@
-package Reports;
+package il.cshaifasweng.OCSFMediatorExample.entities;
 import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
 import il.cshaifasweng.OCSFMediatorExample.entities.HMO_Manager;
 

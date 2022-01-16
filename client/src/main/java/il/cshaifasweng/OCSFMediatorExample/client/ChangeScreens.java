@@ -57,6 +57,13 @@ public class ChangeScreens {
                         e.printStackTrace();
                     }
                 }
+                case "HMO_Manager" -> {
+                    try {
+                        App.setContent("ManagerMainScreen");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 case "Employee" -> {
                     try {
                         App.setContent("EmployeeMainPage");
@@ -210,6 +217,17 @@ public class ChangeScreens {
             App.setWindowTitle("Green Pass");
             try {
                 App.setContent("GreenPassScreen");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void changeToNewMessageToManagerScreen(){
+        Platform.runLater(() -> {
+            App.setWindowTitle("New message");
+            try {
+                App.setContent("NewMessageToManagerScreen");
             } catch (IOException e) {
                 e.printStackTrace();
             }

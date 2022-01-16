@@ -25,7 +25,7 @@ public class sendingMail {
     public static void sendRemainder(String toMail, Appointment app) {
         String subject = "You have an appointment tomorrow";
         String message =
-                "Dear " + app.getPatient().getFirstName() + "You have an appointment scheduled for tomorrow\nYour appointment information:\n"
+                "Dear " + app.getPatient().getFirstName() + "\nYou have an appointment scheduled for tomorrow\nYour appointment information:\n"
                         + "Date: " + app.getDate() + "\nTime: " + app.getTime().truncatedTo(ChronoUnit.MINUTES) + "\nClinic: " +
                         app.getClinic().getName() + "\nIf you can't came to the appointment, please cancel it.";
         sendEmail(message, subject, toMail);
@@ -51,7 +51,7 @@ public class sendingMail {
                     }
 
                 });
-//        session.setDebug(true);
+        session.setDebug(true);
         try {
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(session);

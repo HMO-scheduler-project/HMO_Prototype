@@ -1,25 +1,14 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.client.events.EmployeeEvent;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import il.cshaifasweng.OCSFMediatorExample.entities.Patient;
-import il.cshaifasweng.OCSFMediatorExample.entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import org.greenrobot.eventbus.Subscribe;
 
-import java.io.IOException;
 
 
 public class MenuBarController {
-    private Patient patient;              //hold the user whom use the menu bar
-    //private Employee employee;
-
-    @FXML
-    private MenuItem ChangeAppBtn;
     @FXML
     private MenuItem mainPageBtn;
     @FXML
@@ -37,8 +26,6 @@ public class MenuBarController {
     @FXML
     private MenuItem reportsBtn;
     @FXML
-    private MenuItem CancelAppBtn;
-    @FXML
     private MenuItem viewAppsBtn;
     @FXML
     private Button logoutBtn;
@@ -50,28 +37,11 @@ public class MenuBarController {
     private MenuItem greenPassbtn;
     @FXML
     private Menu greenpass;
+    @FXML
+    private Menu MessageToManager;
+    @FXML
+    private MenuItem sendMessageToManager;
 
-    @FXML
-    void pressChangeAppBtn(ActionEvent event) {
-        //canceling in the background of the event
-        try {
-            Message msg = new Message();
-            msg.setAction("get employee from username");
-            msg.setUsername(App.getUsername());
-            SimpleClient.getClient().sendToServer(msg);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        patient.cancelAppointment(patient.getNext_appointment());            //need to remove appointment from DB
-        //send user to create new appointment
-        ChangeScreens.changeNewAppScreen();
-    }
-    @Subscribe
-    void getPatientFromDB (PatientEvent event){
-        patient = event.getPatient();
-    }
-    @FXML
-    void pressCancelAppBtn(ActionEvent event) {}
     @FXML
     void pressContactInfoBtn(ActionEvent event) {
         ChangeScreens.changeToContactInfoScreen();
@@ -80,6 +50,7 @@ public class MenuBarController {
     void pressMainPageBtn(ActionEvent event) { ChangeScreens.changeToMainPage();}
     @FXML
     void pressNewAppBtn(ActionEvent event) { ChangeScreens.changeNewAppScreen();}
+
     @FXML
     void pressViewAppsBtn(ActionEvent event) {
         ChangeScreens.changeToViewAppsScreen();
@@ -88,18 +59,22 @@ public class MenuBarController {
     void pressOnLogout(ActionEvent event){
         App.logout(true,"PC");
     }
+
     @FXML
     void pressOpeningHoursBtn(ActionEvent event) {
         ChangeScreens.changeToOpeningHoursScreen();
     }
+
     @FXML
     void pressReportsBtn(ActionEvent event){
         ChangeScreens.changeToReportsScreen();
     }
+
     @FXML
     void pressHoursUpdate(ActionEvent event){
         ChangeScreens.changeToUpdateHoursScreen();
     }
+
 
     public void initialize() {
         if(App.getUserType().equals("Manager") || App.getUserType().equals("HMO_Manager")) {
@@ -108,9 +83,15 @@ public class MenuBarController {
         }
         appointments.setVisible(App.getUserType().equals("Patient"));
         greenpass.setVisible(App.getUserType().equals("Patient"));
+        MessageToManager.setVisible(App.getUserType().equals("Employee"));
     }
     @FXML
     void pressGreenPass(ActionEvent event) {
         ChangeScreens.changeToGreenPassScreen();
+    }
+
+    @FXML
+    void pressOnSendMessageToManager(ActionEvent event){
+        ChangeScreens.changeToNewMessageToManagerScreen();
     }
 }

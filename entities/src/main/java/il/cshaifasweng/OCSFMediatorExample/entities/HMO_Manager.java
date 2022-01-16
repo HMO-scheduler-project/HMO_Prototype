@@ -1,7 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import Reports.WeeklyReport;
-
 import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;

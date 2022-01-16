@@ -1,24 +1,13 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
-import java.time.LocalTime;
-import static java.time.temporal.ChronoUnit.MINUTES;
 
-import static java.time.DayOfWeek.SUNDAY;
-import static java.time.temporal.TemporalAdjusters.next;
-import static java.time.temporal.TemporalAdjusters.previous;
-import Reports.AwaitingTimeRep;
-import Reports.MissedAppRep;
-import Reports.ServicesTypeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.AwaitingTimeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.MissedAppRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.ServicesTypeRep;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
-import java.time.ZoneId;
+
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class Reportscontroller {

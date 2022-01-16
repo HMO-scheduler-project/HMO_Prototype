@@ -1,14 +1,11 @@
-package Reports;
+package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
-import il.cshaifasweng.OCSFMediatorExample.entities.HMO_Manager;
-import il.cshaifasweng.OCSFMediatorExample.entities.Manager;
-import il.cshaifasweng.OCSFMediatorExample.entities.SpecialDoctor;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
+
+
 @Entity
 public class WeeklyReport  implements Serializable {
 

@@ -5,10 +5,11 @@ import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.swing.*;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class userController {
     private static List<User> getAllUsersFromDB() {
@@ -32,8 +33,8 @@ public class userController {
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
-                        }
-                        if (user instanceof Manager) {
+                            msg.setFirst_name(user.getFirstName());
+                        }else if (user instanceof Manager) {
                             msg.setUserType("Manager");
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
@@ -45,7 +46,7 @@ public class userController {
                             msg.setStatus("logged in");
                             msg.setUser(user);
                             msg.setFirst_name(user.getFirstName());
-                        }else if (user instanceof Patient){
+                        } else if (user instanceof Patient) {
                             msg.setUserType("Patient");
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
@@ -56,12 +57,12 @@ public class userController {
                         msg.setStatus("you are already logged in");
                     }
                 } else {
-                    wrong_password=true;
+                    wrong_password = true;
                     break;
                 }
             }
         }
-        if(!user_found || wrong_password) {
+        if (!user_found || wrong_password) {
             msg.setStatus("Wrong username or password");
         }
     }
@@ -72,32 +73,32 @@ public class userController {
         for (User user : users) {
             if (user.checkCard(msg.getUserCardNumber())) {
                 user_found = true;
-                    if (!user.isLoggedIn()) {
-                        if(user instanceof HMO_Manager)
-                        {
-                            msg.setUserType("HMO_Manager");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        }else if (user instanceof Manager) {
-                            msg.setUserType("Manager");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        } else if (user instanceof Employee) {
-                            msg.setUserType("Employee");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        }else if (user instanceof Patient) {
-                            msg.setUserType("Patient");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        }
-                    } else {
-                        msg.setStatus("you are already logged in");
+                if (!user.isLoggedIn()) {
+                    if(user instanceof HMO_Manager)
+                    {
+                        msg.setUserType("HMO_Manager");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
+                    }else if (user instanceof Manager) {
+                        msg.setUserType("Manager");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
+                    } else if (user instanceof Employee) {
+                        msg.setUserType("Employee");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
+                    }else if (user instanceof Patient) {
+                        msg.setUserType("Patient");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
                     }
+                } else {
+                    msg.setStatus("you are already logged in");
+                }
             }
         }
         if(!user_found) {
@@ -157,8 +158,8 @@ public class userController {
         return Main.session.createQuery(query).getResultList();
     }
 
-    public static Manager getManagerById (int id) {
-        List<Manager> managers =getAllManagersFromDB();
+    public static Manager getManagerById(int id) {
+        List<Manager> managers = getAllManagersFromDB();
         for (Manager manager : managers) {
             if (manager.getUserId() == id) {
                 return manager;
@@ -195,39 +196,16 @@ public class userController {
         query.where(builder.equal(root.get("username"), username));
         return Main.session.createQuery(query).getSingleResult();
     }
-//    public static HMO_Manager getHmoManagerByUsername (String username) {
-//        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
-//        CriteriaQuery<HMO_Manager> query = builder.createQuery(HMO_Manager.class);
-//        Root<HMO_Manager> root = query.from(HMO_Manager.class);
-//        query.select(root);
-//        query.where(builder.equal(root.get("username"), username));
-//        return Main.session.createQuery(query).getSingleResult();
-//    }
-//    public static boolean IsManagerByUsername (String username) {
-//        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
-//        CriteriaQuery<Manager> query = builder.createQuery(Manager.class);
-//        Root<Manager> root = query.from(Manager.class);
-//        query.select(root);
-//        query.where(builder.equal(root.get("username"), username));
-//        if(Main.session.createQuery(query).uniqueResult()==null)
-//         return false;
-//         return true;
-//
-//    }
 
-
-
-    public static boolean IsHmo_ManagerByUsername (String username) {
+    public static List<String> getAllManagersNamesFromDB(){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
-        CriteriaQuery<HMO_Manager> query = builder.createQuery(HMO_Manager.class);
-        Root<HMO_Manager> root = query.from(HMO_Manager.class);
+        CriteriaQuery<Manager> query = builder.createQuery(Manager.class);
+        Root<Manager> root = query.from(Manager.class);
         query.select(root);
-        query.where(builder.equal(root.get("username"), username));
-        if(Main.session.createQuery(query).uniqueResult()==null)
-            return false;
-        return true;
-
+        return Main.session.createQuery(query).getResultList().stream()
+                .map((Manager::getFullName)).collect(Collectors.toList());
     }
+
     public static User getUserById(int id) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
@@ -247,7 +225,7 @@ public class userController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
-    public static Patient getPatientByCardNum (String card_num) {
+    public static Patient getPatientByCardNum(String card_num) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Patient> query = builder.createQuery(Patient.class);
         Root<Patient> root = query.from(Patient.class);
@@ -256,31 +234,31 @@ public class userController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
-    public static Doctor getDoctorByName (String name) {
+    public static Doctor getDoctorByName(String name) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Doctor> query = builder.createQuery(Doctor.class);
         Root<Doctor> root = query.from(Doctor.class);
         query.select(root);
         String[] nameArr = name.split(" ");
-        query.where(builder.equal(root.get("first_name"), nameArr[0]),builder.equal(root.get("last_name"),nameArr[1]));
+        query.where(builder.equal(root.get("first_name"), nameArr[0]), builder.equal(root.get("last_name"), nameArr[1]));
         return Main.session.createQuery(query).getSingleResult();
     }
 
-    public static List<Nurse> getNursesByClinic (String clinic_name) {
+    public static List<Nurse> getNursesByClinic(String clinic_name) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Nurse> query = builder.createQuery(Nurse.class);
         Root<Nurse> root = query.from(Nurse.class);
         query.select(root);
-        query.where(builder.equal(root.get("main_clinic"),clinic_name));
+        query.where(builder.equal(root.get("main_clinic"), clinic_name));
         return Main.session.createQuery(query).getResultList();
     }
 
-    public static List<LabWorker> getLabWorkersByClinic (String clinic_name) {
+    public static List<LabWorker> getLabWorkersByClinic(String clinic_name) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<LabWorker> query = builder.createQuery(LabWorker.class);
         Root<LabWorker> root = query.from(LabWorker.class);
         query.select(root);
-        query.where(builder.equal(root.get("main_clinic"),clinic_name));
+        query.where(builder.equal(root.get("main_clinic"), clinic_name));
         return Main.session.createQuery(query).getResultList();
     }
 
@@ -372,7 +350,7 @@ public class userController {
         return greenPass1;
     }
 
-    }
+}
 
 
 

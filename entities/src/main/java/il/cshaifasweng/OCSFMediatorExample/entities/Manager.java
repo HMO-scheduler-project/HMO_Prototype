@@ -1,7 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import Reports.WeeklyReport;
-
 import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
@@ -23,7 +21,7 @@ public class Manager extends Employee {
     }
 
     public String getFullName(){
-        return getFirstName()+getLastName();
+        return getFirstName()+" "+getLastName();
     }
 
     @Override

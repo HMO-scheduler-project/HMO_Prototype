@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -36,10 +35,7 @@
             <Image url="@../../../../appointment.jpg" />
          </image>
       </ImageView>
-        <Button fx:id="submit" layoutX="528.0" layoutY="388.0" mnemonicParsing="false" onAction="#pressSubmitAppButton" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Submit" />
-        <TextField fx:id="date" layoutX="154.0" layoutY="387.0" prefHeight="27.0" prefWidth="101.0" promptText="enter date" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" />
-        <TextField fx:id="time" layoutX="264.0" layoutY="387.0" prefHeight="27.0" prefWidth="102.0" promptText="enter time" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" />
-        <TextField fx:id="employeeName" layoutX="375.0" layoutY="387.0" prefHeight="27.0" prefWidth="143.0" promptText="enter employee name" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" />
         <Button fx:id="cancel" layoutX="19.0" layoutY="388.0" mnemonicParsing="false" onAction="#pressCancelAppButton" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Cancel Appointment" />
+      <Button fx:id="change" layoutX="171.0" layoutY="388.0" mnemonicParsing="false" onAction="#pressOnChangeAppBtn" text="Change Appointment" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
     </children>
 </AnchorPane>

@@ -1,15 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import Reports.AwaitingTimeRep;
-import Reports.MissedAppRep;
-import Reports.ServicesTypeRep;
-import Reports.WeeklyReport;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity

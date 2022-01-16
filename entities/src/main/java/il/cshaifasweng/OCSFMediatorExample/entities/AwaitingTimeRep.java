@@ -1,4 +1,4 @@
-package Reports;
+package il.cshaifasweng.OCSFMediatorExample.entities;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;

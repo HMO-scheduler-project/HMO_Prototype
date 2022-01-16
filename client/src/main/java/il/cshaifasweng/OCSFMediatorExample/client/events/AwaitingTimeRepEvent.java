@@ -1,6 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.events;
 
-import Reports.AwaitingTimeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.AwaitingTimeRep;
 
 public class AwaitingTimeRepEvent {
 private AwaitingTimeRep awaitingTimeRep;

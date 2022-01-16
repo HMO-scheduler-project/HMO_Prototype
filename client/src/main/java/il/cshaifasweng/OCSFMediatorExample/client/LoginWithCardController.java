@@ -15,6 +15,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import javafx.fxml.Initializable;
 
+import javax.swing.*;
+
 public class LoginWithCardController  implements Initializable {
     private SimpleClient client;
     private static int sessionID = 0;
@@ -27,7 +29,7 @@ public class LoginWithCardController  implements Initializable {
     private Button loginBtn;
 
     @FXML
-    private Label loginFailedWarning;
+    private TextField loginFailedWarning;
 
     @FXML
     private Label Textbox;
@@ -36,6 +38,13 @@ public class LoginWithCardController  implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         EventBus.getDefault().register(this);
         loginFailedWarning.setVisible(false);
+        try {
+            SimpleClient.setClientNull();
+            client = SimpleClient.getClient();
+            client.openConnection();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -47,15 +56,6 @@ public class LoginWithCardController  implements Initializable {
                 loginFailedWarning.setText("Please enter Card Number");
                 loginFailedWarning.setVisible(true);
             } else {
-                SimpleClient.setClientNull();
-                client = SimpleClient.getClient();
-                if (client != null) {
-                    try {
-                        client.openConnection();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
                 try {
                     loginFailedWarning.setVisible(false);
                     Message msg = new Message();
@@ -74,18 +74,16 @@ public class LoginWithCardController  implements Initializable {
 
     @Subscribe
     public void onLoginWithCardEvent(stationLoginEvent event) {
-        System.out.println("in onLoginWithCardEvent");
         String status = event.getStatus();
         System.out.println(status);
         if (status != null) {
-            System.out.println("status isn't null");
             if (status.equals("you are already logged in")) {
-//                loginFailedWarning.setText("Login Failed- user is already logged in");
-//                loginFailedWarning.setVisible(true);
+                loginFailedWarning.setText("Login Failed- user is already logged in");
+                loginFailedWarning.setVisible(true);
             } else if (status.equals(("Wrong CardNumber"))){
                 System.out.println("wrong card num");
-//                loginFailedWarning.setText("Login Failed- incorrect Card Number.\nPlease try again or go to the main office");
-//                loginFailedWarning.setVisible(true);
+                loginFailedWarning.setText("Login Failed- incorrect Card Number.\nPlease try again or go to the main office");
+                loginFailedWarning.setVisible(true);
 
             }else {
                 App.setUsername(event.getUsername());

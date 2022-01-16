@@ -1,20 +1,14 @@
-package il.cshaifasweng.OCSFMediatorExample.client.ReportJavas;
+package il.cshaifasweng.OCSFMediatorExample.client;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import Reports.AwaitingTimeRep;
-import Reports.MissedAppRep;
-import Reports.ServicesTypeRep;
-import Reports.WeeklyReport;
-import il.cshaifasweng.OCSFMediatorExample.client.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.AwaitingTimeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.MissedAppRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.ServicesTypeRep;
 import il.cshaifasweng.OCSFMediatorExample.client.events.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,11 +30,6 @@ public class ReportPageController {
     Pane menubar;
     @FXML
     private Label ChooseMessage;
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private MenuItem ChangeAppBtn;
@@ -63,8 +52,6 @@ public class ReportPageController {
     @FXML
     private MenuItem OpenningHoursBtn;
 
-
-
     @FXML
     private MenuItem contactInfoBtn;
 
@@ -77,20 +64,12 @@ public class ReportPageController {
     @FXML
     private MenuItem scheduledAppBtn;
 
-///////////
-
-
-
-
-
-
-///////////
-
     @FXML
     private Tab UnclaimedAppointment;
 
     @FXML
     private TableView<MissedAppRep> UnclaimedAppointmentRep;
+
     @FXML
     private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnB;
 
@@ -112,7 +91,6 @@ public class ReportPageController {
     private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnH;
     @FXML
     private Tab ServicesTypeBtn;
-
 
     @FXML
     private TableView<ServicesTypeRep> ServicesTypeRepTable;
@@ -141,8 +119,10 @@ public class ReportPageController {
     private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnH;
     @FXML
     private Tab WaitingTimeReport;
+
     @FXML
     private TableView<AwaitingTimeRep> AwaitingTimeRepTable;
+
     @FXML
     private TableColumn<AwaitingTimeRep, String> AwaitingTimeRepColumnA;
 
@@ -164,62 +144,6 @@ public class ReportPageController {
     @FXML
     private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnG;
 
-
-
-    @FXML
-    void pressChangeAppBtn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void pressContactInfoBtn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void pressMainPageBtn(ActionEvent event) {
-
-    }
-
-
-
-    @FXML
-    void pressNewAppBtn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void pressOnLogout(ActionEvent event) {
-
-    }
-
-    @FXML
-    void pressOpenningHoursBtn(ActionEvent event) {
-
-    }
-
-    @FXML
-    void pressScheduledAppBtn(ActionEvent event) {
-
-    }
-
-
-
-
-
-    @FXML
-    void pressServicesTypeBtn(ActionEvent event) {
-    }
-
-    @FXML
-    void pressWaitingTimeReportBtn(ActionEvent event) {
-    }
-    @FXML
-    void pressMissedAppBtn(ActionEvent event) {
-    }
-
-
-
     @FXML
     void initialize() throws IOException  {
 
@@ -228,44 +152,23 @@ public class ReportPageController {
         menuBarParent.getStylesheets().add(cssPath);
         menubar.getChildren().clear();
         menubar.getChildren().add(menuBarParent);
+        menubar.resize(750,58);
         EventBus.getDefault().register(this);
-        clientMsg.setClinicName("");
         Message msg = new Message();
-        msg.setUsername(clientMsg.getUsername());
-        msg.setAction("Is_Hmo_Manager");
-        System.out.println(msg.getAction());
-        SimpleClient.getClient().openConnection();
-        SimpleClient.getClient().sendToServer(msg);
-
-
-
-    }
-    @Subscribe
-    public void onHMO_ManagerEvent(HMO_ManagerEvent event){
         try {
-            System.out.println("get all clinics event");
-            Message msg = new Message();
-            msg.setAction("GetAllClinics");
+            if (App.getUserType().equals("HMO_Manager")) {
+                msg.setAction("GetAllClinics");
+            } else if (App.getUserType().equals("Manager")) {
+                msg.setAction("getClinicNameFromUserName");
+                msg.setUsername(App.getUsername());
+            }
             SimpleClient.getClient().openConnection();
             SimpleClient.getClient().sendToServer(msg);
-        } catch (IOException e) {
+        }catch (IOException e){
             e.printStackTrace();
         }
     }
-    @Subscribe
-    public void onManagerEvent(ManagerEvent event){
-        try{
-            Message msg = new Message();
-            clientMsg.setUsername(App.getUsername());
-            msg.setAction("getClinicNameFromUserName");
-            msg.setUsername(App.getUsername());
-            SimpleClient.getClient().openConnection();
-            SimpleClient.getClient().sendToServer(msg);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     @Subscribe
     public void onClinicNameUpdateEvent(ClinicNameUpdateEvent event) {
         clientMsg.setClinicName(event.getClinicName());
