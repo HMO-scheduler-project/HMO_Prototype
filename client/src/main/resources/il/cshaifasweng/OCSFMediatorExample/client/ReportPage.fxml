@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="725.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ReportJavas.ReportPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="777.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ReportJavas.ReportPageController">
    <left>
-        <GridPane maxHeight="484.0" maxWidth="300.0" prefHeight="37.0" prefWidth="213.0" BorderPane.alignment="CENTER">
+        <GridPane maxHeight="484.0" maxWidth="300.0" prefHeight="484.0" prefWidth="177.0" BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="82.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="131.0" />
@@ -58,7 +58,8 @@
                               <TableColumn fx:id="UnclaimedAppointmentColumnD" prefWidth="65.0" text="Vaccine" />
                               <TableColumn fx:id="UnclaimedAppointmentColumnE" minWidth="0.0" prefWidth="75.0" text="Lab_Test" />
                               <TableColumn fx:id="UnclaimedAppointmentColumnF" minWidth="0.0" prefWidth="98.0" text="Covid_Test" />
-                              <TableColumn fx:id="UnclaimedAppointmentColumnG" prefWidth="111.0" text="Nurse_Care" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnG" prefWidth="70.0" text="Nurse" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnH" prefWidth="152.0" text="Special_Doctor" />
                            </columns>
                         </TableView>
                      </content>
@@ -67,13 +68,14 @@
                      <content>
                         <TableView fx:id="ServicesTypeRepTable" prefHeight="473.0" prefWidth="259.0">
                            <columns>
-                              <TableColumn fx:id="ServicesTypeColumnA" prefWidth="63.0" text="Day" />
-                              <TableColumn fx:id="ServicesTypeColumnB" prefWidth="86.0" text="FamilyDoctor" />
-                              <TableColumn fx:id="ServicesTypeColumnC" prefWidth="75.0" text="Pediatrician" />
-                              <TableColumn fx:id="ServicesTypeColumnD" prefWidth="50.0" text="Vaccine" />
-                              <TableColumn fx:id="ServicesTypeColumnE" minWidth="0.0" prefWidth="61.0" text="Lab_Test" />
-                              <TableColumn fx:id="ServicesTypeColumnF" minWidth="0.0" prefWidth="85.0" text="Covid_Test" />
-                              <TableColumn fx:id="ServicesTypeColumnG" prefWidth="90.0" text="Nurse_Care" />
+                              <TableColumn fx:id="ServicesTypeColumnA" prefWidth="75.0" text="Day" />
+                              <TableColumn fx:id="ServicesTypeColumnB" prefWidth="89.0" text="FamilyDoctor" />
+                              <TableColumn fx:id="ServicesTypeColumnC" prefWidth="77.0" text="Pediatrician" />
+                              <TableColumn fx:id="ServicesTypeColumnD" prefWidth="52.0" text="Vaccine" />
+                              <TableColumn fx:id="ServicesTypeColumnE" minWidth="0.0" prefWidth="66.0" text="Lab_Test" />
+                              <TableColumn fx:id="ServicesTypeColumnF" minWidth="0.0" prefWidth="81.0" text="Covid_Test" />
+                              <TableColumn fx:id="ServicesTypeColumnG" prefWidth="51.0" text="Nurse" />
+                              <TableColumn fx:id="ServicesTypeColumnH" prefWidth="109.0" text="SpecialDoctor" />
                            </columns>
                         </TableView>
                      </content>
@@ -84,6 +86,6 @@
       </SplitPane>
    </center>
    <top>
-      <Pane fx:id="menubar" prefHeight="58.0" prefWidth="725.0" BorderPane.alignment="CENTER" />
+      <Pane fx:id="menubar" prefHeight="58.0" prefWidth="737.0" BorderPane.alignment="CENTER" />
    </top>
 </BorderPane>

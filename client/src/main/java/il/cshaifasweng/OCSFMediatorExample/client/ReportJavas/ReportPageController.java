@@ -109,6 +109,8 @@ public class ReportPageController {
     @FXML
     private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnG;
     @FXML
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnH;
+    @FXML
     private Tab ServicesTypeBtn;
 
 
@@ -135,7 +137,8 @@ public class ReportPageController {
 
     @FXML
     private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnG;
-
+    @FXML
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnH;
     @FXML
     private Tab WaitingTimeReport;
     @FXML
@@ -292,12 +295,12 @@ public class ReportPageController {
     @Subscribe
     public void onAllTypeRepEvent(AllTypeRepEvent event) {
         AwaitingTimeRepColumnA.setCellValueFactory(new PropertyValueFactory<>("DoctorName"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_A"));
+        AwaitingTimeRepColumnB.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_A"));
         AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_B"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_C"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_D"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_E"));
-        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_F"));
+        AwaitingTimeRepColumnD.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_C"));
+        AwaitingTimeRepColumnE.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_D"));
+        AwaitingTimeRepColumnF.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_E"));
+        AwaitingTimeRepColumnG.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_F"));
         AwaitingTimeRepTable.setItems(FXCollections.observableList(event.getAwaitingTimeRep()));
 
         ServicesTypeColumnA.setCellValueFactory(new PropertyValueFactory<>("DayOfTheWeek"));
@@ -307,6 +310,7 @@ public class ReportPageController {
         ServicesTypeColumnE.setCellValueFactory(new PropertyValueFactory<>("LabResults"));
         ServicesTypeColumnF.setCellValueFactory(new PropertyValueFactory<>("CovidTest"));
         ServicesTypeColumnG.setCellValueFactory(new PropertyValueFactory<>("NurseCare"));
+        ServicesTypeColumnH.setCellValueFactory(new PropertyValueFactory<>("Special_Doctor"));
         ServicesTypeRepTable.setItems(FXCollections.observableList(event.getServicesTypeRep()));
 
 
@@ -317,6 +321,7 @@ public class ReportPageController {
         UnclaimedAppointmentColumnE.setCellValueFactory(new PropertyValueFactory<>("LabResults"));
         UnclaimedAppointmentColumnF.setCellValueFactory(new PropertyValueFactory<>("CovidTest"));
         UnclaimedAppointmentColumnG.setCellValueFactory(new PropertyValueFactory<>("NurseCare"));
+        UnclaimedAppointmentColumnH.setCellValueFactory(new PropertyValueFactory<>("Special_Doctor"));
         UnclaimedAppointmentRep.setItems(FXCollections.observableList(event.getMissedAppRep()));
     }
 
