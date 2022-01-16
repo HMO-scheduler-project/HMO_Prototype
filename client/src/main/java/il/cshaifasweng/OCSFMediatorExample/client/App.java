@@ -18,7 +18,6 @@ import java.util.Objects;
 
 import org.greenrobot.eventbus.Subscribe;
 
-
 /**
  * JavaFX App
  */
