@@ -123,7 +123,7 @@ public class ChangeScreens {
         Platform.runLater(() -> {
             App.setWindowTitle("WaitingRoomScreen");
             try {
-                App.setContent("WaitingRoomScreen");
+                App.setContent("waitingRoomScreen");
             } catch (IOException e) {
                 e.printStackTrace();
             }
