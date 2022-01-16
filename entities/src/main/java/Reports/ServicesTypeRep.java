@@ -33,11 +33,21 @@ public class ServicesTypeRep implements Serializable {
     private int CovidTest;
     @Column(name = "Nurse_Care")
     private int NurseCare;
+    @Column(name = "Special_Doctor")
+    private int Special_Doctor;
     //Do We need those one to one clinic class we ahve them on weekly report
     @OneToOne(targetEntity = Clinic.class)
     private Clinic Clinic;
 
-    public ServicesTypeRep(String dayOfTheWeek, int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare,Clinic clinic) {
+    public int getSpecial_Doctor() {
+        return Special_Doctor;
+    }
+
+    public void setSpecial_Doctor(int special_Doctor) {
+        Special_Doctor = special_Doctor;
+    }
+
+    public ServicesTypeRep(String dayOfTheWeek, int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare,int special_doctor, Clinic clinic) {
         DayOfTheWeek = dayOfTheWeek;
         FamilyDoctorPatientNumber = familyDoctorPatientNumber;
         PediatricianPatientNumber = pediatricianPatientNumber;
@@ -46,6 +56,7 @@ public class ServicesTypeRep implements Serializable {
         CovidTest = covidTest;
         NurseCare = nurseCare;
         Clinic = clinic;
+        Special_Doctor=special_doctor;
     }
 
     public ServicesTypeRep(String dayOfTheWeek, int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare) {
@@ -58,7 +69,7 @@ public class ServicesTypeRep implements Serializable {
         NurseCare = nurseCare;
     }
 
-    public ServicesTypeRep(HMO_Manager hmo_Manager, String dayOfTheWeek, int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare, Clinic clinic) {
+    public ServicesTypeRep(HMO_Manager hmo_Manager, String dayOfTheWeek, int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare,int special_doctor, Clinic clinic) {
         Hmo_Manager = hmo_Manager;
         DayOfTheWeek = dayOfTheWeek;
         FamilyDoctorPatientNumber = familyDoctorPatientNumber;
@@ -67,6 +78,7 @@ public class ServicesTypeRep implements Serializable {
         LabResults = labResults;
         CovidTest = covidTest;
         NurseCare = nurseCare;
+
         Clinic = clinic;
     }
 
@@ -194,4 +206,19 @@ public class ServicesTypeRep implements Serializable {
     public void AddAppointmentNurseCare() {
         NurseCare++;
     }
+
+//
+//
+// if(id%WorkingDaysOfTheWeek()==0)
+//    DayOfTheWeek="Sunday";
+//          if(id%WorkingDaysOfTheWeek()==1)
+//    DayOfTheWeek="Monday";
+//          if(id%WorkingDaysOfTheWeek()==2)
+//    DayOfTheWeek="Tuesday";
+//          if(id%WorkingDaysOfTheWeek()==3)
+//    DayOfTheWeek="Wednesday";
+//          if(id%WorkingDaysOfTheWeek()==4)
+//    DayOfTheWeek="Thursday";
+//          if(id%WorkingDaysOfTheWeek()==5)
+//    DayOfTheWeek="Friday";
 }
