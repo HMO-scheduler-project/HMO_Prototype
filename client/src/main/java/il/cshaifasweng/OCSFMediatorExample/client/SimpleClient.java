@@ -57,15 +57,14 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("clinicNameFromUserName")){
 			EventBus.getDefault().post(new ClinicNameUpdateEvent(currMsg.getClinicName()));
 		}
-		if(currMsg.getAction().equals("MissedAppRepToRep")){
-			EventBus.getDefault().post(new MissedAppRepEvent(currMsg.getMissedAppRep()));
-		}
-		if(currMsg.getAction().equals("AwaitingTimeRepToRep")){
-			EventBus.getDefault().post(new AwaitingTimeRepEvent(currMsg.getAwaitingTimeRep()));
 
-		}if(currMsg.getAction().equals("ServicesTypeRepToRep")){
-			EventBus.getDefault().post(new ServicesTypeRepEvent(currMsg.getServicesTypeRep()));
-		}
+	if(currMsg.getAction().equals("AllRepToRep")){
+		EventBus.getDefault().post(new AllTypeRepEvent(currMsg.getAwaitingTimeRep(),currMsg.getServicesTypeRep(),currMsg.getMissedAppRep()));
+	}
+
+
+
+
 		if(currMsg.getAction().equals("login done")){
 			EventBus.getDefault().post(new loginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getFirst_name()));
 		}
@@ -164,9 +163,9 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new GotSpecialDocEvent(currMsg.getSpecialDoctorList()));
 		}
 
-		if(currMsg.getAction().equals("Got vaccines")){
-			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine(),currMsg.getCovid19VaccineApp(),currMsg.getInfluenzaVaccineApp()));
-		}
+//		if(currMsg.getAction().equals("Got vaccines")){
+//			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine(),currMsg.getCovid19VaccineApp(),currMsg.getInfluenzaVaccineApp()));
+//		}
 		if(currMsg.getAction().equals("GetAllClinicsWithCovidTest")){
 			EventBus.getDefault().post(new GotClinicsWithCovidTest(currMsg.getClinicList()));
 		}
@@ -183,6 +182,12 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("Got green pass"))
 		{
 			EventBus.getDefault().post(new GreenPassEvent(currMsg.getGreenPass()));
+		}
+		if(currMsg.getAction().equals("Is_HMO_ManagerEvent")){
+			EventBus.getDefault().post(new HMO_ManagerEvent());
+		}
+		if(currMsg.getAction().equals("Is_ManagerEvent")){
+			EventBus.getDefault().post(new ManagerEvent());
 		}
 	}
 

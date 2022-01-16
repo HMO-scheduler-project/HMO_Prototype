@@ -62,6 +62,7 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(CovidQuestionnaire.class);
         configuration.addAnnotatedClass(clinicSpecialService.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        new WeeklyReportService();
         return configuration.buildSessionFactory(serviceRegistry);
     }
     @Override
@@ -76,7 +77,7 @@ public class Main extends SimpleServer {
                     if (!currMsg.getUsername().equals("") && !currMsg.getPassword().equals("")) {
                         userController.getUser(currMsg);
                         if(currMsg.getUser()!=null) {
-                            updateCellInDB(currMsg.getUser());
+                        updateCellInDB(currMsg.getUser());
                         }
                         serverMsg = currMsg;
                         serverMsg.setAction("login done");
@@ -91,7 +92,7 @@ public class Main extends SimpleServer {
                     if (!currMsg.getUserCardNumber().equals("")){
                         userController.getUserWithCardNumber(currMsg);
                         if(currMsg.getUser()!=null) {
-                            updateCellInDB(currMsg.getUser());
+                        updateCellInDB(currMsg.getUser());
                         }
                         serverMsg = currMsg;
                         serverMsg.setAction("loginByCard done");
@@ -442,12 +443,12 @@ public class Main extends SimpleServer {
                         serverMsg.setOpeningHour(serverMsg.getClinic().getOpeningHour());
                         serverMsg.setClosingHour(serverMsg.getClinic().getClosingHour());
                     }else if(currMsg.getService_name().equals("doctors") || currMsg.getService_name().equals("specialists")){
-                        Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
+                       Doctor doctor = userController.getDoctorByName(currMsg.getDoctor());
                         if(currMsg.getOpeningHour()!=null) {
                             doctor.setStart_working_hour(currMsg.getOpeningHour());
                         }
                         if(currMsg.getClosingHour()!=null) {
-                            doctor.setFinish_working_hour(currMsg.getClosingHour());
+                           doctor.setFinish_working_hour(currMsg.getClosingHour());
                         }
                         updateCellInDB(doctor);
                         serverMsg.setAction("saved new hours");
@@ -482,17 +483,17 @@ public class Main extends SimpleServer {
                             serverMsg.setClosingHour(worker.getFinish_working_hour());
                         }
                     }else if(currMsg.getService_name().equals("covid test") || currMsg.getService_name().equals("covid vaccine") || currMsg.getService_name().equals("influenza vaccine")) {
-                        clinicSpecialService service = clinicController.getService(currMsg.getService_name(),currMsg.getClinicName());
-                        if (currMsg.getOpeningHour() != null) {
-                            service.setStart(currMsg.getOpeningHour());
-                        }
-                        if (currMsg.getClosingHour() != null) {
-                            service.setEnd(currMsg.getClosingHour());
-                        }
-                        updateCellInDB(service);
-                        serverMsg.setAction("saved new hours");
-                        serverMsg.setOpeningHour(service.getStart());
-                        serverMsg.setClosingHour(service.getEnd());
+                            clinicSpecialService service = clinicController.getService(currMsg.getService_name(),currMsg.getClinicName());
+                            if (currMsg.getOpeningHour() != null) {
+                                service.setStart(currMsg.getOpeningHour());
+                            }
+                            if (currMsg.getClosingHour() != null) {
+                                service.setEnd(currMsg.getClosingHour());
+                            }
+                            updateCellInDB(service);
+                            serverMsg.setAction("saved new hours");
+                            serverMsg.setOpeningHour(service.getStart());
+                            serverMsg.setClosingHour(service.getEnd());
                     }
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -500,40 +501,26 @@ public class Main extends SimpleServer {
                 }
             }
 
-            if (currMsg.getAction().equals("getMissedAppRep")) {
+            if (currMsg.getAction().equals("getAllRep")) {
                 try {
+                    //got clinic name(string)-> find the neededreport ->return it
                     serverMsg = currMsg;
-                    serverMsg.setMissedAppRep(clinicController.getClinicByName(serverMsg.getClinicName()).getMissedAppRep());
-                    serverMsg.setAction("MissedAppRepToRep");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (currMsg.getAction().equals("getAwaitingTimeRep")) {
-                try {
-                    serverMsg = currMsg;
-                    serverMsg.setAwaitingTimeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getAwaitingTimeRep());
-                    serverMsg.setAction("AwaitingTimeRepToRep");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (currMsg.getAction().equals("getServicesTypeRep")) {
-                try {
-                    serverMsg = currMsg;
-                    serverMsg.setServicesTypeRep(clinicController.getClinicByName(serverMsg.getClinicName()).getServicesTypeRep());
-                    serverMsg.setAction("ServicesTypeRepToRep");
+                    serverMsg.setServicesTypeRep(Reportscontroller.getServicesTypeRepFromDB(serverMsg.getClinicName()));
+                    serverMsg.setMissedAppRep(Reportscontroller.getMissedAppRepFromDB(serverMsg.getClinicName()));
+                    serverMsg.setAwaitingTimeRep(Reportscontroller.getAwaitingTimeRepFromDB(serverMsg.getClinicName()));
+
+                    serverMsg.setAction("AllRepToRep");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             if (currMsg.getAction().equals("getClinicNameFromUserName")) {
+
                 try {
+
                     serverMsg = currMsg;
-                    serverMsg.setClinicName(userController.getManagerByUserName(serverMsg.getUsername()).getMain_clinic());
+                    serverMsg.setClinicName(userController.getManagerByUsername(serverMsg.getUsername()).getMain_clinic());
                     serverMsg.setAction("clinicNameFromUserName");
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
@@ -790,6 +777,22 @@ public class Main extends SimpleServer {
                     User user=userController.getUserByUsername(currMsg.getUsername());
                     serverMsg.setGreenPass(userController.getUserGreenPass(user));
                     serverMsg.setAction("Got green pass");
+                    client.sendToClient(serverMsg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("Is_Hmo_Manager")) {
+                try {
+                    //everything works exept that part i cant get function to say if its HMO_manager or not
+                    if(userController.IsHmo_ManagerByUsername(currMsg.getUsername()))
+                    {
+                        serverMsg.setAction("Is_HMO_ManagerEvent");
+                    }
+                    else{
+                        serverMsg.setAction("Is_ManagerEvent");
+                    }
+
                     client.sendToClient(serverMsg);
                 } catch (IOException e) {
                     e.printStackTrace();

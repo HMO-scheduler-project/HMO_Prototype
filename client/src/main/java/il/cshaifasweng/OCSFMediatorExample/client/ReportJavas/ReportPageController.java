@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Reports.AwaitingTimeRep;
+import Reports.MissedAppRep;
+import Reports.ServicesTypeRep;
 import Reports.WeeklyReport;
 import il.cshaifasweng.OCSFMediatorExample.client.*;
 import il.cshaifasweng.OCSFMediatorExample.client.events.*;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -19,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 public class ReportPageController {
     Message clientMsg = new Message();
@@ -57,8 +63,7 @@ public class ReportPageController {
     @FXML
     private MenuItem OpenningHoursBtn;
 
-    @FXML
-    private Button ServicesTypeBtn;
+
 
     @FXML
     private MenuItem contactInfoBtn;
@@ -72,33 +77,91 @@ public class ReportPageController {
     @FXML
     private MenuItem scheduledAppBtn;
 
-    @FXML
-    void PressChooseClinicBtn(ActionEvent event) {
+///////////
 
-    }
 
-    @FXML
-    private TableView<WeeklyReport> ReportTable;
-    @FXML
-    private TableColumn<WeeklyReport, String> ColumnA;
 
-    @FXML
-    private TableColumn<WeeklyReport, String> ColumnB;
+
+
+
+///////////
 
     @FXML
-    private TableColumn<WeeklyReport, String> ColumnC;
+    private Tab UnclaimedAppointment;
 
     @FXML
-    private TableColumn<WeeklyReport, String> ColumnD;
+    private TableView<MissedAppRep> UnclaimedAppointmentRep;
+    @FXML
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnB;
 
     @FXML
-    private TableColumn<WeeklyReport, String> ColumnE;
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnC;
 
     @FXML
-    private TableColumn<WeeklyReport, String> ColumnF;
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnD;
 
     @FXML
-    private TableColumn<WeeklyReport, String> ColumnG;
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnE;
+
+    @FXML
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnF;
+
+    @FXML
+    private TableColumn<MissedAppRep, Integer> UnclaimedAppointmentColumnG;
+    @FXML
+    private Tab ServicesTypeBtn;
+
+
+    @FXML
+    private TableView<ServicesTypeRep> ServicesTypeRepTable;
+
+    @FXML
+    private TableColumn<ServicesTypeRep, String> ServicesTypeColumnA;
+
+    @FXML
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnB;
+
+    @FXML
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnC;
+
+    @FXML
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnD;
+
+    @FXML
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnE;
+
+    @FXML
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnF;
+
+    @FXML
+    private TableColumn<ServicesTypeRep, Integer> ServicesTypeColumnG;
+
+    @FXML
+    private Tab WaitingTimeReport;
+    @FXML
+    private TableView<AwaitingTimeRep> AwaitingTimeRepTable;
+    @FXML
+    private TableColumn<AwaitingTimeRep, String> AwaitingTimeRepColumnA;
+
+    @FXML
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnB;
+
+    @FXML
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnC;
+
+    @FXML
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnD;
+
+    @FXML
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnE;
+
+    @FXML
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnF;
+
+    @FXML
+    private TableColumn<AwaitingTimeRep, Double> AwaitingTimeRepColumnG;
+
+
 
     @FXML
     void pressChangeAppBtn(ActionEvent event) {
@@ -136,72 +199,26 @@ public class ReportPageController {
     void pressScheduledAppBtn(ActionEvent event) {
 
     }
-//this is where you feel the info
+
+
+
+
+
     @FXML
     void pressServicesTypeBtn(ActionEvent event) {
-       //first check if there is a clinic since HMOmanager starts without one
-        if(clientMsg.getClinicName()!=null) {
-            //place what ever is in here in the table
-            clientMsg.getClinic().getServicesTypeRep();
-            Message msg = new Message();
-            msg.setClinicName(clientMsg.getClinicName());
-            msg.setAction("getServicesTypeRep");
-            try {
-                SimpleClient.getClient().sendToServer(msg);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
     }
 
     @FXML
     void pressWaitingTimeReportBtn(ActionEvent event) {
-        if(clientMsg.getClinicName()!=null) {
-            //place what ever is in here in the table
-            clientMsg.getClinic().getServicesTypeRep();
-            Message msg = new Message();
-            msg.setAction("getWaitingTimeRep");
-            msg.setClinicName(clientMsg.getClinicName());
-            try {
-                SimpleClient.getClient().sendToServer(msg);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
     @FXML
     void pressMissedAppBtn(ActionEvent event) {
-        if(clientMsg.getClinicName()!=null) {
-            //place what ever is in here in the table
-            clientMsg.getClinic().getServicesTypeRep();
-            Message msg = new Message();
-            msg.setClinicName(clientMsg.getClinicName());
-            msg.setAction("getMissedAppRep");
-            try {
-                SimpleClient.getClient().sendToServer(msg);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
-//////////until here
+
 
 
     @FXML
     void initialize() throws IOException  {
-        assert ChangeAppBtn != null : "fx:id=\"ChangeAppBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert ChangeHoursBtn != null : "fx:id=\"ChangeHoursBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert ClinicsBtn != null : "fx:id=\"ClinicsBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert ClinicsList != null : "fx:id=\"ClinicsList\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert MainPageBtn != null : "fx:id=\"MainPageBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert MissedAppBtn != null : "fx:id=\"MissedAppBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert OpenningHoursBtn != null : "fx:id=\"OpenningHoursBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert ServicesTypeBtn != null : "fx:id=\"ServicesTypeBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert contactInfoBtn != null : "fx:id=\"contactInfoBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert logoutBtn != null : "fx:id=\"logoutBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert newAppBtn != null : "fx:id=\"newAppBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
-        assert scheduledAppBtn != null : "fx:id=\"scheduledAppBtn\" was not injected: check your FXML file 'ReportPage.fxml'.";
 
         Parent menuBarParent = App.loadFXML("menuBar.fxml");
         String cssPath = getClass().getResource("/style.css").toString();
@@ -209,37 +226,47 @@ public class ReportPageController {
         menubar.getChildren().clear();
         menubar.getChildren().add(menuBarParent);
         EventBus.getDefault().register(this);
-        Manager = App.getUserType().equals("Manager");
-        HMO_Manager=App.getUserType().equals("HMO_Manager");
-        try {
-            clientMsg.setClinicName("");
-            if(HMO_Manager) {
-                ChooseMessage.setVisible(true);
-                ClinicsList.setVisible(true);
-                Message msg = new Message();
-                msg.setAction("GetAllClinics");
-                SimpleClient.getClient().openConnection();
-                SimpleClient.getClient().sendToServer(msg);
-            }
-            else {
-                ChooseMessage.setVisible(false);
-                ClinicsList.setVisible(false);
-                clientMsg.setClinicName(App.getUsername());
-                Message msg = new Message();
-                msg.setAction("getClinicNameFromUserName");
-                SimpleClient.getClient().openConnection();
-                SimpleClient.getClient().sendToServer(msg);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        clientMsg.setClinicName("");
+        Message msg = new Message();
+        msg.setUsername(clientMsg.getUsername());
+        msg.setAction("Is_Hmo_Manager");
+        System.out.println(msg.getAction());
+        SimpleClient.getClient().openConnection();
+        SimpleClient.getClient().sendToServer(msg);
 
 
 
     }
     @Subscribe
+    public void onHMO_ManagerEvent(HMO_ManagerEvent event){
+        try {
+            System.out.println("get all clinics event");
+            Message msg = new Message();
+            msg.setAction("GetAllClinics");
+            SimpleClient.getClient().openConnection();
+            SimpleClient.getClient().sendToServer(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Subscribe
+    public void onManagerEvent(ManagerEvent event){
+        try{
+            Message msg = new Message();
+            clientMsg.setUsername(App.getUsername());
+            msg.setAction("getClinicNameFromUserName");
+            msg.setUsername(App.getUsername());
+            SimpleClient.getClient().openConnection();
+            SimpleClient.getClient().sendToServer(msg);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Subscribe
     public void onClinicNameUpdateEvent(ClinicNameUpdateEvent event) {
         clientMsg.setClinicName(event.getClinicName());
+        ClinicsList.getItems().add(clientMsg.getClinicName());
     }
 
     @Subscribe
@@ -250,39 +277,51 @@ public class ReportPageController {
     }
     @FXML
     void chooseClinic() {
-        String chosenClinic = ClinicsList.getSelectionModel().getSelectedItem();
-        chosen_clinic = chosenClinic;
-        clientMsg.setClinicName(chosenClinic);
+        chosen_clinic = ClinicsList.getSelectionModel().getSelectedItem();
+        clientMsg.setClinicName(chosen_clinic);
+        clientMsg.setAction("getAllRep");
+        try {
+            SimpleClient.getClient().sendToServer(clientMsg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
+
     @Subscribe
-    public void onGetAwaitinigTimeRepEvent(AwaitingTimeRepEvent event) {
-            ColumnA.setCellValueFactory(new PropertyValueFactory<>("Day"));
-            ColumnB.setCellValueFactory(new PropertyValueFactory<>("FamilyDoctor"));
-            ColumnC.setCellValueFactory(new PropertyValueFactory<>("Pediatrician"));
-            ColumnD.setCellValueFactory(new PropertyValueFactory<>("Vaccine_Appointments"));
-            ColumnE.setCellValueFactory(new PropertyValueFactory<>("Lab_Test_Appointments"));
-            ColumnF.setCellValueFactory(new PropertyValueFactory<>("Covid_Test"));
-            ColumnG.setCellValueFactory(new PropertyValueFactory<>("Nurse_Care"));
+    public void onAllTypeRepEvent(AllTypeRepEvent event) {
+        AwaitingTimeRepColumnA.setCellValueFactory(new PropertyValueFactory<>("DoctorName"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_A"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_B"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_C"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_D"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_E"));
+        AwaitingTimeRepColumnC.setCellValueFactory(new PropertyValueFactory<>("AverageWaitingTime_F"));
+        AwaitingTimeRepTable.setItems(FXCollections.observableList(event.getAwaitingTimeRep()));
+
+        ServicesTypeColumnA.setCellValueFactory(new PropertyValueFactory<>("DayOfTheWeek"));
+        ServicesTypeColumnB.setCellValueFactory(new PropertyValueFactory<>("FamilyDoctorPatientNumber"));
+        ServicesTypeColumnC.setCellValueFactory(new PropertyValueFactory<>("PediatricianPatientNumber"));
+        ServicesTypeColumnD.setCellValueFactory(new PropertyValueFactory<>("VaccineAppointment"));
+        ServicesTypeColumnE.setCellValueFactory(new PropertyValueFactory<>("LabResults"));
+        ServicesTypeColumnF.setCellValueFactory(new PropertyValueFactory<>("CovidTest"));
+        ServicesTypeColumnG.setCellValueFactory(new PropertyValueFactory<>("NurseCare"));
+        ServicesTypeRepTable.setItems(FXCollections.observableList(event.getServicesTypeRep()));
+
+
+
+        UnclaimedAppointmentColumnB.setCellValueFactory(new PropertyValueFactory<>("FamilyDoctorPatientNumber"));
+        UnclaimedAppointmentColumnC.setCellValueFactory(new PropertyValueFactory<>("PediatricianPatientNumber"));
+        UnclaimedAppointmentColumnD.setCellValueFactory(new PropertyValueFactory<>("VaccineAppointment"));
+        UnclaimedAppointmentColumnE.setCellValueFactory(new PropertyValueFactory<>("LabResults"));
+        UnclaimedAppointmentColumnF.setCellValueFactory(new PropertyValueFactory<>("CovidTest"));
+        UnclaimedAppointmentColumnG.setCellValueFactory(new PropertyValueFactory<>("NurseCare"));
+        UnclaimedAppointmentRep.setItems(FXCollections.observableList(event.getMissedAppRep()));
     }
-    @Subscribe
-    public void onGetMissedApRepEvent(MissedAppRepEvent event) {
-        ColumnA.setCellValueFactory(new PropertyValueFactory<>(""));
-        ColumnB.setCellValueFactory(new PropertyValueFactory<>("FamilyDoctor"));
-        ColumnC.setCellValueFactory(new PropertyValueFactory<>("Pediatrician"));
-        ColumnD.setCellValueFactory(new PropertyValueFactory<>("Vaccine_Appointments"));
-        ColumnE.setCellValueFactory(new PropertyValueFactory<>("Lab_Test_Appointments"));
-        ColumnF.setCellValueFactory(new PropertyValueFactory<>("Covid_Test"));
-        ColumnG.setCellValueFactory(new PropertyValueFactory<>("Nurse_Care"));
-    }
-    @Subscribe
-    public void onGetServicesTypeRepEvent(ServicesTypeRepEvent event) {
-        ColumnA.setCellValueFactory(new PropertyValueFactory<>("Day"));
-        ColumnB.setCellValueFactory(new PropertyValueFactory<>("FamilyDoctor"));
-        ColumnC.setCellValueFactory(new PropertyValueFactory<>("Pediatrician"));
-        ColumnD.setCellValueFactory(new PropertyValueFactory<>("Vaccine_Appointments"));
-        ColumnE.setCellValueFactory(new PropertyValueFactory<>("Lab_Test_Appointments"));
-        ColumnF.setCellValueFactory(new PropertyValueFactory<>("Covid_Test"));
-        ColumnG.setCellValueFactory(new PropertyValueFactory<>("Nurse_Care"));
-    }
+
+
+
+
+
 }

@@ -16,9 +16,9 @@ public class appointmentController {
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
         Root<Appointment> root = query.from(Appointment.class);
         query.select(root);
-        query.where(builder.equal(root.get("patient"), user), builder.equal(root.get("arrived"),
-                false), builder.greaterThanOrEqualTo(root.get("date"), LocalDate.now()));
-        query.orderBy(builder.asc(root.get("date")), builder.asc(root.get("time")));
+        query.where(builder.equal(root.get("patient"), user),builder.equal(root.get("arrived"),
+                false),builder.greaterThanOrEqualTo(root.get("date"),LocalDate.now()));
+        query.orderBy(builder.asc(root.get("date")),builder.asc(root.get("time")));
         return Main.session.createQuery(query).getResultList();
     }
 
@@ -38,11 +38,11 @@ public class appointmentController {
         Root<Appointment> root = query.from(Appointment.class);
         query.select(root);
         query.where(builder.equal(root.get("patient"), patient));
-        query.orderBy(builder.asc(root.get("date")), builder.asc(root.get("time")));
+        query.orderBy(builder.asc(root.get("date")),builder.asc(root.get("time")));
         return Main.session.createQuery(query).getResultList();
     }
 
-    public static List<Appointment> getPatientListFromDB(Employee employee) {
+    public static List<Appointment> getPatientListFromDB(Employee employee){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
         Root<Appointment> root = query.from(Appointment.class);
@@ -61,19 +61,19 @@ public class appointmentController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
-    public static Appointment getAppointments(String clinic_name, String username) {
+    public static Appointment getAppointments(String clinic_name,String username){
         Patient patient = userController.getPatientByUsername(username);
         Clinic clinic = clinicController.getClinicByName(clinic_name);
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
         Root<Appointment> root = query.from(Appointment.class);
         query.select(root);
-        query.where(builder.equal(root.get("patient"), patient), builder.equal(root.get("clinic"), clinic), builder.equal(root.get("date"), LocalDate.now()), builder.equal(root.get("arrived"), false));
+        query.where(builder.equal(root.get("patient"), patient),builder.equal(root.get("clinic"),clinic),builder.equal(root.get("date"),LocalDate.now()),builder.equal(root.get("arrived"),false));
         query.orderBy(builder.asc(root.get("time")));
         return Main.session.createQuery(query).getResultList().get(0);
     }
 
-    public static List<specialDoctorApp> getAppointments(SpecialDoctor specialDoctor) {
+    public static List<specialDoctorApp> getAppointments(SpecialDoctor specialDoctor){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<specialDoctorApp> query = builder.createQuery(specialDoctorApp.class);
         Root<specialDoctorApp> root = query.from(specialDoctorApp.class);
@@ -94,16 +94,16 @@ public class appointmentController {
         return Main.session.createQuery(query).getResultList();
     }
 
-    public static List<Appointment> EmployeeAppointments(Clinic clinic, LocalDate date) {
+    public static List<Appointment> EmployeeAppointments(Clinic clinic, LocalDate date){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
         Root<Appointment> root = query.from(Appointment.class);
         query.select(root);
-        query.where(builder.equal(root.get("clinic"), clinic), builder.equal(root.get("date"), date));
+        query.where(builder.equal(root.get("clinic"), clinic),builder.equal(root.get("date"),date));
         return Main.session.createQuery(query).getResultList();
     }
 
-    public static List<Appointment> ClinicAppointments(Clinic clinic) {
+    public static List<Appointment> ClinicAppointments(Clinic clinic){
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query = builder.createQuery(Appointment.class);
         Root<Appointment> root = query.from(Appointment.class);
@@ -158,27 +158,27 @@ public class appointmentController {
 
     public static boolean AddNewDoctorAppointment(LocalTime time, LocalDate date, Clinic clinic, Patient patient, Doctor employee) {
         List<doctorApp> appointments = getDoctorPatientApps(patient);
-        if (appointments != null && !appointments.isEmpty()) {
+        if(appointments!=null && !appointments.isEmpty()){
             for (doctorApp appointment : appointments)
-                if (appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
+                if(appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
                     return false;
         }
-        doctorApp app = new doctorApp(time, date, clinic, patient, employee);
+        doctorApp  app=new doctorApp(time,date,clinic,patient,employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
     public static boolean AddNewCovidVaccineApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, LabWorker employee) {
         List<Covid19VaccineApp> appointments = getCovidVaccinePatientApps(patient);
-        if (appointments != null && !appointments.isEmpty()) {
+        if(appointments!=null && !appointments.isEmpty()){
             for (Covid19VaccineApp appointment : appointments)
-                if (appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
+                if(appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
                     return false;
         }
-        Covid19VaccineApp app = new Covid19VaccineApp(time, date, clinic, patient, employee);
+        Covid19VaccineApp  app=new Covid19VaccineApp(time,date,clinic,patient,employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
@@ -203,50 +203,50 @@ public class appointmentController {
     }
     public static boolean AddNewInfluenzaVaccineApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, LabWorker employee) {
         List<InfluenzaVaccineApp> appointments = getInfluenzaVaccinePatientApps(patient);
-        if (appointments != null && !appointments.isEmpty()) {
+        if(appointments!=null && !appointments.isEmpty()){
             for (InfluenzaVaccineApp appointment : appointments)
-                if (appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
+                if(appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
                     return false;
         }
-        InfluenzaVaccineApp app = new InfluenzaVaccineApp(time, date, clinic, patient, employee);
+        InfluenzaVaccineApp  app=new InfluenzaVaccineApp(time,date,clinic,patient,employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
     public static boolean AddNewCovidTestApp(LocalTime time, LocalDate date, Clinic clinic, Patient patient, LabWorker employee) {
         List<Covid19Test> appointments = getCovidTestPatientApps(patient);
-        if (appointments != null && !appointments.isEmpty()) {
+        if(appointments!=null && !appointments.isEmpty()){
             for (Covid19Test appointment : appointments)
-                if (appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
+                if(appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
                     return false;
         }
-        Covid19Test app = new Covid19Test(time, date, clinic, patient, employee);
+        Covid19Test app= new Covid19Test(time,date,clinic,patient,employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
     public static boolean AddSpecialDoctorAppointment(LocalTime time, LocalDate date, Clinic clinic, Patient patient, SpecialDoctor employee) {
         List<specialDoctorApp> appointments = getSpecialPatientApps(patient);
-        if (appointments != null && !appointments.isEmpty()) {
+        if(appointments!=null && !appointments.isEmpty()){
             for (specialDoctorApp appointment : appointments)
-                if (appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
+            if(appointment.getDate().equals(date) && appointment.getTime().equals(time) && appointment.getEmployee().getUsername().equals(employee.getUsername()))
                     return false;
         }
-        specialDoctorApp app = new specialDoctorApp(time, date, clinic, patient, employee);
+        specialDoctorApp  app=new specialDoctorApp(time,date,clinic,patient,employee);
         Main.saveRowInDB(app);
-        //SendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app)
+        sendingMail.sendScheduledAppointmentMessage("briootTovaPatient@gmail.com", app);
         return true;
     }
 
     public static List<Covid19VaccineApp> getVaccineApp(String user) {
-        Patient patient = userController.getPatientByUsername(user);
+        Patient patient=userController.getPatientByUsername(user);
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<Covid19VaccineApp> query = builder.createQuery(Covid19VaccineApp.class);
         Root<Covid19VaccineApp> root = query.from(Covid19VaccineApp.class);
         query.select(root);
-        query.where(builder.equal(root.get("patient"), patient), builder.equal(root.get("arrived"), true));
+        query.where(builder.equal(root.get("patient"), patient),builder.equal(root.get("arrived"),true));
         query.orderBy(builder.desc(root.get("date")));
         return Main.session.createQuery(query).getResultList();
     }
@@ -277,9 +277,10 @@ public class appointmentController {
             return null;
         InfluenzaVaccineApp influenzaVaccineApp = influenzaVaccineApps.get(0);
         if (influenzaVaccineApp.getDate().isBefore(LocalDate.now())) {
-            if (influenzaVaccineApp.isArrived())
+            if (influenzaVaccineApp.isArrived()) {
                 patient.setInfluenza_vaccinated(true);
-            return influenzaVaccineApp;
+                return influenzaVaccineApp;
+            }
         }
         if (influenzaVaccineApps.get(0).getDate().isAfter(LocalDate.now()))
             return influenzaVaccineApp;

@@ -46,9 +46,9 @@ public class Message implements Serializable {
     private List<Appointment> nearest_apps;
     private boolean arrived;
     private long app_count;
-    private AwaitingTimeRep awaitingTimeRep;
-    private MissedAppRep missedAppRep;
-    private ServicesTypeRep servicesTypeRep;
+//    private AwaitingTimeRep awaitingTimeRep;
+//    private MissedAppRep missedAppRep;
+//    private ServicesTypeRep servicesTypeRep;
     private LocalDate appDate;
     private LocalTime appTime;
     private boolean saved;
@@ -65,6 +65,8 @@ public class Message implements Serializable {
     private List<LabWorker> labWorkerList;
     private List<SpecialDoctor> specialDoctorList;
     private SpecialDoctor specialDoctor;
+    private Manager manager;
+    private HMO_Manager hmo_manager;
     /*-------Handling questionnaires-------*/
     private boolean met;
     private boolean fever;
@@ -73,33 +75,52 @@ public class Message implements Serializable {
     private boolean taste;
     private boolean smell;
 
+    private List<AwaitingTimeRep> awaitingTimeRep;
+    private List<MissedAppRep> missedAppRep;
+    private List<ServicesTypeRep> servicesTypeRep;
     /*-------Handling updates-------*/
     private String service_name;
     private List<String> services;
     private List<String> doctors;
     private String doctor;
     private GreenPass greenPass;
-    public AwaitingTimeRep getAwaitingTimeRep() {
+    public List<AwaitingTimeRep> getAwaitingTimeRep() {
         return awaitingTimeRep;
     }
 
-    public void setAwaitingTimeRep(AwaitingTimeRep awaitingTimeRep) {
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    public HMO_Manager getHmo_manager() {
+        return hmo_manager;
+    }
+
+    public void setHmo_manager(HMO_Manager hmo_manager) {
+        this.hmo_manager = hmo_manager;
+    }
+
+    public void setAwaitingTimeRep(List<AwaitingTimeRep> awaitingTimeRep) {
         this.awaitingTimeRep = awaitingTimeRep;
     }
 
-    public MissedAppRep getMissedAppRep() {
+    public List<MissedAppRep> getMissedAppRep() {
         return missedAppRep;
     }
 
-    public void setMissedAppRep(MissedAppRep missedAppRep) {
+    public void setMissedAppRep(List<MissedAppRep> missedAppRep) {
         this.missedAppRep = missedAppRep;
     }
 
-    public ServicesTypeRep getServicesTypeRep() {
+    public List<ServicesTypeRep> getServicesTypeRep() {
         return servicesTypeRep;
     }
 
-    public void setServicesTypeRep(ServicesTypeRep servicesTypeRep) {
+    public void setServicesTypeRep(List<ServicesTypeRep> servicesTypeRep) {
         this.servicesTypeRep = servicesTypeRep;
     }
 
