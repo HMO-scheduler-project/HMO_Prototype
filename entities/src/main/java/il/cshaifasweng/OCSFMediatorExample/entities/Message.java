@@ -1,12 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
-import Reports.AwaitingTimeRep;
-import Reports.MissedAppRep;
-import Reports.ServicesTypeRep;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +14,7 @@ public class Message implements Serializable {
     private String error;
     /* ---------- Handling users ---------- */
     private User user;
+    private Patient patient;
     private String username;
     private String first_name;
     private String password;
@@ -45,14 +42,13 @@ public class Message implements Serializable {
     private List<Appointment> nearest_apps;
     private boolean arrived;
     private long app_count;
-    private AwaitingTimeRep awaitingTimeRep;
-    private MissedAppRep missedAppRep;
-    private ServicesTypeRep servicesTypeRep;
     private LocalDate appDate;
     private LocalTime appTime;
     private boolean saved;
     private boolean removed;
     private List<specialDoctorApp> specialDoctorAppList;
+    private Covid19VaccineApp covid19VaccineApp;
+    private InfluenzaVaccineApp influenzaVaccineApp;
     /*-------Handling Employees-------*/
     private int employee_id;
     private String role;
@@ -62,6 +58,8 @@ public class Message implements Serializable {
     private List<LabWorker> labWorkerList;
     private List<SpecialDoctor> specialDoctorList;
     private SpecialDoctor specialDoctor;
+    private Manager manager;
+    private HMO_Manager hmo_manager;
     /*-------Handling questionnaires-------*/
     private boolean met;
     private boolean fever;
@@ -69,34 +67,58 @@ public class Message implements Serializable {
     private boolean tired;
     private boolean taste;
     private boolean smell;
-
+    /*------Handling Reports--------*/
+    private List<AwaitingTimeRep> awaitingTimeRep;
+    private List<MissedAppRep> missedAppRep;
+    private List<ServicesTypeRep> servicesTypeRep;
     /*-------Handling updates-------*/
     private String service_name;
     private List<String> services;
     private List<String> doctors;
     private String doctor;
     private GreenPass greenPass;
-    public AwaitingTimeRep getAwaitingTimeRep() {
+    /*-----Handling messages-------*/
+    private MessageToManager messageToManager;
+    private List<MessageToManager> messagesToManagerList;
+    List<String> managers;
+
+    public List<AwaitingTimeRep> getAwaitingTimeRep() {
         return awaitingTimeRep;
     }
 
-    public void setAwaitingTimeRep(AwaitingTimeRep awaitingTimeRep) {
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    public HMO_Manager getHmo_manager() {
+        return hmo_manager;
+    }
+
+    public void setHmo_manager(HMO_Manager hmo_manager) {
+        this.hmo_manager = hmo_manager;
+    }
+
+    public void setAwaitingTimeRep(List<AwaitingTimeRep> awaitingTimeRep) {
         this.awaitingTimeRep = awaitingTimeRep;
     }
 
-    public MissedAppRep getMissedAppRep() {
+    public List<MissedAppRep> getMissedAppRep() {
         return missedAppRep;
     }
 
-    public void setMissedAppRep(MissedAppRep missedAppRep) {
+    public void setMissedAppRep(List<MissedAppRep> missedAppRep) {
         this.missedAppRep = missedAppRep;
     }
 
-    public ServicesTypeRep getServicesTypeRep() {
+    public List<ServicesTypeRep> getServicesTypeRep() {
         return servicesTypeRep;
     }
 
-    public void setServicesTypeRep(ServicesTypeRep servicesTypeRep) {
+    public void setServicesTypeRep(List<ServicesTypeRep> servicesTypeRep) {
         this.servicesTypeRep = servicesTypeRep;
     }
 
@@ -408,14 +430,6 @@ public class Message implements Serializable {
         this.saved = saved;
     }
 
-    public boolean isRemoved() {
-        return removed;
-    }
-
-    public void setRemoved(boolean removed) {
-        this.removed = removed;
-    }
-
     public int getEmployee_id() {
         return employee_id;
     }
@@ -430,14 +444,6 @@ public class Message implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getEmployeeName() {
-        return employeeName;
-    }
-
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
     }
 
     public Employee getEmployee() {
@@ -542,5 +548,68 @@ public class Message implements Serializable {
 
     public void setSpecialDoctor(SpecialDoctor specialDoctor) {
         this.specialDoctor = specialDoctor;
+    }
+
+    public Covid19VaccineApp getCovid19VaccineApp() {
+        return covid19VaccineApp;
+    }
+
+    public void setCovid19VaccineApp(Covid19VaccineApp covid19VaccineApp) {
+        this.covid19VaccineApp = covid19VaccineApp;
+    }
+
+    public InfluenzaVaccineApp getInfluenzaVaccineApp() {
+        return influenzaVaccineApp;
+    }
+
+    public void setInfluenzaVaccineApp(InfluenzaVaccineApp influenzaVaccineApp) {
+        this.influenzaVaccineApp = influenzaVaccineApp;
+    }
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public MessageToManager getMessageToManager() {
+        return messageToManager;
+    }
+
+    public void setMessageToManager(MessageToManager messageToManager) {
+        this.messageToManager = messageToManager;
+    }
+
+    public List<MessageToManager> getMessagesToManagerList() {
+        return messagesToManagerList;
+    }
+
+    public void setMessagesToManagerList(List<MessageToManager> messagesToManagerList) {
+        this.messagesToManagerList = messagesToManagerList;
+    }
+
+    public List<String> getManagers() {
+        return managers;
+    }
+
+    public void setManagers(List<String> managers) {
+        this.managers = managers;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Patient getPatient() {
+        return patient;
     }
 }

@@ -1,48 +1,45 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
+import il.cshaifasweng.OCSFMediatorExample.client.events.MessagesUpdateEvent;
+import il.cshaifasweng.OCSFMediatorExample.client.events.showMessageEvent;
+import il.cshaifasweng.OCSFMediatorExample.entities.Message;
+import il.cshaifasweng.OCSFMediatorExample.entities.MessageToManager;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class ManagerMainScreen {
-
-    @FXML
-    private Button AverageWaitingTimeRep;
 
     @FXML
     private Pane menubar;
 
     @FXML
-    private Button numOfNoShowsRep;
-
-    @FXML
-    private Button numOfPatientsRep;
-
-    @FXML
-    private Label reportsLabel;
-
-    @FXML
     private TextField welcomeTF;
 
     @FXML
-    void pressOnAverageWaitingTimeRep(ActionEvent event) {
-    }
+    private Label MessageLabel;
 
     @FXML
-    void pressOnNumOfNoShowsRep(ActionEvent event) {
-    }
+    private TableView<MessageToManager> MessagesTable;
 
     @FXML
-    void pressOnNumberOfPatientsRep(ActionEvent event) {
-    }
+    private TableColumn<MessageToManager, String> fromCol;
+
+    @FXML
+    private TableColumn<MessageToManager, String> titleCol;
+
+    @FXML
+    private TextArea MessageTF;
+
 
     @FXML
     void initialize() throws IOException {
@@ -50,6 +47,56 @@ public class ManagerMainScreen {
         menubar.getChildren().clear();
         menubar.getChildren().add(menuBarParent);
         welcomeTF.setText("Welcome " + App.getFirst_name());
+        try {
+            Message msg= new Message();
+            msg.setUsername(App.getUsername());
+            msg.setAction("GetAllUnreadMessages");
+            SimpleClient.getClient().openConnection();
+            SimpleClient.getClient().sendToServer(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Subscribe
+    public void onMessagesUpdateEvent(MessagesUpdateEvent event) {
+        fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        MessagesTable.setItems(FXCollections.observableList(event.getMessagesList()));
+    }
+
+    @FXML
+    public void viewChosenMessage(ActionEvent event) {
+        if (MessagesTable.getSelectionModel().getSelectedItems() != null && MessagesTable.getSelectionModel().getSelectedIndex() != -1) {
+            Message msg = new Message();
+            msg.setMessageToManager(MessagesTable.getSelectionModel().getSelectedItem());
+            msg.setAction("show message");
+            try {
+                SimpleClient.getClient().sendToServer(msg);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            showAlert("Error", "Please choose a message first");
+        }
+    }
+
+    @Subscribe
+    public void onShowMessageEvent(showMessageEvent event) {
+        MessageTF.setText(event.getMessage());
+    }
+
+    public void showAlert(String title, String head) {
+        Platform.runLater(new Runnable() {
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(title);
+                alert.setHeaderText(null);
+                alert.setContentText(head);
+                alert.show();
+            }
+        });
     }
 
 }

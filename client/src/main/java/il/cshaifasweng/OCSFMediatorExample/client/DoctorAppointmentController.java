@@ -102,9 +102,8 @@ public class DoctorAppointmentController {
     public void OnBirthdateClinicEvent(BirthDateClinicEvent event)
     {
         clinic=event.getClinic();
-                try {
+        try {
             Message msg = new Message();
-            System.out.println(event.getAge());
             if (event.getAge() >= 18)
                 msg.setRole("family_doctor");
             else
@@ -118,14 +117,15 @@ public class DoctorAppointmentController {
             e.printStackTrace();
         }
     }
-@Subscribe
-public void onSavedApp(SavedAppEvent event) {
-    if (event.isSaved()) {
-        showAlert("Saved", "The appointment was saved successfully!");
-    } else {
-        showAlert("Error", "This appointment wasn't saved please try again!");
+    @Subscribe
+    public void onSavedApp(SavedAppEvent event) {
+        if (event.isSaved()) {
+            showAlert("Saved", "The appointment was saved successfully!");
+            ChangeScreens.changeToViewAppsScreen();
+        } else {
+            showAlert("Error", "This appointment wasn't saved please try again!");
+        }
     }
-}
 
     public void showAlert(String title, String head) {
         Platform.runLater(new Runnable() {
@@ -134,7 +134,7 @@ public void onSavedApp(SavedAppEvent event) {
                 alert.setTitle(title);
                 alert.setHeaderText(null);
                 alert.setContentText(head);
-                alert.showAndWait();
+                alert.show();
             }
         });
     }

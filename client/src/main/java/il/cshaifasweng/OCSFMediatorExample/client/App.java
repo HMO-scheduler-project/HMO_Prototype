@@ -14,7 +14,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Objects;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -210,6 +209,7 @@ public class App extends Application {
         appStage.setScene(scene);
         appStage.show();
     }
+
 
     public static void main(String[] args) {
         launch();

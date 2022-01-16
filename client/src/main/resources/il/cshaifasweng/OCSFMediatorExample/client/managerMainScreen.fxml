@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="653.0" prefWidth="630.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ManagerMainScreen">
     <children>
         <Pane fx:id="menubar" />
         <TextField fx:id="welcomeTF" layoutX="49.0" layoutY="117.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 20; -fx-font-weight: bold;" />
-      <Button fx:id="numOfPatientsRep" layoutX="41.0" layoutY="223.0" mnemonicParsing="false" onAction="#pressOnNumberOfPatientsRep" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Number of patients per service" />
-      <Button fx:id="numOfNoShowsRep" layoutX="40.0" layoutY="268.0" mnemonicParsing="false" onAction="#pressOnNumOfNoShowsRep" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Number of no shows per service" />
-      <Button fx:id="AverageWaitingTimeRep" layoutX="39.0" layoutY="314.0" mnemonicParsing="false" onAction="#pressOnAverageWaitingTimeRep" prefHeight="30.0" prefWidth="220.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Average waiting time per doctor " />
-      <Label fx:id="reportsLabel" layoutX="49.0" layoutY="187.0" text="Reports" />
+      <Label fx:id="MessageLabel" layoutX="49.0" layoutY="197.0" prefHeight="18.0" prefWidth="82.0" text="Messages">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TableView fx:id="MessagesTable" layoutX="50.0" layoutY="239.0" prefHeight="174.0" prefWidth="532.0">
+        <columns>
+          <TableColumn fx:id="fromCol" prefWidth="177.60000228881836" text="From" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+          <TableColumn fx:id="titleCol" prefWidth="354.3999786376953" text="Title" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );"/>
+        </columns>
+      </TableView>
+      <TextArea fx:id="MessageTF" layoutX="49.0" layoutY="429.0" prefHeight="210.0" prefWidth="532.0" />
     </children>
 </AnchorPane>

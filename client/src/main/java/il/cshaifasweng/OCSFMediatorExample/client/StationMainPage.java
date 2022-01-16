@@ -29,7 +29,6 @@ public class StationMainPage {
     @FXML
     private Button logoutBtn;
 
-
     @FXML
     void pressOnPrintTicketBtn(ActionEvent event) {
         try {
@@ -77,26 +76,32 @@ public class StationMainPage {
     @Subscribe
     public void onAppointmentTicketEvent(appointmentTicketEvent event){
         Appointment app = event.getApp();
-        if(app instanceof doctorApp){
-            appText.setText("Welcome "+app.getPatient().getFullName()+"\nAppointment time: " +app.getDate()+ " " +app.getTime()+ "\nDoctor: " +app.getEmployee().getFullName()+"\nRoom number "+app.getEmployee().getRoom_num());
+        long tickerNum = event.getTicketNum();
+        if(app!=null){
+            if (app instanceof doctorApp) {
+                appText.setText("Welcome " + app.getPatient().getFullName() + "\nTicket number : " + tickerNum + " " + "\nDoctor: " + app.getEmployee().getFullName() + "\nRoom number " + app.getEmployee().getRoom_num());
+            }
+            if (app instanceof childrenDoctorApp) {
+                appText.setText("Welcome " + app.getPatient().getFullName() + "\nTicket number : " + tickerNum + " " + "\nDoctor: " + app.getEmployee().getFullName() + "\nRoom number " + app.getEmployee().getRoom_num());
+            }
+            if (app instanceof familyDoctorApp) {
+                appText.setText("Welcome " + app.getPatient().getFullName() + "\nTicket number : " + tickerNum + " " + "\nDoctor: " + app.getEmployee().getFullName() + "\nRoom number " + app.getEmployee().getRoom_num());
+            }
+            if (app instanceof Covid19VaccineApp) {
+                appText.setText("Welcome " + app.getPatient().getFullName() + "\nTicket number : " + tickerNum + "\nRoom number " + app.getEmployee().getRoom_num());
+            }
+            if (app instanceof InfluenzaVaccineApp) {
+                appText.setText("Welcome " + app.getPatient().getFullName() + "\nTicket number : " + tickerNum + "\nRoom number " + app.getEmployee().getRoom_num());
+            }
+            if (app instanceof LabApp) {
+                appText.setText("Welcome " + app.getPatient().getFullName() + "\nTicket number : " + tickerNum + "\nLab Worker: " + app.getEmployee().getFullName() + "\nRoom number " + app.getEmployee().getRoom_num());
+            }
+            if (app instanceof NurseApp) {
+                appText.setText("Welcome " + app.getPatient().getFullName() + "\nTicket number : " + tickerNum + "\nNurse: " + app.getEmployee().getFullName() + "\nRoom number " + app.getEmployee().getRoom_num());
+            }
         }
-        if(app instanceof childrenDoctorApp){
-            appText.setText("Welcome "+app.getPatient().getFullName()+"\nAppointment time: " +app.getDate()+ " " +app.getTime()+ "\nDoctor: " +app.getEmployee().getFullName()+"\nRoom number "+app.getEmployee().getRoom_num());
-        }
-        if(app instanceof familyDoctorApp){
-            appText.setText("Welcome "+app.getPatient().getFullName()+"\nAppointment time: " +app.getDate()+ " " +app.getTime()+ "\nDoctor: " +app.getEmployee().getFullName()+"\nRoom number "+app.getEmployee().getRoom_num());
-        }
-        if(app instanceof Covid19VaccineApp){
-            appText.setText("Welcome "+app.getPatient().getFullName()+"\nAppointment time: " +app.getDate()+ " " +app.getTime()+"\nRoom number "+app.getEmployee().getRoom_num());
-        }
-        if(app instanceof InfluenzaVaccineApp){
-            appText.setText("Welcome "+app.getPatient().getFullName()+"\nAppointment time: " +app.getDate()+ " " +app.getTime()+"\nRoom number "+app.getEmployee().getRoom_num());
-        }
-        if(app instanceof LabApp){
-            appText.setText("Welcome "+app.getPatient().getFullName()+"\nAppointment time: " +app.getDate()+ " " +app.getTime()+ "\nLab Worker: "+ app.getEmployee().getFullName()+"\nRoom number "+app.getEmployee().getRoom_num());
-        }
-        if(app instanceof NurseApp){
-            appText.setText("Welcome "+app.getPatient().getFullName()+"\nAppointment time: " +app.getDate()+ " " +app.getTime()+ "\nNurse: "+ app.getEmployee().getFullName()+"\nRoom number "+app.getEmployee().getRoom_num());
+        else {
+            appText.setText("You don't have any appointment today.");
         }
     }
 

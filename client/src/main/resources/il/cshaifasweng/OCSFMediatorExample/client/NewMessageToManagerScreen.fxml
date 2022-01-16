@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="630.0"  style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.NewMessageToManagerScreen">
+   <children>
+      <Label layoutX="40.0" layoutY="73.0" text="New message">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Pane fx:id="menubar" layoutX="-1.0" prefHeight="68.0" prefWidth="630.0" />
+      <Label layoutX="40.0" layoutY="123.0" prefHeight="18.0" prefWidth="29.0" text="To:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="157.0" text="Title:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="191.0" text="Message:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="titleTF" layoutX="117.0" layoutY="154.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; "/>
+      <TextArea fx:id="bodyTF" layoutX="116.0" layoutY="191.0" prefHeight="148.0" prefWidth="481.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 ); -fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; "/>
+      <ComboBox fx:id="chooseManager" layoutX="117.0" layoutY="120.0" prefWidth="150.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; "/>
+      <Button fx:id="sendBtn" layoutX="116.0" layoutY="352.0" mnemonicParsing="false" onAction="#SendMessage" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Send" />
+   </children>
+</AnchorPane>

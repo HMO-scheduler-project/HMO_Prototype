@@ -57,14 +57,9 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("clinicNameFromUserName")){
 			EventBus.getDefault().post(new ClinicNameUpdateEvent(currMsg.getClinicName()));
 		}
-		if(currMsg.getAction().equals("MissedAppRepToRep")){
-			EventBus.getDefault().post(new MissedAppRepEvent(currMsg.getMissedAppRep()));
-		}
-		if(currMsg.getAction().equals("AwaitingTimeRepToRep")){
-			EventBus.getDefault().post(new AwaitingTimeRepEvent(currMsg.getAwaitingTimeRep()));
 
-		}if(currMsg.getAction().equals("ServicesTypeRepToRep")){
-			EventBus.getDefault().post(new ServicesTypeRepEvent(currMsg.getServicesTypeRep()));
+		if(currMsg.getAction().equals("AllRepToRep")){
+			EventBus.getDefault().post(new AllTypeRepEvent(currMsg.getAwaitingTimeRep(),currMsg.getServicesTypeRep(),currMsg.getMissedAppRep()));
 		}
 		if(currMsg.getAction().equals("login done")){
 			EventBus.getDefault().post(new loginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getFirst_name()));
@@ -85,7 +80,7 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
 		}
 		if(currMsg.getAction().equals("got appointment")){
-			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment()));
+			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment(),currMsg.getAppCount()));
 		}
 		if(currMsg.getAction().equals("got nurse app")){
 			EventBus.getDefault().post(new nurseAppEvent(currMsg.getAppointment()));
@@ -100,7 +95,7 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new labAppCounterEvent(currMsg.getAppointment(),currMsg.getAppCount()));
 		}
 		if(currMsg.getAction().equals("got Appointment")){
-			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment()));
+			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment(),currMsg.getAppCount()));
 		}
 		if(currMsg.getAction().equals("got patient apps")){
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
@@ -136,6 +131,9 @@ public class SimpleClient extends AbstractClient {
 		{
 			EventBus.getDefault().post(new RemoveAppEvent(currMsg.isRemoved()));
 		}
+		if(currMsg.getAction().equals("canceled app")){
+			EventBus.getDefault().post(new CanceledAppEvent(currMsg.isRemoved()));
+		}
 		if (currMsg.getAction().equals("got employees")) {
 			EventBus.getDefault().post(new GotDoctorsEvent(currMsg.getEmployeeList(),currMsg.getNearest_apps()));
 		}
@@ -165,7 +163,7 @@ public class SimpleClient extends AbstractClient {
 		}
 
 		if(currMsg.getAction().equals("Got vaccines")){
-			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine()));
+			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine(),currMsg.getCovid19VaccineApp(),currMsg.getInfluenzaVaccineApp()));
 		}
 		if(currMsg.getAction().equals("GetAllClinicsWithCovidTest")){
 			EventBus.getDefault().post(new GotClinicsWithCovidTest(currMsg.getClinicList()));
@@ -183,6 +181,18 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("Got green pass"))
 		{
 			EventBus.getDefault().post(new GreenPassEvent(currMsg.getGreenPass()));
+		}
+		if(currMsg.getAction().equals("GotMessagesToManager")){
+			EventBus.getDefault().post(new MessagesUpdateEvent(currMsg.getMessagesToManagerList()));
+		}
+		if(currMsg.getAction().equals("GotChosenMessage")){
+			EventBus.getDefault().post(new showMessageEvent(currMsg.getMessageToManager().getBody()));
+		}
+		if(currMsg.getAction().equals("ShowManagers")){
+			EventBus.getDefault().post(new ManagersUpdateEvent(currMsg.getManagers()));
+		}
+		if(currMsg.getAction().equals("sentMessageSuccessfully")){
+			EventBus.getDefault().post(new sentMessageEvent(true));
 		}
 	}
 

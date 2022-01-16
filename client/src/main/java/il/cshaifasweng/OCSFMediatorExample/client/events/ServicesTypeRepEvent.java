@@ -1,6 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.events;
 
-import Reports.ServicesTypeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.ServicesTypeRep;
 
 public class ServicesTypeRepEvent {
   private  ServicesTypeRep servicesTypeRep;

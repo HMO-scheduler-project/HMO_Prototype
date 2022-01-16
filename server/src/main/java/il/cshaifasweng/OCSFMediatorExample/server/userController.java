@@ -5,10 +5,11 @@ import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.swing.*;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class userController {
     private static List<User> getAllUsersFromDB() {
@@ -32,8 +33,8 @@ public class userController {
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
                             msg.setUser(user);
-                        }
-                        if (user instanceof Manager) {
+                            msg.setFirst_name(user.getFirstName());
+                        }else if (user instanceof Manager) {
                             msg.setUserType("Manager");
                             user.setLoggedIn(true);
                             msg.setStatus("logged in");
@@ -51,7 +52,6 @@ public class userController {
                             msg.setStatus("logged in");
                             msg.setUser(user);
                             msg.setFirst_name(user.getFirstName());
-                            System.out.println(msg.getUserType());
                         }
                     } else {
                         msg.setStatus("you are already logged in");
@@ -73,32 +73,32 @@ public class userController {
         for (User user : users) {
             if (user.checkCard(msg.getUserCardNumber())) {
                 user_found = true;
-                    if (!user.isLoggedIn()) {
-                        if(user instanceof HMO_Manager)
-                        {
-                            msg.setUserType("HMO_Manager");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        }else if (user instanceof Manager) {
-                            msg.setUserType("Manager");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        } else if (user instanceof Employee) {
-                            msg.setUserType("Employee");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        }else if (user instanceof Patient) {
-                            msg.setUserType("Patient");
-                            user.setLoggedIn(true);
-                            msg.setStatus("logged in");
-                            msg.setUser(user);
-                        }
-                    } else {
-                        msg.setStatus("you are already logged in");
+                if (!user.isLoggedIn()) {
+                    if(user instanceof HMO_Manager)
+                    {
+                        msg.setUserType("HMO_Manager");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
+                    }else if (user instanceof Manager) {
+                        msg.setUserType("Manager");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
+                    } else if (user instanceof Employee) {
+                        msg.setUserType("Employee");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
+                    }else if (user instanceof Patient) {
+                        msg.setUserType("Patient");
+                        user.setLoggedIn(true);
+                        msg.setStatus("logged in");
+                        msg.setUser(user);
                     }
+                } else {
+                    msg.setStatus("you are already logged in");
+                }
             }
         }
         if(!user_found) {
@@ -197,6 +197,15 @@ public class userController {
         return Main.session.createQuery(query).getSingleResult();
     }
 
+    public static List<String> getAllManagersNamesFromDB(){
+        CriteriaBuilder builder = Main.session.getCriteriaBuilder();
+        CriteriaQuery<Manager> query = builder.createQuery(Manager.class);
+        Root<Manager> root = query.from(Manager.class);
+        query.select(root);
+        return Main.session.createQuery(query).getResultList().stream()
+                .map((Manager::getFullName)).collect(Collectors.toList());
+    }
+
     public static User getUserById(int id) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
@@ -215,7 +224,6 @@ public class userController {
         query.where(builder.equal(root.get("first_name"), str[0]), builder.equal(root.get("last_name"), str[1]));
         return Main.session.createQuery(query).getSingleResult();
     }
-
 
     public static Patient getPatientByCardNum(String card_num) {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();
