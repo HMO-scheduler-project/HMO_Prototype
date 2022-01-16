@@ -96,8 +96,9 @@ public class WeeklyTask implements Runnable {
         Calendar c8 = Calendar.getInstance();
         c8.setTime(Date.from(today.atStartOfDay(defaultZoneId1).toInstant()));
         int dayOfWeek8 = c8.get(Calendar.DAY_OF_WEEK);
-        if(dayOfWeek8<7)
+        if(dayOfWeek8!=6)
             today=thisPastSaturday;
+
 
 //gets the query with the needed data
         CriteriaBuilder builder1 = Main.session.getCriteriaBuilder();
@@ -146,6 +147,13 @@ public class WeeklyTask implements Runnable {
 
 
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+//            if(dayOfWeek==7) dayOfWeek=2;
+//            if(dayOfWeek==6) dayOfWeek=1;
+//            if(dayOfWeek==5) dayOfWeek=7;
+//            if(dayOfWeek==4) dayOfWeek=6;
+//            if(dayOfWeek==3) dayOfWeek=5;
+//            if(dayOfWeek==2) dayOfWeek=6;
+//            if(dayOfWeek==1) dayOfWeek=3;
             if ((appointment.getType().equals("Doctor appointment")) && (appointment.getEmployee().getRole() == "pediatrician"))
                 pediatrician[dayOfWeek - 1]++;
             if ((appointment.getType().equals("Doctor appointment")) && (appointment.getEmployee().getRole() == "family_doctor"))
@@ -195,8 +203,11 @@ public class WeeklyTask implements Runnable {
 
         Calendar c8 = Calendar.getInstance();
         c8.setTime(Date.from(today.atStartOfDay(defaultZoneId1).toInstant()));
+
+
         int dayOfWeek8 = c8.get(Calendar.DAY_OF_WEEK);
-        if(dayOfWeek8<7)
+
+        if(dayOfWeek8!=7)
             today=thisPastSaturday;
         //gets the query with the needed data
         CriteriaBuilder builder1 = Main.session.getCriteriaBuilder();
@@ -273,7 +284,7 @@ public class WeeklyTask implements Runnable {
         Calendar c8 = Calendar.getInstance();
         c8.setTime(Date.from(today.atStartOfDay(defaultZoneId1).toInstant()));
         int dayOfWeek8 = c8.get(Calendar.DAY_OF_WEEK);
-        if(dayOfWeek8<7)
+        if(dayOfWeek8!=6)
             today=thisPastSaturday;
 //gets the query with the needed data
         CriteriaBuilder builder1 = Main.session.getCriteriaBuilder();
@@ -296,7 +307,13 @@ public class WeeklyTask implements Runnable {
             Calendar c = Calendar.getInstance();
             c.setTime(Date.from(localDate.atStartOfDay(defaultZoneId).toInstant()));
             int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-
+//            if(dayOfWeek==7) dayOfWeek=2;
+//            if(dayOfWeek==6) dayOfWeek=1;
+//            if(dayOfWeek==5) dayOfWeek=7;
+//            if(dayOfWeek==4) dayOfWeek=6;
+//            if(dayOfWeek==3) dayOfWeek=5;
+//            if(dayOfWeek==2) dayOfWeek=6;
+//            if(dayOfWeek==1) dayOfWeek=3;
 
             int CurrentWaitingTime = (int) MINUTES.between(appointment.getTime(), appointment.getActual_time());
             //first time and not last time
@@ -414,8 +431,7 @@ public class WeeklyTask implements Runnable {
 
             doctorId = appointment.getEmployee().getUserId();
         }
-
-    }
+}
 }
 
 
