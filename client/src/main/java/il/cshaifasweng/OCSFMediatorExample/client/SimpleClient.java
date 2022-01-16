@@ -65,11 +65,14 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new loginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getFirst_name()));
 		}
 
-		if(currMsg.getAction().equals("loginByCard done")){
-			System.out.println(currMsg.getUser().getUsername());
-			EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUser()));
-		}
-
+		if(currMsg.getAction().equals("loginByCarddone")){
+				if((currMsg.getStatus().equals("you are already logged in"))||(currMsg.getStatus().equals("Wrong CardNumber"))) {
+					EventBus.getDefault().post(new stationLoginEvent(currMsg.getStatus()));
+				}
+					else{
+					EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUser()));
+		}}
+//
 		if(currMsg.getAction().equals("logged out")){
 			EventBus.getDefault().post(new logoutEvent(currMsg.getStatus()));
 		}
@@ -162,9 +165,9 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new GotSpecialDocEvent(currMsg.getSpecialDoctorList()));
 		}
 
-		if(currMsg.getAction().equals("Got vaccines")){
-			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine(),currMsg.getCovid19VaccineApp(),currMsg.getInfluenzaVaccineApp()));
-		}
+//		if(currMsg.getAction().equals("Got vaccines")){
+//			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine(),currMsg.getCovid19VaccineApp(),currMsg.getInfluenzaVaccineApp()));
+//		}
 		if(currMsg.getAction().equals("GetAllClinicsWithCovidTest")){
 			EventBus.getDefault().post(new GotClinicsWithCovidTest(currMsg.getClinicList()));
 		}

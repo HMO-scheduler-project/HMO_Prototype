@@ -99,7 +99,7 @@ public class Main extends SimpleServer {
                             updateCellInDB(currMsg.getUser());
                         }
                         serverMsg = currMsg;
-                        serverMsg.setAction("loginByCard done");
+                        serverMsg.setAction("loginByCarddone");
                         client.sendToClient(serverMsg);
                     }
                 } catch (IOException | NoSuchAlgorithmException e) {

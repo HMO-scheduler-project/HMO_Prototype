@@ -53,8 +53,8 @@ public class LoginWithCardController  implements Initializable {
         try {
             String card_number = CardNumber.getText();
             if (card_number.equals("")) {
-                loginFailedWarning.setText("Please enter Card Number");
                 loginFailedWarning.setVisible(true);
+                loginFailedWarning.setText("Please enter Card Number");
             } else {
                 try {
                     loginFailedWarning.setVisible(false);
@@ -75,15 +75,17 @@ public class LoginWithCardController  implements Initializable {
     @Subscribe
     public void onLoginWithCardEvent(stationLoginEvent event) {
         String status = event.getStatus();
-        System.out.println(status);
+
         if (status != null) {
             if (status.equals("you are already logged in")) {
+                loginFailedWarning.setVisible(true);
                 loginFailedWarning.setText("Login Failed- user is already logged in");
-                loginFailedWarning.setVisible(true);
+                System.out.println("you are already logged in");
+
             } else if (status.equals(("Wrong CardNumber"))){
-                System.out.println("wrong card num");
-                loginFailedWarning.setText("Login Failed- incorrect Card Number.\nPlease try again or go to the main office");
                 loginFailedWarning.setVisible(true);
+                loginFailedWarning.setText("Login Failed- incorrect Card Number.\nPlease try again or go to the main office");
+
 
             }else {
                 App.setUsername(event.getUsername());
