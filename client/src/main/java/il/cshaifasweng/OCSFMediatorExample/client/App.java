@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class App extends Application {
 
     private static Scene scene;
-    private static SimpleClient client;
+    private SimpleClient client;
     private static String username;
     private static String user_type;
     private static String first_name;
