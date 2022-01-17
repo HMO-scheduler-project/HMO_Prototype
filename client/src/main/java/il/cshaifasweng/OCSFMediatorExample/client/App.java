@@ -34,6 +34,24 @@ public class App extends Application {
     private boolean isRegistered = false;
     private static boolean covid_vaccine=false;
     private static boolean influenza_vaccine=true;
+    private static String host;
+    private static int port;
+
+    public static String getHost() {
+        return host;
+    }
+
+    public static void setHost(String host) {
+        App.host = host;
+    }
+
+    public static int getPort() {
+        return port;
+    }
+
+    public static void setPort(int port) {
+        App.port = port;
+    }
 
     @Override
     public void start (Stage stage) throws IOException{
@@ -43,6 +61,7 @@ public class App extends Application {
                 isRegistered = true;
             }
             Parent root= loadFXML("chooseDevice.fxml");
+//            Parent root= loadFXML("HostPortScreen.fxml");
             Scene start = new Scene(root);
             String cssPath = getClass().getResource("/style.css").toString();
             stage.setTitle("Welcome");

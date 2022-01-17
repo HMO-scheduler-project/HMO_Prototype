@@ -64,7 +64,8 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(WeeklyReport.class);
         configuration.addAnnotatedClass(CovidQuestionnaire.class);
         configuration.addAnnotatedClass(clinicSpecialService.class);
-        configuration.addAnnotatedClass(MessageToManager.class);
+//  ADDED AS COMMENT CURRENTLY BECAUSE IT'S GIVING ERROR
+//        configuration.addAnnotatedClass(MessageToManager.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         new WeeklyReportService();
         return configuration.buildSessionFactory(serviceRegistry);
