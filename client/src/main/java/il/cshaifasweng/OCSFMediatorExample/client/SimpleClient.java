@@ -66,12 +66,12 @@ public class SimpleClient extends AbstractClient {
 		}
 
 		if(currMsg.getAction().equals("loginByCarddone")){
-				if((currMsg.getStatus().equals("you are already logged in"))||(currMsg.getStatus().equals("Wrong CardNumber"))) {
-					EventBus.getDefault().post(new stationLoginEvent(currMsg.getStatus()));
-				}
-					else{
-					EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUser()));
-		}}
+			if((currMsg.getStatus().equals("you are already logged in"))||(currMsg.getStatus().equals("Wrong CardNumber"))) {
+				EventBus.getDefault().post(new stationLoginEvent(currMsg.getStatus()));
+			}
+			else{
+				EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUser()));
+			}}
 //
 		if(currMsg.getAction().equals("logged out")){
 			EventBus.getDefault().post(new logoutEvent(currMsg.getStatus()));
@@ -201,7 +201,8 @@ public class SimpleClient extends AbstractClient {
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient(App.getHost(),App.getPort());
+//			client = new SimpleClient(App.getHost(),App.getPort());
+			client=new SimpleClient("localhost",3004);
 		}
 		return client;
 	}

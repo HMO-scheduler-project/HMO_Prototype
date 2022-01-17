@@ -60,8 +60,8 @@ public class App extends Application {
                 EventBus.getDefault().register(this);
                 isRegistered = true;
             }
-//            Parent root= loadFXML("chooseDevice.fxml");
-            Parent root= loadFXML("HostPortScreen.fxml");
+            Parent root= loadFXML("chooseDevice.fxml");
+//            Parent root= loadFXML("HostPortScreen.fxml");
             Scene start = new Scene(root);
             String cssPath = getClass().getResource("/style.css").toString();
             stage.setTitle("Welcome");
