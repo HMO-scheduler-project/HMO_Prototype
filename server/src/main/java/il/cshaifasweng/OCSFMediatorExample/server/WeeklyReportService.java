@@ -33,8 +33,8 @@ public class WeeklyReportService {
             delayInHours = delayInDays * 24 + ((24 - hour) + 11);
         }
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-//        scheduler.scheduleAtFixedRate(new WeeklyTask(), delayInHours,
-//                168, TimeUnit.HOURS);
-        scheduler.scheduleAtFixedRate(new WeeklyTask(), 0,
-                3, TimeUnit.HOURS);
+        scheduler.scheduleAtFixedRate(new WeeklyTask(), delayInHours,
+                168, TimeUnit.HOURS);
+//        scheduler.scheduleAtFixedRate(new WeeklyTask(), 0,
+//                3, TimeUnit.MINUTES);
     }}
