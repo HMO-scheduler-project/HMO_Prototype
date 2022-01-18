@@ -107,7 +107,7 @@ public class DoctorAppointmentController {
             if (event.getAge() >= 18)
                 msg.setRole("family_doctor");
             else
-                msg.setRole("children_doctor");
+                msg.setRole("pediatrician");
             msg.setClinicName(clinic.getName());
             msg.setUsername(App.getUsername());
             msg.setAction("Get employees");
