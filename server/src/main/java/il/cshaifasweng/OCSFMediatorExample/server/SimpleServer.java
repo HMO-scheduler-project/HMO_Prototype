@@ -1,12 +1,25 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import il.cshaifasweng.OCSFMediatorExample.server.ocsf.clinicClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 public class SimpleServer extends AbstractServer {
+	private static ArrayList<clinicClient> waitingRoomList;
+
+	public static ArrayList<clinicClient> getWaitingRoomList() {
+		return waitingRoomList;
+	}
+
+	public void setWaitingRoomList(ArrayList<clinicClient> waitingRoomList) {
+		this.waitingRoomList = waitingRoomList;
+	}
+
+	//public void addToWaitingRoomList(c)
 
 	public SimpleServer(int port) {
 		super(port);

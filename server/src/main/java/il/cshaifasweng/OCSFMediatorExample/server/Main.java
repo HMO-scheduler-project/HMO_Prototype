@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import il.cshaifasweng.OCSFMediatorExample.server.ocsf.clinicClient;
 
 import java.io.IOException;
 
@@ -19,10 +20,7 @@ import java.security.NoSuchAlgorithmException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
 public class Main extends SimpleServer {
@@ -30,6 +28,7 @@ public class Main extends SimpleServer {
     public static Session session;
     private Message serverMsg;
     private static SimpleServer server;
+
 
     public Main(int port) {
         super(port);
@@ -580,11 +579,29 @@ public class Main extends SimpleServer {
             if(currMsg.getAction().equals("call next patient")){
                 try {
                     serverMsg.setRoom(currMsg.getEmployee().getRoom_num());
+                    serverMsg.setClinicName(currMsg.getEmployee().getMain_clinic());
                     serverMsg.setPatientName(currMsg.getPatientName());
                     serverMsg.setAction("print message to screen");
-                    client.sendToClient(serverMsg);
+                    for(clinicClient waitingClient: SimpleServer.getWaitingRoomList()){
+                        if (waitingClient.getClinic_name().equals(serverMsg.getClinic_name())){
+                            waitingClient.getClient().sendToClient(serverMsg);
+                        }
+                    }
                 } catch (IOException  e) {
                     e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("add waiting room screen")){
+                clinicClient connection = new clinicClient(currMsg.getClinic_name(), client);
+                SimpleServer.getWaitingRoomList().add(connection);
+                try {
+                    serverMsg.setAction("clinic waiting room listed successfully");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    assert session != null;
+                    session.close();
                 }
             }
             if (currMsg.getAction().equals("Get employees")) {
@@ -823,6 +840,8 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -831,6 +850,7 @@ public class Main extends SimpleServer {
             session.close();
         }
     }
+
 
     public static<T> void updateCellInDB(T objectType) {
         try {

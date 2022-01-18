@@ -197,6 +197,9 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("sentMessageSuccessfully")){
 			EventBus.getDefault().post(new sentMessageEvent(true));
 		}
+		if(currMsg.getAction().equals("clinic waiting room listed successful")){
+			EventBus.getDefault().post(new clinicClientEvent(true));
+		}
 	}
 
 	public static SimpleClient getClient() {

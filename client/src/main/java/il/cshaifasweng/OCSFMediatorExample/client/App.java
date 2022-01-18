@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.Subscribe;
 public class App extends Application {
 
     private static Scene scene;
-    private SimpleClient client;
+    private static SimpleClient client;
     private static String username;
     private static String user_type;
     private static String first_name;
@@ -51,6 +51,10 @@ public class App extends Application {
 
     public static void setPort(int port) {
         App.port = port;
+    }
+
+    public static SimpleClient getSimpleClient() {
+        return client;
     }
 
     @Override
