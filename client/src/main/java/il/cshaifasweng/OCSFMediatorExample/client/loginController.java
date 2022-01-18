@@ -57,7 +57,6 @@ public class loginController implements Initializable {
                         Message msg = new Message();
                         msg.setUsername(username);
                         msg.setPassword(password);
-                        System.out.println(msg.getUsername());
                         msg.setAction("login");
                         SimpleClient.getClient().sendToServer(msg);
                     } catch (IOException e) {

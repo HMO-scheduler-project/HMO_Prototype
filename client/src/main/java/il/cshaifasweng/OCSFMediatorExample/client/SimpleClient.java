@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class SimpleClient extends AbstractClient {
 
-	private static SimpleClient client = null;
+	private static SimpleClient client = new SimpleClient(App.getHost(),App.getPort());
 	private static final Logger LOGGER = Logger.getLogger(SimpleClient.class.getName());
 
 	private SimpleClient(String host, int port) {
@@ -65,11 +65,14 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new loginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUsername(),currMsg.getFirst_name()));
 		}
 
-		if(currMsg.getAction().equals("loginByCard done")){
-			System.out.println(currMsg.getUser().getUsername());
-			EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUser()));
-		}
-
+		if(currMsg.getAction().equals("loginByCarddone")){
+			if((currMsg.getStatus().equals("you are already logged in"))||(currMsg.getStatus().equals("Wrong CardNumber"))) {
+				EventBus.getDefault().post(new stationLoginEvent(currMsg.getStatus()));
+			}
+			else{
+				EventBus.getDefault().post(new stationLoginEvent(currMsg.getUserType(),currMsg.getStatus(),currMsg.getUser()));
+			}}
+//
 		if(currMsg.getAction().equals("logged out")){
 			EventBus.getDefault().post(new logoutEvent(currMsg.getStatus()));
 		}
@@ -122,7 +125,7 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new EmployeeEvent(currMsg.getEmployee()));
 		}
 		if(currMsg.getAction().equals("print message to screen")){
-			EventBus.getDefault().post(new printMessageToScreenEvent(currMsg.getRoom(),currMsg.getPatientName()));
+			EventBus.getDefault().post(new printMessageToScreenEvent(currMsg.getRoom(),currMsg.getAppCount()));
 		}
 		if (currMsg.getAction().equals("got patient appointments")) {
 			EventBus.getDefault().post(new ViewAppsEvent(currMsg.getNearest_apps()));
@@ -194,11 +197,15 @@ public class SimpleClient extends AbstractClient {
 		if(currMsg.getAction().equals("sentMessageSuccessfully")){
 			EventBus.getDefault().post(new sentMessageEvent(true));
 		}
+		if(currMsg.getAction().equals("clinic waiting room listed successful")){
+			EventBus.getDefault().post(new clinicClientEvent(true));
+		}
 	}
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 3004);
+			client = new SimpleClient(App.getHost(),App.getPort());
+//			client=new SimpleClient("localhost",3004);
 		}
 		return client;
 	}

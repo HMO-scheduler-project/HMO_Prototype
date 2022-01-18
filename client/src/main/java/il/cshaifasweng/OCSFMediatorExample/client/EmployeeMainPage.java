@@ -71,7 +71,7 @@ public class EmployeeMainPage {
         try {
             Message msg = new Message();
             msg.setAction("call next patient");
-            msg.setPatientName(patientName.getText());
+            msg.setAppointment(nearestAppTable.getSelectionModel().getSelectedItem());
             msg.setEmployee(this.employee);
             SimpleClient.getClient().sendToServer(msg);
         }catch (IOException e){

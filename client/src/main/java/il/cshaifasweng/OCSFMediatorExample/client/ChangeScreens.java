@@ -16,6 +16,16 @@ public class ChangeScreens {
             }
         });
     }
+    public static void changeToChooseDeviceScreen() {
+        Platform.runLater(() -> {
+            App.setWindowTitle("Welcome");
+            try {
+                App.setContent("chooseDevice");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     public static void changeToReportsScreen(){
         Platform.runLater(()->{
@@ -123,7 +133,7 @@ public class ChangeScreens {
         Platform.runLater(() -> {
             App.setWindowTitle("WaitingRoomScreen");
             try {
-                App.setContent("WaitingRoomScreen");
+                App.setContent("waitingRoomScreen");
             } catch (IOException e) {
                 e.printStackTrace();
             }

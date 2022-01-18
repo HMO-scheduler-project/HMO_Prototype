@@ -21,6 +21,7 @@ public class Appointment implements Serializable {
     @ManyToOne (targetEntity = Employee.class)
     Employee employee;
     protected String type="Appointment";
+    protected long count;
 
     public Appointment() {
     }
@@ -100,6 +101,14 @@ public class Appointment implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
     }
 }
 

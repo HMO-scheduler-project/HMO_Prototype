@@ -24,7 +24,6 @@ import org.greenrobot.eventbus.Subscribe;
 public class App extends Application {
 
     private static Scene scene;
-    private SimpleClient client;
     private static String username;
     private static String user_type;
     private static String first_name;
@@ -34,6 +33,24 @@ public class App extends Application {
     private boolean isRegistered = false;
     private static boolean covid_vaccine=false;
     private static boolean influenza_vaccine=true;
+    private static String host;
+    private static int port;
+
+    public static String getHost() {
+        return host;
+    }
+
+    public static void setHost(String host) {
+        App.host = host;
+    }
+
+    public static int getPort() {
+        return port;
+    }
+
+    public static void setPort(int port) {
+        App.port = port;
+    }
 
     @Override
     public void start (Stage stage) throws IOException{
@@ -42,7 +59,8 @@ public class App extends Application {
                 EventBus.getDefault().register(this);
                 isRegistered = true;
             }
-            Parent root= loadFXML("chooseDevice.fxml");
+//            Parent root= loadFXML("chooseDevice.fxml");
+            Parent root= loadFXML("HostPortScreen.fxml");
             Scene start = new Scene(root);
             String cssPath = getClass().getResource("/style.css").toString();
             stage.setTitle("Welcome");
@@ -87,7 +105,7 @@ public class App extends Application {
     @Subscribe
     public void SetClient(Message msg) throws IOException {
         if(msg.getAction().equals("set client")) {
-            client = SimpleClient.getClient();
+            SimpleClient client = SimpleClient.getClient();
         }
     }
 

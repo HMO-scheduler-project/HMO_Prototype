@@ -1,6 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.AwaitingTimeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.MissedAppRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.ServicesTypeRep;
+import il.cshaifasweng.OCSFMediatorExample.entities.Appointment;
+import il.cshaifasweng.OCSFMediatorExample.entities.Clinic;
+import il.cshaifasweng.OCSFMediatorExample.entities.SpecialDoctor;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
@@ -32,9 +37,9 @@ public class WeeklyTask implements Runnable {
         List<Clinic> ClinicList = Main.session.createQuery(query).getResultList();
 
 
-//        ClearAwaitingTimeReport();
-//        ClearMissedAppReport();
-//        ClearServicesTypeReport();
+        ClearAwaitingTimeReport();
+        ClearMissedAppReport();
+        ClearServicesTypeReport();
         for (Clinic clinic : ClinicList) {
 
 
@@ -46,32 +51,35 @@ public class WeeklyTask implements Runnable {
         }
     }
 
-//    public static int ClearServicesTypeReport() {
-//        //clear the report table
-//        CriteriaBuilder criteriaBuilder = Main.session.getCriteriaBuilder();
-//        CriteriaDelete<ServicesTypeRep> query = criteriaBuilder.createCriteriaDelete(ServicesTypeRep.class);
-//        Root<ServicesTypeRep> root = query.from(ServicesTypeRep.class);
-//        return Main.session.createQuery(query).executeUpdate();
-//    }
-//
-//    public static int ClearMissedAppReport() {
-//        //clear the report table
-//        CriteriaBuilder criteriaBuilder = Main.session.getCriteriaBuilder();
-//        CriteriaDelete<MissedAppRep> query = criteriaBuilder.createCriteriaDelete(MissedAppRep.class);
-//        Root<MissedAppRep> root = query.from(MissedAppRep.class);
-//        return Main.session.createQuery(query).executeUpdate();
-//    }
-//
-//    public static int ClearAwaitingTimeReport() {
-//        CriteriaBuilder criteriaBuilder = Main.session.getCriteriaBuilder();
-//        CriteriaDelete<AwaitingTimeRep> query = criteriaBuilder.createCriteriaDelete(AwaitingTimeRep.class);
-//        Root<AwaitingTimeRep> root = query.from(AwaitingTimeRep.class);
-//        return Main.session.createQuery(query).executeUpdate();
-//
-//    }
-//
+    public static int ClearServicesTypeReport() {
+        //clear the report table
+        CriteriaBuilder criteriaBuilder = Main.session.getCriteriaBuilder();
+        CriteriaDelete<ServicesTypeRep> query = criteriaBuilder.createCriteriaDelete(ServicesTypeRep.class);
+        Root<ServicesTypeRep> root = query.from(ServicesTypeRep.class);
+        int result = Main.session.createQuery(query).executeUpdate();
+        return result;
+    }
 
-    public static void  CreateServicesTypeReportForClinic(Clinic clinic){
+    public static int ClearMissedAppReport() {
+        //clear the report table
+        CriteriaBuilder criteriaBuilder = Main.session.getCriteriaBuilder();
+        CriteriaDelete<MissedAppRep> query = criteriaBuilder.createCriteriaDelete(MissedAppRep.class);
+        Root<MissedAppRep> root = query.from(MissedAppRep.class);
+        int result = Main.session.createQuery(query).executeUpdate();
+        return result;
+    }
+
+    public static int ClearAwaitingTimeReport() {
+        CriteriaBuilder criteriaBuilder = Main.session.getCriteriaBuilder();
+        CriteriaDelete<AwaitingTimeRep> query = criteriaBuilder.createCriteriaDelete(AwaitingTimeRep.class);
+        Root<AwaitingTimeRep> root = query.from(AwaitingTimeRep.class);
+        int result = Main.session.createQuery(query).executeUpdate();
+        return result;
+
+    }
+
+
+    public static void CreateServicesTypeReportForClinic(Clinic clinic) {
 
         ZoneId defaultZoneId1 = ZoneId.systemDefault();
         LocalDate today = LocalDate.now();
@@ -90,11 +98,12 @@ public class WeeklyTask implements Runnable {
         if(dayOfWeek8<7)
             today=thisPastSaturday;
 
+
 //gets the query with the needed data
         CriteriaBuilder builder1 = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query1 = builder1.createQuery(Appointment.class);
         Root<Appointment> root1 = query1.from(Appointment.class);
-        query1.multiselect(root1.get("clinic"),root1.get("appointment_id"),root1.get("time"),  root1.get("arrived"), root1.get("date"),root1.get("employee"),root1.get("type"));
+        query1.multiselect(root1.get("clinic"), root1.get("appointment_id"), root1.get("time"), root1.get("arrived"), root1.get("date"), root1.get("employee"), root1.get("type"));
         query1.where(builder1.equal(root1.get("clinic"), clinic), builder1.equal(root1.get("arrived"), true), builder1.between(root1.<LocalDate>get("date"), thisPastSunday, today));
         query1.orderBy(builder1.asc(root1.get("date")));
         List<Appointment> appointments = Main.session.createQuery(query1).getResultList();
@@ -174,7 +183,7 @@ public class WeeklyTask implements Runnable {
         CriteriaBuilder builder1 = Main.session.getCriteriaBuilder();
         CriteriaQuery<Appointment> query1 = builder1.createQuery(Appointment.class);
         Root<Appointment> root1 = query1.from(Appointment.class);
-        query1.multiselect(root1.get("clinic"), root1.get("appointment_id"), root1.get("time"), root1.get("arrived"),root1.get("date"),root1.get("employee"),root1.get("type"));
+        query1.multiselect(root1.get("clinic"), root1.get("appointment_id"), root1.get("time"), root1.get("arrived"), root1.get("date"), root1.get("employee"), root1.get("type"));
         query1.where(builder1.equal(root1.get("clinic"), clinic), builder1.equal(root1.get("arrived"), false), builder1.between(root1.<LocalDate>get("date"), thisPastSunday, today));
         //builder1.equal(root1.get("clinic_Num"), clinic.getNum())
         //employee_user_id
@@ -211,11 +220,12 @@ public class WeeklyTask implements Runnable {
 //                else if (getUserByUsername(appointment.getEmployee().getUsername()) instanceof SpecialDoctor)
 //                    Special_doctor++;
         }
-        MissedAppRep ReadyReport = new MissedAppRep(clinic,familyDoctor, pediatrician, vaccine_Appointments, lab_Test_Appointments, covid_Test, nurse_Care,Special_doctor);
+        MissedAppRep ReadyReport = new MissedAppRep(clinic, familyDoctor, pediatrician, vaccine_Appointments, lab_Test_Appointments, covid_Test, nurse_Care, Special_doctor);
         Main.session.save(ReadyReport);
         Main.session.flush();
 
     }
+
     public static void CreateAwaitingTimeRepForClinic(Clinic clinic) {
         ZoneId defaultZoneId1 = ZoneId.systemDefault();
         LocalDate today = LocalDate.now();
@@ -238,15 +248,12 @@ public class WeeklyTask implements Runnable {
         CriteriaQuery<Appointment> query1 = builder1.createQuery(Appointment.class);
         Root<Appointment> root1 = query1.from(Appointment.class);
 
-        query1.multiselect(root1.get("time"),root1.get("actual_time"), root1.get("arrived"),root1.get("date"), root1.get("clinic"),root1.get("employee"));
+        query1.multiselect(root1.get("time"), root1.get("actual_time"), root1.get("arrived"), root1.get("date"), root1.get("clinic"), root1.get("employee"));
         query1.where(builder1.equal(root1.get("clinic"), clinic), builder1.equal(root1.get("arrived"), true), builder1.between(root1.<LocalDate>get("date"), thisPastSunday, today));
         query1.orderBy(builder1.asc(root1.get("employee")));
 //,builder1.notEqual(root1.get("employee"), null),builder1.notEqual(root1.get("employee"), "")
         List<Appointment> appointments = Main.session.createQuery(query1).getResultList();
-// 1.sum actual_time-time for each doctor (only if actual_time is there)
-//   2. count for each doctor how much arrivals were there
-//    3.make average
-//    4.place all in the awating time table and save
+
         int doctorId = -1;
         double[] averageOfTime = {0, 0, 0, 0, 0, 0};
         int[] counttheAppointments = {0, 0, 0, 0, 0, 0};

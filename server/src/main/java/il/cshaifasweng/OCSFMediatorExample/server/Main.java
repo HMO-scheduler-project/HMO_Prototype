@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import il.cshaifasweng.OCSFMediatorExample.server.ocsf.clinicClient;
 
 import java.io.IOException;
 
@@ -99,7 +100,7 @@ public class Main extends SimpleServer {
                             updateCellInDB(currMsg.getUser());
                         }
                         serverMsg = currMsg;
-                        serverMsg.setAction("loginByCard done");
+                        serverMsg.setAction("loginByCarddone");
                         client.sendToClient(serverMsg);
                     }
                 } catch (IOException | NoSuchAlgorithmException e) {
@@ -289,7 +290,10 @@ public class Main extends SimpleServer {
                     Appointment appointment=appointmentController.getAppointments(currMsg.getClinicName(),currMsg.getUsername());
                     serverMsg.setAppointment(appointment);
                     if (appointment!=null) {
-                        serverMsg.setAppCount(appointmentController.PatientTicket(appointment));
+                        long appNum = appointmentController.PatientTicket(appointment);
+                        appointment.setCount(appNum);
+                        updateCellInDB(appointment);
+                        serverMsg.setAppCount(appNum);
                     }
                     else
                     serverMsg.setAppCount(0);
@@ -579,11 +583,29 @@ public class Main extends SimpleServer {
             if(currMsg.getAction().equals("call next patient")){
                 try {
                     serverMsg.setRoom(currMsg.getEmployee().getRoom_num());
-                    serverMsg.setPatientName(currMsg.getPatientName());
+                    serverMsg.setClinicName(currMsg.getEmployee().getMain_clinic());
+                    serverMsg.setAppCount(currMsg.getAppointment().getCount());
                     serverMsg.setAction("print message to screen");
-                    client.sendToClient(serverMsg);
+                    for(clinicClient waitingClient: SimpleServer.getWaitingRoomList()){
+                        if (waitingClient.getClinic_name().equals(serverMsg.getClinic_name())){
+                            waitingClient.getClient().sendToClient(serverMsg);
+                        }
+                    }
                 } catch (IOException  e) {
                     e.printStackTrace();
+                }
+            }
+            if (currMsg.getAction().equals("add waiting room screen")){
+                clinicClient connection = new clinicClient(currMsg.getClinic_name(), client);
+                SimpleServer.getWaitingRoomList().add(connection);
+                try {
+                    serverMsg.setAction("clinic waiting room listed successfully");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    assert session != null;
+                    session.close();
                 }
             }
             if (currMsg.getAction().equals("Get employees")) {
@@ -822,6 +844,8 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -830,6 +854,7 @@ public class Main extends SimpleServer {
             session.close();
         }
     }
+
 
     public static<T> void updateCellInDB(T objectType) {
         try {

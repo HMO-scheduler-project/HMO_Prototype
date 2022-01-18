@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
@@ -78,7 +79,7 @@ public class NewMessageToManagerScreen {
         Parent menuBarParent = App.loadFXML("menuBar.fxml");
         menubar.getChildren().clear();
         menubar.getChildren().add(menuBarParent);
-
+        EventBus.getDefault().register(this);
         Message msg = new Message();
         msg.setAction("pull managers");
         try {

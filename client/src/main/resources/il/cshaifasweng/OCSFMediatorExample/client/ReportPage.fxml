@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="750.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ReportPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="630.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ReportPageController">
    <left>
-        <GridPane maxHeight="484.0" maxWidth="300.0" prefHeight="465.0" prefWidth="177.0" BorderPane.alignment="CENTER">
+        <GridPane maxHeight="484.0" maxWidth="630.0" prefHeight="66.0" prefWidth="630.0" BorderPane.alignment="CENTER">
             <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="10.0" prefWidth="10.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.0" minWidth="10.0" prefWidth="82.0" />
@@ -26,26 +26,29 @@
             </rowConstraints>
             <children>
                 <Label prefHeight="18.0" prefWidth="85.0" text="Choose Clinic:" GridPane.columnIndex="1" />
-                <ComboBox fx:id="ClinicsList" onAction="#chooseClinic" prefHeight="27.0" prefWidth="138.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <ComboBox fx:id="ClinicsList" onAction="#chooseClinic" prefHeight="38.0" prefWidth="138.0" style="-fx-background-color: transparent; -fx-border-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );-fx-font-size: 12px;   -fx-font-weight: bold; -fx-text-fill: #333333; " GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
    </left>
-   <center>
-      <SplitPane prefHeight="465.0" prefWidth="570.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" BorderPane.alignment="CENTER">
+   <top>
+      <Pane fx:id="menubar" prefHeight="58.0" prefWidth="630.0" BorderPane.alignment="CENTER" />
+   </top>
+   <bottom>
+      <SplitPane prefHeight="409.0" prefWidth="456.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" BorderPane.alignment="CENTER">
          <items>
-            <TabPane style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
+            <TabPane prefHeight="342.0" prefWidth="626.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
                <tabs>
                   <Tab fx:id="WaitingTimeReport" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Waiting Time Report ">
                      <content>
                         <TableView fx:id="AwaitingTimeRepTable" prefHeight="428.0" prefWidth="579.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
                           <columns>
                             <TableColumn fx:id="AwaitingTimeRepColumnA" prefWidth="113.5999893426897" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Doctor" />
-                            <TableColumn fx:id="AwaitingTimeRepColumnB" prefWidth="63.20000457763672" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Sunday" />
-                              <TableColumn fx:id="AwaitingTimeRepColumnC" prefWidth="74.40008544921875" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Monday" />
-                              <TableColumn fx:id="AwaitingTimeRepColumnD" prefWidth="68.00007629394531" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Tuesday" />
-                              <TableColumn fx:id="AwaitingTimeRepColumnE" minWidth="0.0" prefWidth="79.99993896484375" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Wednesday" />
-                              <TableColumn fx:id="AwaitingTimeRepColumnF" minWidth="0.0" prefWidth="87.199951171875" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Thursday" />
-                              <TableColumn fx:id="AwaitingTimeRepColumnG" prefWidth="77.60003662109375" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Friday" />
+                            <TableColumn fx:id="AwaitingTimeRepColumnB" prefWidth="76.00000762939453" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Sunday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnC" prefWidth="73.60000610351562" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Monday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnD" prefWidth="82.4000244140625" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Tuesday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnE" minWidth="0.0" prefWidth="96.79998779296875" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Wednesday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnF" minWidth="0.0" prefWidth="90.39999389648438" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Thursday" />
+                              <TableColumn fx:id="AwaitingTimeRepColumnG" prefWidth="94.4000244140625" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Friday" />
                           </columns>
                         </TableView>
                      </content>
@@ -54,13 +57,13 @@
                      <content>
                         <TableView fx:id="UnclaimedAppointmentRep" prefHeight="473.0" prefWidth="259.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
                            <columns>
-                              <TableColumn fx:id="UnclaimedAppointmentColumnB" prefWidth="83.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="FamilyDoctor" />
-                              <TableColumn fx:id="UnclaimedAppointmentColumnC" prefWidth="78.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Pediatrician" />
-                              <TableColumn fx:id="UnclaimedAppointmentColumnD" prefWidth="65.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Vaccine" />
-                              <TableColumn fx:id="UnclaimedAppointmentColumnE" minWidth="0.0" prefWidth="75.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Lab_Test" />
-                              <TableColumn fx:id="UnclaimedAppointmentColumnF" minWidth="0.0" prefWidth="98.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Covid_Test" />
-                              <TableColumn fx:id="UnclaimedAppointmentColumnG" prefWidth="55.99993896484375" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Nurse" />
-                              <TableColumn fx:id="UnclaimedAppointmentColumnH" prefWidth="109.5999755859375" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Special_Doctor" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnB" prefWidth="90.40001672506332" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="FamilyDoctor" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnC" prefWidth="91.20001983642578" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Pediatrician" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnD" prefWidth="72.80006408691406" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Vaccine" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnE" minWidth="0.0" prefWidth="87.20001220703125" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Lab_Test" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnF" minWidth="0.0" prefWidth="98.4000244140625" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Covid_Test" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnG" prefWidth="72.80001831054688" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Nurse" />
+                              <TableColumn fx:id="UnclaimedAppointmentColumnH" prefWidth="117.60000610351562" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Special_Doctor" />
                            </columns>
                         </TableView>
                      </content>
@@ -69,14 +72,14 @@
                      <content>
                         <TableView fx:id="ServicesTypeRepTable" prefHeight="473.0" prefWidth="259.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );">
                            <columns>
-                              <TableColumn fx:id="ServicesTypeColumnA" prefWidth="55.999954879283905" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Day" />
-                              <TableColumn fx:id="ServicesTypeColumnB" prefWidth="87.1999626159668" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="FamilyDoctor" />
-                              <TableColumn fx:id="ServicesTypeColumnC" prefWidth="88.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Pediatrician" />
-                              <TableColumn fx:id="ServicesTypeColumnD" prefWidth="59.20002746582031" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Vaccine" />
-                              <TableColumn fx:id="ServicesTypeColumnE" minWidth="0.0" prefWidth="64.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Lab_Test" />
-                              <TableColumn fx:id="ServicesTypeColumnF" minWidth="0.0" prefWidth="70.4000244140625" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Covid_Test" />
-                              <TableColumn fx:id="ServicesTypeColumnG" prefWidth="52.00006103515625" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Nurse" />
-                              <TableColumn fx:id="ServicesTypeColumnH" prefWidth="85.0" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="SpecialDoctor" />
+                              <TableColumn fx:id="ServicesTypeColumnA" prefWidth="69.59996789693832" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Day" />
+                              <TableColumn fx:id="ServicesTypeColumnB" prefWidth="87.20001983642578" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="FamilyDoctor" />
+                              <TableColumn fx:id="ServicesTypeColumnC" prefWidth="90.4000244140625" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Pediatrician" />
+                              <TableColumn fx:id="ServicesTypeColumnD" prefWidth="60.800018310546875" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Vaccine" />
+                              <TableColumn fx:id="ServicesTypeColumnE" minWidth="0.0" prefWidth="71.199951171875" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Lab_Test" />
+                              <TableColumn fx:id="ServicesTypeColumnF" minWidth="0.0" prefWidth="79.99993896484375" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Covid_Test" />
+                              <TableColumn fx:id="ServicesTypeColumnG" prefWidth="65.60000610351562" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Nurse" />
+                              <TableColumn fx:id="ServicesTypeColumnH" prefWidth="102.4000244140625" style="-fx-background-color: transparent; -fx-border-color: #ADD8E6;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="SpecialDoctor" />
                            </columns>
                         </TableView>
                      </content>
@@ -85,8 +88,5 @@
             </TabPane>
          </items>
       </SplitPane>
-   </center>
-   <top>
-      <Pane fx:id="menubar" prefHeight="58.0" prefWidth="750.0" BorderPane.alignment="CENTER" />
-   </top>
+   </bottom>
 </BorderPane>

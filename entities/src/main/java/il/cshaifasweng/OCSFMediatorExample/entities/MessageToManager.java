@@ -1,6 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 
-import jdk.jfr.Enabled;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,12 +13,12 @@ public class MessageToManager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
-    String from;
-    String to;
-    String title;
-    String body;
-    boolean read;
-    LocalDate date;
+    protected String from;
+    protected String to;
+    protected String title;
+    protected String body;
+    protected boolean read;
+    protected LocalDate date;
 
     public MessageToManager(String from,String to, String title, String body) {
         this.from = from;
@@ -32,6 +31,14 @@ public class MessageToManager {
 
     public MessageToManager() {
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFrom() {

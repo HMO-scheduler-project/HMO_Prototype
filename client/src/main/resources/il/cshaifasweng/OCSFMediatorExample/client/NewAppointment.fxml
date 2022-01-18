@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="630.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;-fx-background-size: stretch;-fx-background-position: center center;" stylesheets="@/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.NewAppointmentController">
    <children>
-      <Pane fx:id="Menubar" layoutY="7.0" prefHeight="51.0" prefWidth="633.0" />
+      <Pane fx:id="Menubar" prefHeight="51.0" prefWidth="630.0" />
       <Label fx:id="txtlabel" layoutX="14.0" layoutY="81.0" prefHeight="26.0" prefWidth="268.0" text="Choose appointment type:" textFill="#1b08ab">
          <font>
             <Font name="Calibri Bold" size="14.0" />
