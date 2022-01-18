@@ -279,7 +279,7 @@ public class VaccineAppointmentController {
                 alert.setTitle(title);
                 alert.setHeaderText(null);
                 alert.setContentText(head);
-                alert.show();
+                alert.showAndWait();
             }
         });
     }

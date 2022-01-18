@@ -67,7 +67,7 @@ public class QuestionnaireController {
 
     @FXML
     void QuestionnaireSave(ActionEvent event) {
-        if (smell.getSelectionModel() != null && fever.getSelectionModel() != null && metPatient.getSelectionModel() != null && tired.getSelectionModel() != null && taste.getSelectionModel() != null && cough.getSelectionModel() != null) {
+        if (smell.getSelectionModel().getSelectedItem()!= null && fever.getSelectionModel().getSelectedItem()!= null && metPatient.getSelectionModel().getSelectedItem()!= null && tired.getSelectionModel().getSelectedItem()!= null && taste.getSelectionModel().getSelectedItem()!= null && cough.getSelectionModel().getSelectedItem()!= null) {
             boolean met1, smell1, fever1, tired1, cough1, taste1;
             met1 = metPatient.getSelectionModel().getSelectedItem().equals("Yes");
             if (smell.getSelectionModel() != null)
