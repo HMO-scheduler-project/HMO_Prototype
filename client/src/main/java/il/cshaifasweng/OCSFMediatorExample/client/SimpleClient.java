@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class SimpleClient extends AbstractClient {
 
-	private static SimpleClient client = null;
+	private static SimpleClient client = new SimpleClient(App.getHost(),App.getPort());
 	private static final Logger LOGGER = Logger.getLogger(SimpleClient.class.getName());
 
 	private SimpleClient(String host, int port) {
@@ -201,8 +201,8 @@ public class SimpleClient extends AbstractClient {
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-//			client = new SimpleClient(App.getHost(),App.getPort());
-			client=new SimpleClient("localhost",3004);
+			client = new SimpleClient(App.getHost(),App.getPort());
+//			client=new SimpleClient("localhost",3004);
 		}
 		return client;
 	}
