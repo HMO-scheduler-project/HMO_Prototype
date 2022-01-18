@@ -32,6 +32,14 @@ public class MissedAppRep implements Serializable  {
     @OneToOne( targetEntity = Clinic.class )
     private Clinic Clinic;
 
+    public int getSpecial_Doctor() {
+        return Special_Doctor;
+    }
+
+    public void setSpecial_Doctor(int special_Doctor) {
+        Special_Doctor = special_Doctor;
+    }
+
     public MissedAppRep(HMO_Manager hmo_Manager, int familyDoctorPatientNumber, int pediatricianPatientNumber, int vaccineAppointment, int labResults, int covidTest, int nurseCare, Clinic clinic) {
         Hmo_Manager = hmo_Manager;
         FamilyDoctorPatientNumber = familyDoctorPatientNumber;

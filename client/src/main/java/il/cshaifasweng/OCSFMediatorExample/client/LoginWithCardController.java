@@ -75,7 +75,7 @@ public class LoginWithCardController  implements Initializable {
     @Subscribe
     public void onLoginWithCardEvent(stationLoginEvent event) {
         String status = event.getStatus();
-        System.out.println(status);
+
         if (status != null) {
             if (status.equals("you are already logged in")) {
                 loginFailedWarning.setVisible(true);
