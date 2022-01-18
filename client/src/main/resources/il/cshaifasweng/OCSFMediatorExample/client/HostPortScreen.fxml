@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="335.0" prefWidth="451.0" style="-fx-background-image: url(background.jpg);  -fx-background-repeat: no-repeat;   -fx-background-size: stretch;-fx-background-position: center center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.HostPortController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="80.0" layoutY="93.0" prefHeight="34.0" prefWidth="117.0" text="Host">
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Hosttxt" layoutX="198.0" layoutY="97.0" />
+      <Button fx:id="connectBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="197.0" layoutY="203.0" mnemonicParsing="false" onAction="#pressOnConnect" prefHeight="46.0" prefWidth="107.0" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="Connect">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="80.0" layoutY="145.0" prefHeight="34.0" prefWidth="117.0" text="Port">
+         <font>
+            <Font name="Arial Black" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Porttxt" layoutX="198.0" layoutY="150.0" />
+   </children>
+</AnchorPane>

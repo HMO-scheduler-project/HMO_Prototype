@@ -25,6 +25,76 @@ public class Appointment implements Serializable {
     public Appointment() {
     }
 
+    public Appointment(LocalTime time, boolean arrived, LocalDate date, Employee employee) {
+        this.time = time;
+        this.arrived = arrived;
+        this.date = date;
+        this.employee = employee;
+    }
+    public Appointment(LocalTime time, LocalTime actual_time, boolean arrived, LocalDate date, Clinic clinic, Employee employee, String type,Patient patient) {
+        this.time = time;
+        this.actual_time = actual_time;
+        this.arrived = arrived;
+        this.date = date;
+        this.clinic = clinic;
+        this.employee = employee;
+        this.type = type;
+        this.patient=patient;
+    }
+
+    public Appointment(LocalTime time, boolean arrived, LocalDate date, Clinic clinic, Employee employee) {
+        this.time = time;
+        this.arrived = arrived;
+        this.date = date;
+        this.clinic = clinic;
+        this.employee = employee;
+    }
+    public Appointment(LocalTime time, LocalTime actual_time, boolean arrived, LocalDate date, Clinic clinic, Employee employee) {
+        this.time = time;
+        this.actual_time = actual_time;
+        this.arrived = arrived;
+        this.date = date;
+        this.clinic = clinic;
+        this.employee = employee;
+    }
+
+    public Appointment(LocalTime time, LocalTime actual_time, boolean arrived, LocalDate date, Clinic clinic, String type, Patient patient) {
+        this.time = time;
+        this.actual_time = actual_time;
+        this.arrived = arrived;
+        this.date = date;
+        this.clinic = clinic;
+        this.type = type;
+        this.patient=patient;
+
+    }
+    public Appointment(LocalTime time, LocalTime actual_time, boolean arrived, LocalDate date, Clinic clinic, Patient patient, Employee employee, String type) {
+        this.time = time;
+        this.actual_time = actual_time;
+        this.arrived = arrived;
+        this.date = date;
+        this.clinic = clinic;
+        this.patient = patient;
+        this.employee = employee;
+        this.type = type;
+    }
+    public Appointment(int appointment_id, LocalTime time, boolean arrived, LocalDate date, Employee employee, String type) {
+        this.appointment_id = appointment_id;
+        this.time = time;
+        this.arrived = arrived;
+        this.date = date;
+        this.employee = employee;
+        this.type = type;
+    }
+    public Appointment(Clinic clinic,int appointment_id, LocalTime time, boolean arrived, LocalDate date, Employee employee, String type) {
+        this.clinic=clinic;
+        this.appointment_id = appointment_id;
+        this.time = time;
+        this.arrived = arrived;
+        this.date = date;
+        this.employee = employee;
+        this.type = type;
+    }
     public Appointment(LocalTime time, LocalDate date, Clinic clinic, Patient patient,Employee employee) {
         this.time = time;
         this.date = date;

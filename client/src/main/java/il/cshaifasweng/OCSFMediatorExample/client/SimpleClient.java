@@ -201,6 +201,7 @@ public class SimpleClient extends AbstractClient {
 
 	public static SimpleClient getClient() {
 		if (client == null) {
+//			client = new SimpleClient(App.getHost(),App.getPort());
 			client = new SimpleClient("localhost", 3004);
 		}
 		return client;

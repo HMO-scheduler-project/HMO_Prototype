@@ -39,6 +39,14 @@ public class ServicesTypeRep implements Serializable {
     @OneToOne(targetEntity = Clinic.class)
     private Clinic Clinic;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getSpecial_Doctor() {
         return Special_Doctor;
     }
