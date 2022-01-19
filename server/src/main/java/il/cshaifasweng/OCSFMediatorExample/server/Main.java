@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import il.cshaifasweng.OCSFMediatorExample.client.App;
 import il.cshaifasweng.OCSFMediatorExample.entities.AwaitingTimeRep;
 import il.cshaifasweng.OCSFMediatorExample.entities.MissedAppRep;
 import il.cshaifasweng.OCSFMediatorExample.entities.ServicesTypeRep;
@@ -40,6 +41,8 @@ import java.util.TimerTask;
 public class Main extends SimpleServer {
     private static SessionFactory sessionFactory = getSessionFactory();
     public static Session session;
+    private Message serverMsg;
+    private static SimpleServer server;
 
     public Main(int port) {
         super(port);
@@ -86,7 +89,7 @@ public class Main extends SimpleServer {
             session = sessionFactory.openSession();
             session.beginTransaction();
             Message currMsg = ((Message) msg);
-            Message serverMsg = new Message();
+            serverMsg = new Message();
             if (currMsg.getAction().equals("login")) {
                 try {
                     if (!currMsg.getUsername().equals("") && !currMsg.getPassword().equals("")) {
@@ -912,7 +915,7 @@ public class Main extends SimpleServer {
     }
 
     public static void main( String[] args ) throws IOException {
-        SimpleServer server = new Main(3004);
+        server = new Main(3004);
         server.listen();
         System.out.println("server says: hello!");
         try {

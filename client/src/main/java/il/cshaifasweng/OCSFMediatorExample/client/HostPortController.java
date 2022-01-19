@@ -39,6 +39,7 @@ public class HostPortController {
     if(Hosttxt.getText()!=null && Porttxt.getText()!=null && !Hosttxt.getText().equals("") && !Porttxt.getText().equals("")) {
         App.setHost(Hosttxt.getText());
         App.setPort(Integer.parseInt(Porttxt.getText()));
+        SimpleClient client=SimpleClient.getClient();
         ChangeScreens.changeToChooseDeviceScreen();
     }
     else {

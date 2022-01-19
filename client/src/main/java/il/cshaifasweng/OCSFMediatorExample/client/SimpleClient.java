@@ -171,9 +171,9 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new GotSpecialDocEvent(currMsg.getSpecialDoctorList()));
 		}
 
-//		if(currMsg.getAction().equals("Got vaccines")){
-//			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine(),currMsg.getCovid19VaccineApp(),currMsg.getInfluenzaVaccineApp()));
-//		}
+		if(currMsg.getAction().equals("Got vaccines")){
+			EventBus.getDefault().post(new GotVaccineEvent(currMsg.isCovid_vaccine(),currMsg.isInfluenza_vaccine(),currMsg.getCovid19VaccineApp(),currMsg.getInfluenzaVaccineApp()));
+		}
 		if(currMsg.getAction().equals("GetAllClinicsWithCovidTest")){
 			EventBus.getDefault().post(new GotClinicsWithCovidTest(currMsg.getClinicList()));
 		}
@@ -211,6 +211,7 @@ public class SimpleClient extends AbstractClient {
 	public static SimpleClient getClient() {
 		if (client == null) {
 			client = new SimpleClient(App.getHost(),App.getPort());
+			client.connectionEstablished();
 //			client=new SimpleClient("localhost",3004);
 		}
 		return client;

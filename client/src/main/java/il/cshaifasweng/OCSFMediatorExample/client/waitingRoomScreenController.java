@@ -26,6 +26,7 @@ import java.time.LocalTime;
  */
 
 public class waitingRoomScreenController {
+    private String clinic;
 
     @FXML
     private TextField timeTF;
@@ -63,7 +64,7 @@ public class waitingRoomScreenController {
     }
     @FXML
     void chooseClinic() {
-        String clinic = ClinicsList.getSelectionModel().getSelectedItem();
+        clinic = ClinicsList.getSelectionModel().getSelectedItem();
         App.setClinic_name(clinic);
         Message Msg = new Message();
         Msg.setClinicName(clinic);
