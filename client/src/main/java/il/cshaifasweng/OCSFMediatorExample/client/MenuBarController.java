@@ -41,10 +41,7 @@ public class MenuBarController {
     private MenuItem greenPassbtn;
     @FXML
     private Menu greenpass;
-    @FXML
-    private Menu MessageToManager;
-    @FXML
-    private MenuItem sendMessageToManager;
+
 
     @FXML
     void pressContactInfoBtn(ActionEvent event) {
@@ -87,15 +84,10 @@ public class MenuBarController {
         }
         appointments.setVisible(App.getUserType().equals("Patient"));
         greenpass.setVisible(App.getUserType().equals("Patient"));
-        MessageToManager.setVisible(App.getUserType().equals("Employee"));
     }
     @FXML
     void pressGreenPass(ActionEvent event) {
         ChangeScreens.changeToGreenPassScreen();
     }
 
-    @FXML
-    void pressOnSendMessageToManager(ActionEvent event){
-        ChangeScreens.changeToNewMessageToManagerScreen();
-    }
 }

@@ -191,15 +191,6 @@ public class SimpleClient extends AbstractClient {
 		{
 			EventBus.getDefault().post(new GreenPassEvent(currMsg.getGreenPass()));
 		}
-		if(currMsg.getAction().equals("GotMessagesToManager")){
-			EventBus.getDefault().post(new MessagesUpdateEvent(currMsg.getMessagesToManagerList()));
-		}
-		if(currMsg.getAction().equals("GotChosenMessage")){
-			EventBus.getDefault().post(new showMessageEvent(currMsg.getMessageToManager().getBody()));
-		}
-		if(currMsg.getAction().equals("ShowManagers")){
-			EventBus.getDefault().post(new ManagersUpdateEvent(currMsg.getManagers()));
-		}
 		if(currMsg.getAction().equals("sentMessageSuccessfully")){
 			EventBus.getDefault().post(new sentMessageEvent(true));
 		}

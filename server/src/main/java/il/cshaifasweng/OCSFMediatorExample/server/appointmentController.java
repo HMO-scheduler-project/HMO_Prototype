@@ -301,7 +301,7 @@ public class appointmentController {
             for (Appointment appointment:appointments)
             {
                 if (appointment.getTime().equals(LocalTime.now())||appointment.getTime().isAfter(LocalTime.now()))
-                    return count+late;
+                    return count+late-1;
                 if (appointment.getTime().isBefore(app.getTime())&& !app.isArrived())
                     late++;
                 count++;

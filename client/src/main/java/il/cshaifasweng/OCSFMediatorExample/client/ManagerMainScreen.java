@@ -2,29 +2,25 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 
 import java.io.IOException;
 
-import il.cshaifasweng.OCSFMediatorExample.client.events.MessagesUpdateEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.events.showMessageEvent;
-import il.cshaifasweng.OCSFMediatorExample.entities.Message;
-import il.cshaifasweng.OCSFMediatorExample.entities.MessageToManager;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 /**
  * ManagerMainPage
- * Contains Hello message and table to display messages list from employees to manager.
- * After choosing a message display the content of the message in a text area.
+ * Contains Hello message and a list of daily tasks.
+ * Also contains buttons for updates and reports.
  *
  */
 
 public class ManagerMainScreen {
+    protected String tasks = """
+            1. Don't forget to update employees hours.
+            2. Don't forget to get inventory list from the lab.
+            3. Don't forget to close air condition and lights at the end of the day.
+            4. Don't forget to send weekly report to the main office.
+            """;
 
     @FXML
     private Pane menubar;
@@ -33,19 +29,8 @@ public class ManagerMainScreen {
     private TextField welcomeTF;
 
     @FXML
-    private Label MessageLabel;
+    private TextArea tasksList;
 
-    @FXML
-    private TableView<MessageToManager> MessagesTable;
-
-    @FXML
-    private TableColumn<MessageToManager, String> fromCol;
-
-    @FXML
-    private TableColumn<MessageToManager, String> titleCol;
-
-    @FXML
-    private TextArea MessageTF;
 
 
     @FXML
@@ -54,56 +39,8 @@ public class ManagerMainScreen {
         menubar.getChildren().clear();
         menubar.getChildren().add(menuBarParent);
         welcomeTF.setText("Welcome " + App.getFirst_name());
-        try {
-            Message msg= new Message();
-            msg.setUsername(App.getUsername());
-            msg.setAction("GetAllUnreadMessages");
-            SimpleClient.getClient().openConnection();
-            SimpleClient.getClient().sendToServer(msg);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tasksList.setText(tasks);
     }
 
-    @Subscribe
-    public void onMessagesUpdateEvent(MessagesUpdateEvent event) {
-        fromCol.setCellValueFactory(new PropertyValueFactory<>("from"));
-        titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        MessagesTable.setItems(FXCollections.observableList(event.getMessagesList()));
-    }
-
-    @FXML
-    public void viewChosenMessage(ActionEvent event) {
-        if (MessagesTable.getSelectionModel().getSelectedItems() != null && MessagesTable.getSelectionModel().getSelectedIndex() != -1) {
-            Message msg = new Message();
-            msg.setMessageToManager(MessagesTable.getSelectionModel().getSelectedItem());
-            msg.setAction("show message");
-            try {
-                SimpleClient.getClient().sendToServer(msg);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            showAlert("Error", "Please choose a message first");
-        }
-    }
-
-    @Subscribe
-    public void onShowMessageEvent(showMessageEvent event) {
-        MessageTF.setText(event.getMessage());
-    }
-
-    public void showAlert(String title, String head) {
-        Platform.runLater(new Runnable() {
-            public void run() {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle(title);
-                alert.setHeaderText(null);
-                alert.setContentText(head);
-                alert.show();
-            }
-        });
-    }
 
 }

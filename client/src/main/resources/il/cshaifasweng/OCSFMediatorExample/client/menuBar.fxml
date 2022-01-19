@@ -39,11 +39,6 @@
                   <MenuItem fx:id="greenPassbtn" mnemonicParsing="false" onAction="#pressGreenPass" style="-fx-background-color: #87CEEB;" text="Get green pass" />
               </items>
             </Menu>
-            <Menu fx:id="MessageToManager" mnemonicParsing="false" text="Message to manager">
-              <items>
-                <MenuItem fx:id="sendMessageToManager" mnemonicParsing="false" onAction="#pressOnSendMessageToManager" text="send message to manager" />
-              </items>
-            </Menu>
          </menus>
       </MenuBar>
       <Button fx:id="logoutBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pressOnLogout" style="-fx-background-color: #87CEEB;-fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );" text="logout" />

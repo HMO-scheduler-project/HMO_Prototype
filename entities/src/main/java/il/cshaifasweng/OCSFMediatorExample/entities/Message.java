@@ -77,10 +77,6 @@ public class Message implements Serializable {
     private List<String> doctors;
     private String doctor;
     private GreenPass greenPass;
-    /*-----Handling messages-------*/
-    private MessageToManager messageToManager;
-    private List<MessageToManager> messagesToManagerList;
-    List<String> managers;
 
     public List<AwaitingTimeRep> getAwaitingTimeRep() {
         return awaitingTimeRep;
@@ -579,30 +575,6 @@ public class Message implements Serializable {
 
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
-    }
-
-    public MessageToManager getMessageToManager() {
-        return messageToManager;
-    }
-
-    public void setMessageToManager(MessageToManager messageToManager) {
-        this.messageToManager = messageToManager;
-    }
-
-    public List<MessageToManager> getMessagesToManagerList() {
-        return messagesToManagerList;
-    }
-
-    public void setMessagesToManagerList(List<MessageToManager> messagesToManagerList) {
-        this.messagesToManagerList = messagesToManagerList;
-    }
-
-    public List<String> getManagers() {
-        return managers;
-    }
-
-    public void setManagers(List<String> managers) {
-        this.managers = managers;
     }
 
     public void setPatient(Patient patient) {

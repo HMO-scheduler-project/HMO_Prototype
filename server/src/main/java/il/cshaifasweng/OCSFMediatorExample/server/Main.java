@@ -77,8 +77,6 @@ public class Main extends SimpleServer {
         configuration.addAnnotatedClass(WeeklyReport.class);
         configuration.addAnnotatedClass(CovidQuestionnaire.class);
         configuration.addAnnotatedClass(clinicSpecialService.class);
-//  ADDED AS COMMENT CURRENTLY BECAUSE IT'S GIVING ERROR
-//        configuration.addAnnotatedClass(MessageToManager.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 
         return configuration.buildSessionFactory(serviceRegistry);
@@ -814,51 +812,6 @@ public class Main extends SimpleServer {
                     e.printStackTrace();
                 }
             }
-            if(currMsg.getAction().equals("GetAllUnreadMessages")){
-                try {
-                    User user=userController.getUserByUsername(currMsg.getUsername());
-                    serverMsg.setMessagesToManagerList(MessagesToManagerController.getUnreadMessagesOfManager(user));
-                    serverMsg.setAction("GotMessagesToManager");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(currMsg.getAction().equals("show message")){
-                try {
-                    MessageToManager message = currMsg.getMessageToManager();
-                    message.setRead(true);
-                    serverMsg.setMessageToManager(message);
-                    serverMsg.setAction("GotChosenMessage");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(currMsg.getAction().equals("pull managers")){
-                try {
-                    List<String> managers = userController.getAllManagersNamesFromDB();
-                    serverMsg.setManagers(managers);
-                    serverMsg.setAction("ShowManagers");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(currMsg.getAction().equals("send message")){
-                try {
-                    MessageToManager message = currMsg.getMessageToManager();
-                    message.setFrom(userController.getUserByUsername(currMsg.getUsername()).getFullName());
-                    saveRowInDB(message);
-                    serverMsg.setMessageToManager(message);
-                    serverMsg.setAction("sentMessageSuccessfully");
-                    client.sendToClient(serverMsg);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
