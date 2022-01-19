@@ -76,7 +76,11 @@ public class appointmentController {
         query.select(root);
         query.where(builder.equal(root.get("patient"), patient), builder.equal(root.get("clinic"), clinic), builder.equal(root.get("date"), LocalDate.now()), builder.equal(root.get("arrived"), false));
         query.orderBy(builder.asc(root.get("time")));
-        return Main.session.createQuery(query).getResultList().get(0);
+        List<Appointment> appList = Main.session.createQuery(query).getResultList();
+        if(appList!=null && !appList.isEmpty()){
+            return appList.get(0);
+        }
+        return null;
     }
 
     public static List<specialDoctorApp> getAppointments(SpecialDoctor specialDoctor) {

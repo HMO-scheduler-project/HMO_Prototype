@@ -299,17 +299,19 @@ public class Main extends SimpleServer {
             if(currMsg.getAction().equals("Provide Ticket")){
                 try{
                     Appointment appointment=appointmentController.getAppointments(currMsg.getClinicName(),currMsg.getUsername());
+                    System.out.println("after getAppointments");
                     serverMsg.setAppointment(appointment);
                     if (appointment!=null) {
                         long appNum = appointmentController.PatientTicket(appointment);
                         appointment.setCount(appNum);
                         updateCellInDB(appointment);
                         serverMsg.setAppCount(appNum);
+                    } else {
+                        serverMsg.setAppCount(0);
                     }
-                    else
-                    serverMsg.setAppCount(0);
-                    serverMsg.setAction("got Appointment");
-                    client.sendToClient(serverMsg);
+                        serverMsg.setAction("got Appointment");
+                        System.out.println("in server main");
+                        client.sendToClient(serverMsg);
                 }catch(IOException e){
                     e.printStackTrace();
                 }

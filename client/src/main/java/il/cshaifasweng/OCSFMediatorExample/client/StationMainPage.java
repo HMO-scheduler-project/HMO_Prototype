@@ -82,6 +82,7 @@ public class StationMainPage {
 
     @Subscribe
     public void onAppointmentTicketEvent(appointmentTicketEvent event){
+        System.out.println("in appointmentTicketEvent");
         Appointment app = event.getApp();
         long tickerNum = event.getTicketNum();
         if(app!=null){

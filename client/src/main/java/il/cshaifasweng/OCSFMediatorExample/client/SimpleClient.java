@@ -89,6 +89,7 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new nearestAppsEvent(currMsg.getNearest_apps()));
 		}
 		if(currMsg.getAction().equals("got appointment")){
+			System.out.println("in got appointment");
 			EventBus.getDefault().post(new appointmentTicketEvent(currMsg.getAppointment(),currMsg.getAppCount()));
 		}
 		if(currMsg.getAction().equals("got nurse app")){

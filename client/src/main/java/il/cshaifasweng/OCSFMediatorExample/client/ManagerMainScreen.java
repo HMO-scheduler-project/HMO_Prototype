@@ -10,7 +10,6 @@ import javafx.scene.layout.Pane;
 /**
  * ManagerMainPage
  * Contains Hello message and a list of daily tasks.
- * Also contains buttons for updates and reports.
  *
  */
 
