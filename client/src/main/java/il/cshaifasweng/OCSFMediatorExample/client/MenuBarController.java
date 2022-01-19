@@ -6,7 +6,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 
-
+/**
+ * MenuBarController
+ * Contains the menubar that all screens in PC are using.
+ *
+ */
 
 public class MenuBarController {
     @FXML

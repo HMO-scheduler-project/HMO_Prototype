@@ -21,6 +21,15 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * EmployeeMainPage
+ * Contains a table that display the appointment of the employee scheduled for today.
+ * Contains a textField that receives a card number of patient and a button in order to update when a patient arrived.
+ * Contains a button to call next patient - when clicking on it a message will appear in all the waiting room screens
+ * associated with the relevant appointment (which means all the screens associated to specific clinic where the
+ * appointment is scheduled.
+ */
+
 public class EmployeeMainPage {
     private Employee employee ;
 

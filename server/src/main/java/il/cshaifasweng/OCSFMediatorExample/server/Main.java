@@ -25,12 +25,21 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Main
+ * Main class of server.
+ * starting server so he can listen to desired host and port.
+ * While starting server will also send Appointments remainders to Email and create a sessionFactory for communication
+ * with database.
+ * Also contains handleMessageFromClient which handle the received message according to received action with help from
+ * the various controllers in server.
+ * Contains updateRowInDB/DeleteRowInDB/saveRowInDB functions - in order to update database.
+ *
+ */
 
 public class Main extends SimpleServer {
     private static SessionFactory sessionFactory = getSessionFactory();
     public static Session session;
-    private Message serverMsg;
-    private static SimpleServer server;
 
     public Main(int port) {
         super(port);
@@ -77,7 +86,7 @@ public class Main extends SimpleServer {
             session = sessionFactory.openSession();
             session.beginTransaction();
             Message currMsg = ((Message) msg);
-            serverMsg = new Message();
+            Message serverMsg = new Message();
             if (currMsg.getAction().equals("login")) {
                 try {
                     if (!currMsg.getUsername().equals("") && !currMsg.getPassword().equals("")) {
@@ -903,7 +912,7 @@ public class Main extends SimpleServer {
     }
 
     public static void main( String[] args ) throws IOException {
-        server = new Main(3004);
+        SimpleServer server = new Main(3004);
         server.listen();
         System.out.println("server says: hello!");
         try {

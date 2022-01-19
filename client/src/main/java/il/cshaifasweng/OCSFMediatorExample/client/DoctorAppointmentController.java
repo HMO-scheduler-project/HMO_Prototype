@@ -24,6 +24,14 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * DoctorAppointmentController
+ * Help to schedule appointment to family doctor or pediatrician.
+ * Display table with available appointments for the associated doctor of the logged in patient.
+ * After choosing an appointment we can click on the schedule button in order to schedule this appointment and a pop up
+ * window will appear with result - appointment saved successfully or not.
+ */
+
 public class DoctorAppointmentController {
     @FXML
     private ResourceBundle resources;

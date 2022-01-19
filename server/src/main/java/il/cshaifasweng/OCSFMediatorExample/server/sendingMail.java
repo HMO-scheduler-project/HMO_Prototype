@@ -7,6 +7,12 @@ import java.time.temporal.ChronoUnit;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+/**
+ * sendingMail
+ * Handle sending Email for appointment summery and appointment remainders.
+ *
+ */
+
 public class sendingMail {
     private static final String from = "brioottova1@gmail.com";
 

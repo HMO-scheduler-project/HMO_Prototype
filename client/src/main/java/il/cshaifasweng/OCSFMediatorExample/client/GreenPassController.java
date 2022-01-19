@@ -18,6 +18,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * GreenPassController
+ * Display a green pass if a patient is vaccinated to covid or display a message that patient isn't vaccinated and switch
+ * the screen to schedule appointment to covid vaccine screen so he can schedule appointment.
+ *
+ */
+
 public class GreenPassController {
 
     @FXML

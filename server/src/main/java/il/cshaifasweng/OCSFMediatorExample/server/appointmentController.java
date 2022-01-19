@@ -9,6 +9,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+/**
+ * appointmentController
+ * helper controller that contains helper function to search/add/delete appointments from database, send reminders of
+ * appointments and finding desired data of appointment.
+ */
+
 public class appointmentController {
 
     public static List<Appointment> getNearestAppsFromDB(User user) {

@@ -1,5 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+/**
+ * Shell Main class.
+ * Calls App class in order to start client.
+ *
+ */
+
 public class Main {
 
 

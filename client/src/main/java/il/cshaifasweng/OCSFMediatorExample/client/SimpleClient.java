@@ -8,6 +8,12 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * SimpleClient
+ * Handles connection to server and messages received from server.
+ * HandleMessageFromServer function - gets a message from server and creates relevant event according to received action.
+ */
+
 public class SimpleClient extends AbstractClient {
 
 	private static SimpleClient client = new SimpleClient(App.getHost(),App.getPort());

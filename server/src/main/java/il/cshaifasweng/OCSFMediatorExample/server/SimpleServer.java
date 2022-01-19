@@ -8,6 +8,13 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
+/**
+ * SimpleServer
+ * Handle disconnection to client and handle messages from client.
+ * Also contains list of waitingRoomScreens listed to specific clinics in order to send call message from employee to
+ * waiting room screen.
+ */
+
 public class SimpleServer extends AbstractServer {
 	private static ArrayList<clinicClient> waitingRoomList = new ArrayList<>();
 
@@ -19,7 +26,6 @@ public class SimpleServer extends AbstractServer {
 		waitingRoomList = waitingRoomList;
 	}
 
-	//public void addToWaitingRoomList(c)
 
 	public SimpleServer(int port) {
 		super(port);
@@ -42,11 +48,8 @@ public class SimpleServer extends AbstractServer {
 	}
 
 	@Override
-	synchronized protected void clientDisconnected(
-			ConnectionToClient client) {
-		if(waitingRoomList.contains(client)){
-			waitingRoomList.remove(client);
-		}
+	synchronized protected void clientDisconnected(ConnectionToClient client) {
+		waitingRoomList.remove(client);
 	}
 
 }

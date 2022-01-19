@@ -10,6 +10,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+/**
+ * Reportscontroller
+ * helper controller that contains helper function to search reports from database.
+ *
+ */
+
 public class Reportscontroller {
     public static List<ServicesTypeRep> getServicesTypeRepFromDB(String clinicName) {
         Clinic clinic = clinicController.getClinicByName(clinicName);

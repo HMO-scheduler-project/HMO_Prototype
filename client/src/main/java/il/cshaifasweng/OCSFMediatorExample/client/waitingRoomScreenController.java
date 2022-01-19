@@ -16,9 +16,17 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.time.LocalTime;
 
+/**
+ * waitingRoomScreenController
+ * Contains a running clock and hidden text fields to show message in order to call next patient.
+ * Also contains combo box so we can choose to which clinic we want to associate this screen.
+ * After selection the screen will be added to a list in server (so when an employee will want to call patient if the
+ * appointment is at associated clinic the message will apear on listed screen) and the combo box will disappear.
+ *
+ */
+
 public class waitingRoomScreenController {
-    private String clinic; // string
-                        //maybe its better to use chooseclinic class
+
     @FXML
     private TextField timeTF;
     @FXML
@@ -55,7 +63,7 @@ public class waitingRoomScreenController {
     }
     @FXML
     void chooseClinic() {
-        clinic = ClinicsList.getSelectionModel().getSelectedItem();
+        String clinic = ClinicsList.getSelectionModel().getSelectedItem();
         App.setClinic_name(clinic);
         Message Msg = new Message();
         Msg.setClinicName(clinic);

@@ -22,6 +22,17 @@ import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+/**
+ * VaccineAppointmentController
+ * Handels scheduling appointment to vaccines.
+ * Contains - 2 combo boxes for type of vaccine and clinic names that has chosen vaccine service.
+ * After choosing vaccine type and clinic - display table with available appointments for the patient selection.
+ * After patient will select an appointment and press on schedule appointment button - a message will be sent to server
+ * with relevant data and the program will attempt to schedule chosen appointment. An alert will pop with the result of
+ * the attempt - appointment saved successfully or not.
+ *
+ */
+
 public class VaccineAppointmentController {
 
     @FXML

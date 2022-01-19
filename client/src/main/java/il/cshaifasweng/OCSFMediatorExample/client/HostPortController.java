@@ -10,6 +10,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * HostPortController
+ * Contains textField that receives desired host and port from input in order to connect to desired server.
+ *
+ */
+
 public class HostPortController {
 
     @FXML

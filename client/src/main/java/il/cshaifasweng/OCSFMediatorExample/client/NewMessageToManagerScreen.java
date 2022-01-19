@@ -2,7 +2,6 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.events.ManagedClinicListUpdateEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.events.ManagersUpdateEvent;
-import il.cshaifasweng.OCSFMediatorExample.client.events.RemoveAppEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.events.sentMessageEvent;
 import il.cshaifasweng.OCSFMediatorExample.entities.Message;
 import il.cshaifasweng.OCSFMediatorExample.entities.MessageToManager;
@@ -14,8 +13,22 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.io.IOException;
+
+/**
+ * NewMessageToManagerScreen
+ * Helps to send message from employee to manager.
+ * Contains -
+ * combobox to display manager list and choose one.
+ * text field for title
+ * text area for body of message
+ * button to send message.
+ *
+ * If everything is alright - will display alert to show that message sends.
+ * If manager wasn't chosen - will display alert to choose manager.
+ * If manager was chosen but message wasn't sent successfully - will display error alert.
+ *
+ */
 
 public class NewMessageToManagerScreen {
 

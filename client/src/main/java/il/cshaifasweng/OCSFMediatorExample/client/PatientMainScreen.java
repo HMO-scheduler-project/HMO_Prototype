@@ -19,6 +19,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Random;
 
+/**
+ * PatientMainPage
+ * Contains hello message, tip of the day (that is chosen randomly) and table displaying future appointments of the patient.
+ * Also has a button for scheduling new appointment.
+ * 
+ */
+
 public class PatientMainScreen {
     private final String[] tips = {"""
 Eat a variety of foods.\s

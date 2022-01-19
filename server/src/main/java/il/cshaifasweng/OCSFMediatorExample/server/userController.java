@@ -11,6 +11,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * userController
+ * helper controller that contains helper function to search users in database and finding desired data
+ * of users. Also helps with log in and log out and with updating fields of users.
+ */
+
 public class userController {
     private static List<User> getAllUsersFromDB() {
         CriteriaBuilder builder = Main.session.getCriteriaBuilder();

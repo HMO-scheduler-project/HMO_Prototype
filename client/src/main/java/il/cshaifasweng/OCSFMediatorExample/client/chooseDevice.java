@@ -4,6 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+/**
+ * chooseDevice
+ * Controller for chooseDevice screen where we can choose between - PC, appointment station and waiting room screen.
+ *
+ */
+
 public class chooseDevice {
 
     @FXML

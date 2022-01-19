@@ -11,6 +11,13 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 
+/**
+ * StationMainPage
+ * The main page of the appointment station.
+ * Handles - lab's and nurse's appointment schedule and print ticket for existing appointment with patient number
+ * and room number.
+ * Also contains a logout button.
+ */
 
 public class StationMainPage {
 

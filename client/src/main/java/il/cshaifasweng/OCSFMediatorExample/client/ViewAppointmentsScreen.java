@@ -18,11 +18,18 @@ import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-
-import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+/**
+ * ViewAppointmentsScreen
+ * Contains a table that displays future appointments of logged in patient.
+ * Also contains buttons for canceling/changing appointment.
+ * After selecting an appointment from the table and pressing cancel/change button - the program will attempt to cancel/change
+ * the appointment and an alert will pop up with result (success or not).
+ *
+ */
 
 public class ViewAppointmentsScreen {
     @FXML

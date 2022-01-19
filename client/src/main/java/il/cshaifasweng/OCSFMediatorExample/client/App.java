@@ -20,6 +20,32 @@ import org.greenrobot.eventbus.Subscribe;
 
 /**
  * JavaFX App
+ * It's the main class at client side. Makes sure to connect to server, open new window for the application and contains
+ * logout function for logging out of the program and some helper functions:
+ * get host - returns the host of the server. Helps to connect to the server we want.
+ * set host - updates the host field to the desired host. Helps to connect to the server we want.
+ * get port - returns the port of the server. Helps to connect to the server we want.
+ * set port - updates the port field to the desired port. Helps to connect to the server we want.
+ * start - starting the application with the desired window and registering to eventbus.
+ * loadFXML - load the desired fxml file according to the name of the file we receive as a string.
+ * set root - set root of the fxml file. uses loadFXML function.
+ * stop - stopping the application.
+ * onWarningEvent - when receiving a warning, prints the warning and the time.
+ * logout - logging out of the application.
+ * onLogoutEvent - after logging out with logout function, returns to the PC login page.
+ * onLogoutFromStationEvent - after logging out with logout function, returns to the station login page.
+ * getUsername - returns username of the logged in user.
+ * setUsername - update username field to the desired value the function receives.
+ * getUser_type - returns user type of the logged in user.
+ * setUser_type - update user_type field to the desired value the function receives.
+ * getFirst_name - returns first name of the logged in user.
+ * setFirst_name - update first name field to the desired value the function receives.
+ * getClinic_name - returns clinic name of the clinic.
+ * setClinic_name - update clinic name field to the desired value the function receives.
+ * getAppStage - returns app stage.
+ * setWindowTitle - updates window title to the received string.
+ * setContent - updates window according to the fxml with the name received. Uses loadFXML function to do so.
+ *
  */
 public class App extends Application {
 
@@ -100,13 +126,6 @@ public class App extends Application {
             );
             alert.show();
         });
-    }
-
-    @Subscribe
-    public void SetClient(Message msg) throws IOException {
-        if(msg.getAction().equals("set client")) {
-            SimpleClient client = SimpleClient.getClient();
-        }
     }
 
     public static void logout(Boolean logoutClicked,String device) {

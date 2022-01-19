@@ -11,6 +11,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 
+/**
+ * openingHourScreenController
+ * Contains combobox to choose clinic and displays openning hours of chosen clinic in text fields.
+ *
+ */
+
 public class openingHoursScreenController {
     Message clientMsg = new Message();
     boolean manager;

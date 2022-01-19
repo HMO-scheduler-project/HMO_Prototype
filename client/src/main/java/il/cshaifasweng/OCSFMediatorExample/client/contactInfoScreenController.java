@@ -14,7 +14,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 
-
+/**
+ * contactInfoScreenController
+ * controller for displaying address and phone number of desired clinic.
+ * If the user is a manager - he can also change this data.
+ *
+ */
 
 public class contactInfoScreenController {
     Message clientMsg = new Message();

@@ -3,6 +3,20 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * AvailableApp
+ * class of available appointment. Used to display available appointments of the desired service/doctor.
+ * Contains fields -
+ * date
+ * time
+ * employeeName
+ * clinic
+ * employee_id
+ * role
+ *
+ * with get and set for each field.
+ * 
+ */
 public class AvailableApp {
     private LocalDate dateCol;
     private LocalTime timeCol;
@@ -10,6 +24,7 @@ public class AvailableApp {
     private String clinicCol;
     private int employee_id;
     private String role;
+
     public AvailableApp(LocalDate dateCol, LocalTime timeCol, String employeeName, String clinicCol,int employee_id,String role) {
         this.dateCol = dateCol;
         this.timeCol = timeCol;

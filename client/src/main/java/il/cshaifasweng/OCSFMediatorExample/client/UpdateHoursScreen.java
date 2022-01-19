@@ -16,8 +16,15 @@ import org.greenrobot.eventbus.Subscribe;
 import java.io.IOException;
 import java.time.LocalTime;
 
-
-
+/**
+ * UpdateHoursScreen
+ * contains combo boxes for - choosing clinic from clinic list containing clinics that logged in manager is managing,
+ * choosing service of said clinic we want to change hours/room number for, if chosen service is doctors/specialists -
+ * choosing doctor name we want to change hours/room number for.
+ * After selection - 2 buttons will appear for changing hours or room number.
+ * After clicking on one of them text fields will appear so we can enter our input and a submission button.
+ * After submission - we can see the change at the table displaying at the bottom of the screen.
+ */
 
 public class UpdateHoursScreen {
     Message clientMsg = new Message();

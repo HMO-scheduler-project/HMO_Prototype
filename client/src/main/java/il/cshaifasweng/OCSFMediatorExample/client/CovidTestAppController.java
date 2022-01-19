@@ -24,6 +24,13 @@ import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+/**
+ * CovidTestAppController
+ * Display table with available appointments for covid test after choosing desired clinic from a list.
+ * After choosing an appointment we can click on the schedule button in order to schedule this appointment and a pop up
+ * window will appear with result - appointment saved successfully or not.
+ */
+
 public class CovidTestAppController {
 
     @FXML

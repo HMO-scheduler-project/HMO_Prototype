@@ -13,11 +13,17 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * loginController
+ * Contains 2 text fields for username and password and a button to login.
+ * Sends a message to server with username and password in order to log in.
+ * If everything is all right - the user is logged in and the screen switch to relevant main page according to user type.
+ * If there was a problem - displays relevant warning.
+ */
 
 public class loginController implements Initializable {
     private SimpleClient client;
     private static int sessionID = 0;
-    private String sessionIDStr;
 
     @FXML
     private TextField userTF;

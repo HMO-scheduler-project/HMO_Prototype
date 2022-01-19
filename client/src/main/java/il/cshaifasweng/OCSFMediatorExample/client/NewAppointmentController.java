@@ -18,6 +18,13 @@ import java.time.LocalTime;
 import java.time.Period;
 import java.util.List;
 
+/**
+ * NewAppointmentController
+ * Display all types of appointment we can schedule - after clicking on desired button (desired appointment type)
+ * switches the screen to relevant appointment page so we can schedule the appointment.
+ *
+ */
+
 public class NewAppointmentController {
     @FXML
     private Pane Menubar;

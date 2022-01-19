@@ -17,6 +17,13 @@ import javafx.scene.layout.Pane;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+/**
+ * ManagerMainPage
+ * Contains Hello message and table to display messages list from employees to manager.
+ * After choosing a message display the content of the message in a text area.
+ *
+ */
+
 public class ManagerMainScreen {
 
     @FXML

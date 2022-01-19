@@ -7,6 +7,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * WeeklyReportService
+ * start a new scheduled service for weekly reports.
+ * Calls weeklyTask for creating reports.
+ */
+
 public class WeeklyReportService {
     public WeeklyReportService(){
         this.startScheduler();

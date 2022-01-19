@@ -18,6 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * clinicController
+ * helper controller that contains helper function to search clinics in database and finding desired data
+ * of clinic. Also helps updating fields of clinics.
+ */
+
 public class clinicController {
 
     public static List<Clinic> getAllClinicsFromDB() {

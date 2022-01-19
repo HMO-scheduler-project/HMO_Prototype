@@ -20,10 +20,15 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
+/**
+ * ReportPageController
+ * Contains combobox for choosing clinic from a list of clinics that the logged in manager is managing.
+ * Also contains switch tabs with tables displaying the reports of chosen clinic.
+ *
+ */
+
 public class ReportPageController {
     Message clientMsg = new Message();
-    boolean Manager;
-    boolean HMO_Manager;
     String chosen_clinic;
 
     @FXML

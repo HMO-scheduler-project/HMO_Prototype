@@ -18,6 +18,14 @@ import javafx.fxml.Initializable;
 
 import javax.swing.*;
 
+/**
+ * LoginWithCardController
+ * Contains a text field for card number and a button to login.
+ * Sends a message to server with card number in order to log in.
+ * If everything is all right - the user is logged in and the screen switch to station main page.
+ * If there was a problem - displays relevant warning.
+ */
+
 public class LoginWithCardController  implements Initializable {
     private SimpleClient client;
     private static int sessionID = 0;

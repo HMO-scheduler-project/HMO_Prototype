@@ -4,6 +4,12 @@ import javafx.application.Platform;
 
 import java.io.IOException;
 
+/**
+ * ChangeScreens
+ * Helping class for changing contents of windows in order to view different screens
+ *
+ */
+
 public class ChangeScreens {
 
     public static void changeToOpeningHoursScreen() {

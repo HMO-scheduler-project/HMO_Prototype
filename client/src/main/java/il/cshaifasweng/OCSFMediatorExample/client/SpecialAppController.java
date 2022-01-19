@@ -19,6 +19,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+/**
+ * SpecialAppController
+ * Handels scheduling appointment to specialist.
+ * Contains - 2 combo boxes for field of specialty and specialists names of chosen specialty.
+ * After choosing specialty and a doctor will display table with available appointments for the patient selection.
+ * After patient will select an appointment and press on schedule appointment button - a message will be sent to server
+ * with relevant data and the program will attempt to schedule chosen appointment. An alert will pop with the result of
+ * the attempt - appointment saved successfully or not.
+ *
+ */
+
 public class SpecialAppController {
 
 

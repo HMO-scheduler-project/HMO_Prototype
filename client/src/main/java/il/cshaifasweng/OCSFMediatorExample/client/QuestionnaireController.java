@@ -14,6 +14,13 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 
+/**
+ * QuestionnaireController
+ * Displays questionnaire for covid symptoms.
+ * After filling the questionnaire switches to schedule new covid test appointment screen.
+ *
+ */
+
 public class QuestionnaireController {
 
     @FXML

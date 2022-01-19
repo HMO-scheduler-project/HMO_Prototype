@@ -9,6 +9,13 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
 
+/**
+ * ChooseClinic
+ * Controller for ChooseClinic screen.
+ * Display list of clinics in order to associate the station to a specific clinic.
+ *
+ */
+
 public class ChooseClinic {
     Message clientMsg = new Message();
     @FXML
