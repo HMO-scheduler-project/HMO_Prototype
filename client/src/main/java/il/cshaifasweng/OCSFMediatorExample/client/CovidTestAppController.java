@@ -154,7 +154,7 @@ public class CovidTestAppController {
                 alert.setTitle(title);
                 alert.setHeaderText(null);
                 alert.setContentText(head);
-                alert.show();
+                alert.showAndWait();
             }
         });
     }
