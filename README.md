@@ -168,6 +168,7 @@ schedule new lab appointment:
 
 waiting room screen:
 
+![image](https://user-images.githubusercontent.com/84031027/152314314-4a688999-93f3-400a-9eb7-e2988d23f173.png)
 
 
 
